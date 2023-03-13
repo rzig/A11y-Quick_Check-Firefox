@@ -1,0 +1,35 @@
+{
+    "name": "A11y quick check",
+    "short_name": "A11y Check",
+    "version": "0.86.8",
+    "version_name": "2022.0",
+    "manifest_version": 3,
+    "description": "Easy to use quick checks to identify potential accessibility issues.",
+    "author": "Laurence Lewis (@LaurenceRLewis) and Marcus Helvig (@MarcusP-P)",
+    "minimum_chrome_version": "92",
+    "icons": {
+        "16": "extension/icons/icon-16.png",
+        "48": "extension/icons/icon-48.png",
+        "128": "extension/icons/icon-128.png"
+    },
+    "action": {
+        "default_popup": "extension/ui/popup.html",
+        "default_icon": {
+            "16": "extension/icons/icon-16.png",
+            "48": "extension/icons/icon-48.png"
+        },
+        "default_title": "A11y Quick Check"
+    },
+    "permissions": [
+        "storage",
+        "activeTab",
+        "scripting",
+        "webNavigation"
+    ],
+    "host_permissions": [
+        "<all_urls>"
+    ],
+    "background": {
+        "service_worker": "extension/service-worker.js"
+    }
+}

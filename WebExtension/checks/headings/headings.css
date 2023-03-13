@@ -1,0 +1,251 @@
+h1:before {
+    content: "[h1]"!important;
+    color: #444444!important;
+    font-size: 0.875em!important;
+    padding: 0 0.5em!important;
+    font-weight: 700!important;
+}
+
+h1:after {
+    content: "[/h1]"!important;
+    color: #444444!important;
+    font-size: 0.875em!important;
+    padding: 0 0.5em!important;
+    font-weight: 700!important;
+}
+
+h2:before {
+    content: "[h2]"!important;
+    color: #444444!important;
+    font-size: 0.875em!important;
+    padding: 0 0.5em!important;
+    font-weight: 700!important;
+}
+
+h2:after {
+    content: "[/h2]"!important;
+    color: #444444!important;
+    font-size: 0.875em!important;
+    padding: 0 0.5em!important;
+    font-weight: 700!important;
+}
+
+h3:before {
+    content: "[h3]"!important;
+    color: #444444!important;
+    font-size: 0.875em!important;
+    padding: 0 0.5em!important;
+    font-weight: 700!important;
+}
+
+h3:after {
+    content: "[/h3]"!important;
+    color: #444444!important;
+    font-size: 0.875em!important;
+    padding: 0 0.5em!important;
+    font-weight: 700!important;
+}
+
+h4:before {
+    content: "[h4]"!important;
+    color: #444444!important;
+    font-size: 0.875em!important;
+    padding: 0 0.5em!important;
+    font-weight: 700!important;
+}
+
+h4:after {
+    content: "[/h4]"!important;
+    color: #444444!important;
+    font-size: 0.875em!important;
+    padding: 0 0.5em!important;
+    font-weight: 700!important;
+}
+
+h5:before {
+    content: "[h5]"!important;
+    color: #444444!important;
+    font-size: 0.875em!important;
+    padding: 0 0.5em!important;
+    font-weight: 700!important;
+}
+
+h5:after {
+    content: "[/h5]"!important;
+    color: #444444!important;
+    font-size: 0.875em!important;
+    padding: 0 0.5em!important;
+    font-weight: 700!important;
+}
+
+h6:before {
+    content: "[h6]"!important;
+    color: #444444!important;
+    font-size: 0.875em!important;
+    padding: 0 0.5em!important;
+    font-weight: 700!important;
+}
+
+h6:after {
+    content: "[/h6]"!important;
+    color: #444444!important;
+    font-size: 0.875em!important;
+    padding: 0 0.5em!important;
+    font-weight: 700!important;
+}
+
+h1 {
+    background-color: rgb(242 232 234)!important;
+    border: 3px dashed rgb(207 19 19)!important;
+}
+
+h2 {
+    background-color: rgb(205 248 248)!important;
+    border: 3px dashed rgb(22 166 166)!important;
+}
+
+h3 {
+    background-color: rgb(248 237 136)!important;
+    border: 3px dashed rgb(187 171 28)!important;
+}
+
+h4 {
+    background-color: rgb(248 225 183)!important;
+    border: 2px dashed rgb(255 161 23)!important;
+}
+
+h5 {
+    background-color: #ccc!important;
+    border: 3px dashed rgb(54 150 140)!important;
+}
+
+h6 {
+    background-color: #ccc!important;
+    border: 3px dashed rgb(54 150 140)!important;
+}
+
+[role="heading"][aria-level="1"]:before {
+    content: "[ARIA] h1"!important;
+    color: #444444!important;
+    font-size: 0.875em!important;
+    padding: 0 0.5em!important;
+    font-weight: 700!important;
+}
+
+[role="heading"][aria-level="1"]:after {
+    content: "[END]"!important;
+    color: #444444!important;
+    font-size: 0.875em!important;
+    padding: 0 0.5em!important;
+    font-weight: 700!important;
+}
+
+[role="heading"][aria-level="2"]:before {
+    content: "[ARIA]  h2"!important;
+    color: #444444!important;
+    font-size: 0.875em!important;
+    padding: 0 0.5em!important;
+    font-weight: 700!important;
+}
+
+[role="heading"][aria-level="2"]:after {
+    content: "[END]"!important;
+    color: #444444!important;
+    font-size: 0.875em!important;
+    padding: 0 0.5em!important;
+    font-weight: 700!important;
+}
+
+[role="heading"][aria-level="3"]:before {
+    content: "[ARIA] h3"!important;
+    color: #444444!important;
+    font-size: 0.875em!important;
+    padding: 0 0.5em!important;
+    font-weight: 700!important;
+}
+
+[role="heading"][aria-level="3"]:after {
+    content: "[END]"!important;
+    color: #444444!important;
+    font-size: 0.875em!important;
+    padding: 0 0.5em!important;
+    font-weight: 700!important;
+}
+
+[role="heading"][aria-level="4"]:before {
+    content: "[ARIA] h4"!important;
+    color: #444444!important;
+    font-size: 0.875em!important;
+    padding: 0 0.5em!important;
+    font-weight: 700!important;
+}
+
+[role="heading"][aria-level="4"]:after {
+    content: "[END]"!important;
+    color: #444444!important;
+    font-size: 0.875em!important;
+    padding: 0 0.5em!important;
+    font-weight: 700!important;
+}
+
+[role="heading"][aria-level="5"]:before {
+    content: "[ARIA] h5"!important;
+    color: #444444!important;
+    font-size: 0.875em!important;
+    padding: 0 0.5em!important;
+    font-weight: 700!important;
+}
+
+[role="heading"][aria-level="5"]:after {
+    content: "[END]"!important;
+    color: #444444!important;
+    font-size: 0.875em!important;
+    padding: 0 0.5em!important;
+    font-weight: 700!important;
+}
+
+[role="heading"][aria-level="6"]:before {
+    content: "[ARIA] h6"!important;
+    color: #444444!important;
+    font-size: 0.875em!important;
+    padding: 0 0.5em!important;
+    font-weight: 700!important;
+}
+
+[role="heading"][aria-level="6"]:after {
+    content: "[END]"!important;
+    color: #444444!important;
+    font-size: 0.875em!important;
+    padding: 0 0.5em!important;
+    font-weight: 700!important;
+}
+
+[role="heading"][aria-level="1"] {
+    background-color: rgb(242 232 234)!important;
+    border: 3px dashed rgb(207 19 19)!important;
+}
+
+[role="heading"][aria-level="2"] {
+    background-color: rgb(205 248 248)!important;
+    border: 3px dashed rgb(22 166 166)!important;
+}
+
+[role="heading"][aria-level="3"] {
+    background-color: rgb(248 237 136)!important;
+    border: 3px dashed rgb(187 171 28)!important;
+}
+
+[role="heading"][aria-level="4"] {
+    background-color: rgb(248 225 183)!important;
+    border: 2px dashed rgb(255 161 23)!important;
+}
+
+[role="heading"][aria-level="5"] {
+    background-color: #ccc!important;
+    border: 3px dashed rgb(54 150 140)!important;
+}
+
+[role="heading"][aria-level="6"] {
+    background-color: #ccc!important;
+    border: 3px dashed rgb(54 150 140)!important;
+}

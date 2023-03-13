@@ -1,0 +1,38 @@
+.no-accessible-name-img-role-8228965,
+.no-accessible-name-non-img-role-8228965,
+.accessible-name-img-role-8228965,
+.accessible-name-non-img-role-8228965{
+    border: 2px solid red !important;
+    font-size: 1rem !important;
+    line-height: 1.5 !important;
+    padding: 0.5em !important;
+    width: 12em !important;
+    z-index: 10000 !important;
+}
+.decorative-image-8228965{
+    background: #ccc !important;
+	border: 2px solid #262626 !important;
+	bottom: 0.5em;
+	color: #262626 !important;
+	font-size: 1rem !important;
+	left: 0.5em;
+	line-height: 1.5 !important;
+	opacity: 0.8 !important;
+	padding: 0.5em !important;
+	width: 12em !important;
+	z-index: 10000 !important;
+}
+.meaningful-image-889453{
+   background: #C2FFC2 !important;
+    border: 2px solid green !important;
+    bottom: 0.5em;
+    color: #262626 !important;
+    font-size: 1rem !important;
+    left: 0.5em;
+    line-height: 1.5 !important;
+    opacity: 0.8 !important;
+    padding: 0.5em !important;
+    /*position:absolute!important;*/
+    width: 12em !important;
+    z-index: 10000 !important;
+}

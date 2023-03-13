@@ -1,0 +1,159 @@
+{
+    "tabs": [
+        {
+            "name": "Check content",
+            "fieldsets": [
+                {
+                    "name": "Content",
+                    "items": [
+                        {
+                            "name": "Headings",
+                            "id": "headings",
+                            "resource_path": "checks/headings",
+                            "css": "headings.css"
+                        },
+                        {
+                            "name": "Strong",
+                            "id": "strong",
+                            "resource_path": "checks/strong",
+                            "css": "strong.css"
+                        },
+                        {
+                            "name": "UL, OL",
+                            "id": "ulol",
+                            "resource_path": "checks/lists",
+                            "css": "ulol.css"
+                        },
+                        {
+                            "name": "Related form controls",
+                            "id": "relatedFormControls",
+                            "resource_path": "checks/related-form-controls",
+                            "css": "relatedFormControls.css"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Check images",
+            "fieldsets": [
+                {
+                    "name": "Images",
+                    "items": [
+                        {
+                            "name": "Show image's accessible name (accName)",
+                            "id": "hasAlt",
+                            "resource_path": "checks/image-alt",
+                            "css": "show-alt-text.css",
+                            "addScript": "show-alt-text.js",
+                            "removeScript": "show-alt-text-remove.js"
+                        },
+                        {
+                            "name": "Show decorative images",
+                            "id": "decoImg",
+                            "resource_path": "checks/image-decorative",
+                            "css": "no-alt-text.css",
+                            "addScript": "no-alt-text.js",
+                            "removeScript": "no-alt-text-remove.js"
+                        },
+                        {
+                            "name": "Image is missing the ALT attribute",
+                            "id": "missAlt",
+                            "resource_path": "checks/image-missing-alt",
+                            "css": "missing-alt.css",
+                            "addScript": "missing-alt.js",
+                            "removeScript": "missing-alt-remove.js"
+                        },
+                        {
+                            "name": "CSS Background images",
+                            "id": "cssInj",
+                            "resource_path": "checks/css-background-images",
+                            "css": "css-background-images.css",
+                            "addScript": "css-background-images.js",
+                            "removeScript": "css-background-images-remove.js"
+                        }
+                    ]
+                },
+                {
+                    "name": "SVGs",
+                    "items": [
+                        {
+                            "name": "Show SVG's accessible name (accName)",
+                            "id": "svgHasName",
+                            "resource_path": "checks/svg-name",
+                            "css": "show-svg-name.css",
+                            "addScript": "show-svg-name.js",
+                            "removeScript": "show-svg-name-remove.js"
+                        },
+                        {
+                            "name": "Show decorative SVGs",
+                            "id": "svgDecoration",
+                            "resource_path": "checks/svg-decorative",
+                            "css": "decorative-svg.css",
+                            "addScript": "decoration-svg.js",
+                            "removeScript": "decoration-svg-remove.js"
+                        },
+                        {
+                            "name": "Invalid Roles check",
+                            "id": "svgInvalid",
+                            "resource_path": "checks/svg-strange-roles",
+                            "css": "svg-strange-roles.css",
+                            "addScript": "svg-strange-roles.js",
+                            "removeScript": "svg-strange-roles-remove.js"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Check ARIA",
+            "fieldsets": [
+                {
+                    "name": "ARIA",
+                    "items": [
+                        {
+                            "name": "Use of ARIA-LABEL",
+                            "id": "ariaLabel",
+                            "resource_path": "checks/aria-label",
+                            "css": "ariaLabel.css"
+                        },
+                        {
+                            "name": "ARIA name prohibited",
+                            "id": "nameDisalowed",
+                            "resource_path": "checks/aria-name-prohibited",
+                            "css": "name-prohibited.css",
+                            "addScript": "name-prohibited.js",
+                            "removeScript": "name-prohibited-remove.js"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "WCAG Checks",
+            "fieldsets": [
+                {
+                    "name": "WCAG",
+                    "items": [
+                        {
+                            "name": "Target Size",
+                            "id": "targetSize",
+                            "resource_path": "checks/target-size",
+                            "css": "target-size.css",
+                            "addScript": "target-size.js",
+                            "removeScript": "target-size-remove.js"
+                        },
+                        {
+                            "name": "Text Spacing",
+                            "id": "textSpacing",
+                            "resource_path": "checks/text-spacing",
+                            "css": "text-spacing.css",
+                            "addScript": "text-spacing.js",
+                            "removeScript": "text-spacing-remove.js"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

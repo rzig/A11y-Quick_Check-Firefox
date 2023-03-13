@@ -1,0 +1,20 @@
+.missing--ariaLabel {
+	background: #FFD6D6 !important;
+	border: 2px solid red !important;
+	bottom: 0.5em;
+	color: #262626 !important;
+	font-size: 1rem !important;
+	left: 0.5em;
+	line-height: 1.5 !important;
+	opacity: 0.8 !important;
+	padding: 0.5em !important;
+	/*position:absolute!important;*/
+	width: 12em !important;
+	z-index: 10000 !important;
+}
+
+.missing--ariaLabel:after {
+	content: "" !important;
+	display: table !important;
+	clear: both !important;
+}

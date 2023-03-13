@@ -1,0 +1,219 @@
+div[aria-label]:not([role]):before {
+    display: table !important;
+    height: auto !important;
+    width: auto !important;
+    position: relative !important;
+    padding: 5px !important;
+    z-index: 10000 !important;
+    background-color: #fff !important;
+    color: #262626 !important;
+    border: 3px solid green !important;
+    font-size: .9rem !important;
+    font-weight: 900 !important;
+    content: "aria-label=" attr(aria-label)" " !important;
+}
+
+span[aria-label]:not([role]):before {
+    display: table !important;
+    height: auto !important;
+    width: auto !important;
+    position: relative !important;
+    padding: 5px !important;
+    z-index: 10000 !important;
+    background-color: #fff !important;
+    color: #262626 !important;
+    border: 3px solid green !important;
+    font-size: .9rem !important;
+    font-weight: 900 !important;
+    content: "aria-label=" attr(aria-label)" " !important;
+}
+
+[role="generic"][aria-label]:not([role]):before {
+    display: table !important;
+    height: auto !important;
+    width: auto !important;
+    position: relative !important;
+    padding: 5px !important;
+    z-index: 10000 !important;
+    background-color: #fff !important;
+    color: #262626 !important;
+    border: 3px solid green !important;
+    font-size: .9rem !important;
+    font-weight: 900 !important;
+    content: "aria-label=" attr(aria-label)" " !important;
+}
+
+[role="caption"][aria-label]:before,
+caption[aria-label]:before {
+    display: table !important;
+    height: auto !important;
+    width: auto !important;
+    position: relative !important;
+    padding: 5px !important;
+    z-index: 10000 !important;
+    background-color: #fff !important;
+    color: #262626 !important;
+    border: 3px solid green !important;
+    font-size: .9rem !important;
+    font-weight: 900 !important;
+    content: "aria-label=" attr(aria-label)" " !important;
+}
+
+[role="deletion"][aria-label]:before,
+del[aria-label]:before {
+    display: table !important;
+    height: auto !important;
+    width: auto !important;
+    position: relative !important;
+    padding: 5px !important;
+    z-index: 10000 !important;
+    background-color: #fff !important;
+    color: #262626 !important;
+    border: 3px solid green !important;
+    font-size: .9rem !important;
+    font-weight: 900 !important;
+    content: "aria-label=" attr(aria-label)" " !important;
+}
+
+[role="emphasis"][aria-label]:before,
+em[aria-label]:before {
+    display: table !important;
+    height: auto !important;
+    width: auto !important;
+    position: relative !important;
+    padding: 5px !important;
+    z-index: 10000 !important;
+    background-color: #fff !important;
+    color: #262626 !important;
+    border: 3px solid green !important;
+    font-size: .9rem !important;
+    font-weight: 900 !important;
+    content: "aria-label=" attr(aria-label)" " !important;
+}
+
+[role="insertion"][aria-label]:before,
+ins[aria-label]:before {
+    display: table !important;
+    height: auto !important;
+    width: auto !important;
+    position: relative !important;
+    padding: 5px !important;
+    z-index: 10000 !important;
+    background-color: #fff !important;
+    color: #262626 !important;
+    border: 3px solid green !important;
+    font-size: .9rem !important;
+    font-weight: 900 !important;
+    content: "aria-label=" attr(aria-label)" " !important;
+}
+
+[role="paragraph"][aria-label]:before,
+p[aria-label]:before {
+    display: table !important;
+    height: auto !important;
+    width: auto !important;
+    position: relative !important;
+    padding: 5px !important;
+    z-index: 10000 !important;
+    background-color: #fff !important;
+    color: #262626 !important;
+    border: 3px solid green !important;
+    font-size: .9rem !important;
+    font-weight: 900 !important;
+    content: "aria-label=" attr(aria-label)" " !important;
+}
+
+[role="presentation"][aria-label]:before,
+[role="none"][aria-label]:before {
+    display: table !important;
+    height: auto !important;
+    width: auto !important;
+    position: relative !important;
+    padding: 5px !important;
+    z-index: 10000 !important;
+    background-color: #fff !important;
+    color: #262626 !important;
+    border: 3px solid green !important;
+    font-size: .9rem !important;
+    font-weight: 900 !important;
+    content: "aria-label=" attr(aria-label)" " !important;
+}
+
+[role="strong"][aria-label]:before,
+strong[aria-label]:before {
+    display: table !important;
+    height: auto !important;
+    width: auto !important;
+    position: relative !important;
+    padding: 5px !important;
+    z-index: 10000 !important;
+    background-color: #fff !important;
+    color: #262626 !important;
+    border: 3px solid green !important;
+    font-size: .9rem !important;
+    font-weight: 900 !important;
+    content: "aria-label=" attr(aria-label)" " !important;
+}
+
+[role="subscript"][aria-label]:before,
+sub[aria-label]:before {
+    display: table !important;
+    height: auto !important;
+    width: auto !important;
+    position: relative !important;
+    padding: 5px !important;
+    z-index: 10000 !important;
+    background-color: #fff !important;
+    color: #262626 !important;
+    border: 3px solid green !important;
+    font-size: .9rem !important;
+    font-weight: 900 !important;
+    content: "aria-label=" attr(aria-label)" " !important;
+}
+
+[role="superscript"][aria-label]:before,
+sup[aria-label]:before {
+    display: table !important;
+    height: auto !important;
+    width: auto !important;
+    position: relative !important;
+    padding: 5px !important;
+    z-index: 10000 !important;
+    background-color: #fff !important;
+    color: #262626 !important;
+    border: 3px solid green !important;
+    font-size: .9rem !important;
+    font-weight: 900 !important;
+    content: "aria-label=" attr(aria-label)" " !important;
+}
+
+*[aria-label]:not(div, span, [role="generic"], [role="caption"], caption, [role="deletion"], del, [role="emphasis"], del, [role="insertion"], ins, [role="paragraph"], p, [role="presentation"], [role="none"], [role="strong"], strong, [role="subscript"], sub, [role="superscript"], sup):before {
+    display: table !important;
+    height: auto !important;
+    width: auto !important;
+    position: relative !important;
+    padding: 5px !important;
+    z-index: 10000 !important;
+    background-color: #fff !important;
+    color: #262626 !important;
+    border: 3px solid green !important;
+    font-size: .9rem !important;
+    font-weight: 900 !important;
+    content: "aria-label=" attr(aria-label)" " !important;
+}
+
+[role="table"][aria-label]:before,
+sub[aria-label]:before {
+    display: table !important;
+    height: auto !important;
+    width: auto !important;
+    position: relative !important;
+    padding: 5px !important;
+    z-index: 10000 !important;
+    background-color: #fff !important;
+    color: #262626 !important;
+    border: 3px solid green !important;
+    font-size: .9rem !important;
+    font-weight: 900 !important;
+    content: "aria-label=" attr(aria-label)"  " !important;
+}

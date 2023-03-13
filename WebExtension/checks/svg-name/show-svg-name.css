@@ -1,0 +1,25 @@
+.show-svg-name {
+    background: #C2FFC2 !important;
+    border: 2px solid green !important;
+    bottom: 0.5em;
+    color: #262626 !important;
+    font-size: 1rem !important;
+    left: 0.5em;
+    line-height: 1.5 !important;
+    opacity: 0.8 !important;
+    padding: 0.5em !important;
+    /*position:absolute!important;*/
+    width: 12em !important;
+    z-index: 10000 !important;
+}
+
+.show-svg-name:after {
+    content: "" !important;
+    display: table !important;
+    clear: both !important;
+}
+.missing--imgRole {
+border: 3px dashed purple !important;
+padding:.2em !important;
+max-width:9em !important;
+}

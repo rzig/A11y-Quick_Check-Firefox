@@ -1,0 +1,20 @@
+strong:before {
+    content: "[strong]" !important;
+    color: #444444 !important;
+    font-size: 0.875em !important;
+    padding: 0 0.5em !important;
+    font-weight: 700 !important;
+}
+
+strong:after {
+    content: "[/strong]" !important;
+    color: #444444 !important;
+    font-size: 0.875em !important;
+    padding: 0 0.5em !important;
+    font-weight: 700 !important;
+}
+
+strong {
+    background-color: #ccc !important;
+    border: 3px dashed rgb(54 150 140) !important;
+}
