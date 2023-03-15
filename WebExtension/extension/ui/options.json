@@ -92,14 +92,6 @@
                             "css": "decorative-svg.css",
                             "addScript": "decoration-svg.js",
                             "removeScript": "decoration-svg-remove.js"
-                        },
-                        {
-                            "name": "Invalid Roles check",
-                            "id": "svgInvalid",
-                            "resource_path": "checks/svg-strange-roles",
-                            "css": "svg-strange-roles.css",
-                            "addScript": "svg-strange-roles.js",
-                            "removeScript": "svg-strange-roles-remove.js"
                         }
                     ]
                 }
