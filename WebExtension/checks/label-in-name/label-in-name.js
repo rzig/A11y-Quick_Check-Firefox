@@ -1,70 +1,119 @@
-function checkInputLabels() {
-    // Get all input elements on the page
-    const inputs = document.getElementsByTagName("input");
+// Get all button, input, select, a, img, label, textarea, and table elements on the page
+const elements = document.querySelectorAll('button, input, select, a, label, textarea');
+
+// Loop through each element and add a new div after it with the accessible name
+elements.forEach((element) => {
+  // Compute the accessible name of the element
+  const accName = computeAccessibleName(element);
   
-    // Loop through each input element
-    for (const input of inputs) {
-      // Get the label element associated with the input
-      const id = input.getAttribute("id");
-      if (!id) {
-        continue;
+  // Create a new div element and add the accessible name as a text node
+  if (accName) {
+    const div = document.createElement('div');
+    div.classList.add('computedProperties-9984746');
+    const accNameTextNode = document.createTextNode('accName: ');
+    div.appendChild(accNameTextNode);
+    const textNode = document.createTextNode(accName);
+    div.appendChild(textNode);
+
+    // Insert the new div element after the element
+    element.insertAdjacentElement('afterend', div);
+  }
+});
+
+/**
+ * Computes the accessible name for the given element based on the W3C Accessibility Guidelines for Name Computation.
+ * @param {HTMLElement} element - The element to compute the accessible name for.
+ * @returns {string} - The computed accessible name for the element, or an empty string if no accessible name can be computed.
+ */
+function computeAccessibleName(element) {
+  if (!element) {
+    return '';
+  }
+  
+  if (element.hasAttribute('aria-label')) {
+    return element.getAttribute('aria-label');
+  }
+  
+  const roles = element.getAttribute('role');
+  if (roles && roles.split(/\s+/).indexOf('presentation') !== -1) {
+    return '';
+  }
+  
+  if (element.tagName === 'AREA' && element.hasAttribute('alt')) {
+    return element.getAttribute('alt');
+  }
+  
+  if (element.hasAttribute('title')) {
+    return element.getAttribute('title');
+  }
+  
+  if (element.tagName === 'INPUT') {
+    const type = element.getAttribute('type');
+    if (type === 'button' || type === 'submit' || type === 'reset' || type === 'image') {
+      if (element.hasAttribute('value')) {
+        return element.getAttribute('value');
       }
-      const label = document.querySelector(`label[for="${id}"]`);
-      if (!label) {
-        continue;
+    } else if (type === 'checkbox' || type === 'radio') {
+      const label = findClosestLabel(element);
+      if (label) {
+        return computeAccessibleName(label);
       }
+    } else if (element.hasAttribute('placeholder')) {
+      return element.getAttribute('placeholder');
+    }
+  }
   
-      // Get the visible label text and the programmatic name
-      const visibleLabel = label.innerText.trim();
-      const programmaticName = input.getAttribute("name") || input.getAttribute("aria-label") || input.getAttribute("aria-labelledby") || input.getAttribute("title");
+  if (element.tagName === 'TEXTAREA' && element.hasAttribute('placeholder')) {
+    return element.getAttribute('placeholder');
+  }
   
-      // Compare the visible label text and the programmatic name
-      if (visibleLabel !== programmaticName) {
-        // Add a div container to the input element with a meaningful message
-        const message = document.createTextNode("The input's programmatic name does not match its visible label text.");
-        const container = document.createElement("div");
-        container.classList.add("not-a-match");
-        container.appendChild(message);
-        input.after(container);
+  if (element.tagName === 'SELECT') {
+    const label = findClosestLabel(element);
+    if (label) {
+      return computeAccessibleName(label);
+    } else {
+      const selectedOption = element.querySelector('option:checked');
+      if (selectedOption) {
+        return selectedOption.textContent.trim();
       }
     }
   }
   
-  function checkSelectLabels() {
-    // Get all select elements on the page
-    const selects = document.getElementsByTagName("select");
-  
-    // Loop through each select element
-    for (const select of selects) {
-      // Get the label element associated with the select
-      const id = select.getAttribute("id");
-      if (!id) {
-        continue;
-      }
-      const label = document.querySelector(`label[for="${id}"]`);
-      if (!label) {
-        continue;
-      }
-  
-      // Get the visible label text and the programmatic name
-      const visibleLabel = label.innerText.trim();
-      const programmaticName = select.getAttribute("name") || select.getAttribute("aria-label") || select.getAttribute("aria-labelledby") || select.getAttribute("title");
-  
-      // Get the selected option element
-      const selectedOption = select.options[select.selectedIndex];
-  
-      // Compare the visible label text and the selected option text
-      if (visibleLabel !== selectedOption.innerText.trim()) {
-        // Add a div container to the select element with a meaningful message
-        const message = document.createTextNode("The selected option of the select element does not match its visible label text.");
-        const container = document.createElement("div");
-        container.classList.add("not-a-match");
-        container.appendChild(message);
-        select.after(container);
-      }
+  if (element.hasAttribute('aria-labelledby')) {
+    const labelIds = element.getAttribute('aria-labelledby').split(/\s+/);
+    const labels = Array.from(document.querySelectorAll('[id]')).filter((label) => labelIds.indexOf(label.getAttribute('id')) !== -1);
+    if (labels.length > 0) {
+      return labels.map((label) => label.textContent.trim()).join(' ');
     }
   }
   
-  checkInputLabels();
-  checkSelectLabels();
+  return '';
+}
+
+/**
+ * Finds the closest label element to the given input element.
+ * @param {HTMLInputElement} input - The input element to find the closest label element for.
+ * @returns {HTMLLabelElement|null} - The closest label element, or null if no label element is found.
+ */
+function findClosestLabel(input) {
+    if (!input) {
+      return null;
+    }
+    
+    let label = null;
+    
+    if (input.hasAttribute('aria-labelledby')) {
+      const labelIds = input.getAttribute('aria-labelledby').split(/\s+/);
+      const labels = Array.from(document.querySelectorAll('[id]')).filter((label) => labelIds.indexOf(label.getAttribute('id')) !== -1);
+      if (labels.length > 0) {
+        label = labels[0];
+      }
+    }
+    
+    if (!label) {
+      label = input.closest('label');
+    }
+    
+    return label;
+  }
   
