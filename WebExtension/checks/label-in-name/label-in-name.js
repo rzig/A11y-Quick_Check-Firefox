@@ -1,24 +1,28 @@
-// Get all button, input, select, a, img, label, textarea, and table elements on the page
-const elements = document.querySelectorAll('button, input, select, a, label, textarea');
-
-// Loop through each element and add a new div after it with the accessible name
-elements.forEach((element) => {
-  // Compute the accessible name of the element
-  const accName = computeAccessibleName(element);
+function injectAccessibleDivs() {
+    const elements = document.querySelectorAll('button, input, select, a, label, textarea');
   
-  // Create a new div element and add the accessible name as a text node
-  if (accName) {
-    const div = document.createElement('div');
-    div.classList.add('computedProperties-9984746');
-    const accNameTextNode = document.createTextNode('accName: ');
-    div.appendChild(accNameTextNode);
-    const textNode = document.createTextNode(accName);
-    div.appendChild(textNode);
-
-    // Insert the new div element after the element
-    element.insertAdjacentElement('afterend', div);
+    elements.forEach((element) => {
+      const accName = computeAccessibleName(element);
+      if (accName) {
+        // Check if the next sibling is the injected div with the same class
+        const existingDiv = element.nextElementSibling;
+        if (!(existingDiv && existingDiv.classList.contains('computedProperties-9984746'))) {
+          // Create and insert the new div
+          const div = document.createElement('div');
+          div.classList.add('computedProperties-9984746');
+          const accNameTextNode = document.createTextNode('accName: ');
+          div.appendChild(accNameTextNode);
+          const textNode = document.createTextNode(accName);
+          div.appendChild(textNode);
+  
+          element.insertAdjacentElement('afterend', div);
+        }
+      }
+    });
   }
-});
+  
+  // Call the function to inject accessible divs
+  injectAccessibleDivs();
 
 /**
  * Computes the accessible name for the given element based on the W3C Accessibility Guidelines for Name Computation.
