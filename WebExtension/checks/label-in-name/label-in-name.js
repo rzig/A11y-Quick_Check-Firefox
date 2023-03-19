@@ -20,9 +20,6 @@ function injectAccessibleDivs() {
       }
     });
   }
-  
-  // Call the function to inject accessible divs
-  injectAccessibleDivs();
 
 /**
  * Computes the accessible name for the given element based on the W3C Accessibility Guidelines for Name Computation.
@@ -120,4 +117,6 @@ function findClosestLabel(input) {
     
     return label;
   }
-  
+
+    // Call the function to inject accessible divs
+    injectAccessibleDivs();
