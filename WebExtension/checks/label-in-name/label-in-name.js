@@ -1,122 +1,104 @@
-function injectAccessibleDivs() {
-    const elements = document.querySelectorAll('button, input, select, a, label, textarea');
-  
-    elements.forEach((element) => {
-      const accName = computeAccessibleName(element);
-      if (accName) {
-        // Check if the next sibling is the injected div with the same class
-        const existingDiv = element.nextElementSibling;
-        if (!(existingDiv && existingDiv.classList.contains('computedProperties-9984746'))) {
-          // Create and insert the new div
-          const div = document.createElement('div');
-          div.classList.add('computedProperties-9984746');
-          const accNameTextNode = document.createTextNode('accName: ');
-          div.appendChild(accNameTextNode);
-          const textNode = document.createTextNode(accName);
-          div.appendChild(textNode);
-  
-          element.insertAdjacentElement('afterend', div);
-        }
-      }
-    });
+//getComputedNameMethod.js
+// Function to get the method used to provide the computed name of an element
+function getComputedNameMethod(element) {
+  // Check if the element has an aria-label attribute
+  if (element.getAttribute("aria-label")) {
+    return "aria-label";
   }
+  
+  // Check if the element has an aria-labelledby attribute
+  if (element.getAttribute("aria-labelledby")) {
+    return "aria-labelledby";
+  }
+  
+  // If none of the above methods are used, return "computed name"
+  return "computed name";
+}
+//checkAccNameMatchesLabelText.js
+// Function to check if the accessible name of an element matches its corresponding label text
+function checkAccNameMatchesLabelText(element) {
+  // Get the text node of the label associated with the element
+  const elementId = element.getAttribute("id");
+  const associatedLabel = document.querySelector(`label[for="${elementId}"]`);
+  if (associatedLabel) {
+    const labelText = associatedLabel.firstChild;
+  
+    // Get the accessible name of the element
+    const accName = element.getAttribute("aria-label") || element.getAttribute("aria-labelledby") || element.getAttribute("title") || element.textContent.trim();
+  
+    // Check if the accessible name matches the label text
+    if (accName.toLowerCase() !== labelText.textContent.trim().toLowerCase()) {
+      console.warn(`The accessible name of the ${element.nodeName.toLowerCase()} "${accName}" does not match its corresponding label text "${labelText.textContent.trim()}".`);
+    }
+  }
+}
+//addComputedNamesFromLabels.js
+// Function to add computed names to form controls with associated labels
+function addComputedNamesFromLabels() {
+  // Get all form controls on the page
+  const formControls = document.querySelectorAll("button, input, textarea, select, option, fieldset");
 
-/**
- * Computes the accessible name for the given element based on the W3C Accessibility Guidelines for Name Computation.
- * @param {HTMLElement} element - The element to compute the accessible name for.
- * @returns {string} - The computed accessible name for the element, or an empty string if no accessible name can be computed.
- */
-function computeAccessibleName(element) {
-  if (!element) {
-    return '';
-  }
+  // Loop through each form control
+  formControls.forEach(formControl => {
+    // Check if the form control has an associated label with a for attribute that matches the form control's ID
+    const controlId = formControl.getAttribute("id");
+    const associatedLabel = document.querySelector(`label[for="${controlId}"]`);
+    if (associatedLabel) {
+      // Get the text node of the associated label
+      const labelText = associatedLabel.firstChild;
   
-  if (element.hasAttribute('aria-label')) {
-    return element.getAttribute('aria-label');
-  }
+      // Get the computed name of the form control
+      const computedNameMethod = getComputedNameMethod(formControl);
+      const computedName = formControl.getAttribute(computedNameMethod);
   
-  const roles = element.getAttribute('role');
-  if (roles && roles.split(/\s+/).indexOf('presentation') !== -1) {
-    return '';
-  }
+      // Create a text node with the computed name and method
+      const messageText = `Name from Label. Computed name is: ${labelText.textContent.trim()}${computedName ? ` (${computedNameMethod}: ${computedName})` : ""}`;
+      const message = document.createTextNode(messageText);
   
-  if (element.tagName === 'AREA' && element.hasAttribute('alt')) {
-    return element.getAttribute('alt');
-  }
+      // Create a div element with a class of "computed-name" and add the text node to it
+      const container = document.createElement("div");
+      container.classList.add("computed-name");
+      container.appendChild(message);
   
-  if (element.hasAttribute('title')) {
-    return element.getAttribute('title');
-  }
-  
-  if (element.tagName === 'INPUT') {
-    const type = element.getAttribute('type');
-    if (type === 'button' || type === 'submit' || type === 'reset' || type === 'image') {
-      if (element.hasAttribute('value')) {
-        return element.getAttribute('value');
-      }
-    } else if (type === 'checkbox' || type === 'radio') {
-      const label = findClosestLabel(element);
-      if (label) {
-        return computeAccessibleName(label);
-      }
-    } else if (element.hasAttribute('placeholder')) {
-      return element.getAttribute('placeholder');
+      // Insert the computed name div after the form control
+      formControl.after(container);
     }
-  }
-  
-  if (element.tagName === 'TEXTAREA' && element.hasAttribute('placeholder')) {
-    return element.getAttribute('placeholder');
-  }
-  
-  if (element.tagName === 'SELECT') {
-    const label = findClosestLabel(element);
-    if (label) {
-      return computeAccessibleName(label);
+  });
+}
+//addComputedNames.js
+// Function to add computed names to all buttons and form controls on the page
+function addComputedNames() {
+  // Get all buttons and form controls on the page (excluding links)
+  const buttonsAndFormControls = document.querySelectorAll("button, input, textarea, select, option, fieldset");
+
+  // Loop through each element and add its computed name and method to the page
+  buttonsAndFormControls.forEach(element => {
+    const elementId = element.getAttribute("id");
+    const associatedLabel = document.querySelector(`label[for="${elementId}"]`);
+
+    // Get the computed name of the element
+    const computedNameMethod = getComputedNameMethod(element);
+    const computedName = element.getAttribute(computedNameMethod);
+
+    // Create a text node with the computed name and method
+    let messageText;
+    if (associatedLabel) {
+      const labelText = associatedLabel.textContent.trim();
+      messageText = `Computed name is: ${labelText}. From Label`;
     } else {
-      const selectedOption = element.querySelector('option:checked');
-      if (selectedOption) {
-        return selectedOption.textContent.trim();
-      }
+      messageText = `Computed name is: ${computedName}. From ${computedNameMethod}`;
     }
-  }
-  
-  if (element.hasAttribute('aria-labelledby')) {
-    const labelIds = element.getAttribute('aria-labelledby').split(/\s+/);
-    const labels = Array.from(document.querySelectorAll('[id]')).filter((label) => labelIds.indexOf(label.getAttribute('id')) !== -1);
-    if (labels.length > 0) {
-      return labels.map((label) => label.textContent.trim()).join(' ');
-    }
-  }
-  
-  return '';
+    const message = document.createTextNode(messageText);
+
+    // Create a div element with a class of "computed-name" and add the text node to it
+    const container = document.createElement("div");
+    container.classList.add("computed-name");
+    container.appendChild(message);
+
+    // Insert the computed name div after the element
+    element.after(container);
+  });
 }
 
-/**
- * Finds the closest label element to the given input element.
- * @param {HTMLInputElement} input - The input element to find the closest label element for.
- * @returns {HTMLLabelElement|null} - The closest label element, or null if no label element is found.
- */
-function findClosestLabel(input) {
-    if (!input) {
-      return null;
-    }
-    
-    let label = null;
-    
-    if (input.hasAttribute('aria-labelledby')) {
-      const labelIds = input.getAttribute('aria-labelledby').split(/\s+/);
-      const labels = Array.from(document.querySelectorAll('[id]')).filter((label) => labelIds.indexOf(label.getAttribute('id')) !== -1);
-      if (labels.length > 0) {
-        label = labels[0];
-      }
-    }
-    
-    if (!label) {
-      label = input.closest('label');
-    }
-    
-    return label;
-  }
-
-    // Call the function to inject accessible divs
-    injectAccessibleDivs();
+// Call the addComputedNames function to add computed names to all buttons and form controls on the page
+addComputedNames();

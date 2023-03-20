@@ -1,14 +1,13 @@
-// Function to remove all injected divs, classes, and text nodes created by the script
-function removeAllInjectedDivs() {
-    // Select all div elements with the 'computedProperties-9984746' class
-    const injectedDivs = document.querySelectorAll('div.computedProperties-9984746');
+// Function to remove all div elements with the class "computed-name"
+function removeComputedNames() {
+  // Get all div elements with the class "computed-name"
+  const computedNameDivs = document.querySelectorAll("div.computed-name");
   
-    // Loop through each div element and remove it from the DOM
-    injectedDivs.forEach((div) => {
-      div.remove();
-    });
-  }
-  
-  // Call the function to remove all injected divs, classes, and text nodes
-  removeAllInjectedDivs();
-  
+  // Loop through each computed name div and remove it from the DOM
+  computedNameDivs.forEach(computedNameDiv => {
+    computedNameDiv.remove();
+  });
+}
+
+// Call the removeComputedNames function to remove the computed names from the DOM
+removeComputedNames();
