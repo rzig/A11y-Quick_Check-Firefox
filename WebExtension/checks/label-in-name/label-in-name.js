@@ -1,70 +1,104 @@
-function checkInputLabels() {
-    // Get all input elements on the page
-    const inputs = document.getElementsByTagName("input");
-  
-    // Loop through each input element
-    for (const input of inputs) {
-      // Get the label element associated with the input
-      const id = input.getAttribute("id");
-      if (!id) {
-        continue;
-      }
-      const label = document.querySelector(`label[for="${id}"]`);
-      if (!label) {
-        continue;
-      }
-  
-      // Get the visible label text and the programmatic name
-      const visibleLabel = label.innerText.trim();
-      const programmaticName = input.getAttribute("name") || input.getAttribute("aria-label") || input.getAttribute("aria-labelledby") || input.getAttribute("title");
-  
-      // Compare the visible label text and the programmatic name
-      if (visibleLabel !== programmaticName) {
-        // Add a div container to the input element with a meaningful message
-        const message = document.createTextNode("The input's programmatic name does not match its visible label text.");
-        const container = document.createElement("div");
-        container.classList.add("not-a-match");
-        container.appendChild(message);
-        input.after(container);
-      }
-    }
+//getComputedNameMethod.js
+// Function to get the method used to provide the computed name of an element
+function getComputedNameMethod(element) {
+  // Check if the element has an aria-label attribute
+  if (element.getAttribute("aria-label")) {
+    return "aria-label";
   }
   
-  function checkSelectLabels() {
-    // Get all select elements on the page
-    const selects = document.getElementsByTagName("select");
-  
-    // Loop through each select element
-    for (const select of selects) {
-      // Get the label element associated with the select
-      const id = select.getAttribute("id");
-      if (!id) {
-        continue;
-      }
-      const label = document.querySelector(`label[for="${id}"]`);
-      if (!label) {
-        continue;
-      }
-  
-      // Get the visible label text and the programmatic name
-      const visibleLabel = label.innerText.trim();
-      const programmaticName = select.getAttribute("name") || select.getAttribute("aria-label") || select.getAttribute("aria-labelledby") || select.getAttribute("title");
-  
-      // Get the selected option element
-      const selectedOption = select.options[select.selectedIndex];
-  
-      // Compare the visible label text and the selected option text
-      if (visibleLabel !== selectedOption.innerText.trim()) {
-        // Add a div container to the select element with a meaningful message
-        const message = document.createTextNode("The selected option of the select element does not match its visible label text.");
-        const container = document.createElement("div");
-        container.classList.add("not-a-match");
-        container.appendChild(message);
-        select.after(container);
-      }
-    }
+  // Check if the element has an aria-labelledby attribute
+  if (element.getAttribute("aria-labelledby")) {
+    return "aria-labelledby";
   }
   
-  checkInputLabels();
-  checkSelectLabels();
+  // If none of the above methods are used, return "computed name"
+  return "computed name";
+}
+//checkAccNameMatchesLabelText.js
+// Function to check if the accessible name of an element matches its corresponding label text
+function checkAccNameMatchesLabelText(element) {
+  // Get the text node of the label associated with the element
+  const elementId = element.getAttribute("id");
+  const associatedLabel = document.querySelector(`label[for="${elementId}"]`);
+  if (associatedLabel) {
+    const labelText = associatedLabel.firstChild;
   
+    // Get the accessible name of the element
+    const accName = element.getAttribute("aria-label") || element.getAttribute("aria-labelledby") || element.getAttribute("title") || element.textContent.trim();
+  
+    // Check if the accessible name matches the label text
+    if (accName.toLowerCase() !== labelText.textContent.trim().toLowerCase()) {
+      console.warn(`The accessible name of the ${element.nodeName.toLowerCase()} "${accName}" does not match its corresponding label text "${labelText.textContent.trim()}".`);
+    }
+  }
+}
+//addComputedNamesFromLabels.js
+// Function to add computed names to form controls with associated labels
+function addComputedNamesFromLabels() {
+  // Get all form controls on the page
+  const formControls = document.querySelectorAll("button, input, textarea, select, option, fieldset");
+
+  // Loop through each form control
+  formControls.forEach(formControl => {
+    // Check if the form control has an associated label with a for attribute that matches the form control's ID
+    const controlId = formControl.getAttribute("id");
+    const associatedLabel = document.querySelector(`label[for="${controlId}"]`);
+    if (associatedLabel) {
+      // Get the text node of the associated label
+      const labelText = associatedLabel.firstChild;
+  
+      // Get the computed name of the form control
+      const computedNameMethod = getComputedNameMethod(formControl);
+      const computedName = formControl.getAttribute(computedNameMethod);
+  
+      // Create a text node with the computed name and method
+      const messageText = `Name from Label. Computed name is: ${labelText.textContent.trim()}${computedName ? ` (${computedNameMethod}: ${computedName})` : ""}`;
+      const message = document.createTextNode(messageText);
+  
+      // Create a div element with a class of "computed-name" and add the text node to it
+      const container = document.createElement("div");
+      container.classList.add("computed-name");
+      container.appendChild(message);
+  
+      // Insert the computed name div after the form control
+      formControl.after(container);
+    }
+  });
+}
+//addComputedNames.js
+// Function to add computed names to all buttons and form controls on the page
+function addComputedNames() {
+  // Get all buttons and form controls on the page (excluding links)
+  const buttonsAndFormControls = document.querySelectorAll("button, input, textarea, select, option, fieldset");
+
+  // Loop through each element and add its computed name and method to the page
+  buttonsAndFormControls.forEach(element => {
+    const elementId = element.getAttribute("id");
+    const associatedLabel = document.querySelector(`label[for="${elementId}"]`);
+
+    // Get the computed name of the element
+    const computedNameMethod = getComputedNameMethod(element);
+    const computedName = element.getAttribute(computedNameMethod);
+
+    // Create a text node with the computed name and method
+    let messageText;
+    if (associatedLabel) {
+      const labelText = associatedLabel.textContent.trim();
+      messageText = `Computed name is: ${labelText}. From Label`;
+    } else {
+      messageText = `Computed name is: ${computedName}. From ${computedNameMethod}`;
+    }
+    const message = document.createTextNode(messageText);
+
+    // Create a div element with a class of "computed-name" and add the text node to it
+    const container = document.createElement("div");
+    container.classList.add("computed-name");
+    container.appendChild(message);
+
+    // Insert the computed name div after the element
+    element.after(container);
+  });
+}
+
+// Call the addComputedNames function to add computed names to all buttons and form controls on the page
+addComputedNames();

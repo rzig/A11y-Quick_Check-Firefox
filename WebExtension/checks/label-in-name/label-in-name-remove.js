@@ -1,16 +1,13 @@
-function removeAddedElements() {
-    // Remove all div containers with the "not-a-match" class
-    const notAMatchDivs = document.querySelectorAll(".not-a-match");
-    for (const div of notAMatchDivs) {
-      div.remove();
-    }
+// Function to remove all div elements with the class "computed-name"
+function removeComputedNames() {
+  // Get all div elements with the class "computed-name"
+  const computedNameDivs = document.querySelectorAll("div.computed-name");
   
-    // Remove all text nodes added by the script
-    const textNodes = document.querySelectorAll(":scope > #text");
-    for (const node of textNodes) {
-      node.remove();
-    }
-  }
-  
-  removeAddedElements();
-  
+  // Loop through each computed name div and remove it from the DOM
+  computedNameDivs.forEach(computedNameDiv => {
+    computedNameDiv.remove();
+  });
+}
+
+// Call the removeComputedNames function to remove the computed names from the DOM
+removeComputedNames();
