@@ -1,0 +1,26 @@
+/* Styles for unordered lists */
+ul {
+  margin: 1em 0;
+  padding-left: 1.2em;
+  border: 2px solid #174e8b;
+}
+
+/* Styles for HTML unordered list messages */
+.html-ul-message {
+  color: #174e8b;
+  font-size: 0.9em;
+  font-style: italic;
+  border: 2px solid #174e8b;
+  margin: 1em 0;
+  padding: 0.5em;
+}
+
+/* Styles for ARIA unordered list messages */
+.aria-ul-message {
+  color: #174e8b;
+  font-size: 0.9em;
+  font-weight: bold;
+  border: 2px solid #174e8b;
+  margin: 1em 0;
+  padding: 0.5em;
+}

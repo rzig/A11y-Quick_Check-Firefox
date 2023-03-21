@@ -66,6 +66,38 @@ function addComputedNamesFromLabels() {
   });
 }
 //addComputedNames.js
+// Function to get the computed name of an element
+function getComputedName(element) {
+  if (element.matches('button')) {
+    return {
+      computedName: element.textContent.trim(),
+      from: "From Text"
+    };
+  }
+
+  const controlId = element.getAttribute("id");
+  const associatedLabel = document.querySelector(`label[for="${controlId}"]`);
+  if (associatedLabel) {
+    return {
+      computedName: associatedLabel.textContent.trim(),
+      from: "From Label"
+    };
+  }
+
+  const parentLabel = element.closest('label');
+  if (parentLabel) {
+    return {
+      computedName: parentLabel.textContent.trim().replace(/\s+/g, ' '),
+      from: "From Text"
+    };
+  }
+
+  return {
+    computedName: '',
+    from: ''
+  };
+}
+
 // Function to add computed names to all buttons and form controls on the page
 function addComputedNames() {
   // Get all buttons and form controls on the page (excluding links)
@@ -73,21 +105,13 @@ function addComputedNames() {
 
   // Loop through each element and add its computed name and method to the page
   buttonsAndFormControls.forEach(element => {
-    const elementId = element.getAttribute("id");
-    const associatedLabel = document.querySelector(`label[for="${elementId}"]`);
-
     // Get the computed name of the element
     const computedNameMethod = getComputedNameMethod(element);
-    const computedName = element.getAttribute(computedNameMethod);
+    const ariaComputedName = element.getAttribute(computedNameMethod);
+    const { computedName, from } = ariaComputedName ? { computedName: ariaComputedName, from: computedNameMethod } : getComputedName(element);
 
     // Create a text node with the computed name and method
-    let messageText;
-    if (associatedLabel) {
-      const labelText = associatedLabel.textContent.trim();
-      messageText = `Computed name is: ${labelText}. From Label`;
-    } else {
-      messageText = `Computed name is: ${computedName}. From ${computedNameMethod}`;
-    }
+    const messageText = `Computed name is: ${computedName}. ${from}`;
     const message = document.createTextNode(messageText);
 
     // Create a div element with a class of "computed-name" and add the text node to it

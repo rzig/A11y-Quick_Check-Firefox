@@ -19,10 +19,36 @@
                             "css": "strong.css"
                         },
                         {
-                            "name": "UL, OL",
-                            "id": "ulol",
-                            "resource_path": "checks/lists",
-                            "css": "ulol.css"
+                            "name": "Ordered list",
+                            "id": "oList",
+                            "resource_path": "checks/ordered-lists",
+                            "css": "ordered-list.css",
+                            "addScript": "ordered-list.js",
+                            "removeScript": "ordered-list-remove.js"
+                        },
+                        {
+                            "name": "Unordered list",
+                            "id": "uoList",
+                            "resource_path": "checks/unordered-lists",
+                            "css": "unordered-list.css",
+                            "addScript": "unordered-list.js",
+                            "removeScript": "unordered-list-remove.js"
+                        },
+                        {
+                            "name": "Description list",
+                            "id": "dList",
+                            "resource_path": "checks/description-lists",
+                            "css": "description-list.css",
+                            "addScript": "description-list.js",
+                            "removeScript": "description-list-remove.js"
+                        },
+                        {
+                            "name": "HGROUP",
+                            "id": "hGroup",
+                            "resource_path": "checks/hgroup",
+                            "css": "hgroup.css",
+                            "addScript": "hgroup.js",
+                            "removeScript": "hgroup-remove.js"
                         },
                         {
                             "name": "Related form controls",
