@@ -20,7 +20,7 @@ function checkHGroups() {
     const hasHtmlHGroup = hgroupElements[i].nodeName === "HGROUP" && !hgroupElements[i].hasAttribute("role");
     if (hasHtmlHGroup) {
       const message = "HGroup";
-      addMessageAfter(hgroupElements[i], "html-hgroup-message", message);
+      addMessageAfter(hgroupElements[i], "html-hgroup-message-58997365", message);
     }
 
     // Check if ARIA hgroup element has role=group and role=description
@@ -29,8 +29,9 @@ function checkHGroups() {
     if (hasAriaGroupRole && hasAriaDescriptionRole) {
       const roleDescription = hgroupElements[i].getAttribute("aria-roledescription");
       const message = `HGroup with Role Group and aria-roledescription: ${roleDescription}`;
-      addMessageAfter(hgroupElements[i], "aria-hgroup-message", message);
-      hgroupElements[i].style.border = "2px solid #ccc";
+      addMessageAfter(hgroupElements[i], "aria-hgroup-message-58997365", message);
+      //hgroupElements[i].style.border = "2px solid #ccc";
+      hgroupElements[i].classList.add("hgroup-58997365");
     }
   }
 }
