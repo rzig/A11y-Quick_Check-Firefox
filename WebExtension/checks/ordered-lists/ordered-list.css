@@ -1,0 +1,26 @@
+/* Styles for ordered lists */
+ol {
+  margin: 1em 0;
+  padding-left: 1.2em;
+  border: 2px solid #0b540e;
+}
+
+/* Styles for HTML ordered list messages */
+.html-ol-message {
+  color: #555;
+  font-size: 0.9em;
+  font-style: italic;
+  border: 2px solid #0b540e;
+  margin: 1em 0;
+  padding: 0.5em;
+}
+
+/* Styles for ARIA ordered list messages */
+.aria-ol-message {
+  color: #555;
+  font-size: 0.9em;
+  font-weight: bold;
+  border: 2px solid #0b540e;
+  margin: 1em 0;
+  padding: 0.5em;
+}
