@@ -2,10 +2,9 @@
   display: inline-block;
   margin-left: 10px;
   padding: 4px 8px;
-  background-color: #f8f8f8;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-family: Arial, sans-serif;
+  background-color: #fff;
+  border: 2px solid #7d48b1;
+  border-radius: none !Important;
   font-size: 12px;
-  color: #333;
+  color: #7d48b1;
 }
