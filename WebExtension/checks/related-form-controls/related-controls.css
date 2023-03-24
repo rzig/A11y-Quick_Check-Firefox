@@ -6,18 +6,19 @@
     --qc-grey-medium: #7F8C9F;
     --qc-grey-light: #ECEEF1;
     --qc-green-dark: #1C431D;
-    --qc-green-medium: #409D44;
+    --qc-green-medium: #236e27;
     --qc-green-light: #D9F5DA;
     --qc-blue-dark: #003F5E;
     --qc-blue-medium: #1993D0;
     --qc-blue-light: #B1DBEF;
     --qc-purple-dark: #3B3562;
-    --qc-purple-medium: #7A82E3;
+    --qc-purple-medium: #450b3f;
     --qc-purple-light: #EBEDFC;
     --qc-orange-dark: #4B3815;
     --qc-orange-medium: #AA8630;
     --qc-orange-light: #FECF48;
     --sc-white: #FFFFFF;
+    --invalid-code: #a30e0e;
   }
 
 fieldset {
@@ -43,13 +44,22 @@ legend {
 .group-present-5599775,
 .radiogroup-present-5599775,
 .labelledby-present-5599775 {
-background-color: #ff0000; /* Use a strong color for high contrast /
-color: #ffffff; / Use a contrasting text color for accessibility */
+background-color: #fff;
+color: var(--qc-purple-medium);
 padding: 10px;
 margin-bottom: 10px;
 }
 
+.fieldset-present-5599775{
+    border: 2px solid var(--qc-green-medium);
+    color: var(--qc-green-medium);
+}
+.legend-present-5599775{
+    color: var(--qc-purple-medium);
+}
+
 /* Style for the 'not-first-number5599775' class */
 .not-first-number5599775 {
-color:red !important;
+color:var(--invalid-code) !important;
+font-weight:700;
 }
