@@ -8,6 +8,15 @@ body {
   font-size: 1rem !important;
 }
 
+.column--container-299867 {
+  column-count: 1;
+}
+
+.column--container-299867.multi-column--container-299867 {
+  column-count: 2;
+  column-gap: 10px;
+}
+
 h1 {
   font-size: 1.8rem !important;
   margin-bottom: 1em !important;
