@@ -111,15 +111,30 @@ async function setupConfiguration(eventConfig, container, resource) {
 
             legend.innerText = fieldsetConfiguration.name;
             fieldset.appendChild(legend);
+            
+            // We use a DIV wrapper
+            const divWrapper = document.createElement("div");
+            divWrapper.classList.add("column--container-299867");
 
             // We use a list for the controls
             const list = document.createElement("ul");
-            fieldset.appendChild(list);
+            divWrapper.appendChild(list);
 
             // create the checkboxes
             for (const checkboxConfiguration of fieldsetConfiguration.items) {
                 // Create list Item - we're within a UL here
                 const listItem = document.createElement("li");
+                listItem.classList.add("listItem-299867");
+                
+                // Add the divWrapper element to the fieldset element
+                fieldset.appendChild(divWrapper);
+                
+                // Check the number of li elements and add a class to the divWrapper element if necessary
+                const liCount = list.querySelectorAll("li").length;
+
+                  if (liCount > 5) {
+                    divWrapper.classList.add("multi-column--container-299867");
+                }
 
                 // create the input element
                 const checkBox = document.createElement("input");

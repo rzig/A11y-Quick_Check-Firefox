@@ -54,7 +54,9 @@
                             "name": "Related form controls",
                             "id": "relatedFormControls",
                             "resource_path": "checks/related-form-controls",
-                            "css": "relatedFormControls.css"
+                            "css": "related-controls.css",
+                            "addScript": "related-controls.js",
+                            "removeScript": "related-controls-remove.js"
                         }
                     ]
                 }
