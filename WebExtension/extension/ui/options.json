@@ -161,8 +161,33 @@
                             "resource_path": "checks/target-size",
                             "css": "target-size.css",
                             "addScript": "target-size.js",
-                            "removeScript": "target-size-remove.js"
-                        },
+                            "removeScript": "target-size-remove.js",
+                            "radioButtonGroup": {
+                            "name": "Target Size Options",
+                            "id": "targetSizeOptions",
+                            "radioButtons": [
+                            {
+                            "label": "24px",
+                            "value": "24px",
+                            "defaultChecked": true,
+                            "disabledUntilChecked": true
+                            },
+                            {
+                            "label": "44px",
+                            "value": "44px",
+                            "defaultChecked": false,
+                            "disabledUntilChecked": true
+                            },
+                            {
+                            "label": "48px",
+                            "value": "48px",
+                            "defaultChecked": false,
+                            "disabledUntilChecked": true
+                            }
+                            ],
+                            "defaultCheckedButtonValue": "48px"
+                            }
+                            },
                         {
                             "name": "Text Spacing",
                             "id": "textSpacing",
