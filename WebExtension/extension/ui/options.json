@@ -168,24 +168,36 @@
                             "radioButtons": [
                             {
                             "label": "24px",
-                            "value": "24px",
-                            "defaultChecked": true,
-                            "disabledUntilChecked": true
+                            "value": "24",
+                            "class": "target-size-radio-884746",
+                            "defaultChecked": false,
+                            "disabledUntilChecked": true,
+                            "data": {
+                                "size": "24"
+                              }
                             },
                             {
                             "label": "44px",
-                            "value": "44px",
+                            "value": "44",
+                            "class": "target-size-radio-884746",
                             "defaultChecked": false,
-                            "disabledUntilChecked": true
+                            "disabledUntilChecked": true,
+                            "data": {
+                                "size": "44"
+                              }
                             },
                             {
                             "label": "48px",
-                            "value": "48px",
+                            "value": "48",
+                            "class": "target-size-radio-884746",
                             "defaultChecked": false,
-                            "disabledUntilChecked": true
+                            "disabledUntilChecked": true,
+                            "data": {
+                                "size": "48"
+                              }
                             }
                             ],
-                            "defaultCheckedButtonValue": "48px"
+                            "defaultCheckedButtonValue": "48"
                             }
                             },
                         {
