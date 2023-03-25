@@ -164,87 +164,94 @@ async function setupConfiguration(eventConfig, container, resource) {
         listItem.appendChild(label);
 
         //Updated to include radio button group option
-        // create radio button group
-        if (checkboxConfiguration.radioButtonGroup) {
-          const radioGroupDiv = document.createElement("div");
-          radioGroupDiv.classList.add("radio-group");
-
-          const radioGroupLabel = document.createElement("label");
-          radioGroupLabel.innerHTML =
-            checkboxConfiguration.radioButtonGroup.name;
-
-          radioGroupDiv.appendChild(radioGroupLabel);
-
-          const radioButtons =
-            checkboxConfiguration.radioButtonGroup.radioButtons;
-
-          let defaultCheckedButton = null;
-
-          for (const radioButton of radioButtons) {
-            const radioInput = document.createElement("input");
-            radioInput.type = "radio";
-            radioInput.name = checkboxConfiguration.radioButtonGroup.id;
-            radioInput.value = radioButton.value;
-
-            if (radioButton.disabledUntilChecked) {
-              radioInput.disabled = true;
-            }
-
-            if (radioButton.defaultChecked) {
-              radioInput.checked = true;
-              defaultCheckedButton = radioInput;
-            }
-
-            const radioLabel = document.createElement("label");
-            radioLabel.innerHTML = radioButton.label;
-            radioLabel.setAttribute(
-              "for",
-              `${checkBox.id}-${radioButton.value}`
-            );
-
-            radioGroupDiv.appendChild(radioInput);
-            radioGroupDiv.appendChild(radioLabel);
-          }
-
-          // add the radio button group to the list item
-          listItem.appendChild(radioGroupDiv);
-
-          // add event listener to enable/disable radio buttons
-          checkBox.addEventListener("change", () => {
-            const radioInputs =
-              radioGroupDiv.querySelectorAll("input[type=radio]");
-
-            for (const radioInput of radioInputs) {
-              radioInput.disabled = !checkBox.checked;
-
-              if (checkBox.checked && defaultCheckedButton !== null) {
-                if (
-                  radioInput.value ===
-                  checkboxConfiguration.radioButtonGroup
-                    .defaultCheckedButtonValue
-                ) {
-                  radioInput.checked = true;
-                }
-              }
-            }
-          });
-
-          // set default checked button from JSON
-          if (defaultCheckedButton === null) {
-            const defaultCheckedButtonValue =
-              checkboxConfiguration.radioButtonGroup.defaultCheckedButtonValue;
-            const radioInputs =
-              radioGroupDiv.querySelectorAll("input[type=radio]");
-
-            for (const radioInput of radioInputs) {
-              if (radioInput.value === defaultCheckedButtonValue) {
-                radioInput.checked = true;
-                defaultCheckedButton = radioInput;
-                break;
-              }
-            }
+       // create radio button group
+if (checkboxConfiguration.radioButtonGroup) {
+    const radioGroupDiv = document.createElement("div");
+    radioGroupDiv.classList.add("radio-group");
+  
+    const radioGroupLabel = document.createElement("label");
+    radioGroupLabel.innerHTML = checkboxConfiguration.radioButtonGroup.name;
+  
+    radioGroupDiv.appendChild(radioGroupLabel);
+  
+    const radioButtons =
+      checkboxConfiguration.radioButtonGroup.radioButtons;
+  
+    let defaultCheckedButton = null;
+  
+    for (const radioButton of radioButtons) {
+      const radioInput = document.createElement("input");
+      radioInput.type = "radio";
+      radioInput.name = checkboxConfiguration.radioButtonGroup.id;
+      radioInput.value = radioButton.value;
+  
+      if (radioButton.disabledUntilChecked) {
+        radioInput.disabled = true;
+      }
+  
+      if (radioButton.defaultChecked) {
+        radioInput.checked = true;
+        defaultCheckedButton = radioInput;
+      }
+  
+      if (radioButton.data) {
+        for (const [key, value] of Object.entries(radioButton.data)) {
+          radioInput.setAttribute(`data-${key}`, value);
+        }
+      }
+  
+      const radioLabel = document.createElement("label");
+      radioLabel.innerHTML = radioButton.label;
+      radioLabel.setAttribute(
+        "for",
+        `${checkBox.id}-${radioButton.value}`
+      );
+  
+      radioGroupDiv.appendChild(radioInput);
+      radioGroupDiv.appendChild(radioLabel);
+    }
+  
+    // add the radio button group to the list item
+    listItem.appendChild(radioGroupDiv);
+  
+    // add event listener to enable/disable radio buttons
+    checkBox.addEventListener("change", () => {
+      const radioInputs =
+        radioGroupDiv.querySelectorAll("input[type=radio]");
+  
+      for (const radioInput of radioInputs) {
+        radioInput.disabled = !checkBox.checked;
+  
+        if (checkBox.checked && defaultCheckedButton !== null) {
+          if (
+            radioInput.value ===
+            checkboxConfiguration.radioButtonGroup
+              .defaultCheckedButtonValue
+          ) {
+            radioInput.checked = true;
           }
         }
+      }
+    });
+  
+    // set default checked button from JSON
+    if (defaultCheckedButton === null) {
+      const defaultCheckedButtonValue =
+        checkboxConfiguration.radioButtonGroup.defaultCheckedButtonValue;
+      const radioInputs =
+        radioGroupDiv.querySelectorAll("input[type=radio]");
+  
+      for (const radioInput of radioInputs) {
+        if (radioInput.value === defaultCheckedButtonValue) {
+          radioInput.checked = true;
+          defaultCheckedButton = radioInput;
+          break;
+        }
+      }
+    }
+  }
+  
+  
 
         // hook the listitem into the DOM
         list.appendChild(listItem);

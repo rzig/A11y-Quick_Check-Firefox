@@ -11,7 +11,7 @@ document.querySelectorAll('a, button, input[type="button"], input[type="submit"]
   const isTooSmall = elemWidth <= 1 || elemHeight <= 1;
 
   // Check if the element's dimensions are less than the minimum requirement, it's not an inline element or in a list, and it's not hidden by CSS
-  if ((elemWidth <= 44 || elemHeight <= 44) && !isInline && !['OL', 'UL', 'DL','LI','DT','DD'].includes(parentTag) && !isHidden && !isTooSmall) {
+  if ((elemWidth < 44 || elemHeight < 44) && !isInline && !['OL', 'UL', 'DL','LI','DT','DD'].includes(parentTag) && !isHidden && !isTooSmall) {
     // Add a CSS class to the element
     elem.classList.add('small-target');
 
