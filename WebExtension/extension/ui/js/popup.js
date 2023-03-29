@@ -445,6 +445,32 @@ function setAllCheckboxes(state) {
 }
 
 // a generic event handler that will look up eventConfig for the correct actions
+// async function checkboxEventHandler(event) {
+//   if (event.type !== "change") {
+//     return;
+//   }
+//   const target = event.target;
+//   const handlerConfig = eventConfig.get(target);
+
+//   await saveCheckboxValue(target);
+
+//   if (target.checked) {
+//     if (Object.hasOwn(handlerConfig, "css")) {
+//       await insertCSS(handlerConfig.css);
+//     }
+//     if (Object.hasOwn(handlerConfig, "addScript")) {
+//       await executeScript(handlerConfig.addScript);
+//     }
+//   } else {
+//     if (Object.hasOwn(handlerConfig, "css")) {
+//       await removeCSS(handlerConfig.css);
+//     }
+//     if (Object.hasOwn(handlerConfig, "removeScript")) {
+//       await executeScript(handlerConfig.removeScript);
+//     }
+//   }
+// }
+//either an array or a single file update
 async function checkboxEventHandler(event) {
   if (event.type !== "change") {
     return;
@@ -456,20 +482,36 @@ async function checkboxEventHandler(event) {
 
   if (target.checked) {
     if (Object.hasOwn(handlerConfig, "css")) {
-      await insertCSS(handlerConfig.css);
+      const cssFiles = Array.isArray(handlerConfig.css) ? handlerConfig.css : [handlerConfig.css];
+      for (const cssFile of cssFiles) {
+        await insertCSS(cssFile);
+      }
     }
     if (Object.hasOwn(handlerConfig, "addScript")) {
-      await executeScript(handlerConfig.addScript);
+      const addScripts = Array.isArray(handlerConfig.addScript) ? handlerConfig.addScript : [handlerConfig.addScript];
+      await executeScript(addScripts);
     }
   } else {
     if (Object.hasOwn(handlerConfig, "css")) {
-      await removeCSS(handlerConfig.css);
+      const cssFiles = Array.isArray(handlerConfig.css) ? handlerConfig.css : [handlerConfig.css];
+      for (const cssFile of cssFiles) {
+        await removeCSS(cssFile);
+      }
     }
     if (Object.hasOwn(handlerConfig, "removeScript")) {
-      await executeScript(handlerConfig.removeScript);
+      const removeScript = Array.isArray(handlerConfig.removeScript) ? handlerConfig.removeScript : [handlerConfig.removeScript];
+      await executeScript(removeScript);
     }
   }
 }
+
+
+
+
+
+
+
+
 //Radio button functions
 function addCheckboxAndRadioGroup(config) {
   // create the container div for the checkbox and radio button group
