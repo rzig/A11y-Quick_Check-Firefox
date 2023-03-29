@@ -1,0 +1,65 @@
+:root {
+    --qc-black-dark: #3B3B3B;
+    --qc-black-medium: #8B8B8B;
+    --qc-black-light: #D4D4D4;
+    --qc-grey-dark: #343C47;
+    --qc-grey-medium: #7F8C9F;
+    --qc-grey-light: #ECEEF1;
+    --qc-green-dark: #1C431D;
+    --qc-green-medium: #236e27;
+    --qc-green-light: #D9F5DA;
+    --qc-blue-dark: #003F5E;
+    --qc-blue-medium: #1993D0;
+    --qc-blue-light: #B1DBEF;
+    --qc-purple-dark: #3B3562;
+    --qc-purple-medium: #450b3f;
+    --qc-purple-light: #EBEDFC;
+    --qc-orange-dark: #4B3815;
+    --qc-orange-medium: #AA8630;
+    --qc-orange-light: #FECF48;
+    --sc-white: #FFFFFF;
+    --invalid-code: #a30e0e;
+  }
+
+fieldset {
+    border: 3px solid var(--qc-green-medium) !important;
+}
+fieldset > fieldset {
+    border: 3px solid var(--qc-green-medium) !important;
+    margin: 1em !important;
+}
+legend {
+    border: 3px solid var(--qc-purple-medium) !important;
+}
+[role="group"] {
+    border: 3px solid var(--qc-purple-medium) !important;
+}
+[role="radiogroup"] {
+    border: 3px solid var(--qc-orange-light) !important;
+}
+
+.fieldset-present-5599775,
+.nested-fieldset-present-5599775,
+.legend-present-5599775,
+.group-present-5599775,
+.radiogroup-present-5599775,
+.labelledby-present-5599775 {
+background-color: #fff;
+color: var(--qc-purple-medium);
+padding: 10px;
+margin-bottom: 10px;
+}
+
+.fieldset-present-5599775{
+    border: 2px solid var(--qc-green-medium);
+    color: var(--qc-green-medium);
+}
+.legend-present-5599775{
+    color: var(--qc-purple-medium);
+}
+
+/* Style for the 'not-first-number5599775' class */
+.not-first-number5599775 {
+color:var(--invalid-code) !important;
+font-weight:700;
+}

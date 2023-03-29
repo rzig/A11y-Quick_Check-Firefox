@@ -33,20 +33,33 @@ function checkAccNameMatchesLabelText(element) {
   const associatedLabel = document.querySelector(`label[for="${elementId}"]`);
 
   if (associatedLabel) {
+
     referenceText = associatedLabel.textContent.trim();
   } else if (element.getAttribute("aria-label")) {
     referenceText = element.getAttribute("aria-label").trim();
+    referenceText = associatedLabel.firstChild;
+  } else if (element.getAttribute("aria-label")) {
+    referenceText = document.createTextNode(element.textContent.trim());
   } else {
     return;
   }
 
   // Get the accessible name of the element
+
   const accName = element.getAttribute("aria-label") || element.getAttribute("aria-labelledby") || element.getAttribute("title") || element.getAttribute("placeholder") || (associatedLabel ? associatedLabel.textContent.trim() : element.textContent.trim());
 
   // Check if the accessible name matches the label text or visible text
   if (accName.toLowerCase() !== referenceText.toLowerCase()) {
     const elementType = element.nodeName.toLowerCase();
     const messageText = `The accessible name of the ${elementType} "${accName}" does not match its corresponding ${elementType === 'button' ? 'visible text' : 'label text'} "${referenceText}".`;
+
+  const accName = element.getAttribute("aria-label") || element.getAttribute("aria-labelledby") || element.getAttribute("title") || element.getAttribute("placeholder") || element.textContent.trim();
+
+  // Check if the accessible name matches the label text or visible text
+  if (accName.toLowerCase() !== referenceText.textContent.trim().toLowerCase()) {
+    const elementType = element.nodeName.toLowerCase();
+    const messageText = `The accessible name of the ${elementType} "${accName}" does not match its corresponding ${elementType === 'button' ? 'visible text' : 'label text'} "${referenceText.textContent.trim()}".`;
+
     const message = document.createTextNode(messageText);
 
     // Create a div element with a class of "computed-name" and add the text node to it
