@@ -14,24 +14,41 @@ function getComputedNameMethod(element) {
   // If none of the above methods are used, return "computed name"
   return "computed name";
 }
-//checkAccNameMatchesLabelText.js
 // Function to check if the accessible name of an element matches its corresponding label text
 function checkAccNameMatchesLabelText(element) {
+  let referenceText;
+
   // Get the text node of the label associated with the element
   const elementId = element.getAttribute("id");
   const associatedLabel = document.querySelector(`label[for="${elementId}"]`);
+
   if (associatedLabel) {
-    const labelText = associatedLabel.firstChild;
-  
-    // Get the accessible name of the element
-    const accName = element.getAttribute("aria-label") || element.getAttribute("aria-labelledby") || element.getAttribute("title") || element.textContent.trim();
-  
-    // Check if the accessible name matches the label text
-    if (accName.toLowerCase() !== labelText.textContent.trim().toLowerCase()) {
-      console.warn(`The accessible name of the ${element.nodeName.toLowerCase()} "${accName}" does not match its corresponding label text "${labelText.textContent.trim()}".`);
-    }
+    referenceText = associatedLabel.textContent.trim();
+  } else if (element.getAttribute("aria-label")) {
+    referenceText = element.getAttribute("aria-label").trim();
+  } else {
+    return;
+  }
+
+  // Get the accessible name of the element
+  const accName = element.getAttribute("aria-label") || element.getAttribute("aria-labelledby") || element.getAttribute("title") || element.getAttribute("placeholder") || (associatedLabel ? associatedLabel.textContent.trim() : element.textContent.trim());
+
+  // Check if the accessible name matches the label text or visible text
+  if (accName.toLowerCase() !== referenceText.toLowerCase()) {
+    const elementType = element.nodeName.toLowerCase();
+    const messageText = `The accessible name of the ${elementType} "${accName}" does not match its corresponding ${elementType === 'button' ? 'visible text' : 'label text'} "${referenceText}".`;
+    const message = document.createTextNode(messageText);
+
+    // Create a div element with a class of "computed-name" and add the text node to it
+    const container = document.createElement("div");
+    container.classList.add("computed-name-9937664", "mismatch-9937664");
+    container.appendChild(message);
+
+    // Insert the computed name div after the element
+    element.after(container);
   }
 }
+
 //addComputedNamesFromLabels.js
 // Function to add computed names to form controls with associated labels
 function addComputedNamesFromLabels() {
