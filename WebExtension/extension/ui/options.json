@@ -1,7 +1,7 @@
 {
     "tabs": [
         {
-            "name": "Check content",
+            "name": "Content",
             "fieldsets": [
                 {
                     "name": "Content",
@@ -63,7 +63,7 @@
             ]
         },
         {
-            "name": "Check images",
+            "name": "images",
             "fieldsets": [
                 {
                     "name": "Images",
@@ -126,10 +126,10 @@
             ]
         },
         {
-            "name": "Check Components",
+            "name": "Components",
             "fieldsets": [
                 {
-                    "name": "ARIA",
+                    "name": "Components",
                     "items": [
                         {
                             "name": "Use of ARIA-LABEL",
@@ -150,7 +150,7 @@
             ]
         },
         {
-            "name": "WCAG Checks",
+            "name": "WCAG",
             "fieldsets": [
                 {
                     "name": "WCAG",
