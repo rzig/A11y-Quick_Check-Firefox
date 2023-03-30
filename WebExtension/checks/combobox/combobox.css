@@ -1,0 +1,25 @@
+/* General message styles */
+.wrong-attr-776553,
+.missing-attr-776553,
+.incorrect-aria-haspopup-776553,
+.missing-container-776553,
+.missing-aria-labelledby-776553,
+.missing-aria-activedescendant-776553,
+.incorrect-visible-label-776553,
+.unnecessary-aria-labelledby-776553,
+.missing-aria-labelledby-or-aria-label-776553,
+.unsupported-aria-1_0-776553,
+.unsupported-aria-1_1-776553 {
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  color: #FF0000;
+  background-color: #FFE6E6;
+  border: 1px solid #FF0000;
+  border-radius: 3px;
+  padding: 8px;
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
+/* Specific message class styles can be added here, if needed */
