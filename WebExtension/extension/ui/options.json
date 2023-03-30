@@ -126,7 +126,7 @@
             ]
         },
         {
-            "name": "Check ARIA",
+            "name": "Check Components",
             "fieldsets": [
                 {
                     "name": "ARIA",
