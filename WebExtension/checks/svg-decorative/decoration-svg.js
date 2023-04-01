@@ -1,26 +1,62 @@
-//svgElements3 = document.querySelectorAll("svg");
-//missingAL = document.createElement("div");
-//missingAL.classList.add("missing--ariaLabel");
-//
-//for (let i = 0; i < svgElements3.length; i++) {
-//    const svgText3 = svgElements3[i].hasAttribute('aria-label');
-//    const svgElement3 = missingAL.cloneNode(true);
-//    if (svgText3 === false) {
-//        svgElement3.innerHTML = "This SVG is missing an accName";
-//        svgElements3[i].after(svgElement3);
-//    }
-//}
-svgElements3 = document.querySelectorAll("svg");
-missingAL = document.createElement("div");
-missingAL.classList.add("hidden--svg");
+function createMessageDiv(messageClass, message) {
+    const messageDiv = document.createElement('div');
+    messageDiv.classList.add(messageClass);
+    const messageText = document.createTextNode(message);
+    messageDiv.append(messageText);
+    return messageDiv;
+}
 
-for (let i = 0; i < svgElements3.length; i++) {
-    const svgText3 = svgElements3[i].hasAttribute('aria-hidden');
-    const svgElement3 = missingAL.cloneNode(true);
-    if (svgText3 !== false) {
-        svgElement3.innerHTML = "This SVG is decorative";
-        svgElements3[i].after(svgElement3);
+function checkSvgDecorative() {
+    const svgElements = document.querySelectorAll("svg");
+    const decorativeSvgClass = "svg--decorative-8892664";
+    const decorativeSvgWithNameClass = "svg--decorative-with-name-8892664";
+    const notNamedDecorativeClass = "svg--nodecorative-noname-8892664";
+
+    for (let i = 0; i < svgElements.length; i++) {
+        const ariaHidden = svgElements[i].getAttribute("aria-hidden");
+        const role = svgElements[i].getAttribute("role");
+        const ariaLabel = svgElements[i].getAttribute("aria-label");
+        const accessibleNameMissing = !ariaLabel || ariaLabel.trim() === "";
+        const accessibleNamePresent = ariaLabel && ariaLabel.trim() !== "";
+
+        if (ariaHidden === "true") {
+            if (accessibleNameMissing) {
+                const message = "This SVG is marked as decorative with 'aria-hidden'";
+                const decorativeSvgDiv = createMessageDiv(decorativeSvgClass, message);
+                svgElements[i].after(decorativeSvgDiv);
+            } else if (accessibleNamePresent) {
+                const message = "This SVG has an accessible name but is marked as decorative with 'aria-hidden'";
+                const decorativeSvgWithNameDiv = createMessageDiv(decorativeSvgWithNameClass, message);
+                svgElements[i].after(decorativeSvgWithNameDiv);
+            }
+        } else if (ariaHidden !== "true" && (role !== "img" || accessibleNameMissing)) {
+            let message;
+            if (role === "img" && accessibleNameMissing) {
+                message = "Warning: This SVG element has a role of 'img' but is missing an accessible name.";
+            } else {
+                message = "Warning: This SVG element is missing 'aria-hidden' or 'role img', and or an accessible name.";
+            }
+            const warningMessageDiv = createMessageDiv(notNamedDecorativeClass, message);
+            svgElements[i].after(warningMessageDiv);
+        }
+        
     }
 }
 
-undefined;
+function checkSvgRole() {
+    const svgElements = document.querySelectorAll("svg");
+    const roleWarningClass = "non-imgRole-8228965";
+
+    for (let k = 0; k < svgElements.length; k++) {
+        const role = svgElements[k].getAttribute("role");
+
+        if (role && role !== "img" && role !== "none" && role !== "presentation") {
+            const message = `This SVG has an accessible name, but the Role is set to ${role}. Change to use Role img.`;
+            const roleWarningDiv = createMessageDiv(roleWarningClass, message);
+            svgElements[k].after(roleWarningDiv);
+        }
+    }
+}
+
+checkSvgDecorative();
+checkSvgRole();
