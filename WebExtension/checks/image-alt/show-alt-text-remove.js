@@ -1,12 +1,8 @@
-function removeAltText() {
-  const messageElements = document.querySelectorAll('.alt-text-message');
-
-  messageElements.forEach(function(element) {
-    element.remove();
+function removeInjectedMessageDivs() {
+  const injectedMessageDivs = document.querySelectorAll('.alt-text-message-88927564');
+  injectedMessageDivs.forEach((messageDiv) => {
+      messageDiv.remove();
   });
 }
 
-removeAltText();
-
-
-undefined;
+removeInjectedMessageDivs();

@@ -80,9 +80,9 @@
                             "name": "Show decorative images",
                             "id": "decoImg",
                             "resource_path": "checks/image-decorative",
-                            "css": "no-alt-text.css",
-                            "addScript": "no-alt-text.js",
-                            "removeScript": "no-alt-text-remove.js"
+                            "css": "decorative-image.css",
+                            "addScript": "decorative-image.js",
+                            "removeScript": "decorative-image-remove.js"
                         },
                         {
                             "name": "Image is missing the ALT attribute",

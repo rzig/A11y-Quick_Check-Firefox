@@ -1,18 +1,8 @@
-function removeBackgroundImages() {
-  const allElements = document.getElementsByTagName('*');
-
-  for (let i = 0; i < allElements.length; i++) {
-    const element = allElements[i];
-    element.classList.remove('inline-css-image', 'css-image');
-    const messageElements = element.parentNode.querySelectorAll('.inline-background, .css-background');
-    for (let j = 0; j < messageElements.length; j++) {
-      messageElements[j].parentNode.removeChild(messageElements[j]);
-    }
-  }
+function removeInjectedMessageDivs() {
+  const injectedMessageDivs = document.querySelectorAll('.inline-background-8892664, .css-background-8892664');
+  injectedMessageDivs.forEach((messageDiv) => {
+      messageDiv.remove();
+  });
 }
 
-removeBackgroundImages();
-
-
-
-undefined;
+removeInjectedMessageDivs();

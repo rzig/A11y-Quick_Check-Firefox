@@ -1,31 +1,25 @@
+function createMessageDiv(messageClass, message) {
+  const messageDiv = document.createElement('div');
+  messageDiv.classList.add(messageClass);
+  const messageText = document.createTextNode(message);
+  messageDiv.append(messageText);
+  return messageDiv;
+}
+
 function showAltText() {
-
-    const imgElements = document.querySelectorAll("img");
-
-    function addMessageAfter(elem, messageClass, message) {
-    const existingMessage = elem.nextElementSibling;
-    if (existingMessage && existingMessage.classList.contains(messageClass)) {
-      // Message already exists, no need to add again
-      return;
-    }
-
-    const messageDiv = document.createElement('div');
-    messageDiv.classList.add(messageClass);
-    const messageText = document.createTextNode(message);
-    messageDiv.append(messageText);
-    elem.after(messageDiv);
-  }
+  const imgElements = document.querySelectorAll("img");
+  const altTextMessageClass = "alt-text-message-88927564";
 
   for (let i = 0; i < imgElements.length; i++) {
-    const altText = imgElements[i].alt;
+      const altText = imgElements[i].alt;
+      const altTextPresent = altText && altText.trim() !== "";
 
-    if (altText !== "") {
-      const message = `This image ALT text is: ${altText}`;
-      addMessageAfter(imgElements[i], "alt-text-message", message);
-    }
+      if (altTextPresent) {
+          const message = `This image ALT text is: ${altText}`;
+          const altTextMessageDiv = createMessageDiv(altTextMessageClass, message);
+          imgElements[i].after(altTextMessageDiv);
+      }
   }
 }
 
 showAltText();
-
-undefined;
