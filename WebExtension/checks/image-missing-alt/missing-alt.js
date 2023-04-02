@@ -1,33 +1,24 @@
-function showMissingAltAttributes() {
-
- function addMessageAfter(elem, messageClass, message) {
-  // Check if the element already has a message with the given class
-  const existingMessage = elem.querySelector(`.${messageClass}`);
-  if (existingMessage) {
-    return; // Message already exists, don't add it again
-  }
-
+function createMessageDiv(messageClass, message) {
   const messageDiv = document.createElement('div');
   messageDiv.classList.add(messageClass);
   const messageText = document.createTextNode(message);
   messageDiv.append(messageText);
-  elem.after(messageDiv);
+  return messageDiv;
 }
 
-
+function showMissingAltAttributes() {
   const imgElements = document.querySelectorAll("img");
+  const missingAltMessageClass = "missing-alt-message-8892664";
 
   for (let i = 0; i < imgElements.length; i++) {
-    const hasAlt = imgElements[i].hasAttribute('alt');
+      const hasAlt = imgElements[i].hasAttribute('alt');
 
-    if (!hasAlt) {
-      const message = "This image is missing an ALT attribute";
-      addMessageAfter(imgElements[i], "missing-alt-message", message);
-    }
+      if (!hasAlt) {
+          const message = "This image is missing an ALT attribute";
+          const missingAltMessageDiv = createMessageDiv(missingAltMessageClass, message);
+          imgElements[i].after(missingAltMessageDiv);
+      }
   }
 }
 
 showMissingAltAttributes();
-
-
-undefined;
