@@ -1,6 +1,8 @@
-function removeOrderedListMessages() {
-  const messages = document.querySelectorAll(".html-ol-message, .aria-ol-message");
-  messages.forEach((message) => message.remove());
+function removeInjectedAccessibleNames() {
+  const injectedAccessibleNames = document.querySelectorAll('.html-ol-message, .aria-ol-message');
+  injectedAccessibleNames.forEach((accessibleNameDiv) => {
+      accessibleNameDiv.remove();
+  });
 }
 
-removeOrderedListMessages();
+removeInjectedAccessibleNames();
