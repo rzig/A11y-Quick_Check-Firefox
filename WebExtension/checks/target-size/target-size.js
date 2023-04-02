@@ -3,6 +3,10 @@
  * JSON data can dymamically update the check from 24, 44 and 48
 *********/
 
+/********
+ * Needs to be updated to use common helper function to add the DIV
+*********/
+
 // Get all interactive elements on the page
 document.querySelectorAll('a, button, input[type="button"], input[type="submit"], select, [role="button"]')
 // Loop through each element and check its dimensions

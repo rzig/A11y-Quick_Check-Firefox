@@ -1,3 +1,11 @@
+function createMessageDiv(messageClass, message) {
+  const messageDiv = document.createElement('div');
+  messageDiv.classList.add(messageClass);
+  const messageText = document.createTextNode(message);
+  messageDiv.append(messageText);
+  return messageDiv;
+}
+
 function checkDescriptionLists() {
   const dlElements = document.querySelectorAll("dl");
 
@@ -8,10 +16,7 @@ function checkDescriptionLists() {
       return;
     }
 
-    const messageDiv = document.createElement('div');
-    messageDiv.classList.add(messageClass);
-    const messageText = document.createTextNode(message);
-    messageDiv.append(messageText);
+    const messageDiv = createMessageDiv(messageClass, message);
     elem.after(messageDiv);
   }
 

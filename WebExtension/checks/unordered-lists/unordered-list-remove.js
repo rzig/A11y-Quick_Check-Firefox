@@ -1,6 +1,8 @@
-function removeUnorderedListMessages() {
-  const messages = document.querySelectorAll(".html-ul-message, .aria-ul-message");
-  messages.forEach((message) => message.remove());
+function removeInjectedAccessibleNames() {
+  const injectedAccessibleNames = document.querySelectorAll('.html-ul-message, .aria-ul-message');
+  injectedAccessibleNames.forEach((accessibleNameDiv) => {
+      accessibleNameDiv.remove();
+  });
 }
 
-removeUnorderedListMessages();
+removeInjectedAccessibleNames();
