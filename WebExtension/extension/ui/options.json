@@ -43,7 +43,7 @@
                             "removeScript": "description-list-remove.js"
                         },
                         {
-                            "name": "HGROUP",
+                            "name": "HTML hgroup",
                             "id": "hGroup",
                             "resource_path": "checks/hgroup",
                             "css": "hgroup.css",
