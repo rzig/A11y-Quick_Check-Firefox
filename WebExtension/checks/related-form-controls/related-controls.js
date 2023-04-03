@@ -37,10 +37,16 @@ function addLegendsBeforeDiv() {
       const text = document.createTextNode('The Legend is present and is the first element child');
       div.appendChild(text);
     }
+
+    // Check if the legend is empty
+    if (!legend.textContent.trim()) {
+      const emptyTextMessage = document.createTextNode(' There is no legend text.');
+      div.appendChild(emptyTextMessage);
+    }
+
     legend.parentNode.insertBefore(div, legend);
   }
 }
-
 
 function addGroupBeforeDiv() {
   const groups = document.querySelectorAll('[role="group"]');
