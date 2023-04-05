@@ -1,0 +1,24 @@
+.missing-aria-modal-776553 {
+  color: rgb(177, 28, 28);
+  font-weight: 700;
+  display: inline-block;
+  margin-left: 10px;
+  padding: 4px 8px;
+  background-color: #fff;
+  border: 3px solid rgb(177, 28, 28);
+  font-size: 12px;
+  font-size: 13px;
+  z-index:10000;
+}
+.dialog-in-inert-layer-776553 {
+    color: rgb(205, 106, 2);
+  font-weight: 700;
+  display: inline-block;
+  margin-left: 10px;
+  padding: 4px 8px;
+  background-color: #fff;
+  border: 3px solid rgb(205, 106, 2);
+  font-size: 12px;
+  font-size: 13px;
+  z-index:10000;
+}
