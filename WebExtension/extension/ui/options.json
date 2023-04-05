@@ -144,6 +144,14 @@
                             "css": "name-prohibited.css",
                             "addScript": "name-prohibited.js",
                             "removeScript": "name-prohibited-remove.js"
+                        },
+                        {
+                            "name": "Modal Dialog",
+                            "id": "modalDialog7765",
+                            "resource_path": "checks/modal-dialog",
+                            "css": "modal-dialog.css",
+                            "addScript": "modal-dialog.js",
+                            "removeScript": "modal-dialog-remove.js"
                         }
                     ]
                 }
