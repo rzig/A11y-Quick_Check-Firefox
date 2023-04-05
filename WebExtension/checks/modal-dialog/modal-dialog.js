@@ -32,29 +32,5 @@ function createMessageDiv(messageClass, message) {
     }
   }
   
-  function checkAriaHidden(dialog) {
-    const isInertLayer = (element) => {
-      return element.getAttribute('aria-hidden') === 'true';
-    };
-  
-    const inertLayerElements = Array.from(document.querySelectorAll('[aria-hidden="true"]'));
-    const isDialogInInertLayer = inertLayerElements.some((element) => element.contains(dialog));
-  
-    if (isDialogInInertLayer) {
-      const messageDiv = createMessageDiv('dialog-in-inert-layer-776553', 'The dialog should not be a descendant of any element that has "aria-hidden" set to true');
-      dialog.append(messageDiv);
-    }
-  
-    const isVisible = dialog.offsetWidth > 0 && dialog.offsetHeight > 0;
-    if (isVisible) {
-      inertLayerElements.forEach((element) => {
-        if (!element.contains(dialog)) {
-          const messageDiv = createMessageDiv('inert-layer-missing-aria-hidden-776553', 'Each element containing a portion of the inert layer should have "aria-hidden" set to true');
-          element.append(messageDiv);
-        }
-      });
-    }
-  }
-  
   checkDialogAttributes();
   
