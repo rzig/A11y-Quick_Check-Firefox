@@ -1,4 +1,4 @@
-.small-target {
+.small-target-8228965 {
   border: 4px solid red !important;
 }
 .target-size-8228965{
@@ -13,4 +13,15 @@
     padding: 0.5em !important;
     width: 12em !important;
     z-index: 10000 !important;
+}
+.circle-shape-8228965 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 2px solid #FF7F50; /* Darker orange */
+  border-radius: 50%;
+}
+.pos-rel-8228965 {
+  position: relative;
 }
