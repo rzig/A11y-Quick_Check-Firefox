@@ -152,6 +152,14 @@
                             "css": "modal-dialog.css",
                             "addScript": "modal-dialog.js",
                             "removeScript": "modal-dialog-remove.js"
+                        },
+                        {
+                            "name": "Combobox",
+                            "id": "attrCombobox",
+                            "resource_path": "checks/combobox",
+                            "css": "combobox.css",
+                            "addScript": "combobox.js",
+                            "removeScript": "combobox-remove.js"
                         }
                     ]
                 }
