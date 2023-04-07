@@ -1,11 +1,3 @@
-function createMessageDiv(messageClass, message) {
-    const messageDiv = document.createElement('div');
-    messageDiv.classList.add(messageClass);
-    const messageText = document.createTextNode(message);
-    messageDiv.append(messageText);
-    return messageDiv;
-}
-
 function checkSvgDecorative() {
     const svgElements = document.querySelectorAll("svg");
     const decorativeSvgClass = "svg--decorative-8892664";
@@ -22,12 +14,10 @@ function checkSvgDecorative() {
         if (ariaHidden === "true") {
             if (accessibleNameMissing) {
                 const message = "This SVG is marked as decorative with 'aria-hidden'";
-                const decorativeSvgDiv = createMessageDiv(decorativeSvgClass, message);
-                svgElements[i].after(decorativeSvgDiv);
+                createMessageDiv(svgElements[i], decorativeSvgClass, message);
             } else if (accessibleNamePresent) {
                 const message = "This SVG has an accessible name but is marked as decorative with 'aria-hidden'";
-                const decorativeSvgWithNameDiv = createMessageDiv(decorativeSvgWithNameClass, message);
-                svgElements[i].after(decorativeSvgWithNameDiv);
+                createMessageDiv(svgElements[i], decorativeSvgWithNameClass, message);
             }
         } else if (ariaHidden !== "true" && (role !== "img" || accessibleNameMissing)) {
             let message;
@@ -36,10 +26,8 @@ function checkSvgDecorative() {
             } else {
                 message = "Warning: This SVG element is missing 'aria-hidden' or 'role img', and or an accessible name.";
             }
-            const warningMessageDiv = createMessageDiv(notNamedDecorativeClass, message);
-            svgElements[i].after(warningMessageDiv);
+            createMessageDiv(svgElements[i], notNamedDecorativeClass, message);
         }
-        
     }
 }
 
@@ -52,8 +40,7 @@ function checkSvgRole() {
 
         if (role && role !== "img" && role !== "none" && role !== "presentation") {
             const message = `This SVG has an accessible name, but the Role is set to ${role}. Change to use Role img.`;
-            const roleWarningDiv = createMessageDiv(roleWarningClass, message);
-            svgElements[k].after(roleWarningDiv);
+            createMessageDiv(svgElements[k], roleWarningClass, message);
         }
     }
 }

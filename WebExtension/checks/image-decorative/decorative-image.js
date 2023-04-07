@@ -1,10 +1,4 @@
-function createMessageDiv(messageClass, message) {
-  const messageDiv = document.createElement('div');
-  messageDiv.classList.add(messageClass);
-  const messageText = document.createTextNode(message);
-  messageDiv.append(messageText);
-  return messageDiv;
-}
+
 
 function showDecorativeImages() {
   const imgElements = document.querySelectorAll("img");
@@ -20,21 +14,17 @@ function showDecorativeImages() {
 
       if (ariaHidden === 'true') {
           const message = 'aria-hidden set to true used for decorative image. alt="" is the preferred method.';
-          const ariaHiddenMessageDiv = createMessageDiv(ariaHiddenMessageClass, message);
-          imgElements[i].after(ariaHiddenMessageDiv);
+          createMessageDiv(imgElements[i], ariaHiddenMessageClass, message);
       } else if (role === 'presentation' || role === 'none') {
           const message = 'presentation role used for decorative image. alt="" is the preferred method.';
-          const presentationRoleMessageDiv = createMessageDiv(presentationRoleMessageClass, message);
-          imgElements[i].after(presentationRoleMessageDiv);
+          createMessageDiv(imgElements[i], presentationRoleMessageClass, message);
       } else if (altText === '' && (role || ariaHidden)) {
           const roleMessage = role ? `Role ${role}` : 'aria-hidden set to true';
           const message = `Decorative image. ${roleMessage} can be removed as it is redundant.`;
-          const redundantRoleMessageDiv = createMessageDiv(redundantRoleMessageClass, message);
-          imgElements[i].after(redundantRoleMessageDiv);
+          createMessageDiv(imgElements[i], redundantRoleMessageClass, message);
       } else if (altText === '' && !role && !ariaHidden) {
           const message = 'This image is decorative';
-          const decorativeMessageDiv = createMessageDiv(decorativeMessageClass, message);
-          imgElements[i].after(decorativeMessageDiv);
+          createMessageDiv(imgElements[i], decorativeMessageClass, message);
       }
   }
 }

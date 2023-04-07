@@ -1,11 +1,3 @@
-function createMessageDiv(messageClass, message) {
-  const messageDiv = document.createElement('div');
-  messageDiv.classList.add(messageClass);
-  const messageText = document.createTextNode(message);
-  messageDiv.append(messageText);
-  return messageDiv;
-}
-
 function showAltText() {
   const imgElements = document.querySelectorAll("img");
   const altTextMessageClass = "alt-text-message-88927564";
@@ -16,8 +8,7 @@ function showAltText() {
 
       if (altTextPresent) {
           const message = `This image ALT text is: ${altText}`;
-          const altTextMessageDiv = createMessageDiv(altTextMessageClass, message);
-          imgElements[i].after(altTextMessageDiv);
+          createMessageDiv(imgElements[i], altTextMessageClass, message);
       }
   }
 }

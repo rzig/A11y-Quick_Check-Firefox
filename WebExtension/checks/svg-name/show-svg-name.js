@@ -1,11 +1,3 @@
-function createMessageDiv(messageClass, message) {
-    const messageDiv = document.createElement('div');
-    messageDiv.classList.add(messageClass);
-    const messageText = document.createTextNode(message);
-    messageDiv.append(messageText);
-    return messageDiv;
-}
-
 function checkSvgAccessibleNames() {
     const svgElements = document.querySelectorAll("svg");
     const showSvgTextClass = "svg--hasName-882726654";
