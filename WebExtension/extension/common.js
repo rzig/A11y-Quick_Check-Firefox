@@ -26,10 +26,10 @@ function removeInjectedDivs(messageClasses) {
     const messageDivs = document.querySelectorAll(`.${messageClass}`);
 
     messageDivs.forEach((messageDiv) => {
-      parentWrapper=messageDiv.parentElement;
+      const parentWrapper=messageDiv.parentElement;
       messageDiv.remove();
-      if (parent.children.length == 0) {
-        parent.remove();
+      if (parentWrapper.children.length == 0) {
+        parentWrapper.remove();
       }  
     });
   });

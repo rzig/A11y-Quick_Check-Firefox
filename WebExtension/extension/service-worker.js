@@ -18,6 +18,18 @@ chrome.webNavigation.onCompleted.addListener(async (details) => {
   } catch (err) {
     console.error(`failed to load default client scripts: ${err}`);
   }
+  try {
+    await chrome.scripting.insertCSS({
+      target: {
+        tabId: details.tabId,
+        allFrames: true,
+      },
+      files: ["extension/common.css"],
+    });
+  } catch (err) {
+    console.error(`failed to insert extension/common.css CSS: ${err}`);
+  }
+
   // We only need to store the settings once per tab, so only execute them in the top frame
   if (details.frameId == 0) {
     try {

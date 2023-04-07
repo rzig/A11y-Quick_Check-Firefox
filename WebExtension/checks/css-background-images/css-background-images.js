@@ -1,11 +1,3 @@
-function createMessageDiv(messageClass, message) {
-  const messageDiv = document.createElement('div');
-  messageDiv.classList.add(messageClass);
-  const messageText = document.createTextNode(message);
-  messageDiv.append(messageText);
-  return messageDiv;
-}
-
 function showBackgroundImages() {
   const allElements = document.getElementsByTagName('*');
   const inlineBackgroundClass = "inline-background-8892664";
@@ -21,13 +13,11 @@ function showBackgroundImages() {
           if (inlineStyle && inlineStyle.indexOf('background-image') !== -1) {
               element.classList.add('inline-css-image');
               const message = "This image is inserted using inline style";
-              const inlineBackgroundMessageDiv = createMessageDiv(inlineBackgroundClass, message);
-              element.after(inlineBackgroundMessageDiv);
+              createMessageDiv(element.inlineBackgroundClass, message);
           } else {
               element.classList.add('css-image');
               const message = "This image is inserted using CSS";
-              const cssBackgroundMessageDiv = createMessageDiv(cssBackgroundClass, message);
-              element.after(cssBackgroundMessageDiv);
+              createMessageDiv(element, cssBackgroundClass, message);
           }
       }
   }
