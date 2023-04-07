@@ -16,8 +16,11 @@ function checkHGroups() {
       const hasHtmlHGroup = hgroupElements[i].nodeName === "HGROUP" && !hgroupElements[i].hasAttribute("role");
       if (hasHtmlHGroup) {
         const message = "HTML <hgroup> is not fully supported. We recommend adding an ARIA role=\"group\" and role-description=\"Heading Group\"";
+/*
           const htmlHGroupMessageDiv = createMessageDiv(htmlHGroupMessageClass, message);
           hgroupElements[i].after(htmlHGroupMessageDiv);
+*/
+          createMessageDiv(hgroupElements[i], htmlHGroupMessageClass, message);
           hgroupElements[i].classList.add("hgroup-58997365");
       }
 

@@ -1,4 +1,4 @@
-function removeInjectedDivs() {
+/*function removeInjectedDivs() {
   const messageClasses = [
     'html-hgroup-message-58997365',
     'aria-hgroup-message-58997365'
@@ -14,3 +14,9 @@ function removeInjectedDivs() {
 }
 
 removeInjectedDivs();
+*/
+
+removeInjectedDivs([
+  'html-hgroup-message-58997365',
+  'aria-hgroup-message-58997365'
+]);

@@ -15,6 +15,7 @@ function getWrapperDiv(element) {
 function createMessageDiv(element, messageClass, message) {
   const messageDiv = document.createElement("div");
   messageDiv.classList.add(messageClass);
+  messageDiv.classList.add('common-a11y-message-2edbc8ab');
   const messageText = document.createTextNode(message);
   messageDiv.append(messageText);
   const wrapper=getWrapperDiv(element);
