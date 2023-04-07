@@ -1,8 +1,21 @@
-function removeInjectedAccessibleNames() {
-    const injectedAccessibleNames = document.querySelectorAll('.non-imgRole-8228965, .svg--nodecorative-noname-882726654, .svg--hasName-882726654');
-    injectedAccessibleNames.forEach((accessibleNameDiv) => {
-        accessibleNameDiv.remove();
+function removeInjectedDivsByClass(className) {
+    const injectedDivs = document.querySelectorAll(`.${className}`);
+    injectedDivs.forEach((injectedDiv) => {
+      injectedDiv.remove();
     });
-}
-
-removeInjectedAccessibleNames();
+  }
+  
+  function removeInjectedDivs() {
+    const injectedDivClasses = [
+      'non-imgRole-8228965',
+      'svg--nodecorative-noname-882726654',
+      'svg--hasName-882726654'
+    ];
+  
+    injectedDivClasses.forEach((className) => {
+      removeInjectedDivsByClass(className);
+    });
+  }
+  
+  removeInjectedDivs();
+  

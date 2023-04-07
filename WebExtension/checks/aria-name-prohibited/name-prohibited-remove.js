@@ -1,10 +1,17 @@
-document.querySelectorAll("[data-name-prohibited-aria], [data-name-prohibited-html]").forEach(noName => {
-    if(noName.hasAttribute("data-name-prohibited-aria")) {
-        noName.removeAttribute("data-name-prohibited-aria")
-    }
-    if(noName.hasAttribute("data-name-prohibited-html")) {
-        noName.removeAttribute("data-name-prohibited-html")
-    }
-});
-
-undefined;
+function removeInjectedDivs() {
+    const messageClasses = [
+      'data-name-prohibited-aria',
+      'data-name-prohibited-html'
+    ];
+  
+    messageClasses.forEach((messageClass) => {
+      const messageDivs = document.querySelectorAll(`[${messageClass}]`);
+  
+      messageDivs.forEach((messageDiv) => {
+        messageDiv.removeAttribute(messageClass);
+      });
+    });
+  }
+  
+  removeInjectedDivs();
+  

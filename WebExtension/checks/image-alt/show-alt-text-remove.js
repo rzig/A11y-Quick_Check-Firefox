@@ -1,8 +1,15 @@
-function removeInjectedMessageDivs() {
-  const injectedMessageDivs = document.querySelectorAll('.alt-text-message-88927564');
-  injectedMessageDivs.forEach((messageDiv) => {
+function removeInjectedDivs() {
+  const messageClasses = [
+    'alt-text-message-88927564'
+  ];
+
+  messageClasses.forEach((messageClass) => {
+    const messageDivs = document.querySelectorAll(`.${messageClass}`);
+
+    messageDivs.forEach((messageDiv) => {
       messageDiv.remove();
+    });
   });
 }
 
-removeInjectedMessageDivs();
+removeInjectedDivs();
