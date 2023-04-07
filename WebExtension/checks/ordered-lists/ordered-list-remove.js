@@ -1,8 +1,16 @@
-function removeInjectedAccessibleNames() {
-  const injectedAccessibleNames = document.querySelectorAll('.html-ol-message, .aria-ol-message');
-  injectedAccessibleNames.forEach((accessibleNameDiv) => {
-      accessibleNameDiv.remove();
+function removeInjectedDivs() {
+  const messageClasses = [
+    'html-ol-message',
+    'aria-ol-message'
+  ];
+
+  messageClasses.forEach((messageClass) => {
+    const messageDivs = document.querySelectorAll(`.${messageClass}`);
+
+    messageDivs.forEach((messageDiv) => {
+      messageDiv.remove();
+    });
   });
 }
 
-removeInjectedAccessibleNames();
+removeInjectedDivs();
