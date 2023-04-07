@@ -11,8 +11,7 @@ function checkSvgAccessibleNames() {
 
         if (svgElements[k].hasAttribute("aria-label") && svgText !== "" && hiddenElement !== "true") {
             const message = "This SVG accName is: " + svgText;
-            const showSvgTextDiv = createMessageDiv(showSvgTextClass, message);
-            svgElements[k].after(showSvgTextDiv);
+            createMessageDiv(svgElements[k], showSvgTextClass, message);
         } else if (hiddenElement !== "true" && (role !== "img" || accessibleNameMissing)) {
             let message;
             if (role === "img" && accessibleNameMissing) {
@@ -20,8 +19,7 @@ function checkSvgAccessibleNames() {
             } else {
                 message = "Warning: This SVG element is missing 'aria-hidden' or 'role img', and or an accessible name.";
             }
-            const warningMessageDiv = createMessageDiv(notNamedDecorativeClass, message);
-            svgElements[k].after(warningMessageDiv);
+            createMessageDiv(svgElements[k], notNamedDecorativeClass, message);
         }
     }
 }

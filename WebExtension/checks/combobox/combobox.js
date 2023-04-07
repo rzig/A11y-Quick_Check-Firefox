@@ -4,14 +4,6 @@ if (typeof wrapperDiv === 'undefined') {
   wrapperDiv.classList.add('container-776553');
 }
 
-// Create a message div with specified class and message text
-function createMessageDiv(messageClass, message) {
-  const messageDiv = document.createElement('div');
-  messageDiv.classList.add(messageClass);
-  const messageText = document.createTextNode(message);
-  messageDiv.append(messageText);
-  return messageDiv;
-}
 
 // Insert a message div into the global wrapper div and place it after the target element
 function insertMessageDiv(target, messageDiv) {
