@@ -347,7 +347,7 @@ async function loadOptionsObject() {
         tabId: await getTabId(),
         allFrames: false,
       },
-      files: ["/extension/content-setting.js"],
+            files: ["/extension/content-setting.js", "extension/common.js"],
     });
     options = await chrome.tabs.sendMessage(
       await getTabId(),

@@ -13,10 +13,10 @@ chrome.webNavigation.onCompleted.addListener(async (details) => {
                     allFrames: false
                 },
                 // This needs to be relative to teh root of the extension
-                files: ["extension/content-setting.js"],
+                files: ["extension/content-setting.js", "extension/common.js"],
             });
         } catch (err) {
-            console.error(`failed to execute js/content-setting.js script: ${err}`);
+            console.error(`failed to load default client scripts: ${err}`);
         }
     }
 });
