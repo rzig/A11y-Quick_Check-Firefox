@@ -11,6 +11,8 @@ function createMessageDiv(element, messageClass, message) {
 }
 
 function removeInjectedDivs(messageClasses) {
+    console.log("Removing...");
+
   messageClasses.forEach((messageClass) => {
     const messageDivs = document.querySelectorAll(`.${messageClass}`);
 
