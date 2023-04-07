@@ -10,7 +10,7 @@ chrome.webNavigation.onCompleted.addListener(async (details) => {
     await chrome.scripting.executeScript({
       target: {
         tabId: details.tabId,
-        allFrames: false,
+        allFrames: true,
       },
       // This needs to be relative to the root of the extension
       files: ["extension/common.js"],

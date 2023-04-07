@@ -1,7 +1,3 @@
-function test() {
-  window.alert("Test of common code");
-}
-
 function createMessageDiv(element, messageClass, message) {
   const messageDiv = document.createElement("div");
   messageDiv.classList.add(messageClass);
@@ -11,8 +7,6 @@ function createMessageDiv(element, messageClass, message) {
 }
 
 function removeInjectedDivs(messageClasses) {
-    console.log("Removing...");
-
   messageClasses.forEach((messageClass) => {
     const messageDivs = document.querySelectorAll(`.${messageClass}`);
 
