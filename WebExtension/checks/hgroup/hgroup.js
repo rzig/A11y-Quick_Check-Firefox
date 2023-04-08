@@ -1,11 +1,3 @@
-function createMessageDiv(messageClass, message) {
-  const messageDiv = document.createElement('div');
-  messageDiv.classList.add(messageClass);
-  const messageText = document.createTextNode(message);
-  messageDiv.append(messageText);
-  return messageDiv;
-}
-
 function checkHGroups() {
   const hgroupElements = document.querySelectorAll("hgroup");
   const htmlHGroupMessageClass = "html-hgroup-message-58997365";
@@ -16,10 +8,6 @@ function checkHGroups() {
       const hasHtmlHGroup = hgroupElements[i].nodeName === "HGROUP" && !hgroupElements[i].hasAttribute("role");
       if (hasHtmlHGroup) {
         const message = "HTML <hgroup> is not fully supported. We recommend adding an ARIA role=\"group\" and role-description=\"Heading Group\"";
-/*
-          const htmlHGroupMessageDiv = createMessageDiv(htmlHGroupMessageClass, message);
-          hgroupElements[i].after(htmlHGroupMessageDiv);
-*/
           createMessageDiv(hgroupElements[i], htmlHGroupMessageClass, message);
           hgroupElements[i].classList.add("hgroup-58997365");
       }
@@ -30,8 +18,7 @@ function checkHGroups() {
       if (hasAriaGroupRole && hasAriaDescriptionRole) {
           const roleDescription = hgroupElements[i].getAttribute("aria-roledescription");
           const message = `HTML <hgroup> with role=\"group\" and aria-roledescription: ${roleDescription}`;
-          const ariaHGroupMessageDiv = createMessageDiv(ariaHGroupMessageClass, message);
-          hgroupElements[i].after(ariaHGroupMessageDiv);
+          createMessageDiv(hgroupElements[i], ariaHGroupMessageClass, message);
           hgroupElements[i].classList.add("hgroup-58997365");
       }
   }
