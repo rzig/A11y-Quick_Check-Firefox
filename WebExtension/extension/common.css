@@ -1,0 +1,15 @@
+[data-a11y-wrapper-2edbc8ab]{
+    background:#edeaea !important;
+    border: 1px solid #807979 !important;
+    padding:0.5em !important;
+  }
+
+  .common-a11y-message-2edbc8ab {
+    bottom: 0.5em !important;
+    font-size: 1rem !important;
+    left: 0.5em !important;
+    line-height: 1.5 !important;
+    opacity: 0.8 !important;
+    padding: 0.5em !important;
+    z-index: 10000 !important;
+  }
