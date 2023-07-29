@@ -1,0 +1,34 @@
+@import '../common';
+//@import '../scss-partial-font-family';
+
+.domCountDiv {
+  @include important-styles(
+    (
+      display: flex,
+      justify-content: center,
+      align-items: center,
+      width: 25px,
+      height: 25px,
+      border: 2px solid var(--neutral-border),
+      border-radius: 50%,
+      background-color: var(--neutral-background),
+      color: var(--neutral-text),
+      text-align: center,
+      font-size: 16px,
+      line-height: 30px,
+      position: absolute,
+      left: 0,
+      top: 0,
+    ),
+    true
+  );
+}
+
+[data-domcount-889557] {
+    @include important-styles(
+      (
+        border: 2px dashed var(--neutral-border),
+      ),
+      true
+    );
+  }

@@ -186,6 +186,15 @@
                             "addScript": "reset-css.js",
                             "removeScript": "reset-css-remove.js"
                         }
+                        ,
+                        {
+                            "name": "Focus Order counter",
+                            "id": "focusOrderCount",
+                            "resource_path": "checks/focus-order-count",
+                            "addScript": "focus-order-count.js",
+                            "removeScript": "focus-order-count-remove.js",
+                            "css": "focus-order-count.css"
+                        }
                     ]
                 },
                 {
@@ -204,15 +213,6 @@
                             "css": "name-prohibited.css",
                             "addScript": "name-prohibited.js",
                             "removeScript": "name-prohibited-remove.js"
-                        }
-                        ,
-                        {
-                            "name": "Aria-Hidden (True/False)",
-                            "id": "ariaHiddenStatus",
-                            "resource_path": "checks/aria-hidden",
-                            "css": "aria-hidden.css",
-                            "addScript": "aria-hidden.js",
-                            "removeScript": "aria-hidden-remove.js"
                         }
                     ]
                 }
