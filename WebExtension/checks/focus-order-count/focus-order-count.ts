@@ -1,7 +1,7 @@
 "use strict";
 
 // Helper function to check if an element is visible
-function isVisible(element: HTMLElement): boolean {
+function isVisibleFO(element: HTMLElement): boolean {
     return !(element.offsetWidth === 0 && element.offsetHeight === 0) && getComputedStyle(element).visibility !== "hidden";
 }
 
@@ -11,7 +11,7 @@ function addClassToFocusableElements(): void {
 
     let i = 1;
     for (const element of focusableElements) {
-        if (isVisible(element)) {
+        if (isVisibleFO(element)) {
             element.setAttribute(`data-domCount-889557`, `${i}`);
             i++;
         }
