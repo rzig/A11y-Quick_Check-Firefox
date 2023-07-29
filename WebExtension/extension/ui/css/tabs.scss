@@ -1,0 +1,55 @@
+.tabs {
+  padding: 1em;
+}
+
+[role="tablist"] {
+  margin-bottom: -1px;
+  /* Whitespace characters between button elements are treated as spaces, which cause gaps between the buttons. 
+     To remove this gap, we set the font-size to 0 so the spaces have 0 width */
+  font-size: 0;
+}
+
+[role="tablist"]>* {
+  /* We want to see the text, so revert the work around for spaces */
+  font-size: revert;
+}
+
+[role="tab"] {
+  position: relative;
+  z-index: 1;
+  background: rgb(95%, 95%, 95%);
+  border-radius: 0 0 0 0;
+  border: 1px solid grey;
+  border-bottom: 0;
+  padding: 0.5em 1em;
+  /* stop the tab buttons having a double width border between them */
+  margin-right: -1px;
+}
+
+[role="tab"][aria-selected="true"] {
+  background: white;
+  z-index: 3;
+}
+
+[role="tab"]:hover:not([aria-selected="true"]) {
+  background: rgb(97.5%, 97.5%, 97.5%);
+}
+
+/* If the focus ring is showing, move the tab to the top of the z-index to ensure the entire focus ring is visible */
+[role="tab"]:focus-visible {
+  z-index: 4;
+}
+
+[role="tabpanel"] {
+  position: relative;
+  padding: 0 0.5em 0.5em 0.7em;
+  border: 1px solid grey;
+  border-radius: 0 0 5px 5px;
+  background: white;
+  z-index: 2;
+}
+
+[role="tabpanel"]:focus-visible {
+  border-color: dark-green;
+  outline: dark-green;
+}

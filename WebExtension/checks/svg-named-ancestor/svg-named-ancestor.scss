@@ -1,0 +1,13 @@
+@import '../common';
+@import '../scss-partial-overflow-hidden-hack';
+
+.svg--ancestorAccessibleName-882726654 {
+  @include important-styles(
+    (
+      background-color: var(--background-color),
+      border: 2px solid var(--pass-border),
+      color: var(--pass-text)
+    ),
+    true
+  );
+}

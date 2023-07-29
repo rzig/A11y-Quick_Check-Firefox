@@ -7,10 +7,18 @@
                     "name": "Content",
                     "items": [
                         {
-                            "name": "Headings",
-                            "id": "headings",
+                            "name": "Has Heading Mark-up",
+                            "id": "headingsYes",
                             "resource_path": "checks/headings",
                             "css": "headings.css"
+                        },
+                        {
+                            "name": "No Heading Mark-up",
+                            "id": "headingNo",
+                            "resource_path": "checks/headings-not-coded",
+                            "css": "headings-not-coded.css",
+                            "addScript": "headings-not-coded.js",
+                            "removeScript": "headings-not-coded-remove.js"
                         },
                         {
                             "name": "Strong",
@@ -63,7 +71,7 @@
             ]
         },
         {
-            "name": "images",
+            "name": "Images",
             "fieldsets": [
                 {
                     "name": "Images",
@@ -120,46 +128,14 @@
                             "css": "decorative-svg.css",
                             "addScript": "decoration-svg.js",
                             "removeScript": "decoration-svg-remove.js"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "name": "Components",
-            "fieldsets": [
-                {
-                    "name": "Components",
-                    "items": [
-                        {
-                            "name": "Use of ARIA-LABEL",
-                            "id": "ariaLabel",
-                            "resource_path": "checks/aria-label",
-                            "css": "ariaLabel.css"
                         },
                         {
-                            "name": "ARIA name prohibited",
-                            "id": "nameDisalowed",
-                            "resource_path": "checks/aria-name-prohibited",
-                            "css": "name-prohibited.css",
-                            "addScript": "name-prohibited.js",
-                            "removeScript": "name-prohibited-remove.js"
-                        },
-                        {
-                            "name": "Modal Dialog",
-                            "id": "modalDialog7765",
-                            "resource_path": "checks/modal-dialog",
-                            "css": "modal-dialog.css",
-                            "addScript": "modal-dialog.js",
-                            "removeScript": "modal-dialog-remove.js"
-                        },
-                        {
-                            "name": "Combobox",
-                            "id": "attrCombobox",
-                            "resource_path": "checks/combobox",
-                            "css": "combobox.css",
-                            "addScript": "combobox.js",
-                            "removeScript": "combobox-remove.js"
+                            "name": "SVG has a named ancestor",
+                            "id": "namedAncestor",
+                            "resource_path": "checks/svg-named-ancestor",
+                            "css": "svg-named-ancestor.css",
+                            "addScript": "svg-named-ancestor.js",
+                            "removeScript": "svg-named-ancestor-remove.js"
                         }
                     ]
                 }
@@ -172,50 +148,29 @@
                     "name": "WCAG",
                     "items": [
                         {
-                            "name": "Target Size",
-                            "id": "targetSize",
+                            "name": "Target Size (24px)",
+                            "id": "targetSize24",
                             "resource_path": "checks/target-size",
                             "css": "target-size.css",
-                            "addScript": "target-size.js",
-                            "removeScript": "target-size-remove.js",
-                            "radioButtonGroup": {
-                            "name": "Target Size Options",
-                            "id": "targetSizeOptions",
-                            "radioButtons": [
-                            {
-                            "label": "24px",
-                            "value": "24",
-                            "class": "target-size-radio-884746",
-                            "defaultChecked": false,
-                            "disabledUntilChecked": true,
-                            "data": {
-                                "size": "24"
-                              }
-                            },
-                            {
-                            "label": "44px",
-                            "value": "44",
-                            "class": "target-size-radio-884746",
-                            "defaultChecked": false,
-                            "disabledUntilChecked": true,
-                            "data": {
-                                "size": "44"
-                              }
-                            },
-                            {
-                            "label": "48px",
-                            "value": "48",
-                            "class": "target-size-radio-884746",
-                            "defaultChecked": false,
-                            "disabledUntilChecked": true,
-                            "data": {
-                                "size": "48"
-                              }
-                            }
-                            ],
-                            "defaultCheckedButtonValue": "48"
-                            }
-                            },
+                            "addScript": ["target-size.js", "target-size24.js"],
+                            "removeScript": ["target-size-remove.js", "target-size-remove24.js"]
+                        },
+                        {
+                            "name": "Target Size (44px)",
+                            "id": "targetSize44",
+                            "resource_path": "checks/target-size",
+                            "css": "target-size.css",
+                            "addScript": ["target-size.js", "target-size44.js"],
+                            "removeScript": ["target-size-remove.js", "target-size-remove44.js"]
+                        },
+                        {
+                            "name": "Target Size (48px)",
+                            "id": "targetSize48",
+                            "resource_path": "checks/target-size",
+                            "css": "target-size.css",
+                            "addScript": ["target-size.js", "target-size48.js"],
+                            "removeScript": ["target-size-remove.js", "target-size-remove48.js"]
+                        },
                         {
                             "name": "Text Spacing",
                             "id": "textSpacing",
@@ -225,12 +180,30 @@
                             "removeScript": "text-spacing-remove.js"
                         },
                         {
-                            "name": "Label in Name",
-                            "id": "labelName",
-                            "resource_path": "checks/label-in-name",
-                            "css": "label-in-name.css",
-                            "addScript": "label-in-name.js",
-                            "removeScript": "label-in-name-remove.js"
+                            "name": "Remove all CSS styling",
+                            "id": "resetCSS",
+                            "resource_path": "checks/reset-css",
+                            "addScript": "reset-css.js",
+                            "removeScript": "reset-css-remove.js"
+                        }
+                    ]
+                },
+                {
+                    "name": "Show aria-label text",
+                    "items": [
+                        {
+                            "name": "ARIA-LABEL",
+                            "id": "aria-label",
+                            "resource_path": "checks/aria-label",
+                            "css": "aria-label.css"
+                        },
+                        {
+                            "name": "ARIA name prohibited",
+                            "id": "nameDisalowed",
+                            "resource_path": "checks/aria-name-prohibited",
+                            "css": "name-prohibited.css",
+                            "addScript": "name-prohibited.js",
+                            "removeScript": "name-prohibited-remove.js"
                         }
                     ]
                 }

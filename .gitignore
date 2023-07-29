@@ -1,5 +1,10 @@
+
 .DS_Store
-._*
-.Spotlight-V100
-.Trashes
-__MACOSX/
+Safari/A11y Quick Check/A11y Quick Check.xcodeproj/project.xcworkspace/xcuserdata
+Safari/A11y Quick Check/A11y Quick Check.xcodeproj/xcuserdata
+Firefox
+FirefoxBundle
+Safari/WebExtension
+ChromeBundle
+WebExtension/node_modules
+ChromeExtension

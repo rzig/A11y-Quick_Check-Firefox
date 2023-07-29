@@ -1,6 +1,20 @@
 # A11y-Quick-Check
 Simple extension for basic accessibility testing against the WCAG guidelines.
 
+## Build Instructions
+
+Note: all commands are executed from the WebExtension folder
+
+* Ensure you have NPM installed
+* Install the dependencies `npm i --save-dev`
+
+### Build options
+
+* `npm run build` - Build into the ChromeExtension folder
+* `npm run clean` - Erase the ChromeExtension folder
+* `npm run rebuild` - Clean the ChromeExtension folder, and then build into it
+* `npm run watch` - Build in watch mode - this mode doesn't terminate, but will keep an eye on the files in the WebExtension, and update the files in the ChromeExtension folder.
+
 ## Extension versioning
 
 Extensions in Chrome and Safari have two version numbers. Chrome has a `version` number that is used to determine upgrades, and an English `version_name` that is displayed to users. The build script will automatcially update the `version` number based on the git history. The `version_name` needs to be set manually for a release of the Chrome extension. While Chrome uses this as a display string, the Firefox and Safari scripts make use of these versions, and therefore they should always be in the `Major.Minor.Patch` format, and the number shoudl always increase as per the [rules of extension version numbers](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/version#version_format).
@@ -21,7 +35,9 @@ If you are building off a branch off `main`, the major version is the most recen
 
 ## Chrome
 
-The Chrome extension can be run locally by pointing Chrome to the WebExtension folder.
+The Chrome extension can be run locally by pointing Chrome to the ChromeExtension folder, and building with npm.
+
+**Note:** the following instructions are currently broken.
 
 To create a publishable version of the Chrome extension, run the `chrome-extension.sh` 
 script. It will automatically update the version based on the git history.
@@ -29,6 +45,8 @@ script. It will automatically update the version based on the git history.
 The display version number can be set manually updating the `version_name` string in `manifest.json`. The Chrome developer documentation on [extension versioning](https://developer.chrome.com/docs/extensions/mv3/manifest/version/).
 
 ## Firefox
+
+**Note:** the following instructions are currently broken.
 
 A Firefox extension can be created from the Chrome extension by running the `firefox-extension.sh` script on Linux or macOS. This script will:
 * Duplicate the existing Chrome Extension
@@ -52,6 +70,8 @@ If you have node installed, you can install the [`web-ext` npm module](https://e
 * Build/package the extension with `web-ext build -a ../` (This is what the script uses if it's installed, otherwise it will use `zip(1)`).
 
 ## Safari
+
+**Note:** the following instructions are currently broken.
 
 The build number of the app is generated as part of the Xcode build process. Unfortunately, this requires an update to the project file, which will cause the build to be cancelled. If that happens, re-running the build again will fix the issue. 
 

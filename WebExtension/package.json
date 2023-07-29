@@ -1,0 +1,26 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "npm run copy && npm run sass && npm run typescript",
+    "watch": "npm-run-all --parallel copy-watch sass-watch typescript-watch",
+    "rebuild": "npm run clean && npm run build",
+    "copy": "copyfiles \"extension/**/*.html\" \"extension/**/*.json\" \"extension/**/*.png\" \"extension/**/*.svg\" manifest.json ../ChromeExtension",
+    "copy-watch-root": "copy-and-watch --watch manifest.json ../ChromeExtension",
+    "copy-watch-extension": "copy-and-watch --watch \"extension/**/*.html\" \"extension/**/*.json\" \"extension/**/*.png\" \"extension/**/*.svg\" ../ChromeExtension/extension",
+    "copy-watch": "npm-run-all --parallel copy-watch-root copy-watch-extension",
+    "sass": "sass .:../ChromeExtension",
+    "sass-watch": "sass --watch .:../ChromeExtension",
+    "typescript": "tsc --outDir ../ChromeExtension",
+    "typescript-watch": "tsc --outDir ../ChromeExtension --watch",
+    "clean": "rimraf ../ChromeExtension"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.241",
+    "copy-and-watch": "^0.1.6",
+    "copyfiles": "^2.4.1",
+    "npm-run-all": "^4.1.5",
+    "rimraf": "^5.0.1",
+    "sass": "^1.64.1",
+    "typescript": "^5.1.6"
+  }
+}

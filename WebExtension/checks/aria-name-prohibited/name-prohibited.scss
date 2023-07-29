@@ -1,0 +1,36 @@
+@import '../common';
+
+@mixin ariaProhibitedStyle($backgroundColor, $borderColor, $textColor) {
+    @include important-styles((
+    display: table,
+    height: auto,
+    width: auto,
+    position: relative,
+    padding: 1px 0,
+    background-color: $backgroundColor,
+    color: $textColor,
+    border: 3px solid $borderColor,
+    font-size: .9rem,
+    font-weight: 700,
+    ), true);
+}
+
+*[aria-label][data-name-prohibited-aria]::after {
+    @include ariaProhibitedStyle(var(--danger-background), var(--danger-border), var(--danger-text));
+    content: " [Invalid] (aria-label=" attr(aria-label)") cannot be used on HTML element " attr(data-name-prohibited-aria) " ";
+}
+
+*[aria-label][data-name-prohibited-html]::after {
+    @include ariaProhibitedStyle(var(--danger-background), var(--danger-border), var(--danger-text));
+    content: " [Invalid] (aria-label=" attr(aria-label)") cannot be used on HTML element " attr(data-name-prohibited-html) " ";
+}
+
+*[aria-labelledby][data-name-prohibited-aria]::after {
+    @include ariaProhibitedStyle(var(--danger-background), var(--danger-border), var(--danger-text));
+    content: " [Invalid] aria-labelledby cannot be used on " attr(data-name-prohibited-aria) " ";
+}
+
+*[aria-labelledby][data-name-prohibited-html]::after {
+    @include ariaProhibitedStyle(var(--danger-background), var(--danger-border), var(--danger-text));
+    content: " [Invalid] aria-labelledby cannot be used on HTML element " attr(data-name-prohibited-html) " ";
+}

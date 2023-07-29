@@ -1,0 +1,21 @@
+{
+  "extends": [
+    "development"
+  ],
+  "ignoredUrls": [
+    {
+      "domain": "file:.*\/TestCases\/[^.]*.html",
+      "hints": [
+        "no-inline-styles"
+      ]
+    },
+    {
+      "domain": "file:.*\/TestCases\/SVGtests.html",
+      "hints": [
+        "axe/text-alternatives",
+        "axe/aria"
+      ]
+    }
+
+  ]
+}

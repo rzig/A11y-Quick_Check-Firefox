@@ -1,0 +1,142 @@
+@import '../common';
+
+@mixin unOrderedList($backgroundColor, $borderColor, $textColor) {
+  @include important-styles(
+    (
+      background-color: $backgroundColor,
+      color: $textColor,
+      border: 3px dashed $borderColor,
+      font-size: 1rem,
+      padding: 0.5em,
+      max-width: 15em
+    ),
+    true
+  ); 
+}
+
+.valid-html-unordered-list{
+  @include important-styles(
+    (
+      border: 2px dashed var(--pass-border),
+      margin-bottom: 0,
+      margin-left: 1em,
+      padding: 1em,
+    ),
+    true
+  );
+}
+
+.div-child-message,
+.div-inside-message{
+  @include important-styles(
+    (
+      border-width: 2px,
+      border-style: dashed,
+      margin-bottom: 0,
+      margin-left: 1em,
+      padding: 1em,
+    ),
+    true
+  );
+  @include unOrderedList(
+    var(--danger-background),
+    var(--danger-border),
+    var(--danger-text)
+  );
+}
+
+.unordered-list-c34fac2 { 
+  @include important-styles(
+    (
+      border: 2px dashed var(--pass-border),
+      margin-bottom: 0,
+      margin-left: 1em,
+      padding: 1em,
+    ),
+    true
+  );
+}
+
+.html-ul-message {
+  @include important-styles(
+    (
+      margin-bottom: 0,
+      margin-left: 1em,
+      padding: 1em,
+    ),
+    true
+  );
+  @include unOrderedList(
+    var(--pass-background),
+    var(--pass-border),
+    var(--pass-text)
+  );
+}
+
+.aria-ul-message {
+  @include important-styles(
+    (
+      margin-bottom: 0,
+      margin-left: 1em,
+      padding: 1em,
+    ),
+    true
+  );
+  @include unOrderedList(
+    var(--warning-background),
+    var(--warning-border),
+    var(--warning-text)
+  );
+} 
+
+.unordered-list-div-child {
+  @include important-styles(
+    (
+      border: 2px dashed var(--danger-border),
+      margin-bottom: 0,
+      margin-left: 1em,
+      padding: 1em,
+    ),
+    true
+  );
+}
+
+.invalid-list-c34fac2 {
+  @include important-styles(
+    (
+      border: 2px dashed var(--danger-border),
+      margin-bottom: 0,
+      margin-left: 1em,
+      padding: 1em,
+    ),
+    true
+  );
+}
+
+.unordered-list-div-inside {
+  @include important-styles(
+    (
+      border: 2px dashed var(--danger-border),
+      margin-bottom: 0,
+      margin-left: 1em,
+      padding: 1em,
+    ),
+    true
+  );
+}
+
+.ul--invalid-children-8892664 {
+  @include important-styles(
+    (
+      margin: 0,
+      margin-left: 1em,
+      padding: 1em,
+    ),
+    true
+  );
+  @include unOrderedList(
+    var(--danger-background),
+    var(--danger-border),
+    var(--danger-text)
+  );
+}

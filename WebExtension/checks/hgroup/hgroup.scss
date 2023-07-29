@@ -1,0 +1,38 @@
+@import '../common';
+
+@mixin headingGroup($backgroundColor, $borderColor, $textColor) {
+  @include important-styles(
+    (
+      background-color: $backgroundColor,
+      color: $textColor,
+      border: 3px solid $borderColor,
+      font-size: 0.9em,
+      margin: 1em 0,
+      padding: 0.5em,
+    ),
+    true
+  );
+}
+
+.hgroup-58997365 {
+  margin: 1em 0 !important;
+  border: 2px solid var(--pass-border) !important;
+}
+
+.html-hgroup-message-58997365 {
+  font-style: italic;
+  @include headingGroup(
+    var(--pass-background),
+    var(--pass-border),
+    var(--pass-text)
+  );
+}
+
+.aria-hgroup-message-58997365 {
+  font-weight: bold;
+  @include headingGroup(
+    var(--pass-background),
+    var(--pass-border),
+    var(--pass-text)
+  );
+}

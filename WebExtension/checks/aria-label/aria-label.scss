@@ -1,0 +1,82 @@
+@import '../common';
+
+@mixin ariaStyle($backgroundColor, $borderColor, $textColor) {
+    @include important-styles((
+      display: table,
+      height: auto,
+      width: auto,
+      position: relative,
+      padding: 5px,
+      z-index: 10000,
+      background-color: $backgroundColor,
+      color: $textColor,
+      border: 3px solid $borderColor,
+      font-size: .9rem,
+      font-weight: 700,
+      opacity: 1,
+      content: '"aria-label=" attr(aria-label) " "' 
+    ), true);
+  } 
+
+div[aria-label]:not([role]):before, 
+span[aria-label]:not([role]):before {
+    @include ariaStyle(var(--pass-background), var(--pass-border), var(--pass-text));
+}
+
+[role="generic"][aria-label]:not([role]):before {
+    @include ariaStyle(var(--pass-background), var(--pass-border), var(--pass-text));
+}
+
+[role="caption"][aria-label]:before,
+caption[aria-label]:before {
+    @include ariaStyle(var(--pass-background), var(--pass-border), var(--pass-text));
+}
+
+[role="deletion"][aria-label]:before,
+del[aria-label]:before {
+    @include ariaStyle(var(--pass-background), var(--pass-border), var(--pass-text));
+}
+
+[role="emphasis"][aria-label]:before,
+em[aria-label]:before {
+    @include ariaStyle(var(--pass-background), var(--pass-border), var(--pass-text)); 
+}
+
+[role="insertion"][aria-label]:before,
+ins[aria-label]:before {
+    @include ariaStyle(var(--pass-background), var(--pass-border), var(--pass-text)); 
+}
+
+[role="paragraph"][aria-label]:before,
+p[aria-label]:before {
+    @include ariaStyle(var(--pass-background), var(--pass-border), var(--pass-text)); 
+}
+
+[role="presentation"][aria-label]:before,
+[role="none"][aria-label]:before {
+    @include ariaStyle(var(--pass-background), var(--pass-border), var(--pass-text)); 
+}
+
+[role="strong"][aria-label]:before,
+strong[aria-label]:before {
+    @include ariaStyle(var(--pass-background), var(--pass-border), var(--pass-text)); 
+}
+
+[role="subscript"][aria-label]:before,
+sub[aria-label]:before {
+    @include ariaStyle(var(--pass-background), var(--pass-border), var(--pass-text)); 
+}
+
+[role="superscript"][aria-label]:before,
+sup[aria-label]:before {
+    @include ariaStyle(var(--pass-background), var(--pass-border), var(--pass-text)); 
+}
+
+*[aria-label]:not(div, span, [role="generic"], [role="caption"], caption, [role="deletion"], del, [role="emphasis"], del, [role="insertion"], ins, [role="paragraph"], p, [role="presentation"], [role="none"], [role="strong"], strong, [role="subscript"], sub, [role="superscript"], sup):before {
+    @include ariaStyle(var(--pass-background), var(--pass-border), var(--pass-text)); 
+}
+
+[role="table"][aria-label]:before,
+sub[aria-label]:before {
+    @include ariaStyle(var(--pass-background), var(--pass-border), var(--pass-text));
+}

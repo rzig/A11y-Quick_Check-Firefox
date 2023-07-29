@@ -1,0 +1,147 @@
+@import '../common';
+
+.missingRoleGroupName-5599775,
+.missingRoleRadioGroupName-559977 {
+  @include important-styles(
+    (
+      border: 4px ridge var(--danger-border),
+      font-weight: 700,
+      padding: 0.5em,
+    ),
+    true
+  );
+  @include danger-styles();
+}
+
+.legend-present-5599775.not-first-number5599775 {
+  @include important-styles(
+    (
+      font-weight: 700,
+      padding: 0.5em,
+    ),
+    true
+  );
+  @include warning-styles();
+}
+
+.fieldset-present-5599775 {
+  @include important-styles(
+    (
+      border: 4px dashed var(--neutral-border),
+      padding: 0.5em,
+      font-weight: 700,
+    ),
+    true
+  );
+}
+
+[data-fieldset-present-5599775] {
+  @include important-styles(
+    (
+      border: 4px dashed var(--neutral-border),
+      padding: 0.5em,
+    ),
+    true
+  );
+}
+
+.nested-fieldset-present-5599775 {
+  @include important-styles(
+    (
+      border: 3px dotted var(--neutral-border),
+      padding: 0.5em,
+      font-weight: 700,
+    ),
+    true
+  );
+}
+
+[data-nested-fieldset-present-5599775] {
+  @include important-styles(
+    (
+      border: 3px dotted var(--neutral-border),
+      margin: 1em,
+    ),
+    true
+  );
+}
+
+.legend-present-5599775 {
+  @include important-styles(
+    (
+      background-color: var(--neutral-background),
+      border: 3px solid var(--neutral-border),
+      padding: 0.5em,
+      font-weight: 700,
+    ),
+    true
+  );
+}
+
+[data-legend-present-5599775] {
+  @include important-styles(
+    (
+      border: 3px solid var(--neutral-border),
+      padding: 0.5em,
+    ),
+    true
+  );
+}
+
+[role="group"] {
+  @include important-styles(
+    (
+      border: 3px inset var(--neutral-border),
+      padding: 0.5em,
+    ),
+    true
+  );
+}
+
+.group-present-5599775 {
+  @include important-styles(
+    (
+      border: 3px inset var(--neutral-border),
+      padding: 0.5em,
+      font-weight: 700,
+    ),
+    true
+  );
+}
+
+[role="radiogroup"] {
+  @include important-styles(
+    (
+      border: 3px outset var(--neutral-border),
+      padding: 0.5em,
+      font-weight: 700,
+    ),
+    true
+  );
+}
+
+.radiogroup-present-5599775 {
+  @include important-styles(
+    (
+      border: 3px outset var(--neutral-border),
+      padding: 0.5em,
+      font-weight: 700,
+    ),
+    true
+  );
+}
+
+.labelledByName-5599775,
+.labelledByRadioGroupName-5599775,
+.ariaLabelRadioGroupName-5599775,
+.ariaLabelName-5599775 {
+  @include important-styles(
+    (
+      border: 3px ridge var(--pass-checks),
+      font-weight: 700,
+      padding: 0.5em,
+    ),
+    true
+  );
+  @include pass-styles();
+}

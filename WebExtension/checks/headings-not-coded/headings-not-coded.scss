@@ -1,0 +1,18 @@
+@import '../common';
+
+.text--large-a11y-9892664,
+.text--heavy-a11y-9892664{
+    @include important-styles((
+    background-color: var(--warning-background),
+    border: 3px dashed var(--warning-text),
+    color: var(--black),
+    font-size: 1.1rem,
+    ), true);
+}
+.headingTagMissing8898{
+    @include important-styles((
+    background-color: var(--white),
+    border: 3px dashed var(--warning-text),
+    color: var(--black),
+    ), true);
+}

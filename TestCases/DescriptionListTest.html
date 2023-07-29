@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Description List Test</title>
+<style>
+  body {
+    font-family: Aptos, Bierstadt, "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    line-height: 1.5;
+  }
+  dt {
+  font-weight: bold;
+  margin-top: 1em;
+}
+dt:first-child {
+  margin-top: 0;
+}
+dd {
+  margin: 0;
+}
+
+</style>
+</head>
+
+<body>
+  <h1>Description List Test</h1>
+
+  <h2>Valid mark-up</h2>
+  <dl>
+    <dt>Name</dt>
+    <dd>John Doe</dd>
+
+    <dt>Phone</dt>
+    <dd>+123456789</dd>
+
+    <dt>Email</dt>
+    <dd>johndoe@example.com</dd>
+
+    <dt>Employment Status</dt>
+    <dd>Employed</dd>
+
+    <dt>Hobby</dt>
+    <dd>Photography</dd>
+
+    <dt>Favorite Book</dt>
+    <dd>"Moby Dick"</dd>
+  </dl>
+
+  <h2>With DIV Element as first child</h2>
+  <dl>
+    <div></div>
+    <dt>Name</dt>
+    <dd>John Doe</dd>
+
+    <dt>Phone</dt>
+    <dd>+123456789</dd>
+
+    <dt>Email</dt>
+    <dd>johndoe@example.com</dd>
+
+    <dt>Employment Status</dt>
+    <dd>Employed</dd>
+
+    <dt>Hobby</dt>
+    <dd>Photography</dd>
+
+    <dt>Favorite Book</dt>
+    <dd>"Moby Dick"</dd>
+  </dl>
+
+  <h2>With DIV wrapping Dt and DD</h2>
+  <dl>
+    <div>
+      <dt>Name</dt>
+      <dd>John Doe</dd>
+    </div>
+    <div>
+      <dt>Phone</dt>
+      <dd>+123456789</dd>
+    </div>
+    <div>
+      <dt>Email</dt>
+      <dd>johndoe@example.com</dd>
+    </div>
+    <div>
+      <dt>Employment Status</dt>
+      <dd>Employed</dd>
+    </div>
+    <div>
+      <dt>Hobby</dt>
+      <dd>Photography</dd>
+    </div>
+    <div>
+      <dt>Favorite Book</dt>
+      <dd>"Moby Dick"</dd>
+    </div>
+  </dl>
+
+  <h2>With SCRIPT Element</h2>
+
+  <dl>
+    <script>
+      console.log("This is a script element.");
+    </script>
+    <dt>Name</dt>
+    <dd>John Doe</dd>
+
+    <dt>Phone</dt>
+    <dd>+123456789</dd>
+
+    <dt>Email</dt>
+    <dd>johndoe@example.com</dd>
+
+    <dt>Employment Status</dt>
+    <dd>Employed</dd>
+
+    <dt>Hobby</dt>
+    <dd>Photography</dd>
+
+    <dt>Favorite Book</dt>
+    <dd>"Moby Dick"</dd>
+  </dl>
+
+  <h2>With TEMPLATE Element</h2>
+
+  <dl>
+    <template id="myTemplate">
+
+    </template>
+    <dt>Name</dt>
+    <dd>John Doe</dd>
+
+    <dt>Phone</dt>
+    <dd>+123456789</dd>
+
+    <dt>Email</dt>
+    <dd>johndoe@example.com</dd>
+
+    <dt>Employment Status</dt>
+    <dd>Employed</dd>
+
+    <dt>Hobby</dt>
+    <dd>Photography</dd>
+
+    <dt>Favorite Book</dt>
+    <dd>"Moby Dick"</dd>
+  </dl>
+
+  <h2>Parent has invalid role</h2>
+  <dl role="region" aria-label="I am not allowed here!">
+    <dt>Name</dt>
+    <dd>John Doe</dd>
+
+    <dt>Phone</dt>
+    <dd>+123456789</dd>
+
+    <dt>Email</dt>
+    <dd>johndoe@example.com</dd>
+
+    <dt>Employment Status</dt>
+    <dd>Employed</dd>
+
+    <dt>Hobby</dt>
+    <dd>Photography</dd>
+
+    <dt>Favorite Book</dt>
+    <dd>"Moby Dick"</dd>
+  </dl>
+
+</body>
+
+</html>

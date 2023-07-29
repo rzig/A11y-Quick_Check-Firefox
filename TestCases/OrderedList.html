@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Ordered List Test</title>
+    <style>
+        body {
+  font-family: Aptos, Bierstadt, "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  line-height:1.5;
+}
+    </style>
+</head>
+<body>
+    <h1>Ordered List Test</h1>
+    
+    <h2>Ordered List with Five Animals</h2>
+    <ol>
+        <li>Dog</li>
+        <li>Cat</li>
+        <li>Elephant</li>
+        <li>Lion</li>
+        <li>Monkey</li>
+    </ol>
+
+    <h2>Ordered List with DIV Element</h2>
+    <ol>
+        <div class="myDiv"></div>
+        <li>Item 1</li>
+        <li>Item 2</li>
+        <li>Item 3</li>
+    </ol>
+
+    <h2>Ordered List with DIV between Items</h2>
+    <ol>
+        <li>Item 1</li>
+        <div class="myDiv"></div>
+        <li>Item 2</li>
+        <div class="myDiv"></div>
+        <li>Item 3</li>
+    </ol>
+
+    <h2>Ordered List with SCRIPT Element</h2>
+    <ol>
+        <script>
+            console.log("This is a script element.");
+        </script>
+        <li>Item 1</li>
+        <li>Item 2</li>
+        <li>Item 3</li>
+    </ol>
+
+    <h2>Ordered List with TEMPLATE Element</h2>
+    <ol>
+        <template id="myTemplate">
+            <li>Template item</li>
+        </template>
+        <li>Item 1</li>
+        <li>Item 2</li>
+        <li>Item 3</li>
+    </ol>
+	
+	<h2>Parent has invalid role</h2>
+    <ol role="region" aria-label="I am not allowed here!">
+        <li>Item 1</li>
+        <li>Item 2</li>
+        <li>Item 3</li>
+    </ol>
+</body>
+</html>

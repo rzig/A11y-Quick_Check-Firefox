@@ -1,0 +1,71 @@
+@import '../common';
+
+@mixin descriptionList($backgroundColor, $borderColor, $textColor) {
+  @include important-styles((
+    font-size: 0.9em,
+    padding: 0.5em,
+    background-color: $backgroundColor,
+    color: $textColor,
+    border: 3px solid $borderColor,
+    ), true);
+}
+
+.dl--valid-html,
+.dl--valid-div-wrap-dt-dd {
+  @include important-styles(
+    (
+      border: 2px dashed var(--pass-border),
+      margin-bottom:0,
+      padding: 1em,
+    ),
+    true
+  );
+}
+
+.html-dl-message,
+.div-wrap-message {
+  @include important-styles(
+    (
+      border-width: 2px,
+      border-style: dashed,
+      margin-left: 1em,
+      padding: 1em,
+    ),
+    true
+  );
+  @include descriptionList(
+    var(--pass-background),
+    var(--pass-border),
+    var(--pass-text)
+  );
+}
+
+.dl--invalid-first-child,
+.dl--invalid-role {
+  @include important-styles(
+    (
+      border: 2px dashed var(--danger-border),
+      margin-bottom:0,
+      padding: 1em,
+    ),
+    true
+  );
+}
+
+.invalid-first-child-message,
+.invalid-role-message {
+  @include important-styles(
+    (
+      border-width: 2px,
+      border-style: dashed,
+      margin-left: 1em,
+      padding: 1em,
+    ),
+    true
+  );
+  @include descriptionList(
+    var(--danger-background),
+    var(--danger-border),
+    var(--danger-text)
+  );
+}
