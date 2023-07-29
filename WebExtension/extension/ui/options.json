@@ -205,6 +205,15 @@
                             "addScript": "name-prohibited.js",
                             "removeScript": "name-prohibited-remove.js"
                         }
+                        ,
+                        {
+                            "name": "Aria-Hidden (True/False)",
+                            "id": "ariaHiddenStatus",
+                            "resource_path": "checks/aria-hidden",
+                            "css": "aria-hidden.css",
+                            "addScript": "aria-hidden.js",
+                            "removeScript": "aria-hidden-remove.js"
+                        }
                     ]
                 }
             ]
