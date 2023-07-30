@@ -186,15 +186,6 @@
                             "addScript": "reset-css.js",
                             "removeScript": "reset-css-remove.js"
                         }
-                        ,
-                        {
-                            "name": "Focus Order counter",
-                            "id": "focusOrderCount",
-                            "resource_path": "checks/focus-order-count",
-                            "addScript": "focus-order-count.js",
-                            "removeScript": "focus-order-count-remove.js",
-                            "css": "focus-order-count.css"
-                        }
                     ]
                 },
                 {
@@ -215,12 +206,21 @@
                             "removeScript": "name-prohibited-remove.js"
                         },
                         {
-                            "name": "Aria-Hidden (True/False)",
+                            "name": "Aria-Hidden (True/False) [experimental]",
+                            "help": "The 'Aria-Hidden' and 'Focus Order counter' check will be identified on visible elements only, if hidden components, such as modal dialogs are exposed on screen, you will need to rerun the check to include these in the DOM order count.",
                             "id": "ariaHiddenStatus",
                             "resource_path": "checks/aria-hidden",
                             "css": "aria-hidden.css",
                             "addScript": "aria-hidden.js",
                             "removeScript": "aria-hidden-remove.js"
+                        },
+                        {
+                            "name": "Focus Order counter [experimental]",
+                            "id": "focusOrderCount",
+                            "resource_path": "checks/focus-order-count",
+                            "addScript": "focus-order-count.js",
+                            "removeScript": "focus-order-count-remove.js",
+                            "css": "focus-order-count.css"
                         }
                     ]
                 }

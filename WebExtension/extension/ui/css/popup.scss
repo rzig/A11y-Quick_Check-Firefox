@@ -1,6 +1,7 @@
 body {
-  font-family: arial, helvetica, vedana, sans-serif !important;
-  font-size: 100% !important;
+  font-family: Aptos, Bierstadt, "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  line-height:1.5;
+  font-size: 100% 1important;
 }
 
 .dimensions {
@@ -13,6 +14,11 @@ body {
 .dimensions p {
   margin-right: 8em;
   line-height: 1.5;
+}
+
+.dimensions p.help-text-7726536 {
+  margin:0;
+  font-size: 0.875rem;
 }
 
 .the--icon img {
