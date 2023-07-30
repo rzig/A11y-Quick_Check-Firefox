@@ -190,6 +190,7 @@
                 },
                 {
                     "name": "Miscellaneous",
+                    "helpSection": "The 'Aria-Hidden' and 'Focus Order counter' check will be identified on visible elements only, if hidden components, such as modal dialogs are exposed on screen, you will need to rerun the check to include these in the DOM order count.",
                     "items": [
                         {
                             "name": "ARIA-LABEL",
@@ -206,8 +207,8 @@
                             "removeScript": "name-prohibited-remove.js"
                         },
                         {
+                            "helpCheck": "Optional help text",
                             "name": "Aria-Hidden (True/False) [experimental]",
-                            "help": "The 'Aria-Hidden' and 'Focus Order counter' check will be identified on visible elements only, if hidden components, such as modal dialogs are exposed on screen, you will need to rerun the check to include these in the DOM order count.",
                             "id": "ariaHiddenStatus",
                             "resource_path": "checks/aria-hidden",
                             "css": "aria-hidden.css",

@@ -26,12 +26,13 @@ class Tab {
 
 class Fieldset {
   name: string = "";
+  helpSection?: string;
   items: Item[] = [];
 }
 
 class Item {
+  helpCheck?: string;
   name: string = "";
-  help?: string = "";
   id: string = "";
   resource_path: string = "";
   css: string[] | string | null = null;
@@ -171,17 +172,20 @@ async function setupConfiguration(
 
       //  Make sure it has a legend
       const legend = document.createElement("legend");
-
       legend.innerText = fieldsetConfiguration.name;
       fieldset.appendChild(legend);
+
+      // Optional help text for the section
+      if (fieldsetConfiguration.helpSection) {
+        const helpText = document.createElement("p");
+        helpText.innerText = fieldsetConfiguration.helpSection;
+        helpText.classList.add("help-section-7726536");
+        fieldset.appendChild(helpText);
+      }
 
       // We use a DIV wrapper
       const divWrapper = document.createElement("div");
       divWrapper.classList.add("column--container-299867");
-
-      // Optional help text for the fieldset. Create the paragraph but don't append it yet
-      const helpText = document.createElement("p");
-      helpText.classList.add("help-text-7726536");
 
       // We use a list for the controls
       const list = document.createElement("ul");
@@ -193,14 +197,12 @@ async function setupConfiguration(
         const listItem = document.createElement("li");
         listItem.classList.add("listItem-299867");
 
-        // If the item has help text, append it to the paragraph
-        if (checkboxConfiguration.help) {
-          helpText.innerText += checkboxConfiguration.help + " ";
-        }
-
-        // Now that we've accumulated all the help text, append the paragraph to the fieldset
-        if (helpText.innerText !== "") {
-          fieldset.appendChild(helpText);
+        // Optional help text for the item
+        if (checkboxConfiguration.helpCheck) {
+          const helpText = document.createElement("p");
+          helpText.innerText = checkboxConfiguration.helpCheck;
+          helpText.classList.add("help-check-77265");
+          listItem.appendChild(helpText);
         }
 
         // Add the divWrapper element to the fieldset element
