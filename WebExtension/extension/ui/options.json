@@ -188,8 +188,8 @@
                         }
                         ,
                         {
-                            "name": "Focus Order counter",
-                            "id": "focusOrderCount",
+                            "name": "Reading order",
+                            "id": "readingOrder",
                             "resource_path": "checks/focus-order-count",
                             "addScript": "focus-order-count.js",
                             "removeScript": "focus-order-count-remove.js",
