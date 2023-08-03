@@ -26,10 +26,12 @@ class Tab {
 
 class Fieldset {
   name: string = "";
+  helpSection?: string;
   items: Item[] = [];
 }
 
 class Item {
+  helpCheck?: string;
   name: string = "";
   id: string = "";
   resource_path: string = "";
@@ -45,7 +47,7 @@ const setAllOptions = document.getElementById("setAllOptions")!;
 const tabContainer = document.getElementById("soup")!;
 
 // The checked state of the popup. is in sync with the state on the content script.
-let options = new Map<string, boolean>;
+let options = new Map<string, boolean>();
 
 let invalidPage = false;
 
@@ -62,11 +64,15 @@ setAllOptions!.addEventListener("click", function () {
 });
 
 // load the json file, and create the tabs
-setupConfiguration(eventConfig, tabContainer ?? new HTMLElement, "./options.json")
+setupConfiguration(
+  eventConfig,
+  tabContainer ?? new HTMLElement(),
+  "./options.json"
+)
   // until we can use await here, we need to fake it with .then
   .then(() => {
     if (options == null || invalidPage) {
-      return
+      return;
     }
 
     // setup the tab evets
@@ -74,7 +80,7 @@ setupConfiguration(eventConfig, tabContainer ?? new HTMLElement, "./options.json
   });
 
 function isOptionsMap(options: any): options is Map<string, boolean> {
-  return ("get" in options && "has" in options && "set" in options);
+  return "get" in options && "has" in options && "set" in options;
 }
 
 // Loads the tab and checkbox setting from the json configuratiuon file
@@ -82,7 +88,7 @@ function loadConfiguration(resource: string): Promise<Options> {
   // Convert XMLHttpRequest from a callback to a promise that can be used with await.
   return new Promise((resolve, reject) => {
     let request = new XMLHttpRequest();
-    // Create an event handler that fires when the request finishes. 
+    // Create an event handler that fires when the request finishes.
     // This will create the promise when we finish.
     request.addEventListener("readystatechange", () => {
       if (request.readyState === 4 && request.status === 200) {
@@ -100,7 +106,11 @@ function loadConfiguration(resource: string): Promise<Options> {
 }
 
 // create the tabs and checkboxes from a JSON config file
-async function setupConfiguration(eventConfig: Map<HTMLElement, Item>, container: HTMLElement, resource: string) {
+async function setupConfiguration(
+  eventConfig: Map<HTMLElement, Item>,
+  container: HTMLElement,
+  resource: string
+) {
   await loadOptionsObject();
 
   if (invalidPage) {
@@ -134,7 +144,7 @@ async function setupConfiguration(eventConfig: Map<HTMLElement, Item>, container
     tabButton.ariaSelected = (tabNumber === initialTabNumber).toString();
 
     // Only the initial tab is in the tab order. The rest can be programatically focussed.
-    tabButton.tabIndex = (tabNumber === initialTabNumber ? 0 : -1);
+    tabButton.tabIndex = tabNumber === initialTabNumber ? 0 : -1;
 
     tabButton.innerText = tabConfiguration.name;
 
@@ -162,9 +172,16 @@ async function setupConfiguration(eventConfig: Map<HTMLElement, Item>, container
 
       //  Make sure it has a legend
       const legend = document.createElement("legend");
-
       legend.innerText = fieldsetConfiguration.name;
       fieldset.appendChild(legend);
+
+      // Optional help text for the section
+      if (fieldsetConfiguration.helpSection) {
+        const helpText = document.createElement("p");
+        helpText.innerText = fieldsetConfiguration.helpSection;
+        helpText.classList.add("help-section-7726536");
+        fieldset.appendChild(helpText);
+      }
 
       // We use a DIV wrapper
       const divWrapper = document.createElement("div");
@@ -179,6 +196,14 @@ async function setupConfiguration(eventConfig: Map<HTMLElement, Item>, container
         // Create list Item - we're within a UL here
         const listItem = document.createElement("li");
         listItem.classList.add("listItem-299867");
+
+        // Optional help text for the item
+        if (checkboxConfiguration.helpCheck) {
+          const helpText = document.createElement("p");
+          helpText.innerText = checkboxConfiguration.helpCheck;
+          helpText.classList.add("help-check-77265");
+          listItem.appendChild(helpText);
+        }
 
         // Add the divWrapper element to the fieldset element
         fieldset.appendChild(divWrapper);
@@ -243,27 +268,31 @@ async function setupConfiguration(eventConfig: Map<HTMLElement, Item>, container
         }
         if (checkboxConfiguration.css != null) {
           if (Array.isArray(checkboxConfiguration.css)) {
-            resources.css = checkboxConfiguration.css.map(scriptFilename => path + scriptFilename);
-          }
-          else {
+            resources.css = checkboxConfiguration.css.map(
+              (scriptFilename) => path + scriptFilename
+            );
+          } else {
             resources.css = path + checkboxConfiguration.css;
           }
         }
         if (Object.hasOwn(checkboxConfiguration, "addScript")) {
           if (checkboxConfiguration.addScript instanceof Array) {
-            resources["addScript"] = checkboxConfiguration.addScript.map(scriptFilename => path + scriptFilename);
-          }
-          else {
+            resources["addScript"] = checkboxConfiguration.addScript.map(
+              (scriptFilename) => path + scriptFilename
+            );
+          } else {
             resources["addScript"] = path + checkboxConfiguration.addScript;
           }
         }
 
         if (Object.hasOwn(checkboxConfiguration, "removeScript")) {
           if (checkboxConfiguration.removeScript instanceof Array) {
-            resources["removeScript"] = checkboxConfiguration.removeScript.map(scriptFilename => path + scriptFilename);
-          }
-          else {
-            resources["removeScript"] = path + checkboxConfiguration.removeScript;
+            resources["removeScript"] = checkboxConfiguration.removeScript.map(
+              (scriptFilename) => path + scriptFilename
+            );
+          } else {
+            resources["removeScript"] =
+              path + checkboxConfiguration.removeScript;
           }
         }
 
@@ -282,7 +311,7 @@ async function setupConfiguration(eventConfig: Map<HTMLElement, Item>, container
 
 // Gets the value from the session storage, and sets the checkbox appropriately
 // The checkbox is passed in, and the id is used to look up the saved value, but the checkbox itself's
-// checked proeprty is updated directly 
+// checked proeprty is updated directly
 async function loadCheckboxValue(checkbox: HTMLInputElement) {
   const checkboxName = checkbox.id;
 
@@ -314,51 +343,59 @@ async function loadOptionsObject() {
   const request = new InternalRequest();
   request.type = "getSettings";
   try {
-    rawResponse = await chrome.tabs.sendMessage(await getTabId(), request, { frameId: 0 })
-  }
-  // if that didn't work, assume the script isn't loaded in the tab, and re try after loading the script.
-  catch (err) {
+    rawResponse = await chrome.tabs.sendMessage(await getTabId(), request, {
+      frameId: 0,
+    });
+  } catch (err) {
+    // if that didn't work, assume the script isn't loaded in the tab, and re try after loading the script.
     try {
       await chrome.scripting.executeScript({
         target: {
           tabId: await getTabId(),
-          allFrames: false
+          allFrames: false,
         },
         files: ["/extension/content-setting.js", "checks/common.js"],
       });
-    }
-    catch (err2: any) {
+    } catch (err2: any) {
       if (err2 instanceof Error) {
         // Check if we're trying to access a page that we can't.
         // This may need to be expanded in the future
-        if (err2.message.toLowerCase().includes("cannot access")
-          || err2.message.toLowerCase().includes("cannot be scripted.")
-          || err2.message.toLowerCase().includes("no tab with id")) {
+        if (
+          err2.message.toLowerCase().includes("cannot access") ||
+          err2.message.toLowerCase().includes("cannot be scripted.") ||
+          err2.message.toLowerCase().includes("no tab with id")
+        ) {
           console.log("Failed to get permission to insert the scripts");
           clearAllOptions.remove();
           setAllOptions.remove();
-          tabContainer.innerHTML = "<p>The browser has prevented the extension from accessing this tab.</p>"
-          options = new Map<string, boolean>;
+          tabContainer.innerHTML =
+            "<p>The browser has prevented the extension from accessing this tab.</p>";
+          options = new Map<string, boolean>();
           invalidPage = true;
           return;
         }
       }
-      throw (err2);
+      throw err2;
     }
     console.log(`getMessage err1 ${err}`);
-    rawResponse = await chrome.tabs.sendMessage(await getTabId(), request, { frameId: 0 })
+    rawResponse = await chrome.tabs.sendMessage(await getTabId(), request, {
+      frameId: 0,
+    });
   }
 
   const response = new InternalResponse();
-  response.values = rawResponse.values.reduce((newMap: Map<string, boolean>, valuePair: Array<any>) =>
-    newMap.set(valuePair[0], valuePair[1]), new Map<string, boolean>);
+  response.values = rawResponse.values.reduce(
+    (newMap: Map<string, boolean>, valuePair: Array<any>) =>
+      newMap.set(valuePair[0], valuePair[1]),
+    new Map<string, boolean>()
+  );
   options = response.values!;
 }
 
 // Save the options to session storage
 async function saveOptionsObject() {
   if (options.size > 0) {
-    const request = new InternalRequest;
+    const request = new InternalRequest();
     request.type = "putSettings";
     request.values = Array.from(options.entries());
     chrome.tabs.sendMessage(await getTabId(), request, { frameId: 0 });
@@ -368,7 +405,7 @@ async function saveOptionsObject() {
 async function getTabId(): Promise<number> {
   const [tab] = await chrome.tabs.query({
     active: true,
-    currentWindow: true
+    currentWindow: true,
   });
 
   return tab!.id!;
@@ -380,15 +417,14 @@ async function insertCSS(cssFileName: string | Array<string>) {
 
   if (cssFileName instanceof Array) {
     argumentArray = cssFileName;
-  }
-  else {
+  } else {
     argumentArray = [cssFileName];
   }
   try {
     await chrome.scripting.insertCSS({
       target: {
         tabId: await getTabId(),
-        allFrames: true
+        allFrames: true,
       },
       files: argumentArray,
     });
@@ -403,8 +439,7 @@ async function removeCSS(cssFileName: string | Array<string>) {
 
   if (cssFileName instanceof Array) {
     argumentArray = cssFileName;
-  }
-  else {
+  } else {
     argumentArray = [cssFileName];
   }
 
@@ -412,7 +447,7 @@ async function removeCSS(cssFileName: string | Array<string>) {
     await chrome.scripting.removeCSS({
       target: {
         tabId: await getTabId(),
-        allFrames: true
+        allFrames: true,
       },
       files: argumentArray,
     });
@@ -427,14 +462,13 @@ async function executeScript(scriptFileName: string | Array<string>) {
     let argumentArray;
     if (scriptFileName instanceof Array) {
       argumentArray = scriptFileName;
-    }
-    else {
+    } else {
       argumentArray = [scriptFileName];
     }
     await chrome.scripting.executeScript({
       target: {
         tabId: await getTabId(),
-        allFrames: true
+        allFrames: true,
       },
       files: argumentArray,
     });
@@ -445,7 +479,11 @@ async function executeScript(scriptFileName: string | Array<string>) {
 
 // Change a checkbox's value, and fire the changed event. Use this to force ensure the event handler is run
 // so the action happens
-function setCheckboxValueWithChangeEvent(checkbox: HTMLInputElement, value: boolean, force: boolean = false) {
+function setCheckboxValueWithChangeEvent(
+  checkbox: HTMLInputElement,
+  value: boolean,
+  force: boolean = false
+) {
   if (force == true || checkbox.checked != value) {
     checkbox.checked = value;
     const event = new Event("change");
@@ -459,7 +497,7 @@ function setAllCheckboxes(state: boolean) {
   for (const checkBox of eventConfig.keys()) {
     setCheckboxValueWithChangeEvent(checkBox, state, false);
   }
-};
+}
 
 // a generic event handler that will look up eventConfig for the correct actions
 async function checkboxEventHandler(event: Event) {
@@ -494,4 +532,3 @@ async function checkboxEventHandler(event: Event) {
     }
   }
 }
-
