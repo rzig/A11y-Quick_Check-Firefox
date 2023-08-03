@@ -1,5 +1,4 @@
 @import '../common';
-//@import '../scss-partial-font-family';
 
 .domCountDiv {
   @include important-styles(
@@ -18,7 +17,7 @@
       line-height: 30px,
       position: absolute,
       left: 0,
-      top: 0,
+      bottom: 1.5em,
     ),
     true
   );

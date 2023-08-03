@@ -9,7 +9,7 @@
   font-size: 0;
 }
 
-[role="tablist"]>* {
+[role="tablist"]>* { 
   /* We want to see the text, so revert the work around for spaces */
   font-size: revert;
 }
