@@ -1,11 +1,14 @@
 "use strict";
 
-// Array to store original CSS, if it's not already declared
 interface Document { 
     originalCSS_38ff418: Array<{
         type: string, 
         href?: string,
         content?: string,
+        parent: HTMLElement
+    }>;
+    originalElements_38ff418: Array<{
+        element: HTMLElement,
         parent: HTMLElement
     }>;
 }
@@ -15,6 +18,13 @@ if (document.originalCSS_38ff418 == null) {
         type: string, 
         href?: string,
         content?: string,
+        parent: HTMLElement
+    }>();
+}
+
+if (document.originalElements_38ff418 == null) {
+    document.originalElements_38ff418 = new Array<{
+        element: HTMLElement,
         parent: HTMLElement
     }>();
 }
@@ -44,7 +54,6 @@ function saveCSS() {
     }
 }
 
-// Function to remove all CSS
 function removeCustomCSS() {
     // Remove all external stylesheets
     const linkTags = document.querySelectorAll('link[rel="stylesheet"]');
@@ -59,6 +68,43 @@ function removeCustomCSS() {
     }
 }
 
+function saveElements() {
+    const imgElements = document.querySelectorAll('img[alt=""][aria-hidden="true"], img[aria-hidden="true"] *, svg[aria-hidden="true"], svg[aria-hidden="true"] *, svg[role="presentation"], svg[role="none"]');
+    for (const imgElement of imgElements) {
+        const imgTag=<HTMLElement> imgElement;
+        document.originalElements_38ff418.push({
+            element: imgTag,
+            parent: imgTag.parentElement!
+        });
+    }
+}
+
+function removeCustomElements() {
+    for (const { element } of document.originalElements_38ff418) {
+        if(element.parentElement) {
+            element.parentElement.removeChild(element);
+        } else {
+            console.warn("Element with no parent was skipped.", element);
+        }
+    }
+}
+
+function addHiddenClasses() {
+    const bodyElements = document.body.querySelectorAll('*:not(meta):not(title):not(script)');
+    for (const element of bodyElements) {
+        const computedStyle = getComputedStyle(element);
+        if (computedStyle.display === 'none') {
+            element.classList.add('displayNone-45865');
+        }
+        if (computedStyle.visibility === 'hidden') {
+            element.classList.add('visibilityHidden-45865');
+        }
+        if (computedStyle.opacity === '0') {
+            element.classList.add('opacityZero-45865');
+        }
+    }
+}
+
 // Function to set max width on all images and SVGs
 function setMaxWidthOnImagesAndSVG() {
     // Select all img and svg elements
@@ -67,11 +113,13 @@ function setMaxWidthOnImagesAndSVG() {
     // Loop through the NodeList and set max-width on each element
     for (const imgAndSvgElement of imgAndSvgElements) {
         const imgAndSvgTag=<HTMLElement>imgAndSvgElement;
-        imgAndSvgTag.style.maxWidth = '150px';
+        imgAndSvgTag.style.maxWidth = '100px';
     }
 }
 
-// Save original CSS, remove it, then resize images and SVGs
 saveCSS();
+saveElements();
 removeCustomCSS();
+removeCustomElements();
 setMaxWidthOnImagesAndSVG();
+addHiddenClasses();

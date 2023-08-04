@@ -1,0 +1,72 @@
+@import '../common';
+
+@mixin OrderedList($backgroundColor, $borderColor, $textColor) {
+  @include important-styles(
+    (
+      background-color: $backgroundColor,
+      color: $textColor,
+      border: 3px dashed $borderColor,
+      font-size: 1rem,
+      padding: 0.5em,
+      max-width: 15em
+    ),
+    true
+  ); 
+}
+
+.displayNone-45865 {
+    @include important-styles(
+    (
+      border: 2px dashed var(--pass-border),
+      margin-bottom: 0,
+      margin-left: 1em,
+      padding: 1em,
+    ),
+    true
+  );
+} 
+
+.displayNone-45865:before {
+    content: "This element is hidden with 'display: none'";
+    color: var(--warning-text);
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.visibilityHidden-45865 {
+    @include important-styles(
+    (
+      border: 2px dashed var(--pass-border),
+      margin-bottom: 0,
+      margin-left: 1em,
+      padding: 1em,
+    ),
+    true
+  );
+}
+
+.visibilityHidden-45865:before {
+    content: "This element is hidden with 'visibility: hidden'";
+    color: var(--warning-text);
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.opacityZero-4586 {
+    @include important-styles(
+    (
+      border: 2px dashed var(--pass-border),
+      margin-bottom: 0,
+      margin-left: 1em,
+      padding: 1em,
+    ),
+    true
+  );
+}
+
+.opacityZero-4586:before {
+    content: "This element is hidden with 'opacity: 0'";
+    color: var(--warning-text);
+    font-size: 1rem;
+    font-weight: bold;
+}
