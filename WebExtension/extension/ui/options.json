@@ -180,11 +180,13 @@
                             "removeScript": "text-spacing-remove.js"
                         },
                         {
-                            "name": "Remove all CSS styling",
-                            "id": "resetCSS",
+                            "helpCheck": "Decorative images and SVGs will be removed.",
+                            "name": "Reading order",
+                            "id": "readingOrder",
                             "resource_path": "checks/reset-css",
                             "addScript": "reset-css.js",
-                            "removeScript": "reset-css-remove.js"
+                            "removeScript": "reset-css-remove.js",
+                            "css": "reset-css.css"
                         }
                     ]
                 },
@@ -207,7 +209,6 @@
                             "removeScript": "name-prohibited-remove.js"
                         },
                         {
-                            "helpCheck": "Optional help text",
                             "name": "Aria-Hidden (True/False) [experimental]",
                             "id": "ariaHiddenStatus",
                             "resource_path": "checks/aria-hidden",
