@@ -1,147 +1,116 @@
 @import '../common';
 
-.missingRoleGroupName-5599775,
-.missingRoleRadioGroupName-559977 {
-  @include important-styles(
-    (
-      border: 4px ridge var(--danger-border),
+.missingRoleGroupName-5599775 {
+  @include important-styles((border: 4px ridge var(--warning-border),
       font-weight: 700,
       padding: 0.5em,
     ),
-    true
-  );
-  @include danger-styles();
+    true);
+  @include warning-styles;
+}
+
+.missingRoleRadioGroupName-559977 {
+  @include important-styles((border: 4px ridge var(--danger-border),
+      font-weight: 700,
+      padding: 0.5em,
+    ),
+    true);
+  @include danger-styles;
 }
 
 .legend-present-5599775.not-first-number5599775 {
-  @include important-styles(
-    (
-      font-weight: 700,
+  @include important-styles((font-weight: 700,
       padding: 0.5em,
     ),
-    true
-  );
-  @include warning-styles();
+    true);
+  @include warning-styles;
 }
 
 .fieldset-present-5599775 {
-  @include important-styles(
-    (
-      border: 4px dashed var(--neutral-border),
+  @include important-styles((border: 4px dashed var(--neutral-border),
       padding: 0.5em,
       font-weight: 700,
     ),
-    true
-  );
+    true);
 }
 
 [data-fieldset-present-5599775] {
-  @include important-styles(
-    (
-      border: 4px dashed var(--neutral-border),
+  @include important-styles((border: 4px dashed var(--neutral-border),
       padding: 0.5em,
     ),
-    true
-  );
+    true);
 }
 
 .nested-fieldset-present-5599775 {
-  @include important-styles(
-    (
-      border: 3px dotted var(--neutral-border),
+  @include important-styles((border: 3px dotted var(--neutral-border),
       padding: 0.5em,
       font-weight: 700,
     ),
-    true
-  );
+    true);
 }
 
 [data-nested-fieldset-present-5599775] {
-  @include important-styles(
-    (
-      border: 3px dotted var(--neutral-border),
+  @include important-styles((border: 3px dotted var(--neutral-border),
       margin: 1em,
     ),
-    true
-  );
+    true);
 }
 
 .legend-present-5599775 {
-  @include important-styles(
-    (
-      background-color: var(--neutral-background),
+  @include important-styles((background-color: var(--neutral-background),
       border: 3px solid var(--neutral-border),
       padding: 0.5em,
       font-weight: 700,
     ),
-    true
-  );
+    true);
 }
 
 [data-legend-present-5599775] {
-  @include important-styles(
-    (
-      border: 3px solid var(--neutral-border),
+  @include important-styles((border: 3px solid var(--neutral-border),
       padding: 0.5em,
     ),
-    true
-  );
+    true);
 }
 
 [role="group"] {
-  @include important-styles(
-    (
-      border: 3px inset var(--neutral-border),
+  @include important-styles((border: 3px inset var(--neutral-border),
       padding: 0.5em,
     ),
-    true
-  );
+    true);
 }
 
 .group-present-5599775 {
-  @include important-styles(
-    (
-      border: 3px inset var(--neutral-border),
+  @include important-styles((border: 3px inset var(--neutral-border),
       padding: 0.5em,
       font-weight: 700,
     ),
-    true
-  );
+    true);
 }
 
 [role="radiogroup"] {
-  @include important-styles(
-    (
-      border: 3px outset var(--neutral-border),
+  @include important-styles((border: 3px outset var(--neutral-border),
       padding: 0.5em,
       font-weight: 700,
     ),
-    true
-  );
+    true);
 }
 
 .radiogroup-present-5599775 {
-  @include important-styles(
-    (
-      border: 3px outset var(--neutral-border),
+  @include important-styles((border: 3px outset var(--neutral-border),
       padding: 0.5em,
       font-weight: 700,
     ),
-    true
-  );
+    true);
 }
 
 .labelledByName-5599775,
 .labelledByRadioGroupName-5599775,
 .ariaLabelRadioGroupName-5599775,
 .ariaLabelName-5599775 {
-  @include important-styles(
-    (
-      border: 3px ridge var(--pass-checks),
+  @include important-styles((border: 3px ridge var(--pass-checks),
       font-weight: 700,
       padding: 0.5em,
     ),
-    true
-  );
-  @include pass-styles();
+    true);
+  @include pass-styles;
 }

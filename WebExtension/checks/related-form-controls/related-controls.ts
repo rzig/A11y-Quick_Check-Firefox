@@ -44,16 +44,16 @@ function addLegendsBeforeDiv() {
     legend.setAttribute('data-legend-present-5599775', '');
     if (legend !== legend.parentNode!.firstElementChild) {
       div.classList.add('not-first-number5599775');
-      const text = document.createTextNode('The Legend is present but is not the first element child of Fieldset');
+      const text = document.createTextNode('(Warning) The Legend is present but is not the first element child of Fieldset');
       div.appendChild(text);
     } else {
-      const text = document.createTextNode('The Legend is present and is the first element child of Fieldset');
+      const text = document.createTextNode(' The Legend is present and is the first element child of Fieldset');
       div.appendChild(text);
     }
 
     // Check if the legend is empty
     if (legend.textContent == null || !legend.textContent.trim()) {
-      const emptyTextMessage = document.createTextNode(' There is no legend text for the fieldset.');
+      const emptyTextMessage = document.createTextNode(' (Warning) There is no legend text for the fieldset.');
       div.appendChild(emptyTextMessage);
     }
 
@@ -101,7 +101,7 @@ function roleGroupName() {
     } else if (!groupElement.hasAttribute('aria-label')) {
       const messageDiv = document.createElement('div');
       messageDiv.classList.add('missingRoleGroupName-5599775');
-      messageDiv.textContent = `Role Group must have a name via aria-label or aria-labelledby.`;
+      messageDiv.textContent = `(Warning) Role Group should have a name via aria-label or aria-labelledby.`;
       
       // Insert the message div before the group element
       groupElement.parentNode!.insertBefore(messageDiv, groupElement);
@@ -127,7 +127,7 @@ function roleRadioGroupName() {
     } else if (!radioGroupElement.hasAttribute('aria-label')) {
       const messageDiv = document.createElement('div');
       messageDiv.classList.add('missingRoleRadioGroupName-5599775');
-      messageDiv.textContent = `Role Radiogroup must have a name via aria-label or aria-labelledby.`;
+      messageDiv.textContent = `(Fail) Role Radiogroup must have a name via aria-label or aria-labelledby.`;
       
       // Insert the message div before the group element
       radioGroupElement.parentNode!.insertBefore(messageDiv, radioGroupElement);
