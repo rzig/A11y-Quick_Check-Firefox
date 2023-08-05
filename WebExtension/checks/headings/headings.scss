@@ -45,6 +45,21 @@
   }
 }
 
+.skipped-level-555897 {
+  @include important-styles((
+      margin-top:0,
+    ), true);
+}
+
+.skipped-level-message-555897 {
+  @include important-styles((
+      background-color: var(--warning-background),
+      border: 3px dashed var(--warning-border),
+      color: var(--warning-text),
+      max-width: 333px,
+    ), true);
+}
+
 // Apply mixins
 @for $i from 1 through 6 {
   @include heading-decoration('h' + $i);
