@@ -32,6 +32,26 @@ function createNewMessageDiv(messageClass: string, message: string, extraClasses
   return messageDiv;
 }
 
+function createPrecedingDiv(targetElement: Element): HTMLDivElement {
+  const attributeLabel = 'data-before-div-9f2dc5ea';
+
+  // Check if we have a preceding sibling, and if we do that it's not our custom div
+  let precedingDiv = targetElement.previousElementSibling as HTMLDivElement;
+  if (precedingDiv == null || !precedingDiv.hasAttribute(attributeLabel)) {
+    // We don't have our custom div yet, so create it.
+    precedingDiv = document.createElement('div');
+    precedingDiv.setAttribute(attributeLabel, '');
+    targetElement.before(precedingDiv);
+  }
+  return precedingDiv;
+}
+
+// Create the message div as a child of the preceding div
+function addMessageToPrecedingDiv(element: Element, messageClass: string, message: string, extraClasses: string[] = []) {
+  const precedingDiv = createPrecedingDiv(element);
+  precedingDiv.appendChild(createNewMessageDiv(messageClass, message, extraClasses));
+}
+
 function removeInjectedDivs(messageClasses: string[]) {
   for (const messageClass of messageClasses) {
     const messageDivs = document.querySelectorAll(`.${messageClass}`);
