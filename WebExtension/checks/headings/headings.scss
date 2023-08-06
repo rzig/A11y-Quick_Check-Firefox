@@ -45,17 +45,36 @@
   }
 }
 
-.skipped-level-555897 {
+.skipped-level-555897,
+.aria-skipped-level-555897,
+.aria-level-missing-555897,
+.redundant-aria-role-555897,
+.changed-aria-level-555897,
+.aria-missing-level-555897 {
   @include important-styles((
       margin-top:0,
     ), true);
 }
 
-.skipped-level-message-555897 {
+.skipped-level-message-555897,
+.aria-skipped-level-message-555897,
+.aria-level-missing-message-555897,
+.redundant-aria-role-message-555897,
+.changed-aria-level-message-555897,
+.aria-missing-level-message-555897 {
   @include important-styles((
       background-color: var(--warning-background),
       border: 3px dashed var(--warning-border),
       color: var(--warning-text),
+      max-width: 333px,
+    ), true);
+}
+
+.changed-aria-level-message-555897 {
+  @include important-styles((
+      background-color: var(--danger-background),
+      border: 3px dashed var(--danger-border),
+      color: var(--danger-text),
       max-width: 333px,
     ), true);
 }
