@@ -1,3 +1,5 @@
+"use strict";
+
 // Detect if any heading levels are skipped on the page.
 function detectSkippedHeadings() {
   const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
@@ -14,6 +16,23 @@ function detectSkippedHeadings() {
     }
 
     prevLevel = currentLevel;
+  });
+}
+
+function wrapAllHeadingsWithSpan(): void {
+  const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6, [role="heading"]');
+    
+  headings.forEach((heading: Element) => {
+      const span = document.createElement('span');
+      span.className = "headingWrapper-8878";
+
+      // Move all children of the heading into the span
+      while (heading.firstChild) {
+          span.appendChild(heading.firstChild);
+      }
+
+      // Append the span to the heading
+      heading.appendChild(span);
   });
 }
 
@@ -35,7 +54,7 @@ function checkRedundantARIA() {
     // Condition 2: ARIA-LEVEL changes HTML heading level
     if (htmlLevel && ariaRole === 'heading' && ariaLevel && htmlLevel !== ariaLevel) {
       heading.classList.add('changed-aria-level-555897');
-      const message = `(Fail) Redundant ARIA Heading Role. ARIA-LEVEL changes HTML heading level from h${htmlLevel} to aria-level=${ariaLevel}`;
+      const message = `(Warning) Redundant ARIA Heading Role. ARIA-LEVEL changes HTML heading level from h${htmlLevel} to aria-level=${ariaLevel}`;
       addMessageToPrecedingDiv(heading, 'changed-aria-level-message-555897', message);
   }
   });
@@ -50,7 +69,7 @@ function checkMissingARIALevel() {
     // Condition 3: ARIA Heading Role missing a ARIA-LEVEL
     if (!ariaLevel) {
       heading.classList.add('aria-missing-level-555897');
-      const message = '(Warning) ARIA Heading Role missing a ARIA-LEVEL.';
+      const message = '(Warning) ARIA Heading Role missing an ARIA-LEVEL.';
       addMessageToPrecedingDiv(heading, 'aria-missing-level-message-555897', message);
     }
   });
@@ -80,6 +99,7 @@ function detectSkippedARIAHeadings() {
 
 // Run the functions
 detectSkippedHeadings();
+wrapAllHeadingsWithSpan();
 detectSkippedARIAHeadings();
 checkRedundantARIA();
 checkMissingARIALevel();

@@ -1,35 +1,39 @@
 @import '../common';
 
 @mixin heading-decoration($heading-level) {
-  #{$heading-level}:before, [role="heading"][aria-level="#{$heading-level}"]:before {
+  #{$heading-level}:before, [role="heading"]:before {
     @include important-styles((
       content: "[#{$heading-level}]",
-      color: #444444,
       font-size: 0.875em,
-      padding: "0 0.5em",
-      font-weight: 700
+      padding: 0.5em,
+      margin-right: .25em,
+      font-weight: 700,
+      color: var(--pass-text),
+      border: 3px dashed var(--neutral-border)
     ), true);
   }
 
-  #{$heading-level}:after, [role="heading"][aria-level="#{$heading-level}"]:after {
+  #{$heading-level}:after, [role="heading"]:after {
     @include important-styles((
       content: "[/#{$heading-level}]",
-      color: #444444,
       font-size: 0.875em,
-      padding: "0 0.5em",
-      font-weight: 700
+      padding: 0.5em,
+      margin-left: .25em,
+      font-weight: 700,
+      color: var(--pass-text),
+      border: 3px dashed var(--neutral-border)
     ), true);
   }
 }
 
 @mixin aria-heading-decoration($heading-level) {
-  [role="heading"][aria-level="#{$heading-level}"]:before {
+  [role="heading"]:before {
     @include important-styles((
-      content: "[ARIA] #{$heading-level}"
+      content: "[ARIA]"
     ), true);
   }
 
-  [role="heading"][aria-level="#{$heading-level}"]:after {
+  [role="heading"]:after {
     @include important-styles((
       content: "[END]"
     ), true);
@@ -37,7 +41,7 @@
 }
 
 @mixin heading-background-border($heading-level, $background, $border) {
-  #{$heading-level}, [role="heading"][aria-level="#{$heading-level}"] {
+  #{$heading-level} .headingWrapper-8878, [role="heading"] .headingWrapper-8878 {
     @include important-styles((
       background-color: $background,
       border: $border
@@ -50,9 +54,10 @@
 .aria-level-missing-555897,
 .redundant-aria-role-555897,
 .changed-aria-level-555897,
-.aria-missing-level-555897 {
+.aria-missing-level-555897,
+.skipped-level-555897 {
   @include important-styles((
-      margin-top:0,
+      margin-top:0.5em,
     ), true);
 }
 
@@ -70,24 +75,15 @@
     ), true);
 }
 
-.changed-aria-level-message-555897 {
-  @include important-styles((
-      background-color: var(--danger-background),
-      border: 3px dashed var(--danger-border),
-      color: var(--danger-text),
-      max-width: 333px,
-    ), true);
-}
-
 // Apply mixins
 @for $i from 1 through 6 {
   @include heading-decoration('h' + $i);
   @include aria-heading-decoration($i);
 }
 
-@include heading-background-border('h1', rgb(242, 232, 234), '3px dashed rgb(207, 19, 19)');
-@include heading-background-border('h2', rgb(205, 248, 248), '3px dashed rgb(22, 166, 166)');
-@include heading-background-border('h3', rgb(248, 237, 136), '3px dashed rgb(187, 171, 28)');
-@include heading-background-border('h4', rgb(248, 225, 183), '2px dashed rgb(255, 161, 23)');
-@include heading-background-border('h5', #ccc, '3px dashed rgb(54, 150, 140)');
-@include heading-background-border('h6', #ccc, '3px dashed rgb(54, 150, 140)');  
+@include heading-background-border('h1', var(--extension-white), 2px dashed var(--neutral-border));
+@include heading-background-border('h2', var(--extension-white), 2px dashed var(--neutral-border));
+@include heading-background-border('h3', var(--extension-white), 2px dashed var(--neutral-border));
+@include heading-background-border('h4', var(--extension-white), 2px dashed var(--neutral-border));
+@include heading-background-border('h5', var(--extension-white), 2px dashed var(--neutral-border));
+@include heading-background-border('h6', var(--extension-white), 2px dashed var(--neutral-border)); 

@@ -10,6 +10,17 @@ for (const element of document.querySelectorAll(
   );
 }
 
+// Remove the added span element
+for (const span of document.querySelectorAll(".headingWrapper-8878")) {
+  const parent = span.parentElement;
+  if (parent) {
+    while (span.firstChild) {
+      parent.insertBefore(span.firstChild, span);
+    }
+    parent.removeChild(span);
+  }
+}
+
 removeInjectedDivs([
   "skipped-level-message-555897",
   "aria-skipped-level-message-555897",
