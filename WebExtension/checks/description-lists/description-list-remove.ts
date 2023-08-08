@@ -1,7 +1,7 @@
 "use strict";
 
 for (const element of document.querySelectorAll(
-  ".dl--valid-html-9927845, .dl--valid-div-wrap-dt-dd-9927845, .dl--invalid-first-child-9927845, .dl--invalid-role-9927845, .dl--nested-9927845, [data-isNestedList]"
+  ".dl--valid-html-9927845, .dl--valid-div-wrap-dt-dd-9927845, .dl--invalid-first-child-9927845, .dl--invalid-role-9927845, .dl--nested-9927845, .dl--invalid-child-9927845, [data-isNestedList]"
 )) {
   element.classList.remove(
     "dl--valid-html-9927845",
@@ -9,6 +9,7 @@ for (const element of document.querySelectorAll(
     "dl--invalid-first-child-9927845",
     "dl--invalid-role-9927845",
     "dl--nested-9927845",
+    "dl--invalid-child-9927845",
     "[data-isNestedList]"
   );
 }
@@ -19,4 +20,5 @@ removeInjectedDivs([
   "invalid-first-child-message-9927845",
   "invalid-role-message-9927845",
   "nested-dl-message-9927845",
+  "invalid-child-message-9927845",
 ]);

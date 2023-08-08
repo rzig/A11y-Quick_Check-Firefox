@@ -99,12 +99,15 @@ function roleGroupName() {
       // Insert the message div before the group element
       groupElement.parentNode!.insertBefore(messageDiv, groupElement);
     } else if (!groupElement.hasAttribute('aria-label')) {
-      const messageDiv = document.createElement('div');
-      messageDiv.classList.add('missingRoleGroupName-5599775');
-      messageDiv.textContent = `(Warning) Role Group should have a name via aria-label or aria-labelledby.`;
-      
-      // Insert the message div before the group element
-      groupElement.parentNode!.insertBefore(messageDiv, groupElement);
+      // Check if the element is not an hgroup before showing the warning
+      if (groupElement.nodeName.toLowerCase() !== 'hgroup') {
+        const messageDiv = document.createElement('div');
+        messageDiv.classList.add('missingRoleGroupName-5599775');
+        messageDiv.textContent = `(Warning) Role Group should have a name via aria-label or aria-labelledby.`;
+        
+        // Insert the message div before the group element
+        groupElement.parentNode!.insertBefore(messageDiv, groupElement);
+      }
     }
   }
 }
