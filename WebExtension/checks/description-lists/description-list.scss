@@ -10,8 +10,8 @@
     ), true);
 }
 
-.dl--valid-html,
-.dl--valid-div-wrap-dt-dd {
+.dl--valid-html-9927845,
+.dl--valid-div-wrap-dt-dd-9927845 {
   @include important-styles(
     (
       border: 2px dashed var(--pass-border),
@@ -22,8 +22,8 @@
   );
 }
 
-.html-dl-message,
-.div-wrap-message {
+.html-dl-message-9927845,
+.div-wrap-message-9927845 {
   @include important-styles(
     (
       border-width: 2px,
@@ -40,8 +40,10 @@
   );
 }
 
-.dl--invalid-first-child,
-.dl--invalid-role {
+.dl--invalid-first-child-9927845,
+.dl--invalid-role-9927845,
+.dl--nested-9927845,
+[data-isNestedList] {
   @include important-styles(
     (
       border: 2px dashed var(--danger-border),
@@ -52,8 +54,9 @@
   );
 }
 
-.invalid-first-child-message,
-.invalid-role-message {
+.invalid-first-child-message-9927845,
+.invalid-role-message-9927845,
+.nested-dl-message-9927845 {
   @include important-styles(
     (
       border-width: 2px,
