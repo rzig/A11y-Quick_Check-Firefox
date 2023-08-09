@@ -25,7 +25,7 @@ function showAltText(): void {
       ? imgElement.parentElement
       : imgElement;
 
-    if (containerElement && !hasAriaHiddenAncestor(imgElement) && altTextPresent) {
+    if (containerElement && !hasAriaHiddenAncestor(imgElement) && altTextPresent && !isHidden(imgElement)) {
       const message: string = `This image ALT text is: ${altText}`;
       createChildMessageDiv(containerElement, altTextMessageClass, message);
     }
