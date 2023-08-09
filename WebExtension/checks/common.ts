@@ -66,6 +66,7 @@ function removeInjectedDivs(messageClasses: string[]) {
   }
 }
 
+//Helper for hidden elements !isHidden(imgElement)
 function isHidden(element: HTMLElement): boolean {
   const style: CSSStyleDeclaration = getComputedStyle(element);
   return style.display === 'none' || style.visibility === 'hidden' || element.hasAttribute('hidden');
