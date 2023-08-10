@@ -23,10 +23,10 @@
                             "removeScript": "headings-not-coded-remove.js"
                         },
                         {
-                            "name": "Strong",
-                            "id": "strong",
-                            "resource_path": "checks/strong",
-                            "css": "strong.css"
+                            "name": "Emphasis Tags",
+                            "id": "emphasisTags",
+                            "resource_path": "checks/emphasis-tags",
+                            "css": "emphasis-tags.css"
                         },
                         {
                             "name": "Ordered list",
