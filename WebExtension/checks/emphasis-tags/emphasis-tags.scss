@@ -1,0 +1,46 @@
+@import '../common';
+
+// Mixin to encapsulate styles for the tags
+@mixin apply-strong-styles($tagName) {
+  &:before {
+    content: "[" + $tagName + "]";
+    @include important-styles(
+      (
+        color: var(--neutral-text),
+        font-size: 0.875em,
+        padding: 0 0.5em,
+        font-weight: 700,
+      ),
+      true
+    );
+  }
+
+  &:after {
+    content: "[/" + $tagName + "]";
+    @include important-styles(
+      (
+        color: var(--neutral-text),
+        font-size: 0.875em,
+        padding: 0 0.5em,
+        font-weight: 700,
+      ),
+      true
+    );
+  }
+
+  @include important-styles(
+    (
+      background-color: var(--neutral-background),
+      border: 3px dashed var(--neutral-border),
+    ),
+    true
+  );
+}
+
+// Apply styles to the tags
+$tags: strong, small, s, cite, q, dfn, abbr, i, b, u, mark, kbd, sub, sup;
+@each $tag in $tags {
+  #{$tag} {
+    @include apply-strong-styles(#{$tag});
+  }
+}
