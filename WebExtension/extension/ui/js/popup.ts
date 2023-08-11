@@ -209,11 +209,11 @@ async function setupConfiguration(
         fieldset.appendChild(divWrapper);
 
         // Check the number of li elements and add a class to the divWrapper element if necessary
-        const liCount = list.querySelectorAll("li").length;
+        //const liCount = list.querySelectorAll("li").length;
 
-        if (liCount > 5) {
-          divWrapper.classList.add("multi-column--container-299867");
-        }
+        // if (liCount > 5) {
+        //   divWrapper.classList.add("multi-column--container-299867");
+        // }
 
         // create the input element
         const checkBox = document.createElement("input");
@@ -225,7 +225,7 @@ async function setupConfiguration(
 
         // Create the label
         const label = document.createElement("label");
-        label.classList.add("switch--label");
+        label.classList.add("switch--label-88947");
 
         // I'm not sure why we have a span within the label
         const span = document.createElement("span");
