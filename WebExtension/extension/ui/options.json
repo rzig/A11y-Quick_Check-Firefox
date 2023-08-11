@@ -23,10 +23,10 @@
                             "removeScript": "headings-not-coded-remove.js"
                         },
                         {
-                            "name": "Emphasis Tags",
-                            "id": "emphasisTags",
-                            "resource_path": "checks/emphasis-tags",
-                            "css": "emphasis-tags.css"
+                            "name": "Text-Level Elements",
+                            "id": "textLevelElements",
+                            "resource_path": "checks/text-level-elements",
+                            "css": "text-level-elements.css"
                         },
                         {
                             "name": "Ordered list",
