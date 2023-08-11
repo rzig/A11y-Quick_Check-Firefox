@@ -1,11 +1,5 @@
-// body {
-//   font-family: Aptos, Bierstadt, "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-//   line-height:1.5;
-//   font-size: 100% 1important;
-// }
-
 .dimensions {
-  width: 30em;
+  width: 40em;
   height: auto;
   min-height: 8em;
   font-size: 1rem;
@@ -26,6 +20,10 @@
   margin-right:0;
   margin-bottom:0;
   font-size: 0.875rem;
+}
+
+.dimensions p.help-section-7726536{
+  margin-bottom: 1em;
 }
 
 .the--icon img {
@@ -103,4 +101,8 @@ fieldset>legend {
   color: #DDDDDD !important;
   cursor: not-allowed !important;
   opacity: 1 !important;
+}
+
+.switch--label-88947 {
+  font-weight: 600;
 }

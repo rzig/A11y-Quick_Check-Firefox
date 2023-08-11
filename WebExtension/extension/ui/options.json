@@ -1,12 +1,14 @@
 {
     "tabs": [
         {
-            "name": "Content",
+            "name": "Content Structure",
             "fieldsets": [
                 {
                     "name": "Content",
+                    "helpSection": "Ensuring Proper Markup and Presentation.",
                     "items": [
                         {
+                            "helpCheck": "Ensure proper heading markup and heading hierarchy.",
                             "name": "Has Heading Mark-up",
                             "id": "headingsYes",
                             "resource_path": "checks/headings",
@@ -15,6 +17,7 @@
                             "removeScript": "headings-remove.js"
                         },
                         {
+                            "helpCheck": "Identifies text that is at least 18px and bold, or greater than 24px that is not marked up as a heading.",
                             "name": "No Heading Mark-up",
                             "id": "headingNo",
                             "resource_path": "checks/headings-not-coded",
@@ -23,12 +26,14 @@
                             "removeScript": "headings-not-coded-remove.js"
                         },
                         {
-                            "name": "Text-Level Elements",
+                            "helpCheck": "Evaluate the use of text-level semantics, such as strong and italic, to enhance content structure and meaning.",
+                            "name": "Text-Level Semantics",
                             "id": "textLevelElements",
                             "resource_path": "checks/text-level-elements",
                             "css": "text-level-elements.css"
                         },
                         {
+                            "helpCheck": "Examine the implementation of lists to ensure content is structured logically. Check if description lists are correctly used for key-value groups.",
                             "name": "Ordered list",
                             "id": "oList",
                             "resource_path": "checks/ordered-lists",
@@ -53,6 +58,7 @@
                             "removeScript": "description-list-remove.js"
                         },
                         {
+                            "helpCheck": "Evaluate the use of the HTML hgroup element for organising heading content.",
                             "name": "HTML hgroup",
                             "id": "hGroup",
                             "resource_path": "checks/hgroup",
@@ -61,6 +67,7 @@
                             "removeScript": "hgroup-remove.js"
                         },
                         {
+                            "helpCheck": "Verify the proper grouping of related form controls.",
                             "name": "Related form controls",
                             "id": "relatedFormControls",
                             "resource_path": "checks/related-form-controls",
@@ -73,10 +80,11 @@
             ]
         },
         {
-            "name": "Images",
+            "name": "Graphic Media",
             "fieldsets": [
                 {
                     "name": "Images",
+                    "helpSection": "Checks for valid markup, if the image is decorative and exposes the accessible name for images that provide meaning to the content.",
                     "items": [
                         {
                             "name": "Show image's accessible name (accName)",
@@ -114,6 +122,7 @@
                 },
                 {
                     "name": "SVGs",
+                    "helpSection": "Checks for valid markup, if the SVG is decorative and exposes the accessible name for images that provide meaning to the content.",
                     "items": [
                         {
                             "name": "Show SVG's accessible name (accName)",
@@ -130,26 +139,20 @@
                             "css": "decorative-svg.css",
                             "addScript": "decoration-svg.js",
                             "removeScript": "decoration-svg-remove.js"
-                        },
-                        {
-                            "name": "SVG has a named ancestor",
-                            "id": "namedAncestor",
-                            "resource_path": "checks/svg-named-ancestor",
-                            "css": "svg-named-ancestor.css",
-                            "addScript": "svg-named-ancestor.js",
-                            "removeScript": "svg-named-ancestor-remove.js"
                         }
                     ]
                 }
             ]
         },
         {
-            "name": "WCAG",
+            "name": "Usability and Readability",
             "fieldsets": [
                 {
-                    "name": "WCAG",
+                    "name": "User Experience",
+                    "helpSection": "Assessing Interaction and Content Readability.",
                     "items": [
                         {
+                            "helpCheck": "Evaluate the touch size of interactive elements to ensure they are large enough for easy interaction.",
                             "name": "Target Size (24px)",
                             "id": "targetSize24",
                             "resource_path": "checks/target-size",
@@ -174,6 +177,7 @@
                             "removeScript": ["target-size-remove.js", "target-size-remove48.js"]
                         },
                         {
+                            "helpCheck": "Evaluate if text spacing can be changed for improved readability.",
                             "name": "Text Spacing",
                             "id": "textSpacing",
                             "resource_path": "checks/text-spacing",
@@ -182,21 +186,25 @@
                             "removeScript": "text-spacing-remove.js"
                         },
                         {
-                            "helpCheck": "Decorative images and SVGs will be removed.",
+                            "helpCheck": "Remove page styles (CSS) to review the reading order for content comprehension.",
                             "name": "Reading order",
                             "id": "readingOrder",
                             "resource_path": "checks/reset-css",
                             "addScript": "reset-css.js",
                             "removeScript": "reset-css-remove.js",
                             "css": "reset-css.css"
-                        }
-                    ]
-                },
-                {
-                    "name": "Miscellaneous",
-                    "helpSection": "The 'Aria-Hidden' and 'Focus Order counter' check will be identified on visible elements only, if hidden components, such as modal dialogs are exposed on screen, you will need to rerun the check to include these in the DOM order count.",
-                    "items": [
+                        },
                         {
+                            "helpCheck": "Display focus order count for interactive elements.",
+                            "name": "Focus Order counter",
+                            "id": "focusOrderCount",
+                            "resource_path": "checks/focus-order-count",
+                            "addScript": "focus-order-count.js",
+                            "removeScript": "focus-order-count-remove.js",
+                            "css": "focus-order-count.css"
+                        },
+                        {
+                            "helpCheck": "Check for ARIA-LABEL text and elements that cannot be named by the author.",
                             "name": "ARIA-LABEL",
                             "id": "aria-label",
                             "resource_path": "checks/aria-label",
@@ -209,14 +217,6 @@
                             "css": "name-prohibited.css",
                             "addScript": "name-prohibited.js",
                             "removeScript": "name-prohibited-remove.js"
-                        },
-                        {
-                            "name": "Focus Order counter [experimental]",
-                            "id": "focusOrderCount",
-                            "resource_path": "checks/focus-order-count",
-                            "addScript": "focus-order-count.js",
-                            "removeScript": "focus-order-count-remove.js",
-                            "css": "focus-order-count.css"
                         }
                     ]
                 }
