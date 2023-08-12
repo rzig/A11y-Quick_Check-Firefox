@@ -22,6 +22,7 @@ class Options {
 class Tab {
   name: string = "";
   fieldsets: Fieldset[] = [];
+  helpUrl?: string;
 }
 
 class Fieldset {
@@ -306,6 +307,26 @@ async function setupConfiguration(
 
     // make sure we change this to ensure a unique tab
     tabNumber += 1;
+
+    const helpLink = document.createElement("a");
+helpLink.innerText = "Help and Instructions";
+helpLink.classList.add("help-link");
+
+if (tabConfiguration.helpUrl) {
+    helpLink.href = chrome.runtime.getURL(tabConfiguration.helpUrl);
+} else {
+    helpLink.href = "#"; // Fallback to placeholder if no helpUrl is provided.
+}
+
+// Add an event listener to open the help URL in a new Chrome window
+helpLink.addEventListener("click", (e) => {
+    if (helpLink.href !== "#") { // If href is not a placeholder
+        e.preventDefault();
+        chrome.windows.create({ url: helpLink.href, type: "popup", width: 800, height: 600 });
+    }
+});
+
+    tabPanel.appendChild(helpLink);
   }
 }
 

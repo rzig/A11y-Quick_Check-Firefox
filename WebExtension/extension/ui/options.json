@@ -2,6 +2,7 @@
     "tabs": [
         {
             "name": "Content Structure",
+            "helpUrl": "/extension/ui/help.html",
             "fieldsets": [
                 {
                     "name": "Content",
@@ -81,6 +82,7 @@
         },
         {
             "name": "Graphic Media",
+            "helpUrl": "/extension/ui/help.html",
             "fieldsets": [
                 {
                     "name": "Images",
@@ -146,6 +148,7 @@
         },
         {
             "name": "Usability and Readability",
+            "helpUrl": "/extension/ui/help.html",
             "fieldsets": [
                 {
                     "name": "User Experience",
