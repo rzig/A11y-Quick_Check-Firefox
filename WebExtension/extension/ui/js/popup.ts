@@ -41,8 +41,8 @@ class Item {
   removeScript?: string[] | string | null = null;
 }
 
-const clearAllOptions = document.getElementById("clearAllOptions")!;
-const setAllOptions = document.getElementById("setAllOptions")!;
+//const clearAllOptions = document.getElementById("clearAllOptions")!;
+//const setAllOptions = document.getElementById("setAllOptions")!;
 
 // The empty tab container element for the tab container
 const tabContainer = document.getElementById("soup")!;
@@ -56,13 +56,13 @@ let invalidPage = false;
 const eventConfig = new Map<HTMLInputElement, Item>();
 
 // Create event handlers for the check all and uncheck all buttons
-clearAllOptions!.addEventListener("click", function () {
-  setAllCheckboxes(false);
-});
+// clearAllOptions!.addEventListener("click", function () {
+//   setAllCheckboxes(false);
+// });
 
-setAllOptions!.addEventListener("click", function () {
-  setAllCheckboxes(true);
-});
+// setAllOptions!.addEventListener("click", function () {
+//   setAllCheckboxes(true);
+// });
 
 // load the json file, and create the tabs
 setupConfiguration(
@@ -454,8 +454,8 @@ async function loadOptionsObject() {
           err2.message.toLowerCase().includes("no tab with id")
         ) {
           console.log("Failed to get permission to insert the scripts");
-          clearAllOptions.remove();
-          setAllOptions.remove();
+          // clearAllOptions.remove();
+          // setAllOptions.remove();
           tabContainer.innerHTML =
             "<p>The browser has prevented the extension from accessing this tab.</p>";
           options = new Map<string, boolean>();

@@ -16,6 +16,7 @@
           BlinkMacSystemFont, Roboto, Oxygen-Sans, Ubuntu, Cantarell,
           "Helvetica Neue", sans-serif;
         line-height: 1.5;
+        font-size:1.1rem;
       }
 
       h1 {
@@ -33,7 +34,6 @@
       }
 
       p {
-        font-size:1.1rem;
         margin:0;
         margin-bottom:1em;
       }
@@ -43,11 +43,11 @@
         background-color: var(--neutral-background);
         color: var(--neutral-text);
         text-align: center;
-        padding: 1em 2em;
+        padding: 0.5em 1em;
         border: 3px solid var(--neutral-border);
         border-radius: 1em;
-        margin-top: 20px;
-        font-size: 16px;
+        margin-top: 3em;
+        font-size: 1.2rem;
         transition: background-color 0.3s;
       }
     </style>
@@ -55,32 +55,44 @@
 
   <body>
     <h1>Help and Instructions</h1>
+    <h2>Web Accessibility Extension Features</h2>
 
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia
-      odio vitae vestibulum.
-    </p>
-    <p>
-      Donec in efficitur leo. Sed malesuada nunc sit amet risus convallis
-      cursus. Nulla facilisi.
-    </p>
-    <p>
-      Praesent facilisis, nulla in malesuada pulvinar, justo elit facilisis
-      urna, in laoreet metus libero eu erat. Fusce elementum quis ipsum a
-      laoreet.
-    </p>
-
-    <h2>Section Title</h2>
-    <p>
-      Morbi posuere, mauris eu egestas rutrum, tortor sapien vestibulum velit,
-      eget efficitur ex nisi a risus. Nam eu luctus ex, quis lacinia risus.
-    </p>
-
-    <h2>Another Section</h2>
-    <p>
-      Fusce in libero vitae lacus dapibus maximus at vel metus. Vivamus egestas
-      aliquet sagittis. Curabitur ut tincidunt elit, eget pellentesque purus.
-    </p>
+    <p>The web accessibility extension provides instant feedback to web developers and content creators in finding potential high level accessibility issues. Structured into discernible tabs, each focuses on critical aspects ranging from content organisation to user experience.</p>
+    
+    <h3>Content Structure Tab</h3>
+    <p>Evaluates website's content organisation.</p>
+      <ul>
+          <li>Proper heading hierarchy.</li>
+          <li>Correct list usage (Ordered, Unordered, Description).</li>
+          <li>HTML 'hgroup' element use.</li>
+          <li>Grouping of related form controls.</li>
+      </ul>
+    
+    <h3>Graphic Media Tab</h3>
+    <p>Reviews accessibility of visuals.</p>
+      <ul>
+          <li>Validates image ALT attributes.</li>
+          <li>Identifies decorative images and SVGs.</li>
+          <li>Exposes the accessible name for images and SVGs.</li>
+          <li>Examines CSS background images.</li>
+      </ul>
+    
+    <h3>Usability and Readability Tab</h3>
+    <p>Focuses on the user's experience and content clarity.</p>
+      <ul>
+          <li>Checks touch size of interactive elements (24px, 44px, 48px).</li>
+          <li>Evaluates changeability of text spacing.</li>
+          <li>Removes page styles for reading order review.</li>
+          <li>Displays focus order for interactive components.</li>
+          <li>Reviews ARIA-LABEL use.</li>
+      </ul>
+    
+    <h3>Additional Info:</h3>
+    <ul>
+        <li>Each feature comes with a help link leading to <a href="/extension/ui/help.html">/extension/ui/help.html</a>.</li>
+        <li>Many features have scripts and CSS for custom checks.</li>
+    </ul>
+    
 
     <button class="close-btn">Close</button>
     <script src="help.js"></script>
