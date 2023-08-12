@@ -166,6 +166,29 @@ async function setupConfiguration(
     // link the tab button and the tabPannel
     tabButton.setAttribute("aria-controls", tabPanel.id);
     tabPanel.setAttribute("aria-labelledby", tabButton.id);
+    
+    // Create the "Check All" checkbox
+    const checkAllCheckbox = document.createElement("input");
+    checkAllCheckbox.type = "checkbox";
+    checkAllCheckbox.id = `check-all-${tabNumber}`;
+    checkAllCheckbox.classList.add("check-all");
+
+    const checkAllLabel = document.createElement("label");
+    checkAllLabel.htmlFor = checkAllCheckbox.id;
+
+    // Append the tab name to the end of the "Check All" label
+    checkAllLabel.innerText = `Check All - ${tabConfiguration.name}`;
+
+    // Create a div container to wrap the checkbox and its label
+    const checkAllWrapper = document.createElement("div");
+    checkAllWrapper.classList.add("check-all-wrapper-7786978");
+
+    // Append the checkbox and the label to the div container
+    checkAllWrapper.appendChild(checkAllCheckbox);
+    checkAllWrapper.appendChild(checkAllLabel);
+
+    // Add the div container to the tabPanel
+    tabPanel.appendChild(checkAllWrapper);
 
     // setup fieldsets for the checkbox groupings
     for (const fieldsetConfiguration of tabConfiguration.fieldsets) {
@@ -308,23 +331,67 @@ async function setupConfiguration(
     // make sure we change this to ensure a unique tab
     tabNumber += 1;
 
+    checkAllCheckbox.addEventListener("change", function () {
+      const checkboxes = tabPanel.querySelectorAll(
+        "input[type='checkbox']:not(.check-all)"
+      );
+      checkboxes.forEach((checkboxElement) => {
+        if (checkboxElement instanceof HTMLInputElement) {
+          // Check to ensure it's an HTMLInputElement
+          checkboxElement.checked = checkAllCheckbox.checked;
+        }
+      });
+    });
+
     const helpLink = document.createElement("a");
-helpLink.innerText = "Help and Instructions";
-helpLink.classList.add("help-link");
+    helpLink.innerText = "Help and Instructions";
+    helpLink.classList.add("help-link");
 
-if (tabConfiguration.helpUrl) {
-    helpLink.href = chrome.runtime.getURL(tabConfiguration.helpUrl);
-} else {
-    helpLink.href = "#"; // Fallback to placeholder if no helpUrl is provided.
-}
-
-// Add an event listener to open the help URL in a new Chrome window
-helpLink.addEventListener("click", (e) => {
-    if (helpLink.href !== "#") { // If href is not a placeholder
-        e.preventDefault();
-        chrome.windows.create({ url: helpLink.href, type: "popup", width: 800, height: 600 });
+    if (tabConfiguration.helpUrl) {
+      helpLink.href = chrome.runtime.getURL(tabConfiguration.helpUrl);
+    } else {
+      helpLink.href = "#"; // Fallback to placeholder if no helpUrl is provided.
     }
-});
+
+    // Logic to Check or Uncheck the "Check All" Checkbox**
+    tabPanel.addEventListener("change", function (event) {
+      const targetCheckbox = event.target;
+      if (
+        targetCheckbox instanceof HTMLInputElement &&
+        targetCheckbox !== checkAllCheckbox &&
+        !checkAllCheckbox.checked
+      ) {
+        const checkboxes = tabPanel.querySelectorAll(
+          "input[type='checkbox']:not(.check-all')"
+        );
+        if (
+          Array.from(checkboxes).every(
+            (checkboxElement) =>
+              checkboxElement instanceof HTMLInputElement &&
+              checkboxElement.checked
+          )
+        ) {
+          // Check to ensure it's an HTMLInputElement
+          checkAllCheckbox.checked = true;
+        } else {
+          checkAllCheckbox.checked = false;
+        }
+      }
+    });
+
+    // Add an event listener to open the help URL in a new Chrome window
+    helpLink.addEventListener("click", (e) => {
+      if (helpLink.href !== "#") {
+        // If href is not a placeholder
+        e.preventDefault();
+        chrome.windows.create({
+          url: helpLink.href,
+          type: "popup",
+          width: 800,
+          height: 600,
+        });
+      }
+    });
 
     tabPanel.appendChild(helpLink);
   }
