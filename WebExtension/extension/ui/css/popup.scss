@@ -106,3 +106,14 @@ fieldset>legend {
 .switch--label-88947 {
   font-weight: 600;
 }
+
+.help-link {
+  display: inline-flex; 
+  color: var(--neutral-text);
+}
+
+.help-link::before {
+  content: url('/extension/ui/images/help-icon.svg');
+  display: inline-block;
+  margin-right: 4px;
+}

@@ -24,11 +24,13 @@
         "storage",
         "activeTab",
         "scripting",
+        "windows",
         "webNavigation"
     ],
     "host_permissions": [
         "<all_urls>"
     ],
+    
     "background": {
         "service_worker": "extension/service-worker.js"
     }
