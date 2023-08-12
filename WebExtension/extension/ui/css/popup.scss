@@ -11,26 +11,27 @@
 }
 
 .help-section-7726536 {
-  margin:0;
+  margin: 0;
   font-size: 0.875rem;
 }
 
 .dimensions p.help-section-7726536,
 .dimensions p.help-check-77265 {
-  margin-right:0;
-  margin-bottom:0;
+  margin-right: 0;
+  margin-bottom: 0;
   font-size: 0.875rem;
 }
 
-.dimensions p.help-section-7726536{
+.dimensions p.help-section-7726536 {
   margin-bottom: 1em;
 }
 
 .the--icon img {
   width: 8em;
   position: absolute;
-  right: 0;
-  top: 0.5em; 
+  right: 0.2em;
+  top: 0.35em;
+  z-index: 10000;
 }
 
 .column--container-299867 {
@@ -57,13 +58,13 @@ fieldset {
   border: 1px solid #539312 !important;
 }
 
-fieldset>legend {
+fieldset > legend {
   font-size: 1.1em !important;
   color: #539312 !important;
 }
 
 .clearAllOptions {
-  background-color: #FFFFFF !important;
+  background-color: #ffffff !important;
   border: 1px solid #222222 !important;
   border-radius: 8px !important;
   box-sizing: border-box !important;
@@ -81,24 +82,25 @@ fieldset>legend {
   position: relative !important;
   text-align: center !important;
   text-decoration: none !important;
-  transition: box-shadow .2s, -ms-transform .1s, -webkit-transform .1s, transform .1s !important;
+  transition: box-shadow 0.2s, -ms-transform 0.1s, -webkit-transform 0.1s,
+    transform 0.1s !important;
   width: auto !important;
 }
 
 .clearAllOptions:focus-visible {
   box-shadow: #222222 0 0 0 2px, rgba(255, 255, 255, 0.8) 0 0 0 4px !important;
-  transition: box-shadow .2s !important;
+  transition: box-shadow 0.2s !important;
 }
 
 .clearAllOptions:active {
-  background-color: #F7F7F7 !important;
+  background-color: #f7f7f7 !important;
   border-color: #000000 !important;
-  transform: scale(.96) !important;
+  transform: scale(0.96) !important;
 }
 
 .button-23:disabled {
-  border-color: #DDDDDD !important;
-  color: #DDDDDD !important;
+  border-color: #dddddd !important;
+  color: #dddddd !important;
   cursor: not-allowed !important;
   opacity: 1 !important;
 }
@@ -108,12 +110,12 @@ fieldset>legend {
 }
 
 .help-link {
-  display: inline-flex; 
+  display: inline-flex;
   color: var(--neutral-text);
 }
 
 .help-link::before {
-  content: url('/extension/ui/images/help-icon.svg');
+  content: url("/extension/ui/images/help-icon.svg");
   display: inline-block;
   margin-right: 4px;
 }
