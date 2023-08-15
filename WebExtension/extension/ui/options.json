@@ -32,9 +32,9 @@
                             "helpIcon": "Yes",
                             "helpIconText": "Help for Text-Level Semantics",
                             "name": "Text-Level Semantics",
-                            "id": "textLevelElements",
-                            "resource_path": "checks/text-level-elements",
-                            "css": "text-level-elements.css"
+                            "id": "textLevelSemantics",
+                            "resource_path": "checks/text-level-semantics",
+                            "css": "text-level-semantics.css"
                         },
                         {
                             "helpIcon": "Yes",

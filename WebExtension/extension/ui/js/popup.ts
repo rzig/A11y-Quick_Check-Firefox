@@ -293,7 +293,10 @@ async function setupConfiguration(
         listItem.appendChild(label);
 
         // Add the SVG as a help icon if "helpIcon" is set to "Yes" in the JSON
-        if (checkboxConfiguration.helpIcon && checkboxConfiguration.helpIcon === "Yes") {
+        if (
+          checkboxConfiguration.helpIcon &&
+          checkboxConfiguration.helpIcon === "Yes"
+        ) {
           const iconWrapper = document.createElement("a");
           iconWrapper.classList.add("help-icon-link");
           iconWrapper.innerHTML = svgIcon;
@@ -312,7 +315,10 @@ async function setupConfiguration(
           }
 
           if (checkboxConfiguration.helpIconText) {
-            iconWrapper.setAttribute("aria-label", checkboxConfiguration.helpIconText);
+            iconWrapper.setAttribute(
+              "aria-label",
+              checkboxConfiguration.helpIconText
+            );
           }
 
           // Add an event listener to open the help URL in a new Chrome window
@@ -398,9 +404,7 @@ async function setupConfiguration(
     tabNumber += 1;
 
     checkAllCheckbox.addEventListener("change", function () {
-      const checkboxes = tabPanel.querySelectorAll(
-        "input[type='checkbox']:not(.check-all)"
-      );
+      const checkboxes = tabPanel.querySelectorAll("input[type='checkbox']:not(.check-all)");
       checkboxes.forEach((checkboxElement) => {
         if (checkboxElement instanceof HTMLInputElement) {
           // Check to ensure it's an HTMLInputElement
@@ -427,9 +431,7 @@ async function setupConfiguration(
         targetCheckbox !== checkAllCheckbox &&
         !checkAllCheckbox.checked
       ) {
-        const checkboxes = tabPanel.querySelectorAll(
-          "input[type='checkbox']:not(.check-all')"
-        );
+        const checkboxes = tabPanel.querySelectorAll("input[type='checkbox']:not(.check-all)");
         if (
           Array.from(checkboxes).every(
             (checkboxElement) =>
