@@ -41,8 +41,25 @@ class Item {
   removeScript?: string[] | string | null = null;
 }
 
-//const clearAllOptions = document.getElementById("clearAllOptions")!;
-//const setAllOptions = document.getElementById("setAllOptions")!;
+function updateCheckAllState(tabPanel: HTMLElement) {
+  const checkboxes = tabPanel.querySelectorAll<HTMLInputElement>("input[type='checkbox']:not(.check-all)");
+  const checkedCheckboxes = Array.from(checkboxes).filter(checkbox => checkbox.checked);
+  
+  const checkAllCheckbox = tabPanel.querySelector<HTMLInputElement>(".check-all");
+  
+  if (!checkAllCheckbox) return;
+
+  if (checkedCheckboxes.length === 0) {
+    checkAllCheckbox.checked = false;
+    checkAllCheckbox.indeterminate = false;
+  } else if (checkedCheckboxes.length === checkboxes.length) {
+    checkAllCheckbox.checked = true;
+    checkAllCheckbox.indeterminate = false;
+  } else {
+    checkAllCheckbox.indeterminate = true;
+    checkAllCheckbox.checked = false; 
+  }
+}
 
 // The empty tab container element for the tab container
 const tabContainer = document.getElementById("soup")!;
@@ -190,6 +207,16 @@ async function setupConfiguration(
     // Add the div container to the tabPanel
     tabPanel.appendChild(checkAllWrapper);
 
+    checkAllCheckbox.addEventListener("change", (event) => {
+      const state = (event.target as HTMLInputElement).checked;
+      
+      const checkboxes = tabPanel.querySelectorAll<HTMLInputElement>("input[type='checkbox']:not(.check-all)");
+      checkboxes.forEach(checkbox => {
+        checkbox.checked = state;
+        checkbox.dispatchEvent(new Event('change'));
+      });
+    });
+
     // setup fieldsets for the checkbox groupings
     for (const fieldsetConfiguration of tabConfiguration.fieldsets) {
       const fieldset = document.createElement("fieldset");
@@ -277,6 +304,7 @@ async function setupConfiguration(
         // hookup the event listener so we get the click events
         checkBox.addEventListener("change", async (event) => {
           await checkboxEventHandler(event);
+          updateCheckAllState(tabPanel);
         });
 
         // Get the add/remove scripts and CSS files for this checkbox
