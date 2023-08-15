@@ -1,7 +1,7 @@
 {
     "tabs": [
         {
-            "name": "Content Structure",
+            "name": "Content and Structure",
             "helpUrl": "/extension/ui/help.html",
             "fieldsets": [
                 {
@@ -9,7 +9,8 @@
                     "helpSection": "Ensuring Proper Markup and Presentation.",
                     "items": [
                         {
-                            "helpCheck": "Ensure proper heading markup and heading hierarchy.",
+                            "helpIcon": "Yes",
+                            "helpIconText": "Help for Has Heading Mark-up",
                             "name": "Has Heading Mark-up",
                             "id": "headingsYes",
                             "resource_path": "checks/headings",
@@ -18,7 +19,8 @@
                             "removeScript": "headings-remove.js"
                         },
                         {
-                            "helpCheck": "Identifies text that is at least 18px and bold, or greater than 24px that is not marked up as a heading.",
+                            "helpIcon": "Yes",
+                            "helpIconText": "Help for No Heading Mark-up",
                             "name": "No Heading Mark-up",
                             "id": "headingNo",
                             "resource_path": "checks/headings-not-coded",
@@ -27,14 +29,16 @@
                             "removeScript": "headings-not-coded-remove.js"
                         },
                         {
-                            "helpCheck": "Evaluate the use of text-level semantics, such as strong and italic, to enhance content structure and meaning.",
+                            "helpIcon": "Yes",
+                            "helpIconText": "Help for Text-Level Semantics",
                             "name": "Text-Level Semantics",
                             "id": "textLevelElements",
                             "resource_path": "checks/text-level-elements",
                             "css": "text-level-elements.css"
                         },
                         {
-                            "helpCheck": "Examine the implementation of lists to ensure content is structured logically. Check if description lists are correctly used for key-value groups.",
+                            "helpIcon": "Yes",
+                            "helpIconText": "Help for list mark-up",
                             "name": "Ordered list",
                             "id": "oList",
                             "resource_path": "checks/ordered-lists",
@@ -59,7 +63,8 @@
                             "removeScript": "description-list-remove.js"
                         },
                         {
-                            "helpCheck": "Evaluate the use of the HTML hgroup element for organising heading content.",
+                            "helpIcon": "Yes",
+                            "helpIconText": "Help for HTML hgroup",
                             "name": "HTML hgroup",
                             "id": "hGroup",
                             "resource_path": "checks/hgroup",
@@ -68,7 +73,8 @@
                             "removeScript": "hgroup-remove.js"
                         },
                         {
-                            "helpCheck": "Verify the proper grouping of related form controls.",
+                            "helpIcon": "Yes",
+                            "helpIconText": "Help for Related form controls",
                             "name": "Related form controls",
                             "id": "relatedFormControls",
                             "resource_path": "checks/related-form-controls",
@@ -155,7 +161,8 @@
                     "helpSection": "Assessing Interaction and Content Readability.",
                     "items": [
                         {
-                            "helpCheck": "Evaluate the touch size of interactive elements to ensure they are large enough for easy interaction.",
+                            "helpIcon": "Yes",
+                            "helpIconText": "Help for Target size",
                             "name": "Target Size (24px)",
                             "id": "targetSize24",
                             "resource_path": "checks/target-size",
@@ -180,7 +187,8 @@
                             "removeScript": ["target-size-remove.js", "target-size-remove48.js"]
                         },
                         {
-                            "helpCheck": "Evaluate if text spacing can be changed for improved readability.",
+                            "helpIcon": "Yes",
+                            "helpIconText": "Help for Text Spacing",
                             "name": "Text Spacing",
                             "id": "textSpacing",
                             "resource_path": "checks/text-spacing",
@@ -189,7 +197,8 @@
                             "removeScript": "text-spacing-remove.js"
                         },
                         {
-                            "helpCheck": "Remove page styles (CSS) to review the reading order for content comprehension.",
+                            "helpIcon": "Yes",
+                            "helpIconText": "Help for Reading order",
                             "name": "Reading order",
                             "id": "readingOrder",
                             "resource_path": "checks/reset-css",
@@ -198,8 +207,9 @@
                             "css": "reset-css.css"
                         },
                         {
-                            "helpCheck": "Display focus order count for interactive elements.",
-                            "name": "Focus Order counter",
+                            "helpIcon": "Yes",
+                            "helpIconText": "Help for Focus Order",
+                            "name": "Focus Order",
                             "id": "focusOrderCount",
                             "resource_path": "checks/focus-order-count",
                             "addScript": "focus-order-count.js",
@@ -207,7 +217,8 @@
                             "css": "focus-order-count.css"
                         },
                         {
-                            "helpCheck": "Check for ARIA-LABEL text and elements that cannot be named by the author.",
+                            "helpIcon": "Yes",
+                            "helpIconText": "Help for aria-label use",
                             "name": "ARIA-LABEL",
                             "id": "aria-label",
                             "resource_path": "checks/aria-label",

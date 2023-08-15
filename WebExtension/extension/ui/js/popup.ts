@@ -33,6 +33,9 @@ class Fieldset {
 
 class Item {
   helpCheck?: string;
+  helpUrl?: string;
+  helpIcon?: string;
+  helpIconText?: string;
   name: string = "";
   id: string = "";
   resource_path: string = "";
@@ -41,12 +44,23 @@ class Item {
   removeScript?: string[] | string | null = null;
 }
 
+const svgIcon = `
+<svg aria-hidden="true" width="32" height="32" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="14" cy="14" r="12" fill="#5941a9" />
+    <text x="50%" y="50%" font-size="24px" font-weight="bold" text-anchor="middle" dy=".3em" fill="#fff">?</text>
+</svg>`;
+
 function updateCheckAllState(tabPanel: HTMLElement) {
-  const checkboxes = tabPanel.querySelectorAll<HTMLInputElement>("input[type='checkbox']:not(.check-all)");
-  const checkedCheckboxes = Array.from(checkboxes).filter(checkbox => checkbox.checked);
-  
-  const checkAllCheckbox = tabPanel.querySelector<HTMLInputElement>(".check-all");
-  
+  const checkboxes = tabPanel.querySelectorAll<HTMLInputElement>(
+    "input[type='checkbox']:not(.check-all)"
+  );
+  const checkedCheckboxes = Array.from(checkboxes).filter(
+    (checkbox) => checkbox.checked
+  );
+
+  const checkAllCheckbox =
+    tabPanel.querySelector<HTMLInputElement>(".check-all");
+
   if (!checkAllCheckbox) return;
 
   if (checkedCheckboxes.length === 0) {
@@ -57,7 +71,7 @@ function updateCheckAllState(tabPanel: HTMLElement) {
     checkAllCheckbox.indeterminate = false;
   } else {
     checkAllCheckbox.indeterminate = true;
-    checkAllCheckbox.checked = false; 
+    checkAllCheckbox.checked = false;
   }
 }
 
@@ -71,15 +85,6 @@ let invalidPage = false;
 
 // The mapping between checkbox controls and the css and scripts
 const eventConfig = new Map<HTMLInputElement, Item>();
-
-// Create event handlers for the check all and uncheck all buttons
-// clearAllOptions!.addEventListener("click", function () {
-//   setAllCheckboxes(false);
-// });
-
-// setAllOptions!.addEventListener("click", function () {
-//   setAllCheckboxes(true);
-// });
 
 // load the json file, and create the tabs
 setupConfiguration(
@@ -146,8 +151,6 @@ async function setupConfiguration(
   container.appendChild(tabList);
 
   // Keep track of how many tabs we've created
-  // There is no specific reason we're counting from 1, rather than 0, but you can use
-  // whatever you want.
   const initialTabNumber = 1;
   let tabNumber = initialTabNumber;
 
@@ -183,7 +186,7 @@ async function setupConfiguration(
     // link the tab button and the tabPannel
     tabButton.setAttribute("aria-controls", tabPanel.id);
     tabPanel.setAttribute("aria-labelledby", tabButton.id);
-    
+
     // Create the "Check All" checkbox
     const checkAllCheckbox = document.createElement("input");
     checkAllCheckbox.type = "checkbox";
@@ -209,11 +212,13 @@ async function setupConfiguration(
 
     checkAllCheckbox.addEventListener("change", (event) => {
       const state = (event.target as HTMLInputElement).checked;
-      
-      const checkboxes = tabPanel.querySelectorAll<HTMLInputElement>("input[type='checkbox']:not(.check-all)");
-      checkboxes.forEach(checkbox => {
+
+      const checkboxes = tabPanel.querySelectorAll<HTMLInputElement>(
+        "input[type='checkbox']:not(.check-all)"
+      );
+      checkboxes.forEach((checkbox) => {
         checkbox.checked = state;
-        checkbox.dispatchEvent(new Event('change'));
+        checkbox.dispatchEvent(new Event("change"));
       });
     });
 
@@ -227,12 +232,12 @@ async function setupConfiguration(
       fieldset.appendChild(legend);
 
       // Optional help text for the section
-      if (fieldsetConfiguration.helpSection) {
-        const helpText = document.createElement("p");
-        helpText.innerText = fieldsetConfiguration.helpSection;
-        helpText.classList.add("help-section-7726536");
-        fieldset.appendChild(helpText);
-      }
+      // if (fieldsetConfiguration.helpSection) {
+      //   const helpText = document.createElement("p");
+      //   helpText.innerText = fieldsetConfiguration.helpSection;
+      //   helpText.classList.add("help-section-7726536");
+      //   fieldset.appendChild(helpText);
+      // }
 
       // We use a DIV wrapper
       const divWrapper = document.createElement("div");
@@ -258,13 +263,6 @@ async function setupConfiguration(
 
         // Add the divWrapper element to the fieldset element
         fieldset.appendChild(divWrapper);
-
-        // Check the number of li elements and add a class to the divWrapper element if necessary
-        //const liCount = list.querySelectorAll("li").length;
-
-        // if (liCount > 5) {
-        //   divWrapper.classList.add("multi-column--container-299867");
-        // }
 
         // create the input element
         const checkBox = document.createElement("input");
@@ -293,6 +291,46 @@ async function setupConfiguration(
 
         // hook the label into the list item's DOM
         listItem.appendChild(label);
+
+        // Add the SVG as a help icon if "helpIcon" is set to "Yes" in the JSON
+        if (checkboxConfiguration.helpIcon && checkboxConfiguration.helpIcon === "Yes") {
+          const iconWrapper = document.createElement("a");
+          iconWrapper.classList.add("help-icon-link");
+          iconWrapper.innerHTML = svgIcon;
+
+          // Link to the helpUrl, using either the checkbox's own or the tab's default.
+          if (checkboxConfiguration.helpUrl) {
+            iconWrapper.href = `${chrome.runtime.getURL(
+              checkboxConfiguration.helpUrl
+            )}#${checkboxConfiguration.id}`;
+          } else if (tabConfiguration.helpUrl) {
+            iconWrapper.href = `${chrome.runtime.getURL(
+              tabConfiguration.helpUrl
+            )}#${checkboxConfiguration.id}`;
+          } else {
+            iconWrapper.href = "#"; // Fallback
+          }
+
+          if (checkboxConfiguration.helpIconText) {
+            iconWrapper.setAttribute("aria-label", checkboxConfiguration.helpIconText);
+          }
+
+          // Add an event listener to open the help URL in a new Chrome window
+          iconWrapper.addEventListener("click", (e) => {
+            if (iconWrapper.href !== "#") {
+              // If href is not a placeholder
+              e.preventDefault();
+              chrome.windows.create({
+                url: iconWrapper.href,
+                type: "popup",
+                width: 800,
+                height: 600,
+              });
+            }
+          });
+
+          listItem.appendChild(iconWrapper);
+        }
 
         // hook the listitem into the DOM
         list.appendChild(listItem);
