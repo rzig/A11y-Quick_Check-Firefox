@@ -1,3 +1,18 @@
+:root {
+  --purple-900: #4338ca;
+  --purple-700: #5941a9;
+  --purple-500: #7b61c4;
+  --purple-300: #a886e5;
+  --purple-100: #d3beff;
+  --white-help: #ffffff;
+  --black-help: #262626;
+}
+
+body {
+  font-family: Aptos, Bierstadt, "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  line-height:1.5;
+}
+
 .dimensions {
   width: 40em;
   height: auto;
@@ -63,41 +78,6 @@ fieldset > legend {
   color: #539312 !important;
 }
 
-.clearAllOptions {
-  background-color: #ffffff !important;
-  border: 1px solid #222222 !important;
-  border-radius: 8px !important;
-  box-sizing: border-box !important;
-  color: #222222 !important;
-  cursor: pointer !important;
-  display: inline-block !important;
-  font-family: Roboto, "Helvetica Neue", sans-serif !important;
-  font-size: 16px !important;
-  font-weight: 600 !important;
-  line-height: 20px !important;
-  margin: 0 !important;
-  margin-top: 1em !important;
-  outline: none !important;
-  padding: 0.5em 1em !important;
-  position: relative !important;
-  text-align: center !important;
-  text-decoration: none !important;
-  transition: box-shadow 0.2s, -ms-transform 0.1s, -webkit-transform 0.1s,
-    transform 0.1s !important;
-  width: auto !important;
-}
-
-.clearAllOptions:focus-visible {
-  box-shadow: #222222 0 0 0 2px, rgba(255, 255, 255, 0.8) 0 0 0 4px !important;
-  transition: box-shadow 0.2s !important;
-}
-
-.clearAllOptions:active {
-  background-color: #f7f7f7 !important;
-  border-color: #000000 !important;
-  transform: scale(0.96) !important;
-}
-
 .button-23:disabled {
   border-color: #dddddd !important;
   color: #dddddd !important;
@@ -122,4 +102,15 @@ fieldset > legend {
 
 .check-all-wrapper-7786978 {
   margin: 1em;
+}
+
+.help-icon-link {
+  margin-left: 10px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.help-icon-link svg {
+  width: 20px;
+  height: 20px;
 }
