@@ -1,0 +1,115 @@
+@import '../common';
+
+@mixin ariaProhibitedStyle($backgroundColor, $borderColor, $textColor) {
+    @include important-styles((
+    display: table,
+    height: auto,
+    width: auto,
+    position: relative,
+    padding: 1px 0,
+    background-color: $backgroundColor,
+    color: $textColor,
+    border: 3px solid $borderColor,
+    font-size: .9rem,
+    font-weight: 700,
+    ), true);
+}
+
+*[aria-label][data-name-prohibited-aria]::after {
+    @include ariaProhibitedStyle(var(--danger-background), var(--danger-border), var(--danger-text));
+    content: " [Invalid] (aria-label=" attr(aria-label)") cannot be used on HTML element " attr(data-name-prohibited-aria) " ";
+}
+
+*[aria-label][data-name-prohibited-html]::after {
+    @include ariaProhibitedStyle(var(--danger-background), var(--danger-border), var(--danger-text));
+    content: " [Invalid] (aria-label=" attr(aria-label)") cannot be used on HTML element " attr(data-name-prohibited-html) " ";
+}
+
+*[aria-labelledby][data-name-prohibited-aria]::after {
+    @include ariaProhibitedStyle(var(--danger-background), var(--danger-border), var(--danger-text));
+    content: " [Invalid] aria-labelledby cannot be used on " attr(data-name-prohibited-aria) " ";
+}
+
+*[aria-labelledby][data-name-prohibited-html]::after {
+    @include ariaProhibitedStyle(var(--danger-background), var(--danger-border), var(--danger-text));
+    content: " [Invalid] aria-labelledby cannot be used on HTML element " attr(data-name-prohibited-html) " ";
+}
+
+@mixin ariaStyle($backgroundColor, $borderColor, $textColor) {
+    display: block;
+    width: auto;
+    height: auto;
+    position: relative;
+    padding: 5px;
+    z-index: 10000;
+    background-color: $backgroundColor;
+    color: $textColor;
+    border: 3px solid $borderColor;
+    font-size: .9rem;
+    font-weight: 700;
+    opacity: 1;
+    content: 'aria-label="' attr(aria-label) '"';
+}
+
+div[aria-label]:not([role]):before, 
+span[aria-label]:not([role]):before {
+    @include ariaStyle(var(--pass-background), var(--pass-border), var(--pass-text));
+}
+
+[role="generic"][aria-label]:before {
+    @include ariaStyle(var(--pass-background), var(--pass-border), var(--pass-text));
+}
+
+[role="caption"][aria-label]:before,
+caption[aria-label]:before {
+    @include ariaStyle(var(--pass-background), var(--pass-border), var(--pass-text));
+}
+
+[role="deletion"][aria-label]:before,
+del[aria-label]:before {
+    @include ariaStyle(var(--pass-background), var(--pass-border), var(--pass-text));
+}
+
+[role="emphasis"][aria-label]:before,
+em[aria-label]:before {
+    @include ariaStyle(var(--pass-background), var(--pass-border), var(--pass-text)); 
+}
+
+[role="insertion"][aria-label]:before,
+ins[aria-label]:before {
+    @include ariaStyle(var(--pass-background), var(--pass-border), var(--pass-text)); 
+}
+
+[role="paragraph"][aria-label]:before,
+p[aria-label]:before {
+    @include ariaStyle(var(--pass-background), var(--pass-border), var(--pass-text)); 
+}
+
+[role="presentation"][aria-label]:before,
+[role="none"][aria-label]:before {
+    @include ariaStyle(var(--pass-background), var(--pass-border), var(--pass-text)); 
+}
+
+[role="strong"][aria-label]:before,
+strong[aria-label]:before {
+    @include ariaStyle(var(--pass-background), var(--pass-border), var(--pass-text)); 
+}
+
+[role="subscript"][aria-label]:before,
+sub[aria-label]:before {
+    @include ariaStyle(var(--pass-background), var(--pass-border), var(--pass-text)); 
+}
+
+[role="superscript"][aria-label]:before,
+sup[aria-label]:before {
+    @include ariaStyle(var(--pass-background), var(--pass-border), var(--pass-text)); 
+}
+
+*[aria-label]:not(div):not(span):not([role="generic"]):not([role="caption"]):not(caption):not([role="deletion"]):not(del):not([role="emphasis"]):not(em):not([role="insertion"]):not(ins):not([role="paragraph"]):not(p):not([role="presentation"]):not([role="none"]):not([role="strong"]):not(strong):not([role="subscript"]):not(sub):not([role="superscript"]):not(sup):before {
+    @include ariaStyle(var(--pass-background), var(--pass-border), var(--pass-text)); 
+}
+
+[role="table"][aria-label]:before,
+sub[aria-label]:before {
+    @include ariaStyle(var(--pass-background), var(--pass-border), var(--pass-text));
+}

@@ -218,19 +218,13 @@
                         },
                         {
                             "helpIcon": "Yes",
-                            "helpIconText": "Help for aria-label use",
-                            "name": "ARIA-LABEL",
-                            "id": "aria-label",
-                            "resource_path": "checks/aria-label",
-                            "css": "aria-label.css"
-                        },
-                        {
-                            "name": "ARIA name prohibited",
-                            "id": "nameDisalowed",
-                            "resource_path": "checks/aria-name-prohibited",
-                            "css": "name-prohibited.css",
-                            "addScript": "name-prohibited.js",
-                            "removeScript": "name-prohibited-remove.js"
+                            "helpIconText": "Check for valid use of ARIA accessible name.",
+                            "name": "Accessible name",
+                            "id": "accessibleName",
+                            "resource_path": "checks/accname-calc",
+                            "css": "accname-calc.css",
+                            "addScript": "accname-calc.js",
+                            "removeScript": "accname-calc-remove.js"
                         }
                     ]
                 }
