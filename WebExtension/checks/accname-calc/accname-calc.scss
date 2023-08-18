@@ -1,115 +1,120 @@
 @import '../common';
 
-@mixin ariaProhibitedStyle($backgroundColor, $borderColor, $textColor) {
-    @include important-styles((
-    display: table,
-    height: auto,
-    width: auto,
-    position: relative,
-    padding: 1px 0,
-    background-color: $backgroundColor,
-    color: $textColor,
-    border: 3px solid $borderColor,
-    font-size: .9rem,
-    font-weight: 700,
-    ), true);
+@mixin ariaPermittedStyle($backgroundColor, $borderColor, $textColor) {
+  display: block;
+  width: auto;
+  height: auto;
+  position: relative;
+  padding: 5px;
+  z-index: 10000;
+  background-color: $backgroundColor;
+  color: $textColor;
+  border: 3px solid $borderColor;
+  font-size: .9rem;
+  font-weight: 700;
+  opacity: 1;
+  content: 'aria-label="' attr(aria-label) '"';
 }
 
-*[aria-label][data-name-prohibited-aria]::after {
-    @include ariaProhibitedStyle(var(--danger-background), var(--danger-border), var(--danger-text));
-    content: " [Invalid] (aria-label=" attr(aria-label)") cannot be used on HTML element " attr(data-name-prohibited-aria) " ";
+div[aria-label][data-name-permitted-aria]:not([role]):before,
+span[aria-label][data-name-permitted-aria]:not([role]):before {
+  @include ariaPermittedStyle(var(--pass-background), var(--pass-border), var(--pass-text));
 }
 
-*[aria-label][data-name-prohibited-html]::after {
-    @include ariaProhibitedStyle(var(--danger-background), var(--danger-border), var(--danger-text));
-    content: " [Invalid] (aria-label=" attr(aria-label)") cannot be used on HTML element " attr(data-name-prohibited-html) " ";
+[role="generic"][aria-label][data-name-permitted-aria]:before {
+  @include ariaPermittedStyle(var(--pass-background), var(--pass-border), var(--pass-text));
 }
 
-*[aria-labelledby][data-name-prohibited-aria]::after {
-    @include ariaProhibitedStyle(var(--danger-background), var(--danger-border), var(--danger-text));
-    content: " [Invalid] aria-labelledby cannot be used on " attr(data-name-prohibited-aria) " ";
+[role="caption"][aria-label][data-name-permitted-aria]:before,
+caption[aria-label][data-name-permitted-aria]:before {
+  @include ariaPermittedStyle(var(--pass-background), var(--pass-border), var(--pass-text));
 }
 
-*[aria-labelledby][data-name-prohibited-html]::after {
-    @include ariaProhibitedStyle(var(--danger-background), var(--danger-border), var(--danger-text));
-    content: " [Invalid] aria-labelledby cannot be used on HTML element " attr(data-name-prohibited-html) " ";
+[role="deletion"][aria-label][data-name-permitted-aria]:before,
+del[aria-label][data-name-permitted-aria]:before {
+  @include ariaPermittedStyle(var(--pass-background), var(--pass-border), var(--pass-text));
 }
 
-@mixin ariaStyle($backgroundColor, $borderColor, $textColor) {
-    display: block;
-    width: auto;
-    height: auto;
-    position: relative;
-    padding: 5px;
-    z-index: 10000;
-    background-color: $backgroundColor;
-    color: $textColor;
-    border: 3px solid $borderColor;
-    font-size: .9rem;
-    font-weight: 700;
-    opacity: 1;
-    content: 'aria-label="' attr(aria-label) '"';
+[role="emphasis"][aria-label][data-name-permitted-aria]:before,
+em[aria-label][data-name-permitted-aria]:before {
+  @include ariaPermittedStyle(var(--pass-background), var(--pass-border), var(--pass-text));
 }
 
-div[aria-label]:not([role]):before, 
-span[aria-label]:not([role]):before {
-    @include ariaStyle(var(--pass-background), var(--pass-border), var(--pass-text));
+[role="insertion"][aria-label][data-name-permitted-aria]:before,
+ins[aria-label][data-name-permitted-aria]:before {
+  @include ariaPermittedStyle(var(--pass-background), var(--pass-border), var(--pass-text));
 }
 
-[role="generic"][aria-label]:before {
-    @include ariaStyle(var(--pass-background), var(--pass-border), var(--pass-text));
+[role="paragraph"][aria-label][data-name-permitted-aria]:before,
+p[aria-label][data-name-permitted-aria]:before {
+  @include ariaPermittedStyle(var(--pass-background), var(--pass-border), var(--pass-text));
 }
 
-[role="caption"][aria-label]:before,
-caption[aria-label]:before {
-    @include ariaStyle(var(--pass-background), var(--pass-border), var(--pass-text));
+[role="presentation"][aria-label][data-name-permitted-aria]:before,
+[role="none"][aria-label][data-name-permitted-aria]:before {
+  @include ariaPermittedStyle(var(--pass-background), var(--pass-border), var(--pass-text));
 }
 
-[role="deletion"][aria-label]:before,
-del[aria-label]:before {
-    @include ariaStyle(var(--pass-background), var(--pass-border), var(--pass-text));
+[role="strong"][aria-label][data-name-permitted-aria]:before,
+strong[aria-label][data-name-permitted-aria]:before {
+  @include ariaPermittedStyle(var(--pass-background), var(--pass-border), var(--pass-text));
 }
 
-[role="emphasis"][aria-label]:before,
-em[aria-label]:before {
-    @include ariaStyle(var(--pass-background), var(--pass-border), var(--pass-text)); 
+[role="subscript"][aria-label][data-name-permitted-aria]:before,
+sub[aria-label][data-name-permitted-aria]:before {
+  @include ariaPermittedStyle(var(--pass-background), var(--pass-border), var(--pass-text));
 }
 
-[role="insertion"][aria-label]:before,
-ins[aria-label]:before {
-    @include ariaStyle(var(--pass-background), var(--pass-border), var(--pass-text)); 
-}
-
-[role="paragraph"][aria-label]:before,
-p[aria-label]:before {
-    @include ariaStyle(var(--pass-background), var(--pass-border), var(--pass-text)); 
-}
-
-[role="presentation"][aria-label]:before,
-[role="none"][aria-label]:before {
-    @include ariaStyle(var(--pass-background), var(--pass-border), var(--pass-text)); 
-}
-
-[role="strong"][aria-label]:before,
-strong[aria-label]:before {
-    @include ariaStyle(var(--pass-background), var(--pass-border), var(--pass-text)); 
-}
-
-[role="subscript"][aria-label]:before,
-sub[aria-label]:before {
-    @include ariaStyle(var(--pass-background), var(--pass-border), var(--pass-text)); 
-}
-
-[role="superscript"][aria-label]:before,
-sup[aria-label]:before {
-    @include ariaStyle(var(--pass-background), var(--pass-border), var(--pass-text)); 
+[role="superscript"][aria-label][data-name-permitted-aria]:before,
+sup[aria-label][data-name-permitted-aria]:before {
+  @include ariaPermittedStyle(var(--pass-background), var(--pass-border), var(--pass-text));
 }
 
 *[aria-label]:not(div):not(span):not([role="generic"]):not([role="caption"]):not(caption):not([role="deletion"]):not(del):not([role="emphasis"]):not(em):not([role="insertion"]):not(ins):not([role="paragraph"]):not(p):not([role="presentation"]):not([role="none"]):not([role="strong"]):not(strong):not([role="subscript"]):not(sub):not([role="superscript"]):not(sup):before {
-    @include ariaStyle(var(--pass-background), var(--pass-border), var(--pass-text)); 
+  @include ariaPermittedStyle(var(--pass-background), var(--pass-border), var(--pass-text));
 }
 
-[role="table"][aria-label]:before,
+[role="table"][aria-label][data-name-permitted-aria]:before,
 sub[aria-label]:before {
-    @include ariaStyle(var(--pass-background), var(--pass-border), var(--pass-text));
+  @include ariaPermittedStyle(var(--pass-background), var(--pass-border), var(--pass-text));
+}
+
+@mixin ariaProhibitedStyle($backgroundColor, $borderColor, $textColor) {
+  @include important-styles((display: table,
+      height: auto,
+      width: auto,
+      position: relative,
+      padding: 1px 0,
+      background-color: $backgroundColor,
+      color: $textColor,
+      border: 3px solid $borderColor,
+      font-size: .9rem,
+      font-weight: 700,
+    ), true);
+}
+
+div[aria-label][data-name-permitted-aria][data-name-prohibited-aria]:not([role]):before,
+span[aria-label][data-name-permitted-aria][data-name-prohibited-aria]:not([role]):before {
+  @include ariaProhibitedStyle(var(--danger-background), var(--danger-border), var(--danger-text));
+  content: "[Invalid] (aria-label=" attr(aria-label)") cannot be used on HTML element " attr(data-name-prohibited-aria) " ";
+}
+
+*[aria-label][data-name-permitted-aria][data-name-prohibited-aria]::before {
+  @include ariaProhibitedStyle(var(--danger-background), var(--danger-border), var(--danger-text));
+  content: "[Invalid] (aria-label=" attr(aria-label)") cannot be used on HTML element " attr(data-name-prohibited-aria) " ";
+}
+
+*[aria-label][data-name-permitted-aria][data-name-prohibited-html]::before {
+  @include ariaProhibitedStyle(var(--danger-background), var(--danger-border), var(--danger-text));
+  content: " [Invalid] (aria-label=" attr(aria-label)") cannot be used on HTML element " attr(data-name-prohibited-html) " ";
+}
+
+*[aria-labelledby][data-name-permitted-aria][data-name-prohibited-aria]::before {
+  @include ariaProhibitedStyle(var(--danger-background), var(--danger-border), var(--danger-text));
+  content: " [Invalid] aria-labelledby cannot be used on " attr(data-name-prohibited-aria) " ";
+}
+
+*[aria-labelledby][data-name-permitted-aria][data-name-prohibited-html]::before {
+  @include ariaProhibitedStyle(var(--danger-background), var(--danger-border), var(--danger-text));
+  content: " [Invalid] aria-labelledby cannot be used on HTML element " attr(data-name-prohibited-html) " ";
 }
