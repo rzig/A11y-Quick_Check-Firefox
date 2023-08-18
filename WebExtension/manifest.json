@@ -1,8 +1,8 @@
 {
     "name": "A11y quick check (BETA)",
     "short_name": "A11y Check (BETA)",
-    "version": "2500.06.31",
-    "version_name": "2500.06.31",
+    "version": "2500.06.34",
+    "version_name": "2500.06.34",
     "manifest_version": 3,
     "description": "Easy to use quick checks to identify potential accessibility issues.",
     "author": "Laurence Lewis (@LaurenceRLewis) and Marcus Helvig (@MarcusP-P)",
