@@ -59,30 +59,32 @@ body {
 }
 
 h1 {
-  font-size: 1.8rem !important;
-  margin-bottom: 1em !important;
+  font-size: 1.8rem;
+  margin-bottom: 1em ;
 }
 
 ul {
-  list-style: none !important;
-  padding-left: 0 !important;
+  list-style: none;
+  padding-left: 0;
+  margin-block-start: 0;
+  margin-block-end: 0;
 }
 
 fieldset {
-  margin: 1em !important;
-  border: 1px solid #539312 !important;
+  margin: 0.5em;
+  border: 1px solid #539312;
 }
 
 fieldset > legend {
-  font-size: 1.1em !important;
-  color: #539312 !important;
+  font-size: 1.1em;
+  color: #539312;
 }
 
 .button-23:disabled {
-  border-color: #dddddd !important;
-  color: #dddddd !important;
-  cursor: not-allowed !important;
-  opacity: 1 !important;
+  border-color: #dddddd;
+  color: #dddddd;
+  cursor: not-allowed;
+  opacity: 1;
 }
 
 .switch--label-88947 {
