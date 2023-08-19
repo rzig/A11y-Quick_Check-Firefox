@@ -5,7 +5,7 @@
             "helpUrl": "/extension/ui/help.html",
             "fieldsets": [
                 {
-                    "name": "Content",
+                    "name": "Headings",
                     "helpSection": "Ensuring Proper Markup and Presentation.",
                     "items": [
                         {
@@ -30,12 +30,20 @@
                         },
                         {
                             "helpIcon": "Yes",
-                            "helpIconText": "Help for Text-Level Semantics",
-                            "name": "Text-Level Semantics",
-                            "id": "textLevelSemantics",
-                            "resource_path": "checks/text-level-semantics",
-                            "css": "text-level-semantics.css"
-                        },
+                            "helpIconText": "Help for HTML hgroup",
+                            "name": "HTML hgroup",
+                            "id": "hGroup",
+                            "resource_path": "checks/hgroup",
+                            "css": "hgroup.css",
+                            "addScript": "hgroup.js",
+                            "removeScript": "hgroup-remove.js"
+                        }
+                    ]
+                },
+                {
+                    "name": "Lists",
+                    "helpSection": "Ensuring Proper Markup and Presentation.",
+                    "items": [
                         {
                             "helpIcon": "Yes",
                             "helpIconText": "Help for list mark-up",
@@ -61,16 +69,20 @@
                             "css": "description-list.css",
                             "addScript": "description-list.js",
                             "removeScript": "description-list-remove.js"
-                        },
+                        }
+                    ]
+                },
+                {
+                    "name": "Content",
+                    "helpSection": "Ensuring Proper Markup and Presentation.",
+                    "items": [
                         {
                             "helpIcon": "Yes",
-                            "helpIconText": "Help for HTML hgroup",
-                            "name": "HTML hgroup",
-                            "id": "hGroup",
-                            "resource_path": "checks/hgroup",
-                            "css": "hgroup.css",
-                            "addScript": "hgroup.js",
-                            "removeScript": "hgroup-remove.js"
+                            "helpIconText": "Help for Text-Level Semantics",
+                            "name": "Text-Level Semantics",
+                            "id": "textLevelSemantics",
+                            "resource_path": "checks/text-level-semantics",
+                            "css": "text-level-semantics.css"
                         },
                         {
                             "helpIcon": "Yes",
