@@ -6,7 +6,7 @@
             "fieldsets": [
                 {
                     "name": "Headings",
-                    "helpSection": "Ensuring Proper Markup and Presentation.",
+                    "helpSection": "Ensuring headings are marked up in code and warns if heading levels are skipped.",
                     "items": [
                         {
                             "helpIcon": "Yes",
@@ -41,8 +41,8 @@
                     ]
                 },
                 {
-                    "name": "Lists",
-                    "helpSection": "Ensuring Proper Markup and Presentation.",
+                    "name": "Grouping content",
+                    "helpSection": "Displays grouping structure markup.",
                     "items": [
                         {
                             "helpIcon": "Yes",
@@ -69,20 +69,14 @@
                             "css": "description-list.css",
                             "addScript": "description-list.js",
                             "removeScript": "description-list-remove.js"
-                        }
-                    ]
-                },
-                {
-                    "name": "Content",
-                    "helpSection": "Ensuring Proper Markup and Presentation.",
-                    "items": [
+                        },
                         {
                             "helpIcon": "Yes",
-                            "helpIconText": "Help for Text-Level Semantics",
-                            "name": "Text-Level Semantics",
-                            "id": "textLevelSemantics",
-                            "resource_path": "checks/text-level-semantics",
-                            "css": "text-level-semantics.css"
+                            "helpIconText": "Displays method used to group content.",
+                            "name": "Grouping content (other than lists)",
+                            "id": "groupingContent",
+                            "resource_path": "checks/grouping-content",
+                            "css": "grouping-content.css"
                         },
                         {
                             "helpIcon": "Yes",
@@ -93,6 +87,20 @@
                             "css": "related-controls.css",
                             "addScript": "related-controls.js",
                             "removeScript": "related-controls-remove.js"
+                        }
+                    ]
+                },
+                {
+                    "name": "Content",
+                    "helpSection": "Displays proper use of text-level-semantics.",
+                    "items": [
+                        {
+                            "helpIcon": "Yes",
+                            "helpIconText": "Help for Text-Level Semantics",
+                            "name": "Text-Level Semantics",
+                            "id": "textLevelSemantics",
+                            "resource_path": "checks/text-level-semantics",
+                            "css": "text-level-semantics.css"
                         }
                     ]
                 }
@@ -227,7 +235,13 @@
                             "addScript": "focus-order-count.js",
                             "removeScript": "focus-order-count-remove.js",
                             "css": "focus-order-count.css"
-                        },
+                        }
+                    ]
+                },
+                {
+                    "name": "Accessible name calculation",
+                    "helpSection": "Displays the accessible name of elements.",
+                    "items": [
                         {
                             "helpIcon": "Yes",
                             "helpIconText": "Check for valid use of ARIA accessible name.",
