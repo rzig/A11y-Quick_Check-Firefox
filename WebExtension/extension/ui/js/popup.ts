@@ -231,13 +231,13 @@ async function setupConfiguration(
       legend.innerText = fieldsetConfiguration.name;
       fieldset.appendChild(legend);
 
-      // Optional help text for the section
-      // if (fieldsetConfiguration.helpSection) {
-      //   const helpText = document.createElement("p");
-      //   helpText.innerText = fieldsetConfiguration.helpSection;
-      //   helpText.classList.add("help-section-7726536");
-      //   fieldset.appendChild(helpText);
-      // }
+      //Optional help text for the section
+      if (fieldsetConfiguration.helpSection) {
+        const helpText = document.createElement("p");
+        helpText.innerText = fieldsetConfiguration.helpSection;
+        helpText.classList.add("help-section-7726536");
+        fieldset.appendChild(helpText);
+      }
 
       // We use a DIV wrapper
       const divWrapper = document.createElement("div");

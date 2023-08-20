@@ -3,7 +3,7 @@
 @mixin heading-decoration($heading-level) {
   #{$heading-level}:before, [role="heading"]:before {
     @include important-styles((
-      content: "[#{$heading-level}]",
+      content: "<#{$heading-level}>",
       font-size: 0.875em,
       padding: 0.5em,
       margin-right: .25em,
@@ -15,7 +15,7 @@
 
   #{$heading-level}:after, [role="heading"]:after {
     @include important-styles((
-      content: "[/#{$heading-level}]",
+      content: "</#{$heading-level}>",
       font-size: 0.875em,
       padding: 0.5em,
       margin-left: .25em,
