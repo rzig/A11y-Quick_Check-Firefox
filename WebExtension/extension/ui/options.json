@@ -6,7 +6,7 @@
             "fieldsets": [
                 {
                     "name": "Headings",
-                    "helpSection": "Ensuring headings are marked up in code and warns if heading levels are skipped.",
+                    "helpSection": "Tests that headings are marked up in code, checks for text that could be a heading that is not marked up in code, and warns if heading levels are skipped. identifies grouped headings.",
                     "items": [
                         {
                             "helpIcon": "Yes",
@@ -42,7 +42,7 @@
                 },
                 {
                     "name": "Grouping content",
-                    "helpSection": "Displays grouping structure markup.",
+                    "helpSection": "Identifies proper use of grouping content.",
                     "items": [
                         {
                             "helpIcon": "Yes",
