@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Heading test Page</title>
+  </head>
+
+  <body>
+    <h1>Test HGroup</h1>
+
+<h2>HTML only</h2>
+<hgroup>
+  <h1>The Main Heading</h1>
+  <p class="nota-heading">Large text in an hgroup</p>
+  <p>Taking a P in a HGROUP</p>
+</hgroup>
+
+<h2>With ARIA support</h2>
+<hgroup role="group" aria-roledescription="Heading group">
+  <div class="nota-heading">The Main Heading</div>
+  <p aria-roledescription="Tagline">Taking a P in a HGROUP</p>
+</hgroup>
+<p><strong>Updated 01 Mar 2023</strong></p>
+<p>Removed aria-roledescription="Tagline" from the P
+<p><strong>Reason</strong></p>
+<p>In order for the roledescription to be exposed on the P, you would need to give it another role. ‘tagline’ is not announced by JAWS in FF or Chrome.</p>
+
+</body>
+
+</html>
