@@ -1,89 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+  <head>
     <title>Tests for SVG Name</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-</head>
+  </head>
 
-<body>
+  <body>
     <h1>Test for svg name</h1>
 
     <h2>svg element with image element and no role</h2>
 
     <p>Missing accname</p>
     <svg>
-        <image href="Assets/svgImage.svg" />
+      <image href="Assets/svgImage.svg" />
     </svg>
 
     <p>Alt text with aria-label</p>
     <svg aria-label="This is alt text">
-        <image href="Assets/svgImage.svg" />
+      <image href="Assets/svgImage.svg" />
     </svg>
 
     <p>Alt text with aria-labeledby</p>
     <svg aria-labelledby="Label">
-        <image href="Assets/svgImage.svg" />
+      <image href="Assets/svgImage.svg" />
     </svg>
 
     <p>Alt text with title</p>
     <svg>
-        <title>This is alt text</title>
-        <image href="Assets/svgImage.svg" />
+      <title>This is alt text</title>
+      <image href="Assets/svgImage.svg" />
     </svg>
 
     <p>Alt text with text</p>
     <svg>
-        <text>This is alt text</text>
-        <image href="Assets/svgImage.svg" />
+      <text>This is alt text</text>
+      <image href="Assets/svgImage.svg" />
     </svg>
 
     <p>Decorative with role="presentation"</p>
     <svg role="presentation">
-        <image href="Assets/svgImage.svg" />
+      <image href="Assets/svgImage.svg" />
     </svg>
 
     <p>Decorative with aria-hidden="true"</p>
     <svg aria-hidden="true">
-        <image href="Assets/svgImage.svg" />
+      <image href="Assets/svgImage.svg" />
     </svg>
 
     <h2>svg element with image element and role=img</h2>
 
     <p>Missing accname</p>
     <svg role="img">
-        <image href="Assets/svgImage.svg" />
+      <image href="Assets/svgImage.svg" />
     </svg>
 
     <p>Alt text with aria-label</p>
     <svg role="img" aria-label="This is alt text">
-        <image href="Assets/svgImage.svg" />
+      <image href="Assets/svgImage.svg" />
     </svg>
 
     <p>Alt text with aria-labeledby</p>
     <svg role="img" aria-labelledby="Label">
-        <image href="Assets/svgImage.svg" />
+      <image href="Assets/svgImage.svg" />
     </svg>
 
     <p>Alt text with title </p>
     <svg role="img">
-        <title>alt text</title>
-        <image href="Assets/svgImage.svg" />
+      <title>alt text</title>
+      <image href="Assets/svgImage.svg" />
     </svg>
 
     <p>Alt text with text</p>
     <svg role="img">
-        <text>This is alt text</text>
-        <image href="Assets/svgImage.svg" />
+      <text>This is alt text</text>
+      <image href="Assets/svgImage.svg" />
     </svg>
 
     <p>Decorative with aria-hidden="true"</p>
     <svg aria-hidden="true" role="img">
-        <image href="Assets/svgImage.svg" />
+      <image href="Assets/svgImage.svg" />
     </svg>
 
     <p id="Label">This is Alt text to be provided through aria-labeledby</p>
-</body>
+  </body>
 
 </html>

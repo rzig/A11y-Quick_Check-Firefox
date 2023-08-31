@@ -36,3 +36,12 @@
     var(--pass-text)
   );
 }
+
+.missing-heading-message-58997365 {
+  font-weight: bold;
+  @include headingGroup(
+    var(--danger-background),
+    var(--danger-border),
+    var(--danger-text)
+  );
+}

@@ -4,6 +4,7 @@ function checkHGroups() {
   const hgroupElements = document.querySelectorAll("hgroup");
   const htmlHGroupMessageClass = "html-hgroup-message-58997365";
   const ariaHGroupMessageClass = "aria-hgroup-message-58997365";
+  const missingHeadingClass = "missing-heading-message-58997365";
 
   for (const htmlGroupElement of hgroupElements) {
     // Check if HTML hgroup element has no roles
@@ -23,7 +24,21 @@ function checkHGroups() {
       createChildMessageDiv(htmlGroupElement, ariaHGroupMessageClass, message);
       htmlGroupElement.classList.add("hgroup-58997365");
     }
+
+    // Check if the hgroup contains at least one heading level element
+    const headingElements = htmlGroupElement.querySelectorAll("h1, h2, h3, h4, h5, h6, [role='heading'][aria-level='1'], [role='heading'][aria-level='2'], [role='heading'][aria-level='3'], [role='heading'][aria-level='4'], [role='heading'][aria-level='5'], [role='heading'][aria-level='6']");
+    if (headingElements.length === 0) {
+      const message = "This <hgroup> is missing a heading element";
+      createChildMessageDiv(htmlGroupElement, missingHeadingClass, message);
+    }
   }
+}
+
+function createChildMessageDiv(parentElement: Element, className: string, message: string) {
+  const div = document.createElement("div");
+  div.className = className;
+  div.innerText = message;
+  parentElement.appendChild(div);
 }
 
 checkHGroups();

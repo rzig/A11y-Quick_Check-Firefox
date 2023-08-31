@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <title>Hidden child divs</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <style>
+      span :not(svg, image) {
+        display: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Hidden child divs</h1>
+
+    <p>If the parent of an svg has a style rule that hides div elements. Run the SVG accname check on this page. It
+      should find the accname, and also the aria-hidden=false. Discovered in Able error message for textboxes.</p>
+    <span>
+      <svg role="img" aria-hidden="false" aria-label="image">
+        <image href="../Assets/svgImage.svg" />
+      </svg>
+    </span>
+  </body>
+
+</html>
