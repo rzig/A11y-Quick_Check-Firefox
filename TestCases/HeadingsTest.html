@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Heading test Page</title>
+  </head>
+
+  <body>
+    <h1>Heading test Page</h1>
+    <hr />
+
+    <!-- Section with H2 followed by H4 -->
+    <section>
+      <p>This test should highlight the missed heading.</p>
+      <h2>Test Heading H2</h2>
+      <p>This is a paragraph under an H2 heading.</p>
+      <h4>Test Heading H4</h4>
+      <p>This is a paragraph under an H4 heading.</p>
+    </section>
+    <hr />
+
+    <!-- Section with valid H2 to H4 -->
+    <section>
+      <p>This test should pass.</p>
+      <h2>Test Valid Heading H2</h2>
+      <p>This is a paragraph under a valid H2 heading.</p>
+      <h3>Test Valid Heading H3</h3>
+      <p>This is a paragraph under a valid H3 heading.</p>
+      <h4>Test Valid Heading H4</h4>
+      <p>This is a paragraph under a valid H4 heading.</p>
+    </section>
+    <hr />
+
+    <!-- Section with role=heading with and without aria-level -->
+    <section>
+      <p>This test should emit an error that we have a role heading without an aria-level attribute</p>
+      <div role="heading">Role Heading without level</div>
+      <p>This is a paragraph under a heading with role=heading and no level.</p>
+    </section>
+    <hr />
+
+    <!-- Section with aria role=heading and no previous -->
+    <section>
+      <p>TODO: What should the following produce?</p>
+      <div role="heading" aria-level="2">Role Heading with Level 2</div>
+      <p>This is a paragraph under a heading with role=heading and level 2.</p>
+    </section>
+    <hr />
+
+    <!-- Section with role=heading applied to an HTML heading -->
+    <section>
+      <p>the following should create a warning that we have a heading with a redundant heading role.</p>
+      <h2 role="heading">HTML Heading with Role</h2>
+      <p>This is a paragraph under an HTML heading with role=heading.</p>
+    </section>
+    <hr />
+
+    <!-- Section with html heading overwritted by aria-level -->
+    <section>
+      <h2 role="heading" aria-level="3">Test ARIA Heading with level 3</h2>
+      <p>This is a paragraph under an ARIA Heading with level 3.</p>
+    </section>
+    <hr />
+
+    <!-- Section with H1 followed by H3 -->
+    <section>
+      <h1>Test Heading H1</h1>
+      <p>This is a paragraph under an H1 heading.</p>
+      <h3>Test Heading H3</h3>
+      <p>This is a paragraph under an H3 heading.</p>
+    </section>
+    <hr />
+
+    <!-- Section with H1 followed by <span role="heading" aria-level="2"> followed by H3 -->
+    <section>
+      <p>TODO: Should this pass, or throw an error?</p>
+      <h1>Test Heading H1</h1>
+      <p>This is a paragraph under an H1 heading.</p>
+      <span role="heading" aria-level="2">Test span with role="heading" aria-level="2"</span>
+      <p>This is a paragraph under a role="heading" aria-level="2" heading.</p>
+      <h3>Test Heading H3</h3>
+      <p>This is a paragraph under an H3 heading.</p>
+    </section>
+    <hr />
+
+    <!-- Section with <span role="heading" aria-level="1"> followed by H2 followed by <span role="heading" aria-level="3"> -->
+    <section>
+      <p>TODO: Should this pass, or throw an error?</p>
+      <span role="heading" aria-level="1">Test span with role="heading" aria-level="1"</span>
+      <p>This is a paragraph under a role="heading" aria-level="1" heading.</p>
+      <h2>Test Heading H2</h2>
+      <p>This is a paragraph under an H1 heading.</p>
+      <span role="heading" aria-level="3">Test span with role="heading" aria-level="3"</span>
+      <p>This is a paragraph under a role="heading" aria-level="3" heading.</p>
+    </section>
+    <hr />
+
+    <!-- dynamically generated headings -->
+    <section>
+      <button type="button" onclick='document.getElementById("container").innerHTML= `
+        <h1>Test Heading H1</h1>
+        <p>This is a paragraph under an H1 heading.</p>
+        <div role=\"heading\" aria-level=\"1\">Test ARIA Heading with level 1</div>
+        <p>This is a paragraph under an ARIA Heading with level 1.</p>
+        <div role=\"heading\">Test ARIA Heading with no level</div>
+        <p>This is a paragraph under an ARIA Heading with no level.</p>
+        <h1 role="heading">Test Heading H1 with role="heading"</h1>
+        <p>This is a paragraph under an H1 with role="heading".</p>
+        <h1 role="heading" aria-level="1">Test Heading H1 with role="heading" aria-level="1"</h1>
+        <p>This is a paragraph under an H1 with role="heading" aria-level="1".</p>`;'>Reveal</button>
+      <div id="container"></div>
+    </section>
+  </body>
+
+</html>
