@@ -40,6 +40,34 @@
   );
 }
 
+.dl--single-dt-dd-9927845{
+  @include important-styles(
+    (
+      border: 2px dashed var(--warning-border),
+      margin-bottom:0,
+      padding: 1em,
+    ),
+    true
+  );
+}
+
+.single-dt-dd-message-9927845 {
+  @include important-styles(
+    (
+      border-width: 2px,
+      border-style: dashed,
+      margin-left: 1em,
+      padding: 1em,
+    ),
+    true
+  );
+  @include descriptionList(
+    var(--warning-background),
+    var(--warning-border),
+    var(--warning-text)
+  );
+}
+
 .dl--invalid-first-child-9927845,
 .dl--invalid-role-9927845,
 .dl--nested-9927845,
