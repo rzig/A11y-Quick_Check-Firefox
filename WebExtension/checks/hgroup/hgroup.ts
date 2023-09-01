@@ -34,11 +34,4 @@ function checkHGroups() {
   }
 }
 
-function createChildMessageDiv(parentElement: Element, className: string, message: string) {
-  const div = document.createElement("div");
-  div.className = className;
-  div.innerText = message;
-  parentElement.appendChild(div);
-}
-
 checkHGroups();
