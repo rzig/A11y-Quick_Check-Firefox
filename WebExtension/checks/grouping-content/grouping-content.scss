@@ -31,7 +31,7 @@
 }
 
 // Apply styles to the tags
-$tags: p, hr, pre, blockquote, menu, figure, figcaption, main, search;
+$tags: p, hr, pre, blockquote, menu, figure, figcaption, search;
 
 @each $tag in $tags {
   #{$tag} {
