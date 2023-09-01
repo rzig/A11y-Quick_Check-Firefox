@@ -1,5 +1,21 @@
 "use strict";
 
+function addHiddenClasses() {
+    const bodyElements = document.body.querySelectorAll('*:not(meta):not(title):not(script):not(template)');
+    for (const element of bodyElements) {
+        const computedStyle = getComputedStyle(element);
+        if (computedStyle.display === 'none') {
+            element.classList.add('displayNone-45865');
+        }
+        if (computedStyle.visibility === 'hidden') {
+            element.classList.add('visibilityHidden-45865');
+        }
+        if (computedStyle.opacity === '0') {
+            element.classList.add('opacityZero-45865');
+        }
+    }
+}
+
 interface Document { 
     originalCSS_38ff418: Array<{
         type: string, 
@@ -85,22 +101,6 @@ function removeCustomElements() {
             element.parentElement.removeChild(element);
         } else {
             console.warn("Element with no parent was skipped.", element);
-        }
-    }
-}
-
-function addHiddenClasses() {
-    const bodyElements = document.body.querySelectorAll('*:not(meta):not(title):not(script)');
-    for (const element of bodyElements) {
-        const computedStyle = getComputedStyle(element);
-        if (computedStyle.display === 'none') {
-            element.classList.add('displayNone-45865');
-        }
-        if (computedStyle.visibility === 'hidden') {
-            element.classList.add('visibilityHidden-45865');
-        }
-        if (computedStyle.opacity === '0') {
-            element.classList.add('opacityZero-45865');
         }
     }
 }
