@@ -221,10 +221,10 @@
                             "helpIconText": "Help for Reading order",
                             "name": "Reading order",
                             "id": "readingOrder",
-                            "resource_path": "checks/reset-css",
-                            "addScript": "reset-css.js",
-                            "removeScript": "reset-css-remove.js",
-                            "css": "reset-css.css"
+                            "resource_path": "checks/reading-order",
+                            "addScript": "reading-order.js",
+                            "removeScript": "reading-order-remove.js",
+                            "css": "reading-order.css"
                         },
                         {
                             "helpIcon": "Yes",
