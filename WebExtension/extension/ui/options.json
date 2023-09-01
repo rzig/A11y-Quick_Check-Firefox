@@ -245,12 +245,22 @@
                         {
                             "helpIcon": "Yes",
                             "helpIconText": "Check for valid use of ARIA accessible name.",
-                            "name": "Accessible name",
-                            "id": "accessibleName",
+                            "name": "Show Aria Label",
+                            "id": "labelledByARIA",
                             "resource_path": "checks/accname-calc",
                             "css": "accname-calc.css",
                             "addScript": "accname-calc.js",
                             "removeScript": "accname-calc-remove.js"
+                        },
+                        {
+                            "helpIcon": "Yes",
+                            "helpIconText": "Check if screen reader only text is present.",
+                            "name": "Show Screen Reader Only Content",
+                            "id": "labelledBySR",
+                            "resource_path": "checks/sr-only",
+                            "css": "sr-only.css",
+                            "addScript": "sr-only.js",
+                            "removeScript": "sr-only-remove.js"
                         }
                     ]
                 }

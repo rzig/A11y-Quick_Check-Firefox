@@ -1,0 +1,21 @@
+@import '../common';
+
+.screen-reader-detected {
+  margin: 1em 0 !important;
+  border: 2px solid var(--warning-border) !important;
+}
+
+.sr-only-message-identifier {
+  font-weight: bold;
+  @include important-styles(
+    (
+      background-color: var(--warning-background),
+      color: var(--warning-text),
+      border: 3px solid var(--warning-border),
+      font-size: 0.9em,
+      margin: 1em 0,
+      padding: 0.5em,
+    ),
+    true
+  );
+}
