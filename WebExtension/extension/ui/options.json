@@ -41,8 +41,8 @@
                     ]
                 },
                 {
-                    "name": "Grouping content",
-                    "helpSection": "Identifies proper use of grouping content.",
+                    "name": "Grouping elements",
+                    "helpSection": "Identifies proper use of grouping elements.",
                     "items": [
                         {
                             "helpIcon": "Yes",
