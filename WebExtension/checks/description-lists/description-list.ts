@@ -46,6 +46,15 @@ function checkDescriptionLists(): void {
 
     if (failureDetected) continue; // If a failure was detected, skip the remaining checks for this element
 
+    // Add new function to check for a single DT/DD within a DL
+    const dtCount = dlElement.querySelectorAll("dt").length;
+    const ddCount = dlElement.querySelectorAll("dd").length;
+    if (dtCount === 1 && ddCount === 1) {
+      dlElement.classList.add("dl--single-dt-dd-9927845");
+      const message = "Warning: This DL contains a single key-value pair";
+      createChildMessageDiv(dlElement, "single-dt-dd-message-9927845", message);
+    }
+
     // Check for valid HTML Description List
     const hasHtmlDl = dlElement.nodeName === "DL" && !dlElement.hasAttribute("role");
     if (hasHtmlDl) {
