@@ -1,21 +1,4 @@
 "use strict";
-
-function addHiddenClasses() {
-    const bodyElements = document.body.querySelectorAll('*:not(meta):not(title):not(script):not(template)');
-    for (const element of bodyElements) {
-        const computedStyle = getComputedStyle(element);
-        if (computedStyle.display === 'none') {
-            element.classList.add('displayNone-45865');
-        }
-        if (computedStyle.visibility === 'hidden') {
-            element.classList.add('visibilityHidden-45865');
-        }
-        if (computedStyle.opacity === '0') {
-            element.classList.add('opacityZero-45865');
-        }
-    }
-}
-
 interface Document { 
     originalCSS_38ff418: Array<{
         type: string, 
@@ -114,6 +97,22 @@ function setMaxWidthOnImagesAndSVG() {
     for (const imgAndSvgElement of imgAndSvgElements) {
         const imgAndSvgTag=<HTMLElement>imgAndSvgElement;
         imgAndSvgTag.style.maxWidth = '100px';
+    }
+}
+
+function addHiddenClasses() {
+    const bodyElements = document.body.querySelectorAll('*:not(meta):not(title):not(script):not(template)');
+    for (const element of bodyElements) {
+        const computedStyle = getComputedStyle(element);
+        if (computedStyle.display === 'none') {
+            element.classList.add('displayNone-45865');
+        }
+        if (computedStyle.visibility === 'hidden') {
+            element.classList.add('visibilityHidden-45865');
+        }
+        if (computedStyle.opacity === '0') {
+            element.classList.add('opacityZero-45865');
+        }
     }
 }
 
