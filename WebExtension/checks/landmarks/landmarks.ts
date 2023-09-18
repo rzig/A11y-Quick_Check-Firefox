@@ -9,7 +9,7 @@ function addLandmarkMessages() {
 
       let accessibleName = element.getAttribute("aria-label") || "not named";
       let ariaRole = element.getAttribute("role");
-      let hasDuplicateRole = ariaRole && ariaRoles.includes(ariaRole) && landmark === ariaRole;
+      let hasDuplicateRole = ariaRole && ariaRoles.includes(ariaRole) && htmlLandmarks.indexOf(landmark) === ariaRoles.indexOf(ariaRole);
 
       // Decide the message for HTML landmark
       let htmlMessage = `HTML ${landmark} landmark has accessible name ${accessibleName}`;
