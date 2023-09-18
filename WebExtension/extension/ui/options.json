@@ -91,7 +91,7 @@
                     ]
                 },
                 {
-                    "name": "Content",
+                    "name": "Content semantics",
                     "helpSection": "Displays proper use of text-level-semantics.",
                     "items": [
                         {
@@ -101,6 +101,22 @@
                             "id": "textLevelSemantics",
                             "resource_path": "checks/text-level-semantics",
                             "css": "text-level-semantics.css"
+                        }
+                    ]
+                },
+                {
+                    "name": "Landmarks",
+                    "helpSection": "Shows use of landmark elements",
+                    "items": [
+                        {
+                            "helpIcon": "Yes",
+                            "helpIconText": "Help for landmarks",
+                            "name": "Landmark roles",
+                            "id": "landmarkRoles",
+                            "resource_path": "checks/landmarks",
+                            "css": "landmarks.css",
+                            "addScript": "landmarks.js",
+                            "removeScript": "landmarks-remove.js"
                         }
                     ]
                 }
@@ -235,6 +251,14 @@
                             "addScript": "focus-order-count.js",
                             "removeScript": "focus-order-count-remove.js",
                             "css": "focus-order-count.css"
+                        },
+                        {
+                            "helpIcon": "Yes",
+                            "helpIconText": "Help for Focus Visible",
+                            "name": "Focus Visible",
+                            "id": "focusVisible",
+                            "resource_path": "checks/force-focus-visible",
+                            "css": "force-focus-visible.css"
                         }
                     ]
                 },

@@ -1,0 +1,11 @@
+@import '../common';
+
+a:focus, *:focus {
+  @include important-styles(
+    (
+        outline: 4px solid orange,
+        outline-offset:1px,
+    ),
+    true
+  );
+}
