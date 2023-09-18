@@ -251,6 +251,14 @@
                             "addScript": "focus-order-count.js",
                             "removeScript": "focus-order-count-remove.js",
                             "css": "focus-order-count.css"
+                        },
+                        {
+                            "helpIcon": "Yes",
+                            "helpIconText": "Help for Focus Visible",
+                            "name": "Focus Visible",
+                            "id": "focusVisible",
+                            "resource_path": "checks/force-focus-visible",
+                            "css": "force-focus-visible.css"
                         }
                     ]
                 },
