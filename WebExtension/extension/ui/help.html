@@ -71,7 +71,7 @@
     <h1>Help and Instructions</h1>
     <h2>Web Accessibility Extension Features</h2>
 
-    <p><strong>The help page is still being created.</strong></p>
+    <p><strong>The help page is still in progress.</strong></p>
 
     <p>
       The web accessibility extension provides instant feedback to web
@@ -80,7 +80,7 @@
       critical aspects ranging from content organisation to user experience.
     </p>
 
-    <h3>Content and Structure Tab</h3>
+    <h2>Content and Structure Tab</h2>
     <p>Evaluates website's content organisation.</p>
     <ul>
       <li>Proper heading hierarchy.</li>
@@ -129,7 +129,7 @@
       </dd>
     </dl>
 
-    <h3>Graphic Media Tab</h3>
+    <h2>Graphic Media Tab</h2>
     <p>Reviews accessibility of visuals.</p>
     <ul>
       <li>Validates image ALT attributes.</li>
@@ -138,29 +138,31 @@
       <li>Examines CSS background images.</li>
     </ul>
 
-    <h2>Help for check in the Usability and Readability Tab</h2>
-    <dl class="help-description--list">
-      <dt id="targetSize24">Target Size</dt>
+    <h2>Usability and Readability Tab</h2>
+    <h3>User experience</h3>
+    <p>Focuses on the user's experience and content clarity.</p>
+    <dl>
+      <dt id="targetSize24">Target size</dt>
       <dd>Evaluate the touch size of interactive elements to ensure they are large enough for easy interaction.</dd>
       <dt id="textSpacing">Text Spacing</dt>
       <dd>Evaluate if text spacing can be changed for improved readability.</dd>
       <dt id="readingOrder">Reading order</dt>
-      <dd>Remove page styles (CSS) to review the reading order for content comprehension.</dd>
+      <dd>Remove page styles (CSS) to review the reading order for content comprehension</dd>
       <dt id="focusOrderCount">Focus Order</dt>
       <dd>Display focus order count for interactive elements.</dd>
-      <dt id="accessibleName">Accessible name</dt>
-      <dd>Display aria-label and aria-labelledby text, and identify elements that cannot be named by the author.</dd>
+      <dt id="focusVisible">Focus Visible</dt>
+      <dd>Forces a visible focus indicator to check if focusable elements are keyboard accessible or missing a visible focus indicator.</dd>
     </dl>
 
     <h3>Usability and Readability Tab</h3>
-    <p>Focuses on the user's experience and content clarity.</p>
-    <ul>
-      <li>Checks touch size of interactive elements (24px, 44px, 48px).</li>
-      <li>Evaluates changeability of text spacing.</li>
-      <li>Removes page styles for reading order review.</li>
-      <li>Displays focus order for interactive components.</li>
-      <li>Reviews ARIA-LABEL use.</li>
-    </ul>
+    <h3>Accessible name calculation</h3>
+    <p>Focuses on the accessible name and description.</p>
+    <dl>
+      <dt id="labelledByARIA">Accessible name</dt>
+      <dd>Display aria-label and aria-labelledby text, and identify elements that cannot be named by the author.</dd>
+      <dt id="labelledBySR">Screen reader only text</dt>
+      <dd>Displays use of screen reader only text.</dd>
+    </dl>
     
     <button class="close-btn">Close</button>
     <script src="help.js"></script>
