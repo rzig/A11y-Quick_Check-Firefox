@@ -1,0 +1,132 @@
+@import "../common";
+
+@mixin headingGroup($backgroundColor, $borderColor, $textColor) {
+  @include important-styles(
+    (
+      background-color: $backgroundColor,
+      color: $textColor,
+      display: inline-block,
+      border: 3px solid $borderColor,
+      font-size: 0.9em,
+      margin: 1em 0,
+      margin-bottom: 0,
+      padding: 0.5em,
+    ),
+    true
+  );
+}
+
+.html-section-message-88937746,
+.html-nav-message-88937746,
+.html-article-message-88937746,
+.html-aside-message-88937746 {
+  font-weight: bold;
+  @include headingGroup(
+    var(--pass-background),
+    var(--pass-border),
+    var(--pass-text)
+  );
+}
+
+.aria-article-message-88937746,
+.aria-section-message-88937746,
+.aria-navigation-message-88937746,
+.aria-complementary-message-88937746 {
+  font-weight: bold;
+  @include headingGroup(
+    var(--warning-background),
+    var(--warning-border),
+    var(--warning-text)
+  );
+}
+
+.roleWarning-83009276 {
+  color: var(--warning-text) !important;
+}
+
+.html-aria-duplicate-section-message-88937746,
+.html-aria-duplicate-nav-message-88937746,
+.html-aria-duplicate-article-message-88937746,
+.html-aria-duplicate-aside-message-88937746 {
+  font-weight: bold;
+  @include headingGroup(
+    var(--danger-background),
+    var(--danger-border),
+    var(--danger-text)
+  );
+}
+
+.section--aria-html-88937746,
+.nav--aria-html-88937746,
+.article--aria-html-88937746,
+.aside--aria-html-88937746 {
+  @include important-styles(
+    (
+      border: 4px dashed var(--warning-border),
+      padding: 1em,
+    ),
+    true
+  );
+}
+
+.section--aria--88937746,
+.section--html--88937746,
+.nav--aria--88937746,
+.nav--html--88937746,
+.article--aria--88937746,
+.article--html--88937746,
+.aside--aria--88937746,
+.aside--html--88937746 {
+  @include important-styles(
+    (
+      border: 4px dashed var(--pass-border),
+      padding: 1em,
+    ),
+    true
+  );
+}
+
+// Adding opening and closing tags as pseudo-elements for all sectioning content
+@mixin apply-strong-styles($tagName) {
+  &:before {
+    content: "[" + $tagName + "]";
+    @include important-styles(
+      (
+        color: var(--neutral-text),
+        font-size: 0.875em,
+        padding: 0 0.5em,
+        font-weight: 700,
+      ),
+      true
+    );
+  }
+
+  &:after {
+    content: "[/" + $tagName + "]";
+    @include important-styles(
+      (
+        color: var(--neutral-text),
+        font-size: 0.875em,
+        padding: 0 0.5em,
+        font-weight: 700,
+      ),
+      true
+    );
+  }
+
+  @include important-styles(
+    (
+      background-color: var(--neutral-background),
+      border: 3px dashed var(--neutral-border),
+    ),
+    true
+  );
+}
+
+// Apply styles to the sectioning content tags
+$sectioningTags: section, nav, article, aside;
+@each $tag in $sectioningTags {
+  #{$tag} {
+    @include apply-strong-styles(#{$tag});
+  }
+}

@@ -105,7 +105,7 @@
                     ]
                 },
                 {
-                    "name": "Landmarks",
+                    "name": "Content Types",
                     "helpSection": "Shows use of landmark elements",
                     "items": [
                         {
@@ -117,6 +117,16 @@
                             "css": "landmarks.css",
                             "addScript": "landmarks.js",
                             "removeScript": "landmarks-remove.js"
+                        },
+                        {
+                            "helpIcon": "Yes",
+                            "helpIconText": "Help for HTML sectioning content",
+                            "name": "sectioning Content",
+                            "id": "sectioningContent",
+                            "resource_path": "checks/content-sectioning",
+                            "css": "content-sectioning.css",
+                            "addScript": "content-sectioning.js",
+                            "removeScript": "content-sectioning-remove.js"
                         }
                     ]
                 }
