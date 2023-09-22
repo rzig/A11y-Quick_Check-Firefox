@@ -89,7 +89,7 @@
 // Adding opening and closing tags as pseudo-elements for all sectioning content
 @mixin apply-strong-styles($tagName) {
   &:before {
-    content: "[" + $tagName + "]";
+    content: "<" + $tagName + ">";
     @include important-styles(
       (
         color: var(--neutral-text),
@@ -102,7 +102,7 @@
   }
 
   &:after {
-    content: "[/" + $tagName + "]";
+    content: "</" + $tagName + ">";
     @include important-styles(
       (
         color: var(--neutral-text),

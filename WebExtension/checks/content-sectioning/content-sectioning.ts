@@ -1,57 +1,67 @@
 function addSectionContentMessages() {
-    const htmlSectionContent = ["section", "nav", "article", "aside"];
-    const ariaSectionContentRoles = ["article", "section", "navigation", "complementary"];
-  
-    for (const section of htmlSectionContent) {
-      const elements = document.querySelectorAll(section);
-      const sameTypeSectionCount = elements.length + document.querySelectorAll(`[role=${section}]`).length;
-  
-      for (const element of elements) {
-        if (isHidden(element as HTMLElement)) continue;
-  
-        let accessibleName = element.getAttribute("aria-label") || "not named";
-        let ariaRole = element.getAttribute("role");
-        let hasDuplicateRole = ariaRole && ariaSectionContentRoles.includes(ariaRole) && htmlSectionContent.indexOf(section) === ariaSectionContentRoles.indexOf(ariaRole);
-  
-        let sectionMessage = '';
-        if (section !== 'section' || (section === 'section' && accessibleName !== 'not named')) {
-          sectionMessage = (sameTypeSectionCount > 1 && accessibleName !== 'not named') ? `HTML ${section} section content has accessible name ${accessibleName}` : '';
+  const htmlSections = ["article", "section", "nav", "aside"];
+  const ariaRoles = ["article", "region", "navigation", "complementary"];
+
+  for (const section of htmlSections) {
+    const elements = document.querySelectorAll(section);
+    const sameTypeSectionsCount = elements.length + document.querySelectorAll(`[role=${section}]`).length;
+
+    for (const element of elements) {
+      if (isHidden(element as HTMLElement)) continue;
+
+      let accessibleName = element.getAttribute("aria-label") || "not named";
+      let ariaRole = element.getAttribute("role");
+      let hasDuplicateRole = ariaRole && ariaRoles.includes(ariaRole) && htmlSections.indexOf(section) === ariaRoles.indexOf(ariaRole);
+
+      let htmlMessage = '';
+      let htmlMessageClass = `html-${section}-message-88937746`;
+      
+      if (section !== "section") {
+        htmlMessage = (sameTypeSectionsCount > 1) ? `HTML ${section} has accessible name ${accessibleName}` : '';
+        if (accessibleName === "not named") {
+          htmlMessage = `HTML ${section} is missing an accessible name`;
         }
-        let sectionMessageClass = `html-${section}-message-88937746`;
-  
-        if (accessibleName === "not named" && section !== 'section') {
-          sectionMessage = `HTML ${section} section content is missing an accessible name`;
-        }
-  
-        let ariaMessage = ariaRole && (sameTypeSectionCount > 1 && accessibleName !== 'not named') ? `ARIA ${ariaRole} section content has accessible name ${accessibleName}` : "";
-        let ariaMessageClass = `aria-${ariaRole}-message-88937746`;
-  
-        if (accessibleName === "not named" && ariaRole) {
-          ariaMessage = `ARIA ${ariaRole} section content is missing an accessible name`;
-        }
-  
-        if (hasDuplicateRole) {
-          element.classList.add(`${section}--aria-html-88937746`);
-        } else if (ariaRole) {
-          element.classList.add(`${section}--aria--88937746`);
+      } else { // Special case for <section>
+        if (accessibleName !== "not named") {
+          htmlMessage = `HTML ${section} has accessible name ${accessibleName}`;
         } else {
-          element.classList.add(`${section}--html--88937746`);
+          htmlMessage = `HTML ${section}`;
         }
-  
-        if (hasDuplicateRole) {
-          let duplicateMessage = `HTML ${section} section content has a duplicate role in ARIA ${ariaRole}. The accessible name is ${accessibleName}`;
-          const duplicateMessageClass = `html-aria-duplicate-${section}-message-88937746`;
-          addMessageToPrecedingDiv(element, duplicateMessageClass, duplicateMessage);
-        } else {
-          if (sectionMessage && accessibleName !== 'not named') {
-            addMessageToPrecedingDiv(element, sectionMessageClass, sectionMessage);
-          }
-          if (ariaMessage && accessibleName !== 'not named') {
-            addMessageToPrecedingDiv(element, ariaMessageClass, ariaMessage);
-          }
+      }
+
+      let ariaMessage = '';
+      let ariaMessageClass = `aria-${ariaRole}-message-88937746`;
+      if (ariaRole && (sameTypeSectionsCount > 1 || ariaRole !== "region")) {
+        ariaMessage = `ARIA ${ariaRole} has accessible name ${accessibleName}`;
+      }
+      if (accessibleName === "not named") {
+        ariaMessage = ariaRole ? `ARIA ${ariaRole} is missing an accessible name` : "";
+      }
+
+      if (hasDuplicateRole) {
+        element.classList.add(`${section}--aria-html-88937746`);
+      } else if (ariaRole) {
+        element.classList.add(`${section}--aria--88937746`);
+      } else {
+        element.classList.add(`${section}--html--88937746`);
+      }
+
+      if (hasDuplicateRole) {
+        let duplicateMessagePrefix = `HTML ${section} has a duplicate role in ARIA ${ariaRole}.`;
+        let duplicateMessageSuffix = section !== "section" ? ` The accessible name is ${accessibleName}` : "";
+        const duplicateMessage = duplicateMessagePrefix + duplicateMessageSuffix;
+        const duplicateMessageClass = `html-aria-duplicate-${section}-message-88937746`;
+        addMessageToPrecedingDiv(element, duplicateMessageClass, duplicateMessage);
+      } else {
+        if (htmlMessage) {
+          addMessageToPrecedingDiv(element, htmlMessageClass, htmlMessage);
+        }
+        if (ariaMessage) {
+          addMessageToPrecedingDiv(element, ariaMessageClass, ariaMessage);
         }
       }
     }
   }
-  
-  addSectionContentMessages();  
+}
+
+addSectionContentMessages();

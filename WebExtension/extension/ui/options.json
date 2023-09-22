@@ -106,7 +106,7 @@
                 },
                 {
                     "name": "Content Types",
-                    "helpSection": "Shows use of landmark elements",
+                    "helpSection": "This section of checks is to learn about HTML Content Types and runs checks for best practice and WCAG related defects. These elements are also referred to as Landmark roles",
                     "items": [
                         {
                             "helpIcon": "Yes",

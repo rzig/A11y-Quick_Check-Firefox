@@ -19,7 +19,7 @@ removeInjectedDivs([
 ]);
 
 // Function to remove the added classes
-function removeAddedClasses() {
+function removeSectionAddedClasses() {
     const addedClasses = [
         "section--aria-html-88937746",
         "section--aria--88937746",
@@ -48,4 +48,4 @@ function removeAddedClasses() {
 }
 
 // Call the function to remove the added classes
-removeAddedClasses();
+removeSectionAddedClasses();
