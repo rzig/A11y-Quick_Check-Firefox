@@ -1,6 +1,6 @@
 function addLandmarkMessages() {
-  const htmlLandmarks = ["header", "main", "footer"];
-  const ariaRoles = ["banner", "main", "contentinfo"];
+  const htmlLandmarks = ["header", "form", "main", "footer", "search"];
+  const ariaRoles = ["banner", "form", "main", "contentinfo", "region", "search"];
 
   for (const landmark of htmlLandmarks) {
       const elements = document.querySelectorAll(landmark);

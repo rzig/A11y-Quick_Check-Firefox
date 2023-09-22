@@ -121,7 +121,7 @@
                         {
                             "helpIcon": "Yes",
                             "helpIconText": "Help for HTML sectioning content",
-                            "name": "sectioning Content",
+                            "name": "sectioning content",
                             "id": "sectioningContent",
                             "resource_path": "checks/content-sectioning",
                             "css": "content-sectioning.css",

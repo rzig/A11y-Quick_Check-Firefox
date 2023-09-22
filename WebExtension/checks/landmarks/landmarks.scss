@@ -104,3 +104,47 @@
   true
 );
 }
+
+// Adding opening and closing tags as pseudo-elements for all sectioning content
+@mixin apply-strong-styles($tagName) {
+  &:before {
+    content: "<" + $tagName + ">";
+    @include important-styles(
+      (
+        color: var(--neutral-text),
+        font-size: 0.875em,
+        padding: 0 0.5em,
+        font-weight: 700,
+      ),
+      true
+    );
+  }
+
+  &:after {
+    content: "</" + $tagName + ">";
+    @include important-styles(
+      (
+        color: var(--neutral-text),
+        font-size: 0.875em,
+        padding: 0 0.5em,
+        font-weight: 700,
+      ),
+      true
+    );
+  }
+
+  @include important-styles(
+    (
+      border: 3px dashed var(--neutral-border),
+    ),
+    true
+  );
+}
+
+// Apply styles to the sectioning content tags
+$sectioningTags: header, main, footer;
+@each $tag in $sectioningTags {
+  #{$tag} {
+    @include apply-strong-styles(#{$tag});
+  }
+}

@@ -31,10 +31,14 @@
 }
 
 // Apply styles to the tags
-$tags: p, hr, pre, blockquote, menu, figure, figcaption, search;
+$tags: p, hr, pre, blockquote, main, menu, figure, figcaption, search;
 
 @each $tag in $tags {
   #{$tag} {
     @include apply-strong-styles(#{$tag});
   }
+}
+
+main{
+  background-color: inherit !important;
 }
