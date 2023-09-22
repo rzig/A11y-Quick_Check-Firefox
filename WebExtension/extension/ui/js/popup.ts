@@ -457,6 +457,8 @@ async function setupConfiguration(
           type: "popup",
           width: 800,
           height: 600,
+          left: 0,
+          top: 0,
         });
       }
     });
