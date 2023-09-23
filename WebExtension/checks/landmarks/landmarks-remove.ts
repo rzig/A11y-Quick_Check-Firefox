@@ -20,7 +20,8 @@ removeInjectedDivs([
   "html-aria-duplicate-main-message-88937746",
   "html-aria-duplicate-footer-message-88937746",
   "html-aria-duplicate-aside-message-88937746",
-  "search-html-message-88937746"
+  "search-html-message-88937746",
+  "search-html-support-message-88937746"
 ]);
 
 // Function to remove the added classes
@@ -47,7 +48,8 @@ function removeAddedClasses() {
     "aside--html--88937746",
 
     "search-html--88937746",
-    "search-html-support--88937746"
+    "search-html-support--88937746",
+    "search-html--88937746"
   ];
 
   // Query all the elements in the DOM that have one of the above classes
