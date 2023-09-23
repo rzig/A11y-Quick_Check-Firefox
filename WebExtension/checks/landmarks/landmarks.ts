@@ -13,6 +13,19 @@ function addLandmarkMessages() {
           let ariaRole = element.getAttribute("role");
           let hasDuplicateRole = ariaRole && ariaRoles.includes(ariaRole) && htmlLandmarks.indexOf(landmark) === ariaRoles.indexOf(ariaRole);
 
+          // Special case for <search>
+      if (landmark === "search" && !ariaRole) {
+        element.classList.add('search-html-support--88937746');
+        addMessageToPrecedingDiv(element, 'search-html-support-message-88937746', `HTML ${landmark} is not fully supported, include role=search`);
+        continue;
+      }
+
+      if (landmark === "search" && ariaRole === "search") {
+        element.classList.add('search-html--88937746');
+        addMessageToPrecedingDiv(element, 'search-html-message-88937746', `${landmark} is supported by the ARIA ${ariaRole} Role for the best support. When support improves this can be safely removed.`);
+        continue;
+      }
+
           // Decide the message for HTML landmark
           let htmlMessage = (sameTypeLandmarksCount > 1 && landmark !== "main") ? `HTML ${landmark} landmark has accessible name ${accessibleName}` : '';
           let htmlMessageClass = `html-${landmark}-message-88937746`;
