@@ -16,12 +16,10 @@
   );
 }
 
-.html-header-message-88937746,
+.html-section-message-88937746,
 .html-nav-message-88937746,
-.html-main-message-88937746,
-.html-footer-message-88937746,
-.html-aside-message-88937746,
-.search-html-message-88937746 {
+.html-article-message-88937746,
+.html-aside-message-88937746 {
   font-weight: bold;
   @include headingGroup(
     var(--pass-background),
@@ -30,32 +28,10 @@
   );
 }
 
-.header--aria--88937746,
-.header--html--88937746,
-.nav--aria--88937746,
-.nav--html--88937746,
-.main--aria--88937746,
-.main--html--88937746,
-.footer--aria--88937746,
-.footer--html--88937746,
-.aside--aria--88937746,
-.aside--html--88937746,
-.search-html--88937746 {
-  @include important-styles(
-  (
-    border: 4px dashed var(--pass-border),
-    padding: 1em,
-  ),
-  true
-);
-}
-
-.aria-banner-message-88937746,
+.aria-article-message-88937746,
+.aria-section-message-88937746,
 .aria-navigation-message-88937746,
-.aria-main-message-88937746,
-.aria-contentinfo-message-88937746,
-.aria-complementary-message-88937746,
-.search-html-support-message-88937746 {
+.aria-complementary-message-88937746 {
   font-weight: bold;
   @include headingGroup(
     var(--warning-background),
@@ -64,29 +40,13 @@
   );
 }
 
-.header--aria-html-88937746,
-.nav--aria-html-88937746,
-.main--aria-html-88937746,
-.footer--aria-html-88937746,
-.aside--aria-html-88937746,
-.search-html-support--88937746 {
-  @include important-styles(
-  (
-    border: 4px dashed var(--warning-border),
-    padding: 1em,
-  ),
-  true
-);
-}
-
 .roleWarning-83009276 {
   color: var(--warning-text) !important;
 }
 
-.html-aria-duplicate-header-message-88937746,
+.html-aria-duplicate-section-message-88937746,
 .html-aria-duplicate-nav-message-88937746,
-.html-aria-duplicate-main-message-88937746,
-.html-aria-duplicate-footer-message-88937746,
+.html-aria-duplicate-article-message-88937746,
 .html-aria-duplicate-aside-message-88937746 {
   font-weight: bold;
   @include headingGroup(
@@ -96,16 +56,33 @@
   );
 }
 
-.html-aria-duplicate-header-message-88937746,
-.html-aria-duplicate-nav-message-88937746,
-.html-aria-duplicate-main-message-88937746,
-.html-aria-duplicate-footer-message-88937746,
-.html-aria-duplicate-aside-message-88937746 {
-  font-weight: bold;
-  @include headingGroup(
-    var(--danger-background),
-    var(--danger-border),
-    var(--danger-text)
+.section--aria-html-88937746,
+.nav--aria-html-88937746,
+.article--aria-html-88937746,
+.aside--aria-html-88937746 {
+  @include important-styles(
+    (
+      border: 4px dashed var(--warning-border),
+      padding: 1em,
+    ),
+    true
+  );
+}
+
+.section--aria--88937746,
+.section--html--88937746,
+.nav--aria--88937746,
+.nav--html--88937746,
+.article--aria--88937746,
+.article--html--88937746,
+.aside--aria--88937746,
+.aside--html--88937746 {
+  @include important-styles(
+    (
+      border: 4px dashed var(--pass-border),
+      padding: 1em,
+    ),
+    true
   );
 }
 
@@ -146,7 +123,7 @@
 }
 
 // Apply styles to the sectioning content tags
-$sectioningTags: header, main, footer, search;
+$sectioningTags: section, nav, article, aside;
 @each $tag in $sectioningTags {
   #{$tag} {
     @include apply-strong-styles(#{$tag});

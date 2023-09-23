@@ -105,8 +105,8 @@
                     ]
                 },
                 {
-                    "name": "Landmarks",
-                    "helpSection": "Shows use of landmark elements",
+                    "name": "Content Types",
+                    "helpSection": "This section of checks is to learn about HTML Content Types and runs checks for best practice and WCAG related defects. These elements are also referred to as Landmark roles",
                     "items": [
                         {
                             "helpIcon": "Yes",
@@ -117,6 +117,16 @@
                             "css": "landmarks.css",
                             "addScript": "landmarks.js",
                             "removeScript": "landmarks-remove.js"
+                        },
+                        {
+                            "helpIcon": "Yes",
+                            "helpIconText": "Help for HTML sectioning content",
+                            "name": "sectioning content",
+                            "id": "sectioningContent",
+                            "resource_path": "checks/content-sectioning",
+                            "css": "content-sectioning.css",
+                            "addScript": "content-sectioning.js",
+                            "removeScript": "content-sectioning-remove.js"
                         }
                     ]
                 }
