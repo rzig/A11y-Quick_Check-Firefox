@@ -1,314 +1,409 @@
 {
-    "tabs": [
+  "tabs": [
+    {
+      "name": "Content and Structure",
+      "helpUrl": "/extension/help/extensionHelp.html",
+      "fieldsets": [
         {
-            "name": "Content and Structure",
-            "helpUrl": "/extension/help/extensionHelp.html",
-            "fieldsets": [
-                {
-                    "name": "Headings",
-                    "helpSection": "Tests that headings are marked up in code, checks for text that could be a heading that is not marked up in code, and warns if heading levels are skipped. identifies grouped headings.",
-                    "refForGroup": "1.3.1 Info and Relationships",
-                    "refForGroupLink": "https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships",
-                    "items": [
-                        {
-                            "helpIcon": "Yes",
-                            "helpIconText": "Help for Has Heading Mark-up",
-                            "name": "Has Heading Mark-up",
-                            "id": "headingsYes",
-                            "resource_path": "checks/headings",
-                            "css": "headings.css",
-                            "addScript": "headings.js",
-                            "removeScript": "headings-remove.js",
-                            "-refForCheck": "1.3.1 Info and Relationships , 1.3.3 Sensory Characteristics",
-                            "-refForCheckLink": "https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships , https://www.w3.org/WAI/WCAG22/Understanding/sensory-characteristics",
-                            "description": "This visibly shows the elements coded as hesdings and identfies errors and warnings for best practice."
-                        },
-                        {
-                            "helpIcon": "Yes",
-                            "helpIconText": "Help for No Heading Mark-up",
-                            "name": "No Heading Mark-up",
-                            "id": "headingNo",
-                            "resource_path": "checks/headings-not-coded",
-                            "css": "headings-not-coded.css",
-                            "addScript": "headings-not-coded.js",
-                            "removeScript": "headings-not-coded-remove.js",
-                            "-refForCheck": "1.3.1 Info and Relationships",
-                            "-refForCheckLink": "https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships",
-                            "description": "Finds potential headings by font size and flags them for checking"
-                        },
-                        {
-                            "helpIcon": "Yes",
-                            "helpIconText": "Help for HTML hgroup",
-                            "name": "HTML hgroup",
-                            "id": "hGroup",
-                            "resource_path": "checks/hgroup",
-                            "css": "hgroup.css",
-                            "addScript": "hgroup.js",
-                            "removeScript": "hgroup-remove.js"
-                        }
-                    ]
-                },
-                {
-                    "name": "Grouping elements",
-                    "helpSection": "Identifies proper use of grouping elements.",
-                    "refForGroup": "1.3.1 Info and Relationships",
-                    "refForGroupLink": "https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships",
-                    "items": [
-                        {
-                            "helpIcon": "Yes",
-                            "helpIconText": "Help for list mark-up",
-                            "name": "Ordered list",
-                            "id": "oList",
-                            "resource_path": "checks/ordered-lists",
-                            "css": "ordered-list.css",
-                            "addScript": "ordered-list.js",
-                            "removeScript": "ordered-list-remove.js"
-                        },
-                        {
-                            "name": "Unordered list",
-                            "id": "uoList",
-                            "resource_path": "checks/unordered-lists",
-                            "css": "unordered-list.css",
-                            "addScript": "unordered-list.js",
-                            "removeScript": "unordered-list-remove.js"
-                        },
-                        {
-                            "name": "Description list",
-                            "id": "dList",
-                            "resource_path": "checks/description-lists",
-                            "css": "description-list.css",
-                            "addScript": "description-list.js",
-                            "removeScript": "description-list-remove.js"
-                        },
-                        {
-                            "helpIcon": "Yes",
-                            "helpIconText": "Displays method used to group content.",
-                            "name": "Grouping content (other than lists)",
-                            "id": "groupingContent",
-                            "resource_path": "checks/grouping-content",
-                            "css": "grouping-content.css"
-                        },
-                        {
-                            "helpIcon": "Yes",
-                            "helpIconText": "Help for Related form controls",
-                            "name": "Related form controls",
-                            "id": "relatedFormControls",
-                            "resource_path": "checks/related-form-controls",
-                            "css": "related-controls.css",
-                            "addScript": "related-controls.js",
-                            "removeScript": "related-controls-remove.js"
-                        }
-                    ]
-                },
-                {
-                    "name": "Content semantics",
-                    "helpSection": "Displays proper use of text-level-semantics.",
-                    "items": [
-                        {
-                            "helpIcon": "Yes",
-                            "helpIconText": "Help for Text-Level Semantics",
-                            "name": "Text-Level Semantics",
-                            "id": "textLevelSemantics",
-                            "resource_path": "checks/text-level-semantics",
-                            "css": "text-level-semantics.css"
-                        }
-                    ]
-                },
-                {
-                    "name": "Content Types",
-                    "helpSection": "This section of checks is to learn about HTML Content Types and runs checks for best practice and WCAG related defects. These elements are also referred to as Landmark roles",
-                    "items": [
-                        {
-                            "helpIcon": "Yes",
-                            "helpIconText": "Help for landmarks",
-                            "name": "Landmark roles",
-                            "id": "landmarkRoles",
-                            "resource_path": "checks/landmarks",
-                            "css": "landmarks.css",
-                            "addScript": "landmarks.js",
-                            "removeScript": "landmarks-remove.js"
-                        },
-                        {
-                            "helpIcon": "Yes",
-                            "helpIconText": "Help for HTML sectioning content",
-                            "name": "sectioning content",
-                            "id": "sectioningContent",
-                            "resource_path": "checks/content-sectioning",
-                            "css": "content-sectioning.css",
-                            "addScript": "content-sectioning.js",
-                            "removeScript": "content-sectioning-remove.js"
-                        }
-                    ]
-                }
-            ]
+          "name": "Headings",
+          "helpSection": "Tests that headings are marked up in code, checks for text that could be a heading that is not marked up in code, and warns if heading levels are skipped. identifies grouped headings.",
+          "refForGroup": "1.3.1 Info and Relationships",
+          "refForGroupLink": "https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships",
+          "items": [
+            {
+              "helpIcon": "Yes",
+              "helpIconText": "Help for Has Heading Mark-up",
+              "name": "Has Heading Mark-up",
+              "id": "headingsYes",
+              "resource_path": "checks/headings",
+              "css": "headings.css",
+              "addScript": "headings.js",
+              "removeScript": "headings-remove.js",
+              "-refForCheck": "1.3.1 Info and Relationships , 1.3.3 Sensory Characteristics",
+              "-refForCheckLink": "https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships , https://www.w3.org/WAI/WCAG22/Understanding/sensory-characteristics",
+              "description": "This visibly shows the elements coded as hesdings and identfies errors and warnings for best practice."
+            },
+            {
+              "helpIcon": "Yes",
+              "helpIconText": "Help for No Heading Mark-up",
+              "name": "No Heading Mark-up",
+              "id": "headingNo",
+              "resource_path": "checks/headings-not-coded",
+              "css": "headings-not-coded.css",
+              "addScript": "headings-not-coded.js",
+              "removeScript": "headings-not-coded-remove.js",
+              "-refForCheck": "1.3.1 Info and Relationships",
+              "-refForCheckLink": "https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships",
+              "description": "Finds potential headings by font size and flags them for checking"
+            },
+            {
+              "helpIcon": "Yes",
+              "helpIconText": "Help for HTML hgroup",
+              "name": "HTML hgroup",
+              "id": "hGroup",
+              "resource_path": "checks/hgroup",
+              "css": "hgroup.css",
+              "addScript": "hgroup.js",
+              "removeScript": "hgroup-remove.js",
+              "-refForCheck": "",
+              "-refForCheckLink": "",
+              "-description": ""
+            }
+          ]
         },
         {
-            "name": "Graphic Media",
-            "helpUrl": "/extension/ui/help.html",
-            "fieldsets": [
-                {
-                    "name": "Images",
-                    "helpSection": "Checks for valid markup, if the image is decorative and exposes the accessible name for images that provide meaning to the content.",
-                    "items": [
-                        {
-                            "name": "Show image's accessible name (accName)",
-                            "id": "hasAlt",
-                            "resource_path": "checks/image-alt",
-                            "css": "show-alt-text.css",
-                            "addScript": "show-alt-text.js",
-                            "removeScript": "show-alt-text-remove.js"
-                        },
-                        {
-                            "name": "Show decorative images",
-                            "id": "decoImg",
-                            "resource_path": "checks/image-decorative",
-                            "css": "decorative-image.css",
-                            "addScript": "decorative-image.js",
-                            "removeScript": "decorative-image-remove.js"
-                        },
-                        {
-                            "name": "Image is missing the ALT attribute",
-                            "id": "missAlt",
-                            "resource_path": "checks/image-missing-alt",
-                            "css": "missing-alt.css",
-                            "addScript": "missing-alt.js",
-                            "removeScript": "missing-alt-remove.js"
-                        },
-                        {
-                            "name": "CSS Background images",
-                            "id": "cssInj",
-                            "resource_path": "checks/css-background-images",
-                            "css": "css-background-images.css",
-                            "addScript": "css-background-images.js",
-                            "removeScript": "css-background-images-remove.js"
-                        }
-                    ]
-                },
-                {
-                    "name": "SVGs",
-                    "helpSection": "Checks for valid markup, if the SVG is decorative and exposes the accessible name for images that provide meaning to the content.",
-                    "items": [
-                        {
-                            "name": "Show SVG's accessible name (accName)",
-                            "id": "svgHasName",
-                            "resource_path": "checks/svg-name",
-                            "css": "show-svg-name.css",
-                            "addScript": "show-svg-name.js",
-                            "removeScript": "show-svg-name-remove.js"
-                        },
-                        {
-                            "name": "Show decorative SVGs",
-                            "id": "svgDecoration",
-                            "resource_path": "checks/svg-decorative",
-                            "css": "decorative-svg.css",
-                            "addScript": "decoration-svg.js",
-                            "removeScript": "decoration-svg-remove.js"
-                        }
-                    ]
-                }
-            ]
+          "name": "Grouping elements",
+          "helpSection": "Identifies proper use of grouping elements.",
+          "refForGroup": "1.3.1 Info and Relationships",
+          "refForGroupLink": "https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships",
+          "items": [
+            {
+              "helpIcon": "Yes",
+              "helpIconText": "Help for list mark-up",
+              "name": "Ordered list",
+              "id": "oList",
+              "resource_path": "checks/ordered-lists",
+              "css": "ordered-list.css",
+              "addScript": "ordered-list.js",
+              "removeScript": "ordered-list-remove.js",
+              "-refForCheck": "",
+              "-refForCheckLink": "",
+              "-description": ""
+            },
+            {
+              "name": "Unordered list",
+              "id": "uoList",
+              "resource_path": "checks/unordered-lists",
+              "css": "unordered-list.css",
+              "addScript": "unordered-list.js",
+              "removeScript": "unordered-list-remove.js",
+              "-refForCheck": "",
+              "-refForCheckLink": "",
+              "-description": ""
+            },
+            {
+              "name": "Description list",
+              "id": "dList",
+              "resource_path": "checks/description-lists",
+              "css": "description-list.css",
+              "addScript": "description-list.js",
+              "removeScript": "description-list-remove.js",
+              "-refForCheck": "",
+              "-refForCheckLink": "",
+              "-description": ""
+            },
+            {
+              "helpIcon": "Yes",
+              "helpIconText": "Displays method used to group content.",
+              "name": "Grouping content (other than lists)",
+              "id": "groupingContent",
+              "resource_path": "checks/grouping-content",
+              "css": "grouping-content.css",
+              "-refForCheck": "",
+              "-refForCheckLink": "",
+              "-description": ""
+            },
+            {
+              "helpIcon": "Yes",
+              "helpIconText": "Help for Related form controls",
+              "name": "Related form controls",
+              "id": "relatedFormControls",
+              "resource_path": "checks/related-form-controls",
+              "css": "related-controls.css",
+              "addScript": "related-controls.js",
+              "removeScript": "related-controls-remove.js",
+              "-refForCheck": "",
+              "-refForCheckLink": "",
+              "-description": ""
+            }
+          ]
         },
         {
-            "name": "Usability and Readability",
-            "helpUrl": "/extension/ui/help.html",
-            "fieldsets": [
-                {
-                    "name": "User Experience",
-                    "helpSection": "Assessing Interaction and Content Readability.",
-                    "items": [
-                        {
-                            "helpIcon": "Yes",
-                            "helpIconText": "Help for Target size",
-                            "name": "Target Size (24px)",
-                            "id": "targetSize24",
-                            "resource_path": "checks/target-size",
-                            "css": "target-size.css",
-                            "addScript": ["target-size.js", "target-size24.js"],
-                            "removeScript": ["target-size-remove.js", "target-size-remove24.js"]
-                        },
-                        {
-                            "name": "Target Size (44px)",
-                            "id": "targetSize44",
-                            "resource_path": "checks/target-size",
-                            "css": "target-size.css",
-                            "addScript": ["target-size.js", "target-size44.js"],
-                            "removeScript": ["target-size-remove.js", "target-size-remove44.js"]
-                        },
-                        {
-                            "name": "Target Size (48px)",
-                            "id": "targetSize48",
-                            "resource_path": "checks/target-size",
-                            "css": "target-size.css",
-                            "addScript": ["target-size.js", "target-size48.js"],
-                            "removeScript": ["target-size-remove.js", "target-size-remove48.js"]
-                        },
-                        {
-                            "helpIcon": "Yes",
-                            "helpIconText": "Help for Text Spacing",
-                            "name": "Text Spacing",
-                            "id": "textSpacing",
-                            "resource_path": "checks/text-spacing",
-                            "css": "text-spacing.css",
-                            "addScript": "text-spacing.js",
-                            "removeScript": "text-spacing-remove.js"
-                        },
-                        {
-                            "helpIcon": "Yes",
-                            "helpIconText": "Help for Reading order",
-                            "name": "Reading order",
-                            "id": "readingOrder",
-                            "resource_path": "checks/reading-order",
-                            "addScript": "reading-order.js",
-                            "removeScript": "reading-order-remove.js",
-                            "css": "reading-order.css"
-                        },
-                        {
-                            "helpIcon": "Yes",
-                            "helpIconText": "Help for Focus Order",
-                            "name": "Focus Order",
-                            "id": "focusOrderCount",
-                            "resource_path": "checks/focus-order-count",
-                            "addScript": "focus-order-count.js",
-                            "removeScript": "focus-order-count-remove.js",
-                            "css": "focus-order-count.css"
-                        },
-                        {
-                            "helpIcon": "Yes",
-                            "helpIconText": "Help for Focus Visible",
-                            "name": "Focus Visible",
-                            "id": "focusVisible",
-                            "resource_path": "checks/force-focus-visible",
-                            "css": "force-focus-visible.css"
-                        }
-                    ]
-                },
-                {
-                    "name": "Accessible name calculation",
-                    "helpSection": "Displays the accessible name of elements.",
-                    "items": [
-                        {
-                            "helpIcon": "Yes",
-                            "helpIconText": "Check for valid use of ARIA accessible name.",
-                            "name": "Show Aria Label",
-                            "id": "labelledByARIA",
-                            "resource_path": "checks/accname-calc",
-                            "css": "accname-calc.css",
-                            "addScript": "accname-calc.js",
-                            "removeScript": "accname-calc-remove.js"
-                        },
-                        {
-                            "helpIcon": "Yes",
-                            "helpIconText": "Check if screen reader only text is present.",
-                            "name": "Show Screen Reader Only Content",
-                            "id": "labelledBySR",
-                            "resource_path": "checks/sr-only",
-                            "css": "sr-only.css",
-                            "addScript": "sr-only.js",
-                            "removeScript": "sr-only-remove.js"
-                        }
-                    ]
-                }
-            ]
+          "name": "Content semantics",
+          "helpSection": "Displays proper use of text-level-semantics.",
+          "-refForGroup": "",
+          "-refForGroupLink": "",
+          "items": [
+            {
+              "helpIcon": "Yes",
+              "helpIconText": "Help for Text-Level Semantics",
+              "name": "Text-Level Semantics",
+              "id": "textLevelSemantics",
+              "resource_path": "checks/text-level-semantics",
+              "css": "text-level-semantics.css",
+              "-refForCheck": "",
+              "-refForCheckLink": "",
+              "-description": ""
+            }
+          ]
+        },
+        {
+          "name": "Content Types",
+          "helpSection": "This section of checks is to learn about HTML Content Types and runs checks for best practice and WCAG related defects. These elements are also referred to as Landmark roles",
+          "-refForGroup": "",
+          "-refForGroupLink": "",
+          "items": [
+            {
+              "helpIcon": "Yes",
+              "helpIconText": "Help for landmarks",
+              "name": "Landmark roles",
+              "id": "landmarkRoles",
+              "resource_path": "checks/landmarks",
+              "css": "landmarks.css",
+              "addScript": "landmarks.js",
+              "removeScript": "landmarks-remove.js",
+              "-refForCheck": "",
+              "-refForCheckLink": "",
+              "-description": ""
+            },
+            {
+              "helpIcon": "Yes",
+              "helpIconText": "Help for HTML sectioning content",
+              "name": "sectioning content",
+              "id": "sectioningContent",
+              "resource_path": "checks/content-sectioning",
+              "css": "content-sectioning.css",
+              "addScript": "content-sectioning.js",
+              "removeScript": "content-sectioning-remove.js",
+              "-refForCheck": "",
+              "-refForCheckLink": "",
+              "-description": ""
+            }
+          ]
         }
-    ]
+      ]
+    },
+    {
+      "name": "Graphic Media",
+      "helpUrl": "/extension/help/extensionHelp.html",
+      "fieldsets": [
+        {
+          "name": "Images",
+          "helpSection": "Checks for valid markup, if the image is decorative and exposes the accessible name for images that provide meaning to the content.",
+          "-refForGroup": "",
+          "-refForGroupLink": "",
+          "items": [
+            {
+              "name": "Show image's accessible name (accName)",
+              "id": "hasAlt",
+              "resource_path": "checks/image-alt",
+              "css": "show-alt-text.css",
+              "addScript": "show-alt-text.js",
+              "removeScript": "show-alt-text-remove.js",
+              "-refForCheck": "",
+              "-refForCheckLink": "",
+              "-description": ""
+            },
+            {
+              "name": "Show decorative images",
+              "id": "decoImg",
+              "resource_path": "checks/image-decorative",
+              "css": "decorative-image.css",
+              "addScript": "decorative-image.js",
+              "removeScript": "decorative-image-remove.js",
+              "-refForCheck": "",
+              "-refForCheckLink": "",
+              "-description": ""
+            },
+            {
+              "name": "Image is missing the ALT attribute",
+              "id": "missAlt",
+              "resource_path": "checks/image-missing-alt",
+              "css": "missing-alt.css",
+              "addScript": "missing-alt.js",
+              "removeScript": "missing-alt-remove.js",
+              "-refForCheck": "",
+              "-refForCheckLink": "",
+              "-description": ""
+            },
+            {
+              "name": "CSS Background images",
+              "id": "cssInj",
+              "resource_path": "checks/css-background-images",
+              "css": "css-background-images.css",
+              "addScript": "css-background-images.js",
+              "removeScript": "css-background-images-remove.js",
+              "-refForCheck": "",
+              "-refForCheckLink": "",
+              "-description": ""
+            }
+          ]
+        },
+        {
+          "name": "SVGs",
+          "helpSection": "Checks for valid markup, if the SVG is decorative and exposes the accessible name for images that provide meaning to the content.",
+          "-refForGroup": "",
+          "-refForGroupLink": "",
+          "items": [
+            {
+              "name": "Show SVG's accessible name (accName)",
+              "id": "svgHasName",
+              "resource_path": "checks/svg-name",
+              "css": "show-svg-name.css",
+              "addScript": "show-svg-name.js",
+              "removeScript": "show-svg-name-remove.js",
+              "-refForCheck": "",
+              "-refForCheckLink": "",
+              "-description": ""
+            },
+            {
+              "name": "Show decorative SVGs",
+              "id": "svgDecoration",
+              "resource_path": "checks/svg-decorative",
+              "css": "decorative-svg.css",
+              "addScript": "decoration-svg.js",
+              "removeScript": "decoration-svg-remove.js",
+              "-refForCheck": "",
+              "-refForCheckLink": "",
+              "-description": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Usability and Readability",
+      "-helpSection": "",
+      "-refForGroup": "",
+      "-refForGroupLink": "",
+      "fieldsets": [
+        {
+          "name": "User Experience",
+          "helpSection": "Assessing Interaction and Content Readability.",
+          "-refForGroup": "",
+          "-refForGroupLink": "",
+          "items": [
+            {
+              "helpIcon": "Yes",
+              "helpIconText": "Help for Target size",
+              "name": "Target Size (24px)",
+              "id": "targetSize24",
+              "resource_path": "checks/target-size",
+              "css": "target-size.css",
+              "addScript": ["target-size.js", "target-size24.js"],
+              "-refForCheck": "",
+              "-refForCheckLink": "",
+              "-description": "",
+              "removeScript": [
+                "target-size-remove.js",
+                "target-size-remove24.js"
+              ]
+            },
+            {
+              "name": "Target Size (44px)",
+              "id": "targetSize44",
+              "resource_path": "checks/target-size",
+              "css": "target-size.css",
+              "addScript": ["target-size.js", "target-size44.js"],
+              "-refForCheck": "",
+              "-refForCheckLink": "",
+              "-description": "",
+              "removeScript": [
+                "target-size-remove.js",
+                "target-size-remove44.js"
+              ]
+            },
+            {
+              "name": "Target Size (48px)",
+              "id": "targetSize48",
+              "resource_path": "checks/target-size",
+              "css": "target-size.css",
+              "addScript": ["target-size.js", "target-size48.js"],
+              "-refForCheck": "",
+              "-refForCheckLink": "",
+              "-description": "",
+              "removeScript": [
+                "target-size-remove.js",
+                "target-size-remove48.js"
+              ]
+            },
+            {
+              "helpIcon": "Yes",
+              "helpIconText": "Help for Text Spacing",
+              "name": "Text Spacing",
+              "id": "textSpacing",
+              "resource_path": "checks/text-spacing",
+              "css": "text-spacing.css",
+              "addScript": "text-spacing.js",
+              "removeScript": "text-spacing-remove.js",
+              "-refForCheck": "",
+              "-refForCheckLink": "",
+              "-description": ""
+            },
+            {
+              "helpIcon": "Yes",
+              "helpIconText": "Help for Reading order",
+              "name": "Reading order",
+              "id": "readingOrder",
+              "resource_path": "checks/reading-order",
+              "addScript": "reading-order.js",
+              "removeScript": "reading-order-remove.js",
+              "css": "reading-order.css",
+              "-refForCheck": "",
+              "-refForCheckLink": "",
+              "-description": ""
+            },
+            {
+              "helpIcon": "Yes",
+              "helpIconText": "Help for Focus Order",
+              "name": "Focus Order",
+              "id": "focusOrderCount",
+              "resource_path": "checks/focus-order-count",
+              "addScript": "focus-order-count.js",
+              "removeScript": "focus-order-count-remove.js",
+              "css": "focus-order-count.css",
+              "-refForCheck": "",
+              "-refForCheckLink": "",
+              "-description": ""
+            },
+            {
+              "helpIcon": "Yes",
+              "helpIconText": "Help for Focus Visible",
+              "name": "Focus Visible",
+              "id": "focusVisible",
+              "resource_path": "checks/force-focus-visible",
+              "css": "force-focus-visible.css",
+              "-refForCheck": "",
+              "-refForCheckLink": "",
+              "-description": ""
+            }
+          ]
+        },
+        {
+          "name": "Accessible name calculation",
+          "helpSection": "Displays the accessible name of elements.",
+          "-refForGroup": "",
+          "-refForGroupLink": "",
+          "items": [
+            {
+              "helpIcon": "Yes",
+              "helpIconText": "Check for valid use of ARIA accessible name.",
+              "name": "Show Aria Label",
+              "id": "labelledByARIA",
+              "resource_path": "checks/accname-calc",
+              "css": "accname-calc.css",
+              "addScript": "accname-calc.js",
+              "removeScript": "accname-calc-remove.js",
+              "-refForCheck": "",
+              "-refForCheckLink": "",
+              "-description": ""
+            },
+            {
+              "helpIcon": "Yes",
+              "helpIconText": "Check if screen reader only text is present.",
+              "name": "Show Screen Reader Only Content",
+              "id": "labelledBySR",
+              "resource_path": "checks/sr-only",
+              "css": "sr-only.css",
+              "addScript": "sr-only.js",
+              "removeScript": "sr-only-remove.js",
+              "-refForCheck": "",
+              "-refForCheckLink": "",
+              "-description": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }
