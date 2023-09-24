@@ -1,6 +1,16 @@
 "use strict";
 
-import { Item, Fieldset, Tab, TabClass, FieldsetClass, ItemClass, InternalRequest, InternalResponse, Options } from './dataDefinitions';
+import {
+  Item,
+  Fieldset,
+  Tab,
+  TabClass,
+  FieldsetClass,
+  ItemClass,
+  InternalRequest,
+  InternalResponse,
+  Options,
+} from "./dataDefinitions.js";
 
 const svgIcon = `
 <svg aria-hidden="true" width="32" height="32" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
@@ -289,6 +299,8 @@ async function setupConfiguration(
                 type: "popup",
                 width: 800,
                 height: 600,
+                top: 0,
+                left: 0
               });
             }
           });
@@ -351,7 +363,7 @@ async function setupConfiguration(
         }
 
         // add the resources to the map, using the checkbox element itself as the key.
-        eventConfig.set(checkBox, resources);
+        eventConfig.set(checkBox, resources as Item);
       }
 
       // Hook the fieldset into the tab panel's DOM
@@ -362,7 +374,9 @@ async function setupConfiguration(
     tabNumber += 1;
 
     checkAllCheckbox.addEventListener("change", function () {
-      const checkboxes = tabPanel.querySelectorAll("input[type='checkbox']:not(.check-all)");
+      const checkboxes = tabPanel.querySelectorAll(
+        "input[type='checkbox']:not(.check-all)"
+      );
       checkboxes.forEach((checkboxElement) => {
         if (checkboxElement instanceof HTMLInputElement) {
           // Check to ensure it's an HTMLInputElement
@@ -389,7 +403,9 @@ async function setupConfiguration(
         targetCheckbox !== checkAllCheckbox &&
         !checkAllCheckbox.checked
       ) {
-        const checkboxes = tabPanel.querySelectorAll("input[type='checkbox']:not(.check-all)");
+        const checkboxes = tabPanel.querySelectorAll(
+          "input[type='checkbox']:not(.check-all)"
+        );
         if (
           Array.from(checkboxes).every(
             (checkboxElement) =>

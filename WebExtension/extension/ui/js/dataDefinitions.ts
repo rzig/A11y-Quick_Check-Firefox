@@ -12,14 +12,17 @@ export interface Item {
   css: string | string[];
   addScript: string | string[];
   removeScript: string | string[];
-  ref?: string;
-  reflink?: string;
+  refForCheck?: string;
+  refForCheckLink?: string;
+  description?: string;
 }
 
 export interface Fieldset {
   name: string;
   helpSection: string;
   items: Item[];
+  refForGroup?: string;
+  refForGroupLink?: string;
 }
 
 export interface Tab {

@@ -2,11 +2,13 @@
     "tabs": [
         {
             "name": "Content and Structure",
-            "helpUrl": "/extension/ui/help.html",
+            "helpUrl": "/extension/help/extensionHelp.html",
             "fieldsets": [
                 {
                     "name": "Headings",
                     "helpSection": "Tests that headings are marked up in code, checks for text that could be a heading that is not marked up in code, and warns if heading levels are skipped. identifies grouped headings.",
+                    "refForGroup": "1.3.1 Info and Relationships",
+                    "refForGroupLink": "https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships",
                     "items": [
                         {
                             "helpIcon": "Yes",
@@ -16,7 +18,10 @@
                             "resource_path": "checks/headings",
                             "css": "headings.css",
                             "addScript": "headings.js",
-                            "removeScript": "headings-remove.js"
+                            "removeScript": "headings-remove.js",
+                            "-refForCheck": "1.3.1 Info and Relationships , 1.3.3 Sensory Characteristics",
+                            "-refForCheckLink": "https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships , https://www.w3.org/WAI/WCAG22/Understanding/sensory-characteristics",
+                            "description": "This visibly shows the elements coded as hesdings and identfies errors and warnings for best practice."
                         },
                         {
                             "helpIcon": "Yes",
@@ -26,7 +31,10 @@
                             "resource_path": "checks/headings-not-coded",
                             "css": "headings-not-coded.css",
                             "addScript": "headings-not-coded.js",
-                            "removeScript": "headings-not-coded-remove.js"
+                            "removeScript": "headings-not-coded-remove.js",
+                            "-refForCheck": "1.3.1 Info and Relationships",
+                            "-refForCheckLink": "https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships",
+                            "description": "Finds potential headings by font size and flags them for checking"
                         },
                         {
                             "helpIcon": "Yes",
@@ -43,6 +51,8 @@
                 {
                     "name": "Grouping elements",
                     "helpSection": "Identifies proper use of grouping elements.",
+                    "refForGroup": "1.3.1 Info and Relationships",
+                    "refForGroupLink": "https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships",
                     "items": [
                         {
                             "helpIcon": "Yes",
