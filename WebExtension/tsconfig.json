@@ -23,7 +23,7 @@
     "strictPropertyInitialization": true,
     "useUnknownInCatchVariables": true,
 
-    "module":"None",
+    "module": "ESNext",
 
     "sourceMap": true,
 
