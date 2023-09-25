@@ -1,10 +1,6 @@
 "use strict";
 
-/***
-Based on code at MDN: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Tab_Role
-***/
-
-function configureTabs() {
+export function configureTabs() {
   const tabs = document.querySelectorAll('[role="tab"]');
 
   // at some stage, we should probably do a check for null here
@@ -57,7 +53,7 @@ function configureTabs() {
   });
 };
 
-function changeTabs(el: Event) {
+export function changeTabs(el: Event) {
   // The newly selected tab
   const previousTab = el.target!;
 
