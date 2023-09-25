@@ -1,5 +1,7 @@
 "use strict";
 
+import { configureTabs } from './tabs.js';
+
 import {
   Item,
   Fieldset,
@@ -66,7 +68,7 @@ setupConfiguration(
       return;
     }
 
-    // setup the tab evets
+    // setup the tab evnets
     configureTabs();
   });
 
@@ -386,14 +388,6 @@ async function setupConfiguration(
     });
 
     const helpLink = document.createElement("a");
-    // helpLink.innerText = "Help and Instructions";
-    // helpLink.classList.add("help-link");
-
-    // if (tabConfiguration.helpUrl) {
-    //   helpLink.href = chrome.runtime.getURL(tabConfiguration.helpUrl);
-    // } else {
-    //   helpLink.href = "#";
-    // }
 
     // Logic to Check or Uncheck the "Check All" Checkbox**
     tabPanel.addEventListener("change", function (event) {
