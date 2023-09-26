@@ -11,13 +11,22 @@ interface RootObject {
   tabs: Tab[];
 }
 
-// This function generates HTML based on the data structure of a Tab
-// template literals
+// This function generates HTML based on the data structure of a the JSON and uses template literals
 function generateHTML(tabData: Tab): string {
+  //console.log("Generating HTML for tab data:", tabData);
+  //console.log(`Generating HTML for tab: ${tabData.name}`);  // for debugging
   let htmlString = "";
+  console.log(`Processing tab: ${tabData.name}`); // for debugging
+
+  htmlString += `<section>`;
+  
+  const tabNameID = `${tabData.name}-8894767`;
+  htmlString += `<h1 id="${tabNameID}" class="tabTitle">${tabData.name}</h1>`;
 
   for (const fieldset of tabData.fieldsets) {
-    htmlString += `<h2 class="h2Class">${fieldset.name}</h2>`;
+    console.log(`Processing fieldset: ${fieldset.name}`); // Debugging the current fieldset
+    const fieldsetNameID = `${fieldset.name}-8894767`;
+    htmlString += `<h2 id="${fieldsetNameID}" class="h2Class">${fieldset.name}</h2>`;
     htmlString += `<p>${fieldset.helpSection}</p>`;
 
     // Check if refForGroup and refForGroupLink exist, then add them to htmlString
@@ -32,11 +41,12 @@ function generateHTML(tabData: Tab): string {
           }
           htmlString += `</ul>`;
         } else {
-          console.error("Mismatch between number of refs and links for fieldset:", fieldset);
+          //console.error("Mismatch between number of refs and links for fieldset:", fieldset);
         }
       }
 
       for (const item of fieldset.items) {
+        console.log(`Processing item: ${item.name}`); // Debugging the current item
         htmlString += `<hr>`;
         htmlString += `<h3 id="${item.id}" class="h3Class">${item.name}</h3>`;
         
@@ -47,6 +57,7 @@ function generateHTML(tabData: Tab): string {
           htmlString += `<p>Description to be updated!</p>`;  // Placeholder text
         }
         
+        //console.log("Generated HTML string:", htmlString);
         htmlString += "<ul>";
       
         // Handle multiple linked refs
@@ -70,6 +81,8 @@ function generateHTML(tabData: Tab): string {
       }      
   }
 
+  htmlString += "</section>";
+  //console.log("Generated HTML string:", htmlString);  debugging
   return htmlString;
 }
 
@@ -77,12 +90,17 @@ function generateHTML(tabData: Tab): string {
 fetch("../ui/options.json")
   .then((response) => response.json())
   .then((data: RootObject) => {
+    //console.log("Received JSON data:", JSON.stringify(data, null, 2));
     const contentElement = document.getElementById("content");
     if (contentElement && data.tabs.length > 0) {
-      const firstTab = data.tabs[0];
-      if (firstTab) {
-        contentElement.innerHTML = generateHTML(firstTab);
+      let allTabsHTML = "";
+      for (const tab of data.tabs) {
+        //console.log(`Processing tab: ${tab.name}`);  //debugging
+        //console.log(`Looping through tabs, currently at: ${tab.name}`);  // debugging
+        console.log("Final HTML content:", allTabsHTML); // Debugging the final HTML content
+        allTabsHTML += generateHTML(tab);  // Generate HTML for each tab
       }
+      contentElement.innerHTML = allTabsHTML;  // Set the HTML content for all tabs
     }
   })
   .catch((error) => console.error("Error fetching the JSON:", error));
