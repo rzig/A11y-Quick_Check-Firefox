@@ -1,165 +1,173 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Description List Test</title>
+  </head>
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <title>Description List Test</title>
-</head>
+  <body>
+    <h1>Description List Test</h1>
 
-<body>
-  <h1>Description List Test</h1>
-
-  <h2>Valid mark-up</h2>
-  <dl>
-    <dt>Name</dt>
-    <dd>John Doe</dd>
-
-    <dt>Phone</dt>
-    <dd>+123456789</dd>
-
-    <dt>Email</dt>
-    <dd>johndoe@example.com</dd>
-
-    <dt>Employment Status</dt>
-    <dd>Employed</dd>
-
-    <dt>Hobby</dt>
-    <dd>Photography</dd>
-
-    <dt>Favorite Book</dt>
-    <dd>"Moby Dick"</dd>
-  </dl>
-
-  <h2>With DIV Element as first child</h2>
-  <dl>
-    <div></div>
-    <dt>Name</dt>
-    <dd>John Doe</dd>
-
-    <dt>Phone</dt>
-    <dd>+123456789</dd>
-
-    <dt>Email</dt>
-    <dd>johndoe@example.com</dd>
-
-    <dt>Employment Status</dt>
-    <dd>Employed</dd>
-
-    <dt>Hobby</dt>
-    <dd>Photography</dd>
-
-    <dt>Favorite Book</dt>
-    <dd>"Moby Dick"</dd>
-  </dl>
-
-  <h2>With DIV wrapping Dt and DD</h2>
-  <dl>
-    <div>
+    <h2>Valid mark-up</h2>
+    <dl>
       <dt>Name</dt>
       <dd>John Doe</dd>
-    </div>
-    <div>
+
       <dt>Phone</dt>
       <dd>+123456789</dd>
-    </div>
-    <div>
+
       <dt>Email</dt>
       <dd>johndoe@example.com</dd>
-    </div>
-    <div>
+
       <dt>Employment Status</dt>
       <dd>Employed</dd>
-    </div>
-    <div>
+
       <dt>Hobby</dt>
       <dd>Photography</dd>
-    </div>
-    <div>
+
       <dt>Favorite Book</dt>
       <dd>"Moby Dick"</dd>
-    </div>
-  </dl>
+    </dl>
 
-  <h2>With SCRIPT Element</h2>
+    <h2>With DIV Element as first child</h2>
+    <dl>
+      <div></div>
+      <dt>Name</dt>
+      <dd>John Doe</dd>
 
-  <dl>
-    <script>
-      console.log("This is a script element.");
-    </script>
-    <dt>Name</dt>
-    <dd>John Doe</dd>
+      <dt>Phone</dt>
+      <dd>+123456789</dd>
 
-    <dt>Phone</dt>
-    <dd>+123456789</dd>
+      <dt>Email</dt>
+      <dd>johndoe@example.com</dd>
 
-    <dt>Email</dt>
-    <dd>johndoe@example.com</dd>
+      <dt>Employment Status</dt>
+      <dd>Employed</dd>
 
-    <dt>Employment Status</dt>
-    <dd>Employed</dd>
+      <dt>Hobby</dt>
+      <dd>Photography</dd>
 
-    <dt>Hobby</dt>
-    <dd>Photography</dd>
+      <dt>Favorite Book</dt>
+      <dd>"Moby Dick"</dd>
+    </dl>
 
-    <dt>Favorite Book</dt>
-    <dd>"Moby Dick"</dd>
-  </dl>
+    <h2>With DIV wrapping Dt and DD</h2>
+    <dl>
+      <div>
+        <dt>Name</dt>
+        <dd>John Doe</dd>
+      </div>
+      <div>
+        <dt>Phone</dt>
+        <dd>+123456789</dd>
+      </div>
+      <div>
+        <dt>Email</dt>
+        <dd>johndoe@example.com</dd>
+      </div>
+      <div>
+        <dt>Employment Status</dt>
+        <dd>Employed</dd>
+      </div>
+      <div>
+        <dt>Hobby</dt>
+        <dd>Photography</dd>
+      </div>
+      <div>
+        <dt>Favorite Book</dt>
+        <dd>"Moby Dick"</dd>
+      </div>
+    </dl>
 
-  <h2>With TEMPLATE Element</h2>
+    <h2>With SCRIPT Element</h2>
 
-  <dl>
-    <template id="myTemplate"> </template>
-    <dt>Name</dt>
-    <dd>John Doe</dd>
+    <dl>
+      <script>
+        console.log("This is a script element.");
+      </script>
+      <dt>Name</dt>
+      <dd>John Doe</dd>
 
-    <dt>Phone</dt>
-    <dd>+123456789</dd>
+      <dt>Phone</dt>
+      <dd>+123456789</dd>
 
-    <dt>Email</dt>
-    <dd>johndoe@example.com</dd>
+      <dt>Email</dt>
+      <dd>johndoe@example.com</dd>
 
-    <dt>Employment Status</dt>
-    <dd>Employed</dd>
+      <dt>Employment Status</dt>
+      <dd>Employed</dd>
 
-    <dt>Hobby</dt>
-    <dd>Photography</dd>
+      <dt>Hobby</dt>
+      <dd>Photography</dd>
 
-    <dt>Favorite Book</dt>
-    <dd>"Moby Dick"</dd>
-  </dl>
+      <dt>Favorite Book</dt>
+      <dd>"Moby Dick"</dd>
+    </dl>
 
-  <h2>Parent has invalid role</h2>
-  <dl role="region" aria-label="I am not allowed here!">
-    <dt>Name</dt>
-    <dd>John Doe</dd>
+    <h2>With TEMPLATE Element</h2>
 
-    <dt>Phone</dt>
-    <dd>+123456789</dd>
+    <dl>
+      <template id="myTemplate"> </template>
+      <dt>Name</dt>
+      <dd>John Doe</dd>
 
-    <dt>Email</dt>
-    <dd>johndoe@example.com</dd>
+      <dt>Phone</dt>
+      <dd>+123456789</dd>
 
-    <dt>Employment Status</dt>
-    <dd>Employed</dd>
+      <dt>Email</dt>
+      <dd>johndoe@example.com</dd>
 
-    <dt>Hobby</dt>
-    <dd>Photography</dd>
+      <dt>Employment Status</dt>
+      <dd>Employed</dd>
 
-    <dt>Favorite Book</dt>
-    <dd>"Moby Dick"</dd>
-  </dl>
-  
-  <h2>Check for single key-value pair</h2>
-  <dl>
-    <dt>Name</dt>
-    <dd>John Doe</dd>
-	</dl>
-<dl>
-    <dt>Name</dt>
-    <dd>Jane Doe</dd>
-	</dl>
+      <dt>Hobby</dt>
+      <dd>Photography</dd>
 
-</body>
+      <dt>Favorite Book</dt>
+      <dd>"Moby Dick"</dd>
+    </dl>
 
+    <h2>Parent has invalid role</h2>
+    <dl role="region" aria-label="I am not allowed here!">
+      <dt>Name</dt>
+      <dd>John Doe</dd>
+
+      <dt>Phone</dt>
+      <dd>+123456789</dd>
+
+      <dt>Email</dt>
+      <dd>johndoe@example.com</dd>
+
+      <dt>Employment Status</dt>
+      <dd>Employed</dd>
+
+      <dt>Hobby</dt>
+      <dd>Photography</dd>
+
+      <dt>Favorite Book</dt>
+      <dd>"Moby Dick"</dd>
+    </dl>
+
+    <h2>Check for single key-value pair</h2>
+    <dl>
+      <dt>Name</dt>
+      <dd>John Doe</dd>
+    </dl>
+    <dl>
+      <dt>Name</dt>
+      <dd>Jane Doe</dd>
+    </dl>
+
+    <h2>Test for invalid nested elements</h2>
+    <dl>
+      <dt>Your reference</dt>
+      <dd>iiuy77876778.</dd>
+      <!--Oh no invalid stuff-->
+      <h3>Directory listing</h3>
+      <div></div>
+      <div>Bob MacDoogle</div>
+      <div></div>
+    </dl>
+  </body>
 </html>
