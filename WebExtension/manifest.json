@@ -1,7 +1,7 @@
 {
     "name": "A11y quick check",
     "short_name": "A11y quick check",
-    "version": "2500.06.34",
+    "version": "2500.06.44",
     "version_name": "Argentinosaurus",
     "manifest_version": 3,
     "description": "Easy to use quick checks to identify potential accessibility issues.",
