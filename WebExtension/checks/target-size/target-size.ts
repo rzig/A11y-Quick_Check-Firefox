@@ -1,5 +1,26 @@
 "use strict";
 
+// Function to get adjustment made by :before and :after pseudo-elements
+function getPseudoElementAdjustment(elem: Element): {width: number, height: number} {
+    const after = window.getComputedStyle(elem, ':after');
+    const before = window.getComputedStyle(elem, ':before');
+
+    const topAfter = parseFloat(after.getPropertyValue('top')) || 0;
+    const bottomAfter = parseFloat(after.getPropertyValue('bottom')) || 0;
+    const topBefore = parseFloat(before.getPropertyValue('top')) || 0;
+    const bottomBefore = parseFloat(before.getPropertyValue('bottom')) || 0;
+
+    const leftAfter = parseFloat(after.getPropertyValue('left')) || 0;
+    const rightAfter = parseFloat(after.getPropertyValue('right')) || 0;
+    const leftBefore = parseFloat(before.getPropertyValue('left')) || 0;
+    const rightBefore = parseFloat(before.getPropertyValue('right')) || 0;
+
+    const extraHeight = Math.abs(topAfter) + Math.abs(bottomAfter) + Math.abs(topBefore) + Math.abs(bottomBefore);
+    const extraWidth = Math.abs(leftAfter) + Math.abs(rightAfter) + Math.abs(leftBefore) + Math.abs(rightBefore);
+
+    return {width: extraWidth, height: extraHeight};
+}
+
 // Add a circle shape to a specific element
 function addCircleShape(elem: Element, targetSize: number) {
     const circle = document.createElement('div');
@@ -30,17 +51,15 @@ function addTargetSize(targetSize: number) {
     // Loop through each element and check its dimensions
     for (const elem of inputElements) {
         const rect = elem.getBoundingClientRect(); // Get the element's dimensions
-        const elemWidth = rect.width;
-        const elemHeight = rect.height;
+        const {width: extraWidth, height: extraHeight} = getPseudoElementAdjustment(elem);
+        
+        const elemWidth = rect.width + extraWidth;
+        const elemHeight = rect.height + extraHeight;
         const isInline = getComputedStyle(elem).display === 'inline';
         const parentTag = elem.parentElement!.tagName ?? "";
         const isHidden = getComputedStyle(elem).display === 'none' || getComputedStyle(elem).opacity === '0' || getComputedStyle(elem).visibility === 'hidden';
         const isTooSmall = elemWidth <= 1 || elemHeight <= 1;
 
-        // TODO: Examine this to ensure none of these conditions may result in false negatives
-        // Perhaps checking if there are text nodes siblings on either side of the control?
-
-        // Check if the element's dimensions are less than the minimum requirement, it's not an inline element or in a list, and it's not hidden by CSS
         if ((elemWidth < targetSize || elemHeight < targetSize)
             && !isInline
             && !['OL', 'UL', 'DL', 'LI', 'DT', 'DD'].includes(parentTag)
