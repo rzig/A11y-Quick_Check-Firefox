@@ -7,7 +7,7 @@
     background-color: $backgroundColor,
     color: $textColor,
     border: 3px solid $borderColor,
-    ), true);
+  ), true);
 }
 
 .dl--valid-html-9927845,
@@ -15,7 +15,7 @@
   @include important-styles(
     (
       border: 2px dashed var(--pass-border),
-      margin-bottom:0,
+      margin-bottom: 0,
       padding: 1em,
     ),
     true
@@ -40,11 +40,11 @@
   );
 }
 
-.dl--single-dt-dd-9927845{
+.dl--single-dt-dd-9927845 {
   @include important-styles(
     (
       border: 2px dashed var(--warning-border),
-      margin-bottom:0,
+      margin-bottom: 0,
       padding: 1em,
     ),
     true
@@ -73,11 +73,12 @@
 .dl--nested-9927845,
 .dl--invalid-child-9927845,
 .dl--invalid-childelement-9927845,
+.dl--invalid-dd-9927845,  // New class
 [data-isNestedList] {
   @include important-styles(
     (
       border: 2px dashed var(--danger-border),
-      margin-bottom:0,
+      margin-bottom: 0,
       padding: 1em,
     ),
     true
@@ -87,7 +88,8 @@
 .invalid-first-child-message-9927845,
 .invalid-role-message-9927845,
 .nested-dl-message-9927845,
-.invalid-child-message-9927845 {
+.invalid-child-message-9927845,
+.invalid-dd-message-9927845 {  // Message div for the new class
   @include important-styles(
     (
       border-width: 2px,

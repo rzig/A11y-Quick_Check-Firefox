@@ -22,13 +22,44 @@ function checkOtherChild(child: Element, dlElement: Element): boolean {
   return false;
 }
 
+function checkChildStructure(child: Element, dlElement: Element): boolean {
+  if (child.nodeName === "DIV") {
+    return checkDivChild(child, dlElement);
+  } else if (child.nodeName === "DL") { // Handle nested DLs
+    return checkDLStructure(child);
+  } else {
+    return checkOtherChild(child, dlElement);
+  }
+}
+
+function checkDLStructure(dlElement: Element): boolean {
+  let failureDetected = false;
+  let lastChildWasDt = false;
+
+  for (const child of Array.from(dlElement.children)) {
+    // Check if DD immediately follows a DT
+    if (child.nodeName === "DD" && !lastChildWasDt) {
+      dlElement.classList.add("dl--invalid-dd-9927845");
+      const message = `Fail: DD without preceding DT detected inside DL.`;
+      createChildMessageDiv(dlElement, "invalid-dd-message-9927845", message);
+      failureDetected = true;
+      break;
+    }
+
+    lastChildWasDt = (child.nodeName === "DT");
+
+    // Check each child's structure
+    failureDetected = checkChildStructure(child, dlElement);
+    if (failureDetected) {
+      break;
+    }
+  }
+  return failureDetected;
+}
+
 function checkDescriptionLists(): void {
   const dlElements = document.querySelectorAll("dl");
-
   for (const dlElement of dlElements) {
-    let failureDetected = false;
-
-    // Check for nested DL elements
     if (dlElement.parentElement && dlElement.parentElement.nodeName === 'DL') {
       dlElement.classList.add("dl--nested-9927845");
       dlElement.setAttribute('data-isNestedList', 'true');
@@ -37,19 +68,9 @@ function checkDescriptionLists(): void {
       continue;
     }
 
-    // Check each child element for validity
-    for (const child of Array.from(dlElement.children)) {
-      if (child.nodeName === "DIV") {
-        failureDetected = checkDivChild(child, dlElement);
-      } else {
-        failureDetected = checkOtherChild(child, dlElement);
-      }
+    let failureDetected = checkDLStructure(dlElement);
 
-      if (failureDetected) {
-        break;
-      }
-    }
-
+    // If a failure was detected in the structure check, skip the remaining checks for this element
     if (failureDetected) continue;
 
     // Check for a single DT/DD within a DL
