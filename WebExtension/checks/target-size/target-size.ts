@@ -56,12 +56,13 @@ function addTargetSize(targetSize: number) {
         const elemWidth = rect.width + extraWidth;
         const elemHeight = rect.height + extraHeight;
         const isInline = getComputedStyle(elem).display === 'inline';
+        const isButton = elem.tagName === 'BUTTON' || elem.getAttribute('role') === 'button';
         const parentTag = elem.parentElement!.tagName ?? "";
         const isHidden = getComputedStyle(elem).display === 'none' || getComputedStyle(elem).opacity === '0' || getComputedStyle(elem).visibility === 'hidden';
         const isTooSmall = elemWidth <= 1 || elemHeight <= 1;
 
         if ((elemWidth < targetSize || elemHeight < targetSize)
-            && !isInline
+            && !(isButton && isInline) // Exclude buttons that are positioned inline
             && !['OL', 'UL', 'DL', 'LI', 'DT', 'DD'].includes(parentTag)
             && !isHidden
             && !isTooSmall
