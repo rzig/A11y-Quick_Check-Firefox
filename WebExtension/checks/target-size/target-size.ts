@@ -50,28 +50,32 @@ function addTargetSize(targetSize: number) {
     const inputElements = document.querySelectorAll('a, button, input[type="button"], input[type="submit"], select, [role="button"]');
     // Loop through each element and check its dimensions
     for (const elem of inputElements) {
-        const rect = elem.getBoundingClientRect(); // Get the element's dimensions
+        const rect = elem.getBoundingClientRect();
         const {width: extraWidth, height: extraHeight} = getPseudoElementAdjustment(elem);
         
         const elemWidth = rect.width + extraWidth;
         const elemHeight = rect.height + extraHeight;
-        const isInline = getComputedStyle(elem).display === 'inline';
-        const isButton = elem.tagName === 'BUTTON' || elem.getAttribute('role') === 'button';
-        const parentTag = elem.parentElement!.tagName ?? "";
+        const isButton = elem.tagName === 'BUTTON';
+        const parentTag = elem.parentElement!.tagName;
+        const isInTextBlock = ['P', 'SPAN'].includes(parentTag);
+        
         const isHidden = getComputedStyle(elem).display === 'none' || getComputedStyle(elem).opacity === '0' || getComputedStyle(elem).visibility === 'hidden';
         const isTooSmall = elemWidth <= 1 || elemHeight <= 1;
 
         if ((elemWidth < targetSize || elemHeight < targetSize)
-            && !(isButton && isInline) // Exclude buttons that are positioned inline
+            && !isInTextBlock  // Exclude buttons that are positioned within text blocks
             && !['OL', 'UL', 'DL', 'LI', 'DT', 'DD'].includes(parentTag)
             && !isHidden
             && !isTooSmall
             && !isExcluded(elem)) {
-            // Add a CSS class to the element
+
             elem.classList.add(`small-target-${targetSize}-8228965`);
-
-            const messageDiv = createChildMessageDiv(elem, `target-size-${targetSize}-8228965`, `The target size in pixels for this element is ${elemWidth} x ${elemHeight}, which is smaller than ${targetSize} x ${targetSize}.`, ["target-size-8228965"]);
-
+            
+            if (!(isButton && isInTextBlock)) {
+                // Add the message only if it is not a button inside a text block
+                const messageDiv = createChildMessageDiv(elem, `target-size-${targetSize}-8228965`, `The target size in pixels for this element is ${elemWidth} x ${elemHeight}, which is smaller than ${targetSize} x ${targetSize}.`, ["target-size-8228965"]);
+            }
+            
             addCircleShape(elem, targetSize);
         }
     }
