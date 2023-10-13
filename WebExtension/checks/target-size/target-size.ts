@@ -45,9 +45,9 @@ function isExcluded(elem: Element) {
 }
 
 function addTargetSize(targetSize: number) {
-    console.info("Here!!");
     // Get all interactive elements on the page
-    const inputElements = document.querySelectorAll('a, button, input[type="button"], input[type="submit"], select, [role="button"]');
+    const inputElements = document.querySelectorAll('a, button, input[type="button"], input[type="submit"], select, [role="button"], [role="link"]');
+    
     // Loop through each element and check its dimensions
     for (const elem of inputElements) {
         const rect = elem.getBoundingClientRect();
@@ -55,8 +55,12 @@ function addTargetSize(targetSize: number) {
         
         const elemWidth = rect.width + extraWidth;
         const elemHeight = rect.height + extraHeight;
-        const isButton = elem.tagName === 'BUTTON';
+        const tagName = elem.tagName.toLowerCase();
+        const role = elem.getAttribute('role');
+        const identifier = role ? `role="${role}"` : tagName;
+        
         const parentTag = elem.parentElement!.tagName;
+        // If the paragraph is marked up as a div and nnot a P this will trigger the check.
         const isInTextBlock = ['P', 'SPAN'].includes(parentTag);
         
         const isHidden = getComputedStyle(elem).display === 'none' || getComputedStyle(elem).opacity === '0' || getComputedStyle(elem).visibility === 'hidden';
@@ -71,9 +75,9 @@ function addTargetSize(targetSize: number) {
 
             elem.classList.add(`small-target-${targetSize}-8228965`);
             
-            if (!(isButton && isInTextBlock)) {
-                // Add the message only if it is not a button inside a text block
-                const messageDiv = createChildMessageDiv(elem, `target-size-${targetSize}-8228965`, `The target size in pixels for this element is ${elemWidth} x ${elemHeight}, which is smaller than ${targetSize} x ${targetSize}.`, ["target-size-8228965"]);
+            if (!(tagName === 'button' && isInTextBlock)) {
+                // Don't add the message if the button is conpained inside a text block
+                const messageDiv = createChildMessageDiv(elem, `target-size-${targetSize}-8228965`, `The target size for element <${identifier}> is ${elemWidth.toFixed(2)} x ${elemHeight.toFixed(2)}, which is smaller than ${targetSize} x ${targetSize}.`, ["target-size-8228965"]);
             }
             
             addCircleShape(elem, targetSize);
