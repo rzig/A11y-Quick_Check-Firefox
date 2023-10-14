@@ -14,12 +14,6 @@ import {
   Options,
 } from "./dataDefinitions.js";
 
-const svgIcon = `
-<svg aria-hidden="true" width="32" height="32" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="14" cy="14" r="12" fill="#5941a9" />
-    <text x="50%" y="50%" font-size="24px" font-weight="bold" text-anchor="middle" dy=".3em" fill="#fff">?</text>
-</svg>`;
-
 function updateCheckAllState(tabPanel: HTMLElement) {
   const checkboxes = tabPanel.querySelectorAll<HTMLInputElement>(
     "input[type='checkbox']:not(.check-all)"
@@ -201,14 +195,6 @@ async function setupConfiguration(
       legend.innerText = fieldsetConfiguration.name;
       fieldset.appendChild(legend);
 
-      //Optional help text for the section
-      if (fieldsetConfiguration.helpSection) {
-        const helpText = document.createElement("p");
-        helpText.innerText = fieldsetConfiguration.helpSection;
-        helpText.classList.add("help-section-7726536");
-        fieldset.appendChild(helpText);
-      }
-
       // We use a DIV wrapper
       const divWrapper = document.createElement("div");
       divWrapper.classList.add("column--container-299867");
@@ -222,14 +208,6 @@ async function setupConfiguration(
         // Create list Item - we're within a UL here
         const listItem = document.createElement("li");
         listItem.classList.add("listItem-299867");
-
-        // Optional help text for the item
-        if (checkboxConfiguration.helpCheck) {
-          const helpText = document.createElement("p");
-          helpText.innerText = checkboxConfiguration.helpCheck;
-          helpText.classList.add("help-check-77265");
-          listItem.appendChild(helpText);
-        }
 
         // Add the divWrapper element to the fieldset element
         fieldset.appendChild(divWrapper);
@@ -261,54 +239,6 @@ async function setupConfiguration(
 
         // hook the label into the list item's DOM
         listItem.appendChild(label);
-
-        // Add the SVG as a help icon if "helpIcon" is set to "Yes" in the JSON
-        if (
-          checkboxConfiguration.helpIcon &&
-          checkboxConfiguration.helpIcon === "Yes"
-        ) {
-          const iconWrapper = document.createElement("a");
-          iconWrapper.classList.add("help-icon-link");
-          iconWrapper.innerHTML = svgIcon;
-
-          // Link to the helpUrl, using either the checkbox's own or the tab's default.
-          if (checkboxConfiguration.helpUrl) {
-            iconWrapper.href = `${chrome.runtime.getURL(
-              checkboxConfiguration.helpUrl
-            )}#${checkboxConfiguration.id}`;
-          } else if (tabConfiguration.helpUrl) {
-            iconWrapper.href = `${chrome.runtime.getURL(
-              tabConfiguration.helpUrl
-            )}#${checkboxConfiguration.id}`;
-          } else {
-            iconWrapper.href = "#"; // Fallback
-          }
-
-          if (checkboxConfiguration.helpIconText) {
-            iconWrapper.setAttribute(
-              "aria-label",
-              checkboxConfiguration.helpIconText
-            );
-          }
-
-          // Add an event listener to open the help URL in a new Chrome window
-          iconWrapper.addEventListener("click", (e) => {
-            if (iconWrapper.href !== "#") {
-              // If href is not a placeholder
-              e.preventDefault();
-              chrome.windows.create({
-                url: iconWrapper.href,
-                type: "popup",
-                width: 800,
-                height: 600,
-                top: 0,
-                left: 0
-              });
-            }
-          });
-
-          listItem.appendChild(iconWrapper);
-        }
 
         // hook the listitem into the DOM
         list.appendChild(listItem);
@@ -387,8 +317,6 @@ async function setupConfiguration(
       });
     });
 
-    const helpLink = document.createElement("a");
-
     // Logic to Check or Uncheck the "Check All" Checkbox**
     tabPanel.addEventListener("change", function (event) {
       const targetCheckbox = event.target;
@@ -414,24 +342,6 @@ async function setupConfiguration(
         }
       }
     });
-
-    // Add an event listener to open the help URL in a new Chrome window
-    helpLink.addEventListener("click", (e) => {
-      if (helpLink.href !== "#") {
-        // If href is not a placeholder
-        e.preventDefault();
-        chrome.windows.create({
-          url: helpLink.href,
-          type: "popup",
-          width: 800,
-          height: 600,
-          left: 0,
-          top: 0,
-        });
-      }
-    });
-
-    tabPanel.appendChild(helpLink);
   }
 }
 

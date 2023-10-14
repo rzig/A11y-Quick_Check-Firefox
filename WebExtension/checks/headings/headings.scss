@@ -44,7 +44,8 @@
   #{$heading-level} .headingWrapper-8878, [role="heading"] .headingWrapper-8878 {
     @include important-styles((
       background-color: $background,
-      border: $border
+      border: $border,
+      font-size: inherit,
     ), true);
   }
 }
