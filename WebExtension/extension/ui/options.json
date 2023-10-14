@@ -2,7 +2,7 @@
   "tabs": [
     {
       "name": "Content and Structure",
-      "helpUrl": "/extension/help/extensionHelpCS.html",
+      "helpUrl": "/extension/help/extensionBootlegVersionHelp.html",
       "fieldsets": [
         {
           "name": "Headings",
@@ -21,7 +21,7 @@
               "removeScript": "headings-remove.js",
               "-refForCheck": "1.3.1 Info and Relationships , 1.3.3 Sensory Characteristics",
               "-refForCheckLink": "https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships , https://www.w3.org/WAI/WCAG22/Understanding/sensory-characteristics",
-              "description": "This visibly shows the elements coded as hesdings and identfies errors and warnings for best practice."
+              "description": "This visibly shows the elements coded as headings and identfies errors and warnings for best practice."
             },
             {
               "helpIcon": "Yes",
@@ -120,7 +120,7 @@
         },
         {
           "name": "Content semantics",
-          "helpSection": "Displays proper use of text-level-semantics.",
+          "helpSection": "Displays proper use of text-level-semantics, such as STRONG, EMPHASIZED, ITALICS etc,.",
           "-refForGroup": "",
           "-refForGroupLink": "",
           "items": [
@@ -139,7 +139,7 @@
         },
         {
           "name": "Content Types",
-          "helpSection": "This section of checks is to learn about HTML Content Types and runs checks for best practice and WCAG related defects. These elements are also referred to as Landmark roles",
+          "helpSection": "This section of checks the valid use of HTML Content Types.",
           "-refForGroup": "",
           "-refForGroupLink": "",
           "items": [
@@ -175,7 +175,7 @@
     },
     {
       "name": "Graphic Media",
-      "helpUrl": "/extension/help/extensionHelpGM.html",
+      "helpUrl": "/extension/help/extensionBootlegVersionHelp.html",
       "fieldsets": [
         {
           "name": "Images",
@@ -275,7 +275,7 @@
     },
     {
       "name": "Usability and Readability",
-      "helpUrl": "/extension/help/extensionHelpUE.html",
+      "helpUrl": "/extension/help/extensionBootlegVersionHelp.html",
       "fieldsets": [
         {
           "name": "User Experience",
@@ -381,7 +381,7 @@
         },
         {
           "name": "Accessible name calculation",
-          "helpSection": "Displays the accessible name of elements.",
+          "helpSection": "Displays aria-lebel text and screen reader text and identifies invalid use of ARIA naming.",
           "-refForGroup": "",
           "-refForGroupLink": "",
           "items": [

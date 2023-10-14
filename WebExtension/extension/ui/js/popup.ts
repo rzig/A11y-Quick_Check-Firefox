@@ -14,6 +14,12 @@ import {
   Options,
 } from "./dataDefinitions.js";
 
+const svgIcon = `
+<svg aria-hidden="true" width="32" height="32" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="14" cy="14" r="12" fill="#5941a9" />
+    <text x="50%" y="50%" font-size="24px" font-weight="bold" text-anchor="middle" dy=".3em" fill="#fff">?</text>
+</svg>`;
+
 function updateCheckAllState(tabPanel: HTMLElement) {
   const checkboxes = tabPanel.querySelectorAll<HTMLInputElement>(
     "input[type='checkbox']:not(.check-all)"
@@ -195,6 +201,14 @@ async function setupConfiguration(
       legend.innerText = fieldsetConfiguration.name;
       fieldset.appendChild(legend);
 
+      //Optional help text for the section
+      if (fieldsetConfiguration.helpSection) {
+        const helpText = document.createElement("p");
+        helpText.innerText = fieldsetConfiguration.helpSection;
+        helpText.classList.add("help-section-7726536");
+        fieldset.appendChild(helpText);
+      }
+
       // We use a DIV wrapper
       const divWrapper = document.createElement("div");
       divWrapper.classList.add("column--container-299867");
@@ -208,6 +222,14 @@ async function setupConfiguration(
         // Create list Item - we're within a UL here
         const listItem = document.createElement("li");
         listItem.classList.add("listItem-299867");
+
+        // Optional help text for the item
+        if (checkboxConfiguration.helpCheck) {
+          const helpText = document.createElement("p");
+          helpText.innerText = checkboxConfiguration.helpCheck;
+          helpText.classList.add("help-check-77265");
+          listItem.appendChild(helpText);
+        }
 
         // Add the divWrapper element to the fieldset element
         fieldset.appendChild(divWrapper);
@@ -317,6 +339,28 @@ async function setupConfiguration(
       });
     });
 
+    checkAllCheckbox.addEventListener("change", function () {
+      const checkboxes = tabPanel.querySelectorAll(
+        "input[type='checkbox']:not(.check-all)"
+      );
+      checkboxes.forEach((checkboxElement) => {
+        if (checkboxElement instanceof HTMLInputElement) {
+          // Check to ensure it's an HTMLInputElement
+          checkboxElement.checked = checkAllCheckbox.checked;
+        }
+      });
+    });
+
+    const helpLink = document.createElement("a");
+    helpLink.innerText = "About A11y Quick Check";
+    helpLink.classList.add("help-link");
+
+    if (tabConfiguration.helpUrl) {
+      helpLink.href = chrome.runtime.getURL(tabConfiguration.helpUrl);
+    } else {
+      helpLink.href = "#"; // Fallback to placeholder if no helpUrl is provided.
+    }
+
     // Logic to Check or Uncheck the "Check All" Checkbox**
     tabPanel.addEventListener("change", function (event) {
       const targetCheckbox = event.target;
@@ -342,6 +386,24 @@ async function setupConfiguration(
         }
       }
     });
+
+    // Add an event listener to open the help URL in a new Chrome window
+    helpLink.addEventListener("click", (e) => {
+      if (helpLink.href !== "#") {
+        // If href is not a placeholder
+        e.preventDefault();
+        chrome.windows.create({
+          url: helpLink.href,
+          type: "popup",
+          width: 800,
+          height: 630,
+          left: 0,
+          top: 0,
+        });
+      }
+    });
+
+    tabPanel.appendChild(helpLink);
   }
 }
 
