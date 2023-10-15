@@ -381,7 +381,7 @@
         },
         {
           "name": "Accessible name calculation",
-          "helpSection": "Displays aria-lebel text and screen reader text and identifies invalid use of ARIA naming.",
+          "helpSection": "Displays aria-label text and screen reader text and identifies invalid use of ARIA naming.",
           "-refForGroup": "",
           "-refForGroupLink": "",
           "items": [
