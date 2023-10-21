@@ -395,8 +395,8 @@ async function setupConfiguration(
         chrome.windows.create({
           url: helpLink.href,
           type: "popup",
-          width: 800,
-          height: 630,
+          width: 720,
+          height: 614,
           left: 0,
           top: 0,
         });
