@@ -1,7 +1,12 @@
 "use strict";
 
-import { configureTabs } from './tabs.js';
-
+import { TabManager } from "./tabs.js";
+import { createTabList, createTab, createTabPanel, linkTabAndPanel } from './tabs.utils.js';
+import {
+  createHelpSection,
+  createHelpCheck,
+  createHelpLink,
+} from "./help.utils.js";
 import {
   Item,
   Fieldset,
@@ -20,28 +25,33 @@ const svgIcon = `
     <text x="50%" y="50%" font-size="24px" font-weight="bold" text-anchor="middle" dy=".3em" fill="#fff">?</text>
 </svg>`;
 
-function updateCheckAllState(tabPanel: HTMLElement) {
-  const checkboxes = tabPanel.querySelectorAll<HTMLInputElement>(
-    "input[type='checkbox']:not(.check-all)"
-  );
-  const checkedCheckboxes = Array.from(checkboxes).filter(
-    (checkbox) => checkbox.checked
-  );
+export class CheckboxManager {
+  // This class could potentially have other properties and methods
 
-  const checkAllCheckbox =
-    tabPanel.querySelector<HTMLInputElement>(".check-all");
+  // The method for updating the "check all" checkbox
+  public updateCheckAllState(tabPanel: HTMLElement): void {
+    const checkboxes = tabPanel.querySelectorAll<HTMLInputElement>(
+      "input[type='checkbox']:not(.check-all)"
+    );
+    const checkedCheckboxes = Array.from(checkboxes).filter(
+      (checkbox) => checkbox.checked
+    );
 
-  if (!checkAllCheckbox) return;
+    const checkAllCheckbox =
+      tabPanel.querySelector<HTMLInputElement>(".check-all");
 
-  if (checkedCheckboxes.length === 0) {
-    checkAllCheckbox.checked = false;
-    checkAllCheckbox.indeterminate = false;
-  } else if (checkedCheckboxes.length === checkboxes.length) {
-    checkAllCheckbox.checked = true;
-    checkAllCheckbox.indeterminate = false;
-  } else {
-    checkAllCheckbox.indeterminate = true;
-    checkAllCheckbox.checked = false;
+    if (!checkAllCheckbox) return;
+
+    if (checkedCheckboxes.length === 0) {
+      checkAllCheckbox.checked = false;
+      checkAllCheckbox.indeterminate = false;
+    } else if (checkedCheckboxes.length === checkboxes.length) {
+      checkAllCheckbox.checked = true;
+      checkAllCheckbox.indeterminate = false;
+    } else {
+      checkAllCheckbox.indeterminate = true;
+      checkAllCheckbox.checked = false;
+    }
   }
 }
 
@@ -68,13 +78,9 @@ setupConfiguration(
       return;
     }
 
-    // setup the tab evnets
-    configureTabs();
+    // setup the tab events using the new TabManager instance
+    const tabManager = new TabManager();
   });
-
-function isOptionsMap(options: any): options is Map<string, boolean> {
-  return "get" in options && "has" in options && "set" in options;
-}
 
 // Loads the tab and checkbox setting from the json configuratiuon file
 function loadConfiguration(resource: string): Promise<Options> {
@@ -112,13 +118,10 @@ async function setupConfiguration(
   const configuration = await loadConfiguration(resource);
 
   // Make sure our top level container hass the correct class...
-  await container.classList.add("tabs");
+  container.classList.add("tabs");
 
   // Create a Tab List node to store the actual tab buttons.
-  const tabList = document.createElement("div");
-  tabList.role = "tablist";
-  tabList.ariaLabel = "Quick check sections";
-  container.appendChild(tabList);
+  const tabList = createTabList(container);
 
   // Keep track of how many tabs we've created
   const initialTabNumber = 1;
@@ -203,10 +206,7 @@ async function setupConfiguration(
 
       //Optional help text for the section
       if (fieldsetConfiguration.helpSection) {
-        const helpText = document.createElement("p");
-        helpText.innerText = fieldsetConfiguration.helpSection;
-        helpText.classList.add("help-section-7726536");
-        fieldset.appendChild(helpText);
+        createHelpSection(fieldset, fieldsetConfiguration.helpSection);
       }
 
       // We use a DIV wrapper
@@ -225,10 +225,7 @@ async function setupConfiguration(
 
         // Optional help text for the item
         if (checkboxConfiguration.helpCheck) {
-          const helpText = document.createElement("p");
-          helpText.innerText = checkboxConfiguration.helpCheck;
-          helpText.classList.add("help-check-77265");
-          listItem.appendChild(helpText);
+          createHelpCheck(listItem, checkboxConfiguration.helpCheck);
         }
 
         // Add the divWrapper element to the fieldset element
@@ -272,7 +269,8 @@ async function setupConfiguration(
         // hookup the event listener so we get the click events
         checkBox.addEventListener("change", async (event) => {
           await checkboxEventHandler(event);
-          updateCheckAllState(tabPanel);
+          const checkboxManager = new CheckboxManager();
+          checkboxManager.updateCheckAllState(tabPanel);
         });
 
         // Get the add/remove scripts and CSS files for this checkbox
@@ -351,59 +349,7 @@ async function setupConfiguration(
       });
     });
 
-    const helpLink = document.createElement("a");
-    helpLink.innerText = "About A11y Quick Check";
-    helpLink.classList.add("help-link");
-
-    if (tabConfiguration.helpUrl) {
-      helpLink.href = chrome.runtime.getURL(tabConfiguration.helpUrl);
-    } else {
-      helpLink.href = "#"; // Fallback to placeholder if no helpUrl is provided.
-    }
-
-    // Logic to Check or Uncheck the "Check All" Checkbox**
-    tabPanel.addEventListener("change", function (event) {
-      const targetCheckbox = event.target;
-      if (
-        targetCheckbox instanceof HTMLInputElement &&
-        targetCheckbox !== checkAllCheckbox &&
-        !checkAllCheckbox.checked
-      ) {
-        const checkboxes = tabPanel.querySelectorAll(
-          "input[type='checkbox']:not(.check-all)"
-        );
-        if (
-          Array.from(checkboxes).every(
-            (checkboxElement) =>
-              checkboxElement instanceof HTMLInputElement &&
-              checkboxElement.checked
-          )
-        ) {
-          // Check to ensure it's an HTMLInputElement
-          checkAllCheckbox.checked = true;
-        } else {
-          checkAllCheckbox.checked = false;
-        }
-      }
-    });
-
-    // Add an event listener to open the help URL in a new Chrome window
-    helpLink.addEventListener("click", (e) => {
-      if (helpLink.href !== "#") {
-        // If href is not a placeholder
-        e.preventDefault();
-        chrome.windows.create({
-          url: helpLink.href,
-          type: "popup",
-          width: 720,
-          height: 614,
-          left: 0,
-          top: 0,
-        });
-      }
-    });
-
-    tabPanel.appendChild(helpLink);
+    createHelpLink(tabPanel, tabConfiguration.helpUrl);
   }
 }
 
