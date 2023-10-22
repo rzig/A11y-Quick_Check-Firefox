@@ -1,7 +1,12 @@
 "use strict";
 
 import { TabManager } from "./tabs.js";
-import { createTabList, createTab, createTabPanel, linkTabAndPanel } from './tabs.utils.js';
+import {
+  createTabList,
+  createTab,
+  createTabPanel,
+  linkTabAndPanel,
+} from "./tabs.utils.js";
 import {
   createHelpSection,
   createHelpCheck,
@@ -26,7 +31,6 @@ const svgIcon = `
 </svg>`;
 
 export class CheckboxManager {
-  // This class could potentially have other properties and methods
 
   // The method for updating the "check all" checkbox
   public updateCheckAllState(tabPanel: HTMLElement): void {
@@ -120,7 +124,7 @@ async function setupConfiguration(
   // Make sure our top level container hass the correct class...
   container.classList.add("tabs");
 
-  // Create a Tab List node to store the actual tab buttons.
+  // Use utility function to create a Tab List node to store the actual tab buttons.
   const tabList = createTabList(container);
 
   // Keep track of how many tabs we've created
@@ -129,36 +133,19 @@ async function setupConfiguration(
 
   // Create an actual tab for each tab we have in the configuration
   for (const tabConfiguration of configuration.tabs) {
-    // create the actual tab control itself
-    const tabButton = document.createElement("button");
-    tabButton.role = "tab";
-    tabButton.id = "tab-" + tabNumber;
+    // Use utility function to create the actual tab control itself
+    const tabButton = createTab(
+      tabList,
+      tabConfiguration,
+      tabNumber,
+      initialTabNumber
+    );
 
-    // Only the first tab is selected
-    tabButton.ariaSelected = (tabNumber === initialTabNumber).toString();
+    // Use utility function to create the tab panel to store the controls.
+    const tabPanel = createTabPanel(container, tabNumber, initialTabNumber);
 
-    // Only the initial tab is in the tab order. The rest can be programatically focussed.
-    tabButton.tabIndex = tabNumber === initialTabNumber ? 0 : -1;
-
-    tabButton.innerText = tabConfiguration.name;
-
-    // Create the tabPanel to store the controls.
-    const tabPanel = document.createElement("div");
-    tabPanel.id = "panel-" + tabNumber;
-    tabPanel.role = "tabpanel";
-
-    // all but the first panel are hidden
-    if (tabNumber !== initialTabNumber) {
-      tabPanel.hidden = true;
-    }
-
-    // insert the tab and panel to their container
-    tabList.appendChild(tabButton);
-    container.appendChild(tabPanel);
-
-    // link the tab button and the tabPannel
-    tabButton.setAttribute("aria-controls", tabPanel.id);
-    tabPanel.setAttribute("aria-labelledby", tabButton.id);
+    // Use utility function to link the tab button and the tab panel
+    linkTabAndPanel(tabButton, tabPanel);
 
     // Create the "Check All" checkbox
     const checkAllCheckbox = document.createElement("input");
