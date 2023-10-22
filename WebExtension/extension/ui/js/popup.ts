@@ -3,6 +3,7 @@
 import { TabManager } from "./tabs.js";
 import { TabsUtils } from "./tabs.utils.js";
 import { HelpUtils } from "./help.utils.js";
+import { SetAllCheckboxesUtils } from "./checkAllCheckboxes.utils.js";
 import {
   Item,
   Fieldset,
@@ -122,7 +123,6 @@ async function setupConfiguration(
   let tabNumber = initialTabNumber;
 
   // Create an actual tab for each tab we have in the configuration
-  // Create an actual tab for each tab we have in the configuration
   for (const tabConfiguration of configuration.tabs) {
     // Use utility class to create the actual tab control itself
     const tabButton = TabsUtils.createTab(
@@ -142,17 +142,11 @@ async function setupConfiguration(
     // Use utility class to link the tab button and the tab panel
     TabsUtils.linkTabAndPanel(tabButton, tabPanel);
 
-    // Create the "Check All" checkbox
-    const checkAllCheckbox = document.createElement("input");
-    checkAllCheckbox.type = "checkbox";
-    checkAllCheckbox.id = `check-all-${tabNumber}`;
-    checkAllCheckbox.classList.add("check-all");
-
-    const checkAllLabel = document.createElement("label");
-    checkAllLabel.htmlFor = checkAllCheckbox.id;
-
-    // Append the tab name to the end of the "Check All" label
-    checkAllLabel.innerText = `Check All - ${tabConfiguration.name}`;
+    const { checkAllCheckbox, checkAllLabel } =
+      SetAllCheckboxesUtils.setCheckAllCheckbox(
+        tabNumber,
+        tabConfiguration
+      );
 
     // Create a div container to wrap the checkbox and its label
     const checkAllWrapper = document.createElement("div");
@@ -188,7 +182,10 @@ async function setupConfiguration(
 
       //Optional help text for the section
       if (fieldsetConfiguration.helpSection) {
-        HelpUtils.createHelpSection(fieldset, fieldsetConfiguration.helpSection);
+        HelpUtils.createHelpSection(
+          fieldset,
+          fieldsetConfiguration.helpSection
+        );
       }
 
       // We use a DIV wrapper
