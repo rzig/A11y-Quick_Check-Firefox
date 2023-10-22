@@ -1,14 +1,20 @@
 "use strict";
 
-export function createTabList(container: HTMLElement): HTMLDivElement {
+export class TabsUtils {
+  static createTabList(container: HTMLElement): HTMLDivElement {
     const tabList = document.createElement("div");
     tabList.role = "tablist";
     tabList.ariaLabel = "Quick check sections";
     container.appendChild(tabList);
     return tabList;
   }
-  
-  export function createTab(tabList: HTMLDivElement, tabConfiguration: any, tabNumber: number, initialTabNumber: number): HTMLButtonElement {
+
+  static createTab(
+    tabList: HTMLDivElement,
+    tabConfiguration: any,
+    tabNumber: number,
+    initialTabNumber: number
+  ): HTMLButtonElement {
     const tabButton = document.createElement("button");
     tabButton.role = "tab";
     tabButton.id = "tab-" + tabNumber;
@@ -18,8 +24,12 @@ export function createTabList(container: HTMLElement): HTMLDivElement {
     tabList.appendChild(tabButton);
     return tabButton;
   }
-  
-  export function createTabPanel(container: HTMLElement, tabNumber: number, initialTabNumber: number): HTMLDivElement {
+
+  static createTabPanel(
+    container: HTMLElement,
+    tabNumber: number,
+    initialTabNumber: number
+  ): HTMLDivElement {
     const tabPanel = document.createElement("div");
     tabPanel.id = "panel-" + tabNumber;
     tabPanel.role = "tabpanel";
@@ -27,8 +37,12 @@ export function createTabList(container: HTMLElement): HTMLDivElement {
     container.appendChild(tabPanel);
     return tabPanel;
   }
-  
-  export function linkTabAndPanel(tabButton: HTMLButtonElement, tabPanel: HTMLDivElement) {
+
+  static linkTabAndPanel(
+    tabButton: HTMLButtonElement,
+    tabPanel: HTMLDivElement
+  ) {
     tabButton.setAttribute("aria-controls", tabPanel.id);
     tabPanel.setAttribute("aria-labelledby", tabButton.id);
-  }  
+  }
+}

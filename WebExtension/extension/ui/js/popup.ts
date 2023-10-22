@@ -1,17 +1,8 @@
 "use strict";
 
 import { TabManager } from "./tabs.js";
-import {
-  createTabList,
-  createTab,
-  createTabPanel,
-  linkTabAndPanel,
-} from "./tabs.utils.js";
-import {
-  createHelpSection,
-  createHelpCheck,
-  createHelpLink,
-} from "./help.utils.js";
+import { TabsUtils } from "./tabs.utils.js";
+import { HelpUtils } from "./help.utils.js";
 import {
   Item,
   Fieldset,
@@ -31,7 +22,6 @@ const svgIcon = `
 </svg>`;
 
 export class CheckboxManager {
-
   // The method for updating the "check all" checkbox
   public updateCheckAllState(tabPanel: HTMLElement): void {
     const checkboxes = tabPanel.querySelectorAll<HTMLInputElement>(
@@ -124,28 +114,33 @@ async function setupConfiguration(
   // Make sure our top level container hass the correct class...
   container.classList.add("tabs");
 
-  // Use utility function to create a Tab List node to store the actual tab buttons.
-  const tabList = createTabList(container);
+  // Use utility class to create a Tab List node to store the actual tab buttons.
+  const tabList = TabsUtils.createTabList(container);
 
   // Keep track of how many tabs we've created
   const initialTabNumber = 1;
   let tabNumber = initialTabNumber;
 
   // Create an actual tab for each tab we have in the configuration
+  // Create an actual tab for each tab we have in the configuration
   for (const tabConfiguration of configuration.tabs) {
-    // Use utility function to create the actual tab control itself
-    const tabButton = createTab(
+    // Use utility class to create the actual tab control itself
+    const tabButton = TabsUtils.createTab(
       tabList,
       tabConfiguration,
       tabNumber,
       initialTabNumber
     );
 
-    // Use utility function to create the tab panel to store the controls.
-    const tabPanel = createTabPanel(container, tabNumber, initialTabNumber);
+    // Use utility class to create the tab panel to store the controls.
+    const tabPanel = TabsUtils.createTabPanel(
+      container,
+      tabNumber,
+      initialTabNumber
+    );
 
-    // Use utility function to link the tab button and the tab panel
-    linkTabAndPanel(tabButton, tabPanel);
+    // Use utility class to link the tab button and the tab panel
+    TabsUtils.linkTabAndPanel(tabButton, tabPanel);
 
     // Create the "Check All" checkbox
     const checkAllCheckbox = document.createElement("input");
@@ -193,7 +188,7 @@ async function setupConfiguration(
 
       //Optional help text for the section
       if (fieldsetConfiguration.helpSection) {
-        createHelpSection(fieldset, fieldsetConfiguration.helpSection);
+        HelpUtils.createHelpSection(fieldset, fieldsetConfiguration.helpSection);
       }
 
       // We use a DIV wrapper
@@ -212,7 +207,7 @@ async function setupConfiguration(
 
         // Optional help text for the item
         if (checkboxConfiguration.helpCheck) {
-          createHelpCheck(listItem, checkboxConfiguration.helpCheck);
+          HelpUtils.createHelpCheck(listItem, checkboxConfiguration.helpCheck);
         }
 
         // Add the divWrapper element to the fieldset element
@@ -336,7 +331,7 @@ async function setupConfiguration(
       });
     });
 
-    createHelpLink(tabPanel, tabConfiguration.helpUrl);
+    HelpUtils.createHelpLink(tabPanel, tabConfiguration.helpUrl);
   }
 }
 

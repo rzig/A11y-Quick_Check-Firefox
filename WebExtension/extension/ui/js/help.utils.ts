@@ -1,34 +1,30 @@
 "use strict";
-
-// Optional help text for the section
-export function createHelpSection(fieldset: HTMLElement, helpSection: string) {
+export class HelpUtils {
+  static createHelpSection(fieldset: HTMLElement, helpSection: string) {
     const helpText = document.createElement("p");
     helpText.innerText = helpSection;
     helpText.classList.add("help-section-7726536");
     fieldset.appendChild(helpText);
   }
-  
-  // Optional help text for the item
-  export function createHelpCheck(listItem: HTMLElement, helpCheck: string) {
+
+  static createHelpCheck(listItem: HTMLElement, helpCheck: string) {
     const helpText = document.createElement("p");
     helpText.innerText = helpCheck;
     helpText.classList.add("help-check-77265");
     listItem.appendChild(helpText);
   }
-  
-  // Create a help link
-  export function createHelpLink(tabPanel: HTMLElement, helpUrl?: string) {
+
+  static createHelpLink(tabPanel: HTMLElement, helpUrl?: string) {
     const helpLink = document.createElement("a");
     helpLink.innerText = "About A11y Quick Check";
     helpLink.classList.add("help-link");
-    
+
     if (helpUrl) {
       helpLink.href = chrome.runtime.getURL(helpUrl);
     } else {
-      helpLink.href = "#"; // Fallback to placeholder if no helpUrl is provided.
+      helpLink.href = "#";
     }
-  
-    // Add an event listener to open the help URL in a new Chrome window
+
     helpLink.addEventListener("click", (e) => {
       if (helpLink.href !== "#") {
         e.preventDefault();
@@ -42,7 +38,7 @@ export function createHelpSection(fieldset: HTMLElement, helpSection: string) {
         });
       }
     });
-  
+
     tabPanel.appendChild(helpLink);
   }
-  
+}
