@@ -5,7 +5,7 @@
     "version_name": "Dreadnoughtus",
     "manifest_version": 3,
     "description": "Easy to use quick checks to identify potential accessibility issues.",
-    "author": "Original idea and Laurence Lewis (@LaurenceRLewis). Infrastructure development by Marcus Helvig (@MarcusP-P)",
+    "author": "Original idea and developer Laurence Lewis (@LaurenceRLewis). Developer by Marcus Helvig (@MarcusP-P)",
     "minimum_chrome_version": "92",
     "icons": {
         "16": "extension/icons/icon-16.png",

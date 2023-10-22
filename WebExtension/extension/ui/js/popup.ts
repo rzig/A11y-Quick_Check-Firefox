@@ -3,14 +3,9 @@
 import { TabManager } from "./tabs.js";
 import { TabsUtils } from "./tabs.utils.js";
 import { HelpUtils } from "./help.utils.js";
-import { SetAllCheckboxesUtils } from "./checkAllCheckboxes.utils.js";
+import { SetAllCheckboxesUtils, CheckboxManager } from "./checkbox.utils.js";
 import {
   Item,
-  Fieldset,
-  Tab,
-  TabClass,
-  FieldsetClass,
-  ItemClass,
   InternalRequest,
   InternalResponse,
   Options,
@@ -22,42 +17,11 @@ const svgIcon = `
     <text x="50%" y="50%" font-size="24px" font-weight="bold" text-anchor="middle" dy=".3em" fill="#fff">?</text>
 </svg>`;
 
-export class CheckboxManager {
-  // The method for updating the "check all" checkbox
-  public updateCheckAllState(tabPanel: HTMLElement): void {
-    const checkboxes = tabPanel.querySelectorAll<HTMLInputElement>(
-      "input[type='checkbox']:not(.check-all)"
-    );
-    const checkedCheckboxes = Array.from(checkboxes).filter(
-      (checkbox) => checkbox.checked
-    );
-
-    const checkAllCheckbox =
-      tabPanel.querySelector<HTMLInputElement>(".check-all");
-
-    if (!checkAllCheckbox) return;
-
-    if (checkedCheckboxes.length === 0) {
-      checkAllCheckbox.checked = false;
-      checkAllCheckbox.indeterminate = false;
-    } else if (checkedCheckboxes.length === checkboxes.length) {
-      checkAllCheckbox.checked = true;
-      checkAllCheckbox.indeterminate = false;
-    } else {
-      checkAllCheckbox.indeterminate = true;
-      checkAllCheckbox.checked = false;
-    }
-  }
-}
-
 // The empty tab container element for the tab container
-const tabContainer = document.getElementById("soup")!;
-
+const tabContainer = document.getElementById("soup")!
 // The checked state of the popup. is in sync with the state on the content script.
 let options = new Map<string, boolean>();
-
 let invalidPage = false;
-
 // The mapping between checkbox controls and the css and scripts
 const eventConfig = new Map<HTMLInputElement, Item>();
 
@@ -112,7 +76,7 @@ async function setupConfiguration(
   }
   const configuration = await loadConfiguration(resource);
 
-  // Make sure our top level container hass the correct class...
+  // Make sure our top level container has the correct class.
   container.classList.add("tabs");
 
   // Use utility class to create a Tab List node to store the actual tab buttons.
@@ -188,7 +152,6 @@ async function setupConfiguration(
         );
       }
 
-      // We use a DIV wrapper
       const divWrapper = document.createElement("div");
       divWrapper.classList.add("column--container-299867");
 
