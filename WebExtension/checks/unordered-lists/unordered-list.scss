@@ -73,7 +73,8 @@
   );
 }
 
-.aria-ul-message {
+.aria-ul-message,
+.custom-role-valid-li-message {
   @include important-styles(
     (
       margin-bottom: 0,
@@ -113,7 +114,8 @@
   );
 }
 
-.unordered-list-div-inside {
+.unordered-list-div-inside,
+.custom-role-ul-li {
   @include important-styles(
     (
       border: 2px dashed var(--danger-border),

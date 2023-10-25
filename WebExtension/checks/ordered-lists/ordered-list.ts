@@ -4,6 +4,35 @@ function checkOrderedLists(): void {
   const olElements = document.querySelectorAll("ol");
 
   for (const olElement of olElements) {
+    const customRole = olElement.getAttribute("role");
+
+    // Check if OL has a role other than 'list'
+    if (customRole && customRole !== "list") {
+      const liElements = olElement.querySelectorAll("li");
+      let hasValidLiRole = false;
+
+      for (const liElement of liElements) {
+        const liRole = liElement.getAttribute("role");
+
+        // Check if any LI has a valid role
+        if (liRole && liRole !== "listitem") {
+          hasValidLiRole = true;
+          break;
+        }
+      }
+
+      if (hasValidLiRole) {
+        const firstLiElement = liElements.item(0);
+        if (firstLiElement !== null) {
+          olElement.classList.add("ol-custom-role-valid-li");
+          const liRole = firstLiElement.getAttribute("role");
+          const message = `Warning: OL has a Role of ${customRole} and the LI elements have the ${liRole} Role. Make sure that the code structure is valid according to the Specifications.`;
+          createChildMessageDiv(olElement, "ol-custom-role-valid-li-message", message);
+        }
+        continue;  // Skip the remaining checks for this OL element
+      }
+    }
+
     // Check for first child of OL being DIV
     const firstChild = olElement.firstElementChild;
     if (firstChild && firstChild.nodeName === "DIV") {
@@ -22,7 +51,7 @@ function checkOrderedLists(): void {
       continue;  // Skip the remaining checks for this element
     }
 
-    // Check for HTML unordered list markup
+    // Check for HTML ordered list markup
     const hasHtmlOl = olElement.nodeName === "OL" && !olElement.hasAttribute("role");
     if (hasHtmlOl) {
       olElement.classList.add("valid-html-ordered-list");
@@ -32,27 +61,5 @@ function checkOrderedLists(): void {
   }
 }
 
-function checkOlParentRole(): void {
-  const olElements = document.querySelectorAll("ol");
-  const invalidParentClass = "ol--invalid-children-8892664";
-  const invalidListClass = "invalid-ol-c34fac2";
-
-  for (const parentElement of olElements) {
-    const parentRole = parentElement.getAttribute("role");
-
-    // Check if the element is not a ol or the role is overwritten
-    if (parentElement.tagName !== "OL" || (parentRole && parentRole !== "list" && parentRole !== "listbox")) {
-      // Add class and message only once per ol
-      if (!parentElement.classList.contains(invalidParentClass)) {
-        parentElement.classList.add(invalidListClass);
-        const capitalizedRole = parentRole ? parentRole.charAt(0).toUpperCase() + parentRole.slice(1) : null;
-        const capitalizedTag = parentElement.tagName.charAt(0).toUpperCase() + parentElement.tagName.slice(1);
-        const message = `Fail: This list is missing a parent of UL or OL. The list has a parent with a Role of ${capitalizedRole || capitalizedTag}`;
-        createChildMessageDiv(parentElement, invalidParentClass, message);
-      }
-    }
-  }
-}
-
+// Run the function
 checkOrderedLists();
-checkOlParentRole();
