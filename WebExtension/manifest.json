@@ -1,11 +1,11 @@
 {
     "name": "A11y quick check",
     "short_name": "A11y quick check",
-    "version": "2500.06.44",
-    "version_name": "Argentinosaurus",
+    "version": "2500.2023.10.21",
+    "version_name": "Dreadnoughtus",
     "manifest_version": 3,
     "description": "Easy to use quick checks to identify potential accessibility issues.",
-    "author": "Original idea, developer Laurence Lewis (@LaurenceRLewis) and developer Marcus Helvig (@MarcusP-P)",
+    "author": "Original idea and Laurence Lewis (@LaurenceRLewis). Infrastructure development by Marcus Helvig (@MarcusP-P)",
     "minimum_chrome_version": "92",
     "icons": {
         "16": "extension/icons/icon-16.png",

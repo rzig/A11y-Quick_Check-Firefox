@@ -262,54 +262,6 @@ async function setupConfiguration(
         // hook the label into the list item's DOM
         listItem.appendChild(label);
 
-        // Add the SVG as a help icon if "helpIcon" is set to "Yes" in the JSON
-        if (
-          checkboxConfiguration.helpIcon &&
-          checkboxConfiguration.helpIcon === "Yes"
-        ) {
-          const iconWrapper = document.createElement("a");
-          iconWrapper.classList.add("help-icon-link");
-          iconWrapper.innerHTML = svgIcon;
-
-          // Link to the helpUrl, using either the checkbox's own or the tab's default.
-          if (checkboxConfiguration.helpUrl) {
-            iconWrapper.href = `${chrome.runtime.getURL(
-              checkboxConfiguration.helpUrl
-            )}#${checkboxConfiguration.id}`;
-          } else if (tabConfiguration.helpUrl) {
-            iconWrapper.href = `${chrome.runtime.getURL(
-              tabConfiguration.helpUrl
-            )}#${checkboxConfiguration.id}`;
-          } else {
-            iconWrapper.href = "#"; // Fallback
-          }
-
-          if (checkboxConfiguration.helpIconText) {
-            iconWrapper.setAttribute(
-              "aria-label",
-              checkboxConfiguration.helpIconText
-            );
-          }
-
-          // Add an event listener to open the help URL in a new Chrome window
-          iconWrapper.addEventListener("click", (e) => {
-            if (iconWrapper.href !== "#") {
-              // If href is not a placeholder
-              e.preventDefault();
-              chrome.windows.create({
-                url: iconWrapper.href,
-                type: "popup",
-                width: 800,
-                height: 600,
-                top: 0,
-                left: 0
-              });
-            }
-          });
-
-          listItem.appendChild(iconWrapper);
-        }
-
         // hook the listitem into the DOM
         list.appendChild(listItem);
 
@@ -387,7 +339,27 @@ async function setupConfiguration(
       });
     });
 
+    checkAllCheckbox.addEventListener("change", function () {
+      const checkboxes = tabPanel.querySelectorAll(
+        "input[type='checkbox']:not(.check-all)"
+      );
+      checkboxes.forEach((checkboxElement) => {
+        if (checkboxElement instanceof HTMLInputElement) {
+          // Check to ensure it's an HTMLInputElement
+          checkboxElement.checked = checkAllCheckbox.checked;
+        }
+      });
+    });
+
     const helpLink = document.createElement("a");
+    helpLink.innerText = "About A11y Quick Check";
+    helpLink.classList.add("help-link");
+
+    if (tabConfiguration.helpUrl) {
+      helpLink.href = chrome.runtime.getURL(tabConfiguration.helpUrl);
+    } else {
+      helpLink.href = "#"; // Fallback to placeholder if no helpUrl is provided.
+    }
 
     // Logic to Check or Uncheck the "Check All" Checkbox**
     tabPanel.addEventListener("change", function (event) {
@@ -423,8 +395,8 @@ async function setupConfiguration(
         chrome.windows.create({
           url: helpLink.href,
           type: "popup",
-          width: 800,
-          height: 600,
+          width: 720,
+          height: 614,
           left: 0,
           top: 0,
         });

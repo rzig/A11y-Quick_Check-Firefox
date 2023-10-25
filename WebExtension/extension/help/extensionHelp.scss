@@ -1,116 +1,132 @@
 :root {
-    --neutral-background: #d3beff;
-    --nav-background: #a5a5a5;
-    --neutral-border: #5941a9;
-    --neutral-text: #07011c;
-  }
+  --neutral-background: #d3beff;
+  --nav-background: #a5a5a5;
+  --neutral-border: #5941a9;
+  --neutral-text: #07011c;
+}
+
+body {
+  font-family: Aptos, Bierstadt, "Segoe UI", -apple-system, BlinkMacSystemFont,
+    Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  line-height: 1.5;
+}
+
+.outerContainer {
+  display: grid;
+  grid-template-areas:
+    "header"
+    "navigation"
+    "main"
+    "footer";
+  grid-template-rows: auto auto 1fr auto;
+}
+
+header {
+  grid-area: header;
+  background-color: var(--neutral-background);
+  padding: 0.625em 0;
+  display: flex;
+  justify-content: space-between;
+
+  .a11yQC-logo img {
+    // Applied when viewport is 320px and under
+    display: none;
   
-  body {
-    font-family: Aptos, Bierstadt, "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-    line-height:1.5;
-  }
-  
-  .outerContainer {
-    display: grid;
-    grid-template-areas:
-      "header"
-      "navigation"
-      "main"
-      "footer";
-    grid-template-rows: auto auto 1fr auto;
-  }
-  
-  header {
-    grid-area: header;
-    background-color: var(--neutral-background);
-    padding: 0.625em 0;
-    display: flex;
-    justify-content: space-between;
-  
-    .a11yQC-logo img {
-      height: 100px;
-    }
-  
-    h2 {
-      font-size: 2rem;
-      margin: 0 1em;
-    }
-  
-    p {
-      font-size: 1rem;
-      margin: 0 1em;
-      margin-left: 2.2em;
+    // Applied when viewport is greater than 320px
+    @media (min-width: 321px) {
+      max-width: 100%;  // make it responsive
+      height: auto;  // maintain aspect ratio
+      height: 100px;  // set height
     }
   }
-  
-  .navigation {
-    grid-area: navigation;
-  
-    nav {
-      background-color: var(--nav-background);
-      border-bottom: 1px solid var(--neutral-border);
-  
-      ul {
-        list-style-type: none;
-        margin: 0;
-        padding: 0.5em 0;
-        display: flex;
-        justify-content: center;
-  
-        li {
-          margin: 0 0.625em;
-  
-          a {
-            font-size: 1rem;
-            color: var(--neutral-text);
-            text-align: center;
-            padding: 0.875em 1em;
-            text-decoration: none;
-  
-            &:hover,
-            &:focus-visible {
-              background-color: var(--neutral-border);
-              color: white;
-            }
+
+  h2 {
+    font-size: 2rem;
+    margin: 0 1em;
+  }
+
+  p {
+    font-size: 1rem;
+    margin: 0 1em;
+    margin-left: 2.2em;
+  }
+}
+
+.navigation {
+  grid-area: navigation;
+
+  nav {
+    background-color: var(--nav-background);
+    border-bottom: 1px solid var(--neutral-border);
+
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0.5em 0;
+      display: flex;
+      justify-content: center;
+
+      li {
+        margin: 0 0.625em;
+
+        a {
+          font-size: 1rem;
+          color: var(--neutral-text);
+          text-align: center;
+          padding: 0.875em 1em;
+          text-decoration: none;
+
+          &:hover,
+          &:focus-visible {
+            background-color: var(--neutral-border);
+            color: white;
           }
         }
       }
     }
   }
-  
-  main {
-    grid-area: main;
-    padding: 1em;
-  }
-  
-  footer {
-    grid-area: footer;
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 0.625em 0;
-  }
-  
-  #content {
-    border: 1px solid var(--neutral-border);
-    color: var(--neutral-text);
-    padding: 1em;
-  }
+}
 
-  h3.ref--links-header {
-    margin-bottom:0;
-  }
-  
-  .h2Class {
-    color: var(--neutral-text);
-    margin-bottom: 0;
-  }
+main {
+  grid-area: main;
+  padding: 1em;
+}
 
-  h3 {
-    color: var(--neutral-text);
-    margin-bottom: 1em;
-  }
-  
-  p {
-    margin-bottom: 1em;
-  } 
+footer {
+  grid-area: footer;
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 0.625em 0;
+}
+
+#content {
+  border: 1px solid var(--neutral-border);
+  color: var(--neutral-text);
+  padding: 1em;
+}
+
+h3.ref--links-header {
+  margin-bottom: 0;
+}
+
+.h2Class {
+  color: var(--neutral-text);
+  margin-bottom: 0;
+}
+
+h3 {
+  color: var(--neutral-text);
+  margin-bottom: 1em;
+}
+
+p {
+  margin-bottom: 1em;
+}
+
+.bootleg p {
+  font-size: 1.5rem;
+}
+footer ul {
+  list-style: none;
+}
