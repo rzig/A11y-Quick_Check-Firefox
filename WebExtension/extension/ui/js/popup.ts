@@ -1,14 +1,11 @@
 "use strict";
 
-import { configureTabs } from './tabs.js';
-
+import { TabManager } from "./tabs.js";
+import { TabsUtils } from "./tabs.utils.js";
+import { HelpUtils } from "./help.utils.js";
+import { SetAllCheckboxesUtils, CheckboxManager } from "./checkbox.utils.js";
 import {
   Item,
-  Fieldset,
-  Tab,
-  TabClass,
-  FieldsetClass,
-  ItemClass,
   InternalRequest,
   InternalResponse,
   Options,
@@ -20,39 +17,11 @@ const svgIcon = `
     <text x="50%" y="50%" font-size="24px" font-weight="bold" text-anchor="middle" dy=".3em" fill="#fff">?</text>
 </svg>`;
 
-function updateCheckAllState(tabPanel: HTMLElement) {
-  const checkboxes = tabPanel.querySelectorAll<HTMLInputElement>(
-    "input[type='checkbox']:not(.check-all)"
-  );
-  const checkedCheckboxes = Array.from(checkboxes).filter(
-    (checkbox) => checkbox.checked
-  );
-
-  const checkAllCheckbox =
-    tabPanel.querySelector<HTMLInputElement>(".check-all");
-
-  if (!checkAllCheckbox) return;
-
-  if (checkedCheckboxes.length === 0) {
-    checkAllCheckbox.checked = false;
-    checkAllCheckbox.indeterminate = false;
-  } else if (checkedCheckboxes.length === checkboxes.length) {
-    checkAllCheckbox.checked = true;
-    checkAllCheckbox.indeterminate = false;
-  } else {
-    checkAllCheckbox.indeterminate = true;
-    checkAllCheckbox.checked = false;
-  }
-}
-
 // The empty tab container element for the tab container
-const tabContainer = document.getElementById("soup")!;
-
+const tabContainer = document.getElementById("soup")!
 // The checked state of the popup. is in sync with the state on the content script.
 let options = new Map<string, boolean>();
-
 let invalidPage = false;
-
 // The mapping between checkbox controls and the css and scripts
 const eventConfig = new Map<HTMLInputElement, Item>();
 
@@ -68,13 +37,9 @@ setupConfiguration(
       return;
     }
 
-    // setup the tab evnets
-    configureTabs();
+    // setup the tab events using the new TabManager instance
+    const tabManager = new TabManager();
   });
-
-function isOptionsMap(options: any): options is Map<string, boolean> {
-  return "get" in options && "has" in options && "set" in options;
-}
 
 // Loads the tab and checkbox setting from the json configuratiuon file
 function loadConfiguration(resource: string): Promise<Options> {
@@ -111,14 +76,11 @@ async function setupConfiguration(
   }
   const configuration = await loadConfiguration(resource);
 
-  // Make sure our top level container hass the correct class...
-  await container.classList.add("tabs");
+  // Make sure our top level container has the correct class.
+  container.classList.add("tabs");
 
-  // Create a Tab List node to store the actual tab buttons.
-  const tabList = document.createElement("div");
-  tabList.role = "tablist";
-  tabList.ariaLabel = "Quick check sections";
-  container.appendChild(tabList);
+  // Use utility class to create a Tab List node to store the actual tab buttons.
+  const tabList = TabsUtils.createTabList(container);
 
   // Keep track of how many tabs we've created
   const initialTabNumber = 1;
@@ -126,48 +88,29 @@ async function setupConfiguration(
 
   // Create an actual tab for each tab we have in the configuration
   for (const tabConfiguration of configuration.tabs) {
-    // create the actual tab control itself
-    const tabButton = document.createElement("button");
-    tabButton.role = "tab";
-    tabButton.id = "tab-" + tabNumber;
+    // Use utility class to create the actual tab control itself
+    const tabButton = TabsUtils.createTab(
+      tabList,
+      tabConfiguration,
+      tabNumber,
+      initialTabNumber
+    );
 
-    // Only the first tab is selected
-    tabButton.ariaSelected = (tabNumber === initialTabNumber).toString();
+    // Use utility class to create the tab panel to store the controls.
+    const tabPanel = TabsUtils.createTabPanel(
+      container,
+      tabNumber,
+      initialTabNumber
+    );
 
-    // Only the initial tab is in the tab order. The rest can be programatically focussed.
-    tabButton.tabIndex = tabNumber === initialTabNumber ? 0 : -1;
+    // Use utility class to link the tab button and the tab panel
+    TabsUtils.linkTabAndPanel(tabButton, tabPanel);
 
-    tabButton.innerText = tabConfiguration.name;
-
-    // Create the tabPanel to store the controls.
-    const tabPanel = document.createElement("div");
-    tabPanel.id = "panel-" + tabNumber;
-    tabPanel.role = "tabpanel";
-
-    // all but the first panel are hidden
-    if (tabNumber !== initialTabNumber) {
-      tabPanel.hidden = true;
-    }
-
-    // insert the tab and panel to their container
-    tabList.appendChild(tabButton);
-    container.appendChild(tabPanel);
-
-    // link the tab button and the tabPannel
-    tabButton.setAttribute("aria-controls", tabPanel.id);
-    tabPanel.setAttribute("aria-labelledby", tabButton.id);
-
-    // Create the "Check All" checkbox
-    const checkAllCheckbox = document.createElement("input");
-    checkAllCheckbox.type = "checkbox";
-    checkAllCheckbox.id = `check-all-${tabNumber}`;
-    checkAllCheckbox.classList.add("check-all");
-
-    const checkAllLabel = document.createElement("label");
-    checkAllLabel.htmlFor = checkAllCheckbox.id;
-
-    // Append the tab name to the end of the "Check All" label
-    checkAllLabel.innerText = `Check All - ${tabConfiguration.name}`;
+    const { checkAllCheckbox, checkAllLabel } =
+      SetAllCheckboxesUtils.setCheckAllCheckbox(
+        tabNumber,
+        tabConfiguration
+      );
 
     // Create a div container to wrap the checkbox and its label
     const checkAllWrapper = document.createElement("div");
@@ -203,13 +146,12 @@ async function setupConfiguration(
 
       //Optional help text for the section
       if (fieldsetConfiguration.helpSection) {
-        const helpText = document.createElement("p");
-        helpText.innerText = fieldsetConfiguration.helpSection;
-        helpText.classList.add("help-section-7726536");
-        fieldset.appendChild(helpText);
+        HelpUtils.createHelpSection(
+          fieldset,
+          fieldsetConfiguration.helpSection
+        );
       }
 
-      // We use a DIV wrapper
       const divWrapper = document.createElement("div");
       divWrapper.classList.add("column--container-299867");
 
@@ -225,10 +167,7 @@ async function setupConfiguration(
 
         // Optional help text for the item
         if (checkboxConfiguration.helpCheck) {
-          const helpText = document.createElement("p");
-          helpText.innerText = checkboxConfiguration.helpCheck;
-          helpText.classList.add("help-check-77265");
-          listItem.appendChild(helpText);
+          HelpUtils.createHelpCheck(listItem, checkboxConfiguration.helpCheck);
         }
 
         // Add the divWrapper element to the fieldset element
@@ -272,7 +211,8 @@ async function setupConfiguration(
         // hookup the event listener so we get the click events
         checkBox.addEventListener("change", async (event) => {
           await checkboxEventHandler(event);
-          updateCheckAllState(tabPanel);
+          const checkboxManager = new CheckboxManager();
+          checkboxManager.updateCheckAllState(tabPanel);
         });
 
         // Get the add/remove scripts and CSS files for this checkbox
@@ -351,59 +291,7 @@ async function setupConfiguration(
       });
     });
 
-    const helpLink = document.createElement("a");
-    helpLink.innerText = "About A11y Quick Check";
-    helpLink.classList.add("help-link");
-
-    if (tabConfiguration.helpUrl) {
-      helpLink.href = chrome.runtime.getURL(tabConfiguration.helpUrl);
-    } else {
-      helpLink.href = "#"; // Fallback to placeholder if no helpUrl is provided.
-    }
-
-    // Logic to Check or Uncheck the "Check All" Checkbox**
-    tabPanel.addEventListener("change", function (event) {
-      const targetCheckbox = event.target;
-      if (
-        targetCheckbox instanceof HTMLInputElement &&
-        targetCheckbox !== checkAllCheckbox &&
-        !checkAllCheckbox.checked
-      ) {
-        const checkboxes = tabPanel.querySelectorAll(
-          "input[type='checkbox']:not(.check-all)"
-        );
-        if (
-          Array.from(checkboxes).every(
-            (checkboxElement) =>
-              checkboxElement instanceof HTMLInputElement &&
-              checkboxElement.checked
-          )
-        ) {
-          // Check to ensure it's an HTMLInputElement
-          checkAllCheckbox.checked = true;
-        } else {
-          checkAllCheckbox.checked = false;
-        }
-      }
-    });
-
-    // Add an event listener to open the help URL in a new Chrome window
-    helpLink.addEventListener("click", (e) => {
-      if (helpLink.href !== "#") {
-        // If href is not a placeholder
-        e.preventDefault();
-        chrome.windows.create({
-          url: helpLink.href,
-          type: "popup",
-          width: 720,
-          height: 614,
-          left: 0,
-          top: 0,
-        });
-      }
-    });
-
-    tabPanel.appendChild(helpLink);
+    HelpUtils.createHelpLink(tabPanel, tabConfiguration.helpUrl);
   }
 }
 
