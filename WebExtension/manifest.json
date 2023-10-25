@@ -1,7 +1,7 @@
 {
     "name": "A11y quick check",
     "short_name": "A11y quick check",
-    "version": "2500.2023.10.21",
+    "version": "2500.2023.10.26",
     "version_name": "Dreadnoughtus",
     "manifest_version": 3,
     "description": "Easy to use quick checks to identify potential accessibility issues.",
