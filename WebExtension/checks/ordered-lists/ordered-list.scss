@@ -136,3 +136,31 @@
     var(--danger-text)
   );
 }
+
+.ol-custom-role-valid-li-message {
+  @include important-styles(
+    (
+      margin-bottom: 0,
+      margin-left: 1em,
+      padding: 1em,
+    ),
+    true
+  );
+  @include OrderedList(
+    var(--warning-background),
+    var(--warning-border),
+    var(--warning-text)
+  );
+} 
+
+.ol-custom-role-valid-li {
+  @include important-styles(
+    (
+      border: 2px dashed var(--danger-border),
+      margin-bottom: 0,
+      margin-left: 1em,
+      padding: 1em,
+    ),
+    true
+  );
+}
