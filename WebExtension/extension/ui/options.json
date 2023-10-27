@@ -6,7 +6,7 @@
       "fieldsets": [
         {
           "name": "Headings",
-          "helpSection": "Tests that headings are marked up in code, checks for text that could be a heading that is not marked up in code, and warns if heading levels are skipped. identifies grouped headings.",
+          "helpSection": "Checks if visually designed headings and heading groups are conveyed by semantic markup, identifies large text to check if it should be a heading, and warns if heading levels are skipped.",
           "refForGroup": "1.3.1 Info and Relationships",
           "refForGroupLink": "https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships",
           "items": [
@@ -53,7 +53,7 @@
         },
         {
           "name": "Grouping elements",
-          "helpSection": "Identifies proper use of grouping elements.",
+          "helpSection": "Elements that are used for Grouping content in HTML are p, hr, pre, blockquote, ol, ul, menu, li element, dl, dt, dd, figure, figcaption, main, search and div. Only grouping elements that when implemented incorrectly can cause accessibility issues are included in the grouping checks. Tests for main and search elements are included in the Landmarks check.",
           "refForGroup": "1.3.1 Info and Relationships",
           "refForGroupLink": "https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships",
           "items": [
@@ -94,17 +94,6 @@
             },
             {
               "helpIcon": "Yes",
-              "helpIconText": "Displays method used to group content.",
-              "name": "Grouping content (other than lists)",
-              "id": "groupingContent",
-              "resource_path": "checks/grouping-content",
-              "css": "grouping-content.css",
-              "-refForCheck": "",
-              "-refForCheckLink": "",
-              "-description": ""
-            },
-            {
-              "helpIcon": "Yes",
               "helpIconText": "Help for Related form controls",
               "name": "Related form controls",
               "id": "relatedFormControls",
@@ -115,19 +104,30 @@
               "-refForCheck": "",
               "-refForCheckLink": "",
               "-description": ""
+            },
+            {
+              "helpIcon": "Yes",
+              "helpIconText": "Displays method used to group content.",
+              "name": "Other grouping elements",
+              "id": "groupingContent",
+              "resource_path": "checks/grouping-content",
+              "css": "grouping-content.css",
+              "-refForCheck": "",
+              "-refForCheckLink": "",
+              "-description": ""
             }
           ]
         },
         {
-          "name": "Content semantics",
-          "helpSection": "Displays proper use of text-level-semantics, such as STRONG, EMPHASIZED, ITALICS etc,.",
+          "name": "Text-level semantics",
+          "helpSection": "Text-level semantics are elements used to describe the structure and meaning of text within a web page, for example <strong>, <em> and <code>. Sometimes referred to as inline elements, these tags add semantic meaning or styling to text.",
           "-refForGroup": "",
           "-refForGroupLink": "",
           "items": [
             {
               "helpIcon": "Yes",
               "helpIconText": "Help for Text-Level Semantics",
-              "name": "Text-Level Semantics",
+              "name": "Inline elements",
               "id": "textLevelSemantics",
               "resource_path": "checks/text-level-semantics",
               "css": "text-level-semantics.css",
@@ -139,7 +139,7 @@
         },
         {
           "name": "Content Types",
-          "helpSection": "This section identifies HTML Content Types. I have used the term Landmark Roles and Sectioning Content. In the HTML SPEC article, aside, nav and section are defined as Sectioning Content. The <nav> and role navigation are included in the Landmarks check.",
+          "helpSection": "Sectioning content refers to HTML elements that divide a web page into subject-oriented groups of content. Landmark roles programmatically identify sections of a page and serve as navigational aids to assistive technology users. The landmark check tests for valid use of ARIA roles and their HTML equivilent. Warnings are provided if both ARIA and HTML landmarks are used on the same element.",
           "-refForGroup": "",
           "-refForGroupLink": "",
           "items": [
