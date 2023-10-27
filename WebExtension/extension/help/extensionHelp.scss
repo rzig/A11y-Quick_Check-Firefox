@@ -29,10 +29,7 @@ header {
   justify-content: space-between;
 
   .a11yQC-logo img {
-    // Applied when viewport is 320px and under
-    display: none;
-  
-    // Applied when viewport is greater than 320px
+   // Applied when viewport is greater than 320px
     @media (min-width: 321px) {
       max-width: 100%;  // make it responsive
       height: auto;  // maintain aspect ratio
