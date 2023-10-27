@@ -4,12 +4,7 @@ import { TabManager } from "./tabs.js";
 import { TabsUtils } from "./tabs.utils.js";
 import { HelpUtils } from "./helptext.utils.js";
 import { SetAllCheckboxesUtils, CheckboxManager } from "./checkbox.utils.js";
-import {
-  Item,
-  InternalRequest,
-  InternalResponse,
-  Options,
-} from "./dataDefinitions.js";
+import { Item, InternalRequest, InternalResponse, Options } from "./dataDefinitions.js";
 
 const svgIcon = `
 <svg aria-hidden="true" width="32" height="32" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
@@ -297,7 +292,7 @@ async function setupConfiguration(
 
 // Gets the value from the session storage, and sets the checkbox appropriately
 // The checkbox is passed in, and the id is used to look up the saved value, but the checkbox itself's
-// checked property is updated directly
+// checked proeprty is updated directly
 async function loadCheckboxValue(checkbox: HTMLInputElement) {
   const checkboxName = checkbox.id;
 
@@ -378,7 +373,16 @@ async function loadOptionsObject() {
   options = response.values!;
 }
 
-import { saveOptionsObject } from './session.storage.js';
+// Save the options to session storage
+async function saveOptionsObject() {
+  if (options.size > 0) {
+    const request = new InternalRequest();
+    request.type = "putSettings";
+    request.values = Array.from(options.entries());
+    chrome.tabs.sendMessage(await getTabId(), request, { frameId: 0 });
+  }
+}
+
 import { getTabId } from './helper.utils.js';
 import { insertCSS, removeCSS, executeScript } from './css.scripts.utils.js';
 import { setCheckboxValueWithChangeEvent } from './checkbox.utils.js';
