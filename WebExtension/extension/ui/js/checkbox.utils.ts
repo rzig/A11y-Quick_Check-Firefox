@@ -44,3 +44,17 @@ export class SetAllCheckboxesUtils {
       }
     }
   }
+
+  // Change a checkbox's value, and fire the changed event. Use this to force ensure the event handler is run
+// so the action happens
+export function setCheckboxValueWithChangeEvent(
+  checkbox: HTMLInputElement,
+  value: boolean,
+  force: boolean = false
+) {
+  if (force == true || checkbox.checked != value) {
+    checkbox.checked = value;
+    const event = new Event("change");
+    checkbox.dispatchEvent(event);
+  }
+}

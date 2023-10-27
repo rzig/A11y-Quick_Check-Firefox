@@ -2,14 +2,9 @@
 
 import { TabManager } from "./tabs.js";
 import { TabsUtils } from "./tabs.utils.js";
-import { HelpUtils } from "./help.utils.js";
+import { HelpUtils } from "./helptext.utils.js";
 import { SetAllCheckboxesUtils, CheckboxManager } from "./checkbox.utils.js";
-import {
-  Item,
-  InternalRequest,
-  InternalResponse,
-  Options,
-} from "./dataDefinitions.js";
+import { Item, InternalRequest, InternalResponse, Options } from "./dataDefinitions.js";
 
 const svgIcon = `
 <svg aria-hidden="true" width="32" height="32" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
@@ -23,7 +18,7 @@ const tabContainer = document.getElementById("soup")!
 let options = new Map<string, boolean>();
 let invalidPage = false;
 // The mapping between checkbox controls and the css and scripts
-const eventConfig = new Map<HTMLInputElement, Item>();
+export const eventConfig = new Map<HTMLInputElement, Item>();
 
 // load the json file, and create the tabs
 setupConfiguration(
@@ -314,15 +309,8 @@ async function loadCheckboxValue(checkbox: HTMLInputElement) {
   checkbox.checked = checked;
 }
 
-// saves the checkbox value to session storage
-async function saveCheckboxValue(checkbox: HTMLInputElement) {
-  const checkboxName = checkbox.id;
 
-  options.set(checkboxName, checkbox.checked);
-
-  await saveOptionsObject();
-}
-
+//import { saveCheckboxValue } from './session.storage.js';
 // Loads the options from session storage
 async function loadOptionsObject() {
   let rawResponse: any;
@@ -378,106 +366,13 @@ async function loadOptionsObject() {
   options = response.values!;
 }
 
-// Save the options to session storage
-async function saveOptionsObject() {
-  if (options.size > 0) {
-    const request = new InternalRequest();
-    request.type = "putSettings";
-    request.values = Array.from(options.entries());
-    chrome.tabs.sendMessage(await getTabId(), request, { frameId: 0 });
-  }
-}
+import { saveOptionsObject } from './session.storage.js';
 
-async function getTabId(): Promise<number> {
-  const [tab] = await chrome.tabs.query({
-    active: true,
-    currentWindow: true,
-  });
+import { getTabId } from './helper.utils.js';
+//import { insertCSS, removeCSS, executeScript } from './css.scripts.utils.js';
+import { setCheckboxValueWithChangeEvent } from './checkbox.utils.js';
 
-  return tab!.id!;
-}
-
-// Inserts cssFileName css file into the active tab
-async function insertCSS(cssFileName: string | Array<string>) {
-  let argumentArray: Array<string>;
-
-  if (cssFileName instanceof Array) {
-    argumentArray = cssFileName;
-  } else {
-    argumentArray = [cssFileName];
-  }
-  try {
-    await chrome.scripting.insertCSS({
-      target: {
-        tabId: await getTabId(),
-        allFrames: true,
-      },
-      files: argumentArray,
-    });
-  } catch (err) {
-    console.error(`failed to insert ${cssFileName} CSS: ${err}`);
-  }
-}
-
-// Removes cssFileName css file from the active tab
-async function removeCSS(cssFileName: string | Array<string>) {
-  let argumentArray: Array<string>;
-
-  if (cssFileName instanceof Array) {
-    argumentArray = cssFileName;
-  } else {
-    argumentArray = [cssFileName];
-  }
-
-  try {
-    await chrome.scripting.removeCSS({
-      target: {
-        tabId: await getTabId(),
-        allFrames: true,
-      },
-      files: argumentArray,
-    });
-  } catch (err) {
-    console.error(`failed to remove ${cssFileName} CSS: ${err}`);
-  }
-}
-
-// Execute script in active tab. You can pass a string for one file, or an array for multiple
-async function executeScript(scriptFileName: string | Array<string>) {
-  try {
-    let argumentArray;
-    if (scriptFileName instanceof Array) {
-      argumentArray = scriptFileName;
-    } else {
-      argumentArray = [scriptFileName];
-    }
-    await chrome.scripting.executeScript({
-      target: {
-        tabId: await getTabId(),
-        allFrames: true,
-      },
-      files: argumentArray,
-    });
-  } catch (err) {
-    console.error(`failed to execute ${scriptFileName} script: ${err}`);
-  }
-}
-
-// Change a checkbox's value, and fire the changed event. Use this to force ensure the event handler is run
-// so the action happens
-function setCheckboxValueWithChangeEvent(
-  checkbox: HTMLInputElement,
-  value: boolean,
-  force: boolean = false
-) {
-  if (force == true || checkbox.checked != value) {
-    checkbox.checked = value;
-    const event = new Event("change");
-    checkbox.dispatchEvent(event);
-  }
-}
-
-// set all checkboxes to the value of state
+// set all checkboxes to the value of state NEEDS FIXING
 function setAllCheckboxes(state: boolean) {
   // loop through the eventConfig keys (which are the checkbox elements) and update their values
   for (const checkBox of eventConfig.keys()) {
@@ -485,36 +380,4 @@ function setAllCheckboxes(state: boolean) {
   }
 }
 
-// a generic event handler that will look up eventConfig for the correct actions
-async function checkboxEventHandler(event: Event) {
-  if (event.type !== "change") {
-    return;
-  }
-  const target = event.target!;
-
-  if (!(target instanceof HTMLInputElement)) {
-    return;
-  }
-  const handlerConfig = eventConfig.get(target);
-  if (handlerConfig == null) {
-    return;
-  }
-
-  await saveCheckboxValue(target);
-
-  if (target.checked) {
-    if (handlerConfig.css != null) {
-      await insertCSS(handlerConfig.css);
-    }
-    if (handlerConfig.addScript != null) {
-      await executeScript(handlerConfig.addScript);
-    }
-  } else {
-    if (handlerConfig.css != null) {
-      await removeCSS(handlerConfig.css);
-    }
-    if (handlerConfig.removeScript != null) {
-      await executeScript(handlerConfig.removeScript);
-    }
-  }
-}
+import { checkboxEventHandler } from './css.scripts.utils.js';
