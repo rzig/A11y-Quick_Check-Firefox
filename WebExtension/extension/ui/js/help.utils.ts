@@ -31,8 +31,8 @@ export class HelpUtils {
         chrome.windows.create({
           url: helpLink.href,
           type: "popup",
-          width: 720,
-          height: 614,
+          width: 800,
+          height: 640,
           left: 0,
           top: 0,
         });
