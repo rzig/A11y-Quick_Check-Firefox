@@ -380,7 +380,7 @@ async function loadOptionsObject() {
 
 import { saveOptionsObject } from './session.storage.js';
 import { getTabId } from './helper.utils.js';
-import { insertCSS, removeCSS, executeScript } from './css.js.inject.utils.js';
+import { insertCSS, removeCSS, executeScript } from './css.scripts.utils.js';
 import { setCheckboxValueWithChangeEvent } from './checkbox.utils.js';
 
 // set all checkboxes to the value of state
