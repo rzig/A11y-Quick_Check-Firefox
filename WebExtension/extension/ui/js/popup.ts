@@ -310,7 +310,7 @@ async function loadCheckboxValue(checkbox: HTMLInputElement) {
 }
 
 
-import { saveCheckboxValue } from './session.storage.js';
+//import { saveCheckboxValue } from './session.storage.js';
 // Loads the options from session storage
 async function loadOptionsObject() {
   let rawResponse: any;
@@ -369,10 +369,10 @@ async function loadOptionsObject() {
 import { saveOptionsObject } from './session.storage.js';
 
 import { getTabId } from './helper.utils.js';
-import { insertCSS, removeCSS, executeScript } from './css.scripts.utils.js';
+//import { insertCSS, removeCSS, executeScript } from './css.scripts.utils.js';
 import { setCheckboxValueWithChangeEvent } from './checkbox.utils.js';
 
-// set all checkboxes to the value of state
+// set all checkboxes to the value of state NEEDS FIXING
 function setAllCheckboxes(state: boolean) {
   // loop through the eventConfig keys (which are the checkbox elements) and update their values
   for (const checkBox of eventConfig.keys()) {

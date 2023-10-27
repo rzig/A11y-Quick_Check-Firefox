@@ -184,7 +184,7 @@
           "refForGroupLink": "https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships",
           "items": [
             {
-              "name": "Show image's accessible name (accName)",
+              "name": "Show image accessible name",
               "helpIcon": "Yes",
               "helpIconText": "Help for img accName",
               "id": "hasAlt",
@@ -244,7 +244,7 @@
           "-refForGroupLink": "",
           "items": [
             {
-              "name": "Show SVG's accessible name (accName)",
+              "name": "Show SVG's accessible name",
               "helpIcon": "Yes",
               "helpIconText": "Help for svg is named",
               "id": "svgHasName",
