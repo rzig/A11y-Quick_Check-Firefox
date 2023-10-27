@@ -1,4 +1,6 @@
 import { getTabId } from './helper.utils.js';
+import { eventConfig } from './popup.js';
+import { saveCheckboxValue } from './session.storage.js';
 
 // Inserts cssFileName css file into the active tab
 export async function insertCSS(cssFileName: string | Array<string>) {
@@ -63,5 +65,39 @@ export async function executeScript(scriptFileName: string | Array<string>) {
     });
   } catch (err) {
     console.error(`failed to execute ${scriptFileName} script: ${err}`);
+  }
+}
+
+// a generic event handler that will look up eventConfig for the correct actions
+export async function checkboxEventHandler(event: Event) {
+  if (event.type !== "change") {
+    return;
+  }
+  const target = event.target!;
+
+  if (!(target instanceof HTMLInputElement)) {
+    return;
+  }
+  const handlerConfig = eventConfig.get(target);
+  if (handlerConfig == null) {
+    return;
+  }
+
+  await saveCheckboxValue(target);
+
+  if (target.checked) {
+    if (handlerConfig.css != null) {
+      await insertCSS(handlerConfig.css);
+    }
+    if (handlerConfig.addScript != null) {
+      await executeScript(handlerConfig.addScript);
+    }
+  } else {
+    if (handlerConfig.css != null) {
+      await removeCSS(handlerConfig.css);
+    }
+    if (handlerConfig.removeScript != null) {
+      await executeScript(handlerConfig.removeScript);
+    }
   }
 }

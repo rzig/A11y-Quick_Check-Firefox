@@ -11,3 +11,12 @@ export async function saveOptionsObject() {
       chrome.tabs.sendMessage(await getTabId(), request, { frameId: 0 });
     }
   }
+
+export // saves the checkbox value to session storage
+async function saveCheckboxValue(checkbox: HTMLInputElement) {
+  const checkboxName = checkbox.id;
+
+  options.set(checkboxName, checkbox.checked);
+
+  await saveOptionsObject();
+}

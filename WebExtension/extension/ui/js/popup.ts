@@ -18,7 +18,7 @@ const tabContainer = document.getElementById("soup")!
 let options = new Map<string, boolean>();
 let invalidPage = false;
 // The mapping between checkbox controls and the css and scripts
-const eventConfig = new Map<HTMLInputElement, Item>();
+export const eventConfig = new Map<HTMLInputElement, Item>();
 
 // load the json file, and create the tabs
 setupConfiguration(
@@ -309,15 +309,8 @@ async function loadCheckboxValue(checkbox: HTMLInputElement) {
   checkbox.checked = checked;
 }
 
-// saves the checkbox value to session storage
-async function saveCheckboxValue(checkbox: HTMLInputElement) {
-  const checkboxName = checkbox.id;
 
-  options.set(checkboxName, checkbox.checked);
-
-  await saveOptionsObject();
-}
-
+import { saveCheckboxValue } from './session.storage.js';
 // Loads the options from session storage
 async function loadOptionsObject() {
   let rawResponse: any;
@@ -373,15 +366,7 @@ async function loadOptionsObject() {
   options = response.values!;
 }
 
-// Save the options to session storage
-async function saveOptionsObject() {
-  if (options.size > 0) {
-    const request = new InternalRequest();
-    request.type = "putSettings";
-    request.values = Array.from(options.entries());
-    chrome.tabs.sendMessage(await getTabId(), request, { frameId: 0 });
-  }
-}
+import { saveOptionsObject } from './session.storage.js';
 
 import { getTabId } from './helper.utils.js';
 import { insertCSS, removeCSS, executeScript } from './css.scripts.utils.js';
@@ -395,36 +380,4 @@ function setAllCheckboxes(state: boolean) {
   }
 }
 
-// a generic event handler that will look up eventConfig for the correct actions
-async function checkboxEventHandler(event: Event) {
-  if (event.type !== "change") {
-    return;
-  }
-  const target = event.target!;
-
-  if (!(target instanceof HTMLInputElement)) {
-    return;
-  }
-  const handlerConfig = eventConfig.get(target);
-  if (handlerConfig == null) {
-    return;
-  }
-
-  await saveCheckboxValue(target);
-
-  if (target.checked) {
-    if (handlerConfig.css != null) {
-      await insertCSS(handlerConfig.css);
-    }
-    if (handlerConfig.addScript != null) {
-      await executeScript(handlerConfig.addScript);
-    }
-  } else {
-    if (handlerConfig.css != null) {
-      await removeCSS(handlerConfig.css);
-    }
-    if (handlerConfig.removeScript != null) {
-      await executeScript(handlerConfig.removeScript);
-    }
-  }
-}
+import { checkboxEventHandler } from './css.scripts.utils.js';
