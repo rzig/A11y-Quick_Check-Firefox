@@ -42,12 +42,12 @@
 .aside--html--88937746,
 .search-html--88937746 {
   @include important-styles(
-  (
-    border: 4px dashed var(--pass-border),
-    padding: 1em,
-  ),
-  true
-);
+    (
+      border: 4px dashed var(--pass-border),
+      padding: 1em,
+    ),
+    true
+  );
 }
 
 .aria-banner-message-88937746,
@@ -71,12 +71,12 @@
 .aside--aria-html-88937746,
 .search-html-support--88937746 {
   @include important-styles(
-  (
-    border: 4px dashed var(--warning-border),
-    padding: 1em,
-  ),
-  true
-);
+    (
+      border: 4px dashed var(--warning-border),
+      padding: 1em,
+    ),
+    true
+  );
 }
 
 .roleWarning-83009276 {
@@ -115,7 +115,9 @@
     content: "<" + $tagName + ">";
     @include important-styles(
       (
+        background-color: var(--neutral-background),
         color: var(--neutral-text),
+        border: 2px dashed var(--neutral-border),
         font-size: 0.875em,
         padding: 0 0.5em,
         font-weight: 700,
@@ -128,7 +130,9 @@
     content: "</" + $tagName + ">";
     @include important-styles(
       (
+        background-color: var(--neutral-background),
         color: var(--neutral-text),
+        border: 2px dashed var(--neutral-border),
         font-size: 0.875em,
         padding: 0 0.5em,
         font-weight: 700,

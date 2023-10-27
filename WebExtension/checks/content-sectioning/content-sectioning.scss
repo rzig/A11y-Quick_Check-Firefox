@@ -17,7 +17,6 @@
 }
 
 .html-section-message-88937746,
-.html-nav-message-88937746,
 .html-article-message-88937746,
 .html-aside-message-88937746 {
   font-weight: bold;
@@ -30,7 +29,6 @@
 
 .aria-article-message-88937746,
 .aria-section-message-88937746,
-.aria-navigation-message-88937746,
 .aria-complementary-message-88937746 {
   font-weight: bold;
   @include headingGroup(
@@ -45,7 +43,6 @@
 }
 
 .html-aria-duplicate-section-message-88937746,
-.html-aria-duplicate-nav-message-88937746,
 .html-aria-duplicate-article-message-88937746,
 .html-aria-duplicate-aside-message-88937746 {
   font-weight: bold;
@@ -57,7 +54,6 @@
 }
 
 .section--aria-html-88937746,
-.nav--aria-html-88937746,
 .article--aria-html-88937746,
 .aside--aria-html-88937746 {
   @include important-styles(
@@ -71,8 +67,6 @@
 
 .section--aria--88937746,
 .section--html--88937746,
-.nav--aria--88937746,
-.nav--html--88937746,
 .article--aria--88937746,
 .article--html--88937746,
 .aside--aria--88937746,
@@ -92,7 +86,9 @@
     content: "<" + $tagName + ">";
     @include important-styles(
       (
+        background-color: var(--neutral-background),
         color: var(--neutral-text),
+        border: 2px dashed var(--neutral-border),
         font-size: 0.875em,
         padding: 0 0.5em,
         font-weight: 700,
@@ -105,7 +101,9 @@
     content: "</" + $tagName + ">";
     @include important-styles(
       (
+        background-color: var(--neutral-background),
         color: var(--neutral-text),
+        border: 2px dashed var(--neutral-border),
         font-size: 0.875em,
         padding: 0 0.5em,
         font-weight: 700,
@@ -123,7 +121,7 @@
 }
 
 // Apply styles to the sectioning content tags
-$sectioningTags: section, nav, article, aside;
+$sectioningTags: section, article, aside;
 @each $tag in $sectioningTags {
   #{$tag} {
     @include apply-strong-styles(#{$tag});

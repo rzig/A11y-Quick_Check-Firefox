@@ -139,7 +139,7 @@
         },
         {
           "name": "Content Types",
-          "helpSection": "This section of checks the valid use of HTML Content Types.",
+          "helpSection": "This section identifies HTML Content Types. I have used the term Landmark Roles and Sectioning Content. In the HTML SPEC article, aside, nav and section are defined as Sectioning Content. For this tool I have moved this to the Landmarks check.",
           "-refForGroup": "",
           "-refForGroupLink": "",
           "items": [
@@ -159,7 +159,7 @@
             {
               "helpIcon": "Yes",
               "helpIconText": "Help for HTML sectioning content",
-              "name": "sectioning content",
+              "name": "Sectioning content",
               "id": "sectioningContent",
               "resource_path": "checks/content-sectioning",
               "css": "content-sectioning.css",
