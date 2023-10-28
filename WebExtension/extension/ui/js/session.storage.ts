@@ -1,5 +1,4 @@
-import { options } from './helper.utils.js';
-import { getTabId } from './helper.utils.js';
+import { options , getTabId } from './helper.utils.js';
 import { InternalRequest } from "./dataDefinitions.js";
 
 // Save the options to session storage
@@ -12,8 +11,8 @@ export async function saveOptionsObject() {
     }
   }
 
-export // saves the checkbox value to session storage
-async function saveCheckboxValue(checkbox: HTMLInputElement) {
+  // saves the checkbox value to session storage
+export async function saveCheckboxValue(checkbox: HTMLInputElement) {
   const checkboxName = checkbox.id;
 
   options.set(checkboxName, checkbox.checked);
