@@ -4,7 +4,7 @@ import { saveOptionsObject } from './session.storage.js';
 // Gets the value from the session storage, and sets the checkbox appropriately
 // The checkbox is passed in, and the id is used to look up the saved value, but the checkbox itself's
 // checked property is updated directly
-async function loadCheckboxValue(checkbox: HTMLInputElement) {
+export async function loadCheckboxValue(checkbox: HTMLInputElement) {
     const checkboxName = checkbox.id;
   
     let checked = false;

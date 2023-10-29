@@ -4,7 +4,8 @@ import { TabManager } from "./tabs.js";
 import { TabsUtils } from "./tabs.utils.js";
 import { HelpUtils } from "./helptext.utils.js";
 import { SetAllCheckboxesUtils, CheckboxManager } from "./checkbox.utils.js";
-import { Item, InternalRequest, InternalResponse, Options } from "./dataDefinitions.js";
+import { Item , Options } from "./dataDefinitions.js";
+import { saveCheckboxValue } from './session.storage.js';
 
 const svgIcon = `
 <svg aria-hidden="true" width="32" height="32" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
@@ -13,10 +14,15 @@ const svgIcon = `
 </svg>`;
 
 // The empty tab container element for the tab container
-const tabContainer = document.getElementById("soup")!
+export const tabContainer = document.getElementById("soup")!
 // The checked state of the popup. is in sync with the state on the content script.
 let options = new Map<string, boolean>();
+
 let invalidPage = false;
+
+export function setInvalidPage(value: boolean): void {
+  invalidPage = value;
+}
 // The mapping between checkbox controls and the css and scripts
 export const eventConfig = new Map<HTMLInputElement, Item>();
 
@@ -118,9 +124,10 @@ async function setupConfiguration(
     // Add the div container to the tabPanel
     tabPanel.appendChild(checkAllWrapper);
 
-    checkAllCheckbox.addEventListener("change", (event) => {
+    checkAllCheckbox.addEventListener("change", async (event) => {
       const state = (event.target as HTMLInputElement).checked;
-
+    
+      // Update the state of individual checkboxes
       const checkboxes = tabPanel.querySelectorAll<HTMLInputElement>(
         "input[type='checkbox']:not(.check-all)"
       );
@@ -128,7 +135,11 @@ async function setupConfiguration(
         checkbox.checked = state;
         checkbox.dispatchEvent(new Event("change"));
       });
+    
+      // Save the state of the "Check All" checkbox
+      await saveCheckboxValue(checkAllCheckbox);
     });
+    
 
     // setup fieldsets for the checkbox groupings
     for (const fieldsetConfiguration of tabConfiguration.fieldsets) {
@@ -202,6 +213,7 @@ async function setupConfiguration(
         // get the current checkbox state for the checkbox.
         // We need to do this before we install teh event handkler to stop it from triggering.
         await loadCheckboxValue(checkBox);
+        await loadCheckboxValue(checkAllCheckbox);
 
         // hookup the event listener so we get the click events
         checkBox.addEventListener("change", async (event) => {
@@ -262,122 +274,10 @@ async function setupConfiguration(
     // make sure we change this to ensure a unique tab
     tabNumber += 1;
 
-    checkAllCheckbox.addEventListener("change", function () {
-      const checkboxes = tabPanel.querySelectorAll(
-        "input[type='checkbox']:not(.check-all)"
-      );
-      checkboxes.forEach((checkboxElement) => {
-        if (checkboxElement instanceof HTMLInputElement) {
-          // Check to ensure it's an HTMLInputElement
-          checkboxElement.checked = checkAllCheckbox.checked;
-        }
-      });
-    });
-
-    checkAllCheckbox.addEventListener("change", function () {
-      const checkboxes = tabPanel.querySelectorAll(
-        "input[type='checkbox']:not(.check-all)"
-      );
-      checkboxes.forEach((checkboxElement) => {
-        if (checkboxElement instanceof HTMLInputElement) {
-          // Check to ensure it's an HTMLInputElement
-          checkboxElement.checked = checkAllCheckbox.checked;
-        }
-      });
-    });
-
     HelpUtils.createHelpLink(tabPanel, tabConfiguration.helpUrl);
   }
 }
 
-// Gets the value from the session storage, and sets the checkbox appropriately
-// The checkbox is passed in, and the id is used to look up the saved value, but the checkbox itself's
-// checked proeprty is updated directly
-async function loadCheckboxValue(checkbox: HTMLInputElement) {
-  const checkboxName = checkbox.id;
-
-  let checked = false;
-
-  // If we don't have a value, assume it's false, and save it back.
-  if (!options.has(checkboxName)) {
-    options.set(checkboxName, checked);
-    await saveOptionsObject();
-  }
-
-  checked = options.get(checkboxName)!;
-
-  checkbox.checked = checked;
-}
-
-
-//import { saveCheckboxValue } from './session.storage.js';
-// Loads the options from session storage
-async function loadOptionsObject() {
-  let rawResponse: any;
-  const request = new InternalRequest();
-  request.type = "getSettings";
-  try {
-    rawResponse = await chrome.tabs.sendMessage(await getTabId(), request, {
-      frameId: 0,
-    });
-  } catch (err) {
-    // if that didn't work, assume the script isn't loaded in the tab, and re try after loading the script.
-    try {
-      await chrome.scripting.executeScript({
-        target: {
-          tabId: await getTabId(),
-          allFrames: false,
-        },
-        files: ["/extension/content-setting.js", "checks/common.js"],
-      });
-    } catch (err2: any) {
-      if (err2 instanceof Error) {
-        // Check if we're trying to access a page that we can't.
-        // This may need to be expanded in the future
-        if (
-          err2.message.toLowerCase().includes("cannot access") ||
-          err2.message.toLowerCase().includes("cannot be scripted.") ||
-          err2.message.toLowerCase().includes("no tab with id")
-        ) {
-          console.log("Failed to get permission to insert the scripts");
-          // clearAllOptions.remove();
-          // setAllOptions.remove();
-          tabContainer.innerHTML =
-            "<p>The browser has prevented the extension from accessing this tab.</p>";
-          options = new Map<string, boolean>();
-          invalidPage = true;
-          return;
-        }
-      }
-      throw err2;
-    }
-    console.log(`getMessage err1 ${err}`);
-    rawResponse = await chrome.tabs.sendMessage(await getTabId(), request, {
-      frameId: 0,
-    });
-  }
-
-  const response = new InternalResponse();
-  response.values = rawResponse.values.reduce(
-    (newMap: Map<string, boolean>, valuePair: Array<any>) =>
-      newMap.set(valuePair[0], valuePair[1]),
-    new Map<string, boolean>()
-  );
-  options = response.values!;
-}
-
-import { saveOptionsObject } from './session.storage.js';
-
-import { getTabId } from './helper.utils.js';
-//import { insertCSS, removeCSS, executeScript } from './css.scripts.utils.js';
-import { setCheckboxValueWithChangeEvent } from './checkbox.utils.js';
-
-// set all checkboxes to the value of state NEEDS FIXING
-function setAllCheckboxes(state: boolean) {
-  // loop through the eventConfig keys (which are the checkbox elements) and update their values
-  for (const checkBox of eventConfig.keys()) {
-    setCheckboxValueWithChangeEvent(checkBox, state, false);
-  }
-}
-
+import { loadCheckboxValue } from './checkbox.storage.utils.js';
+import { loadOptionsObject } from "./error.handling.js";
 import { checkboxEventHandler } from './css.scripts.utils.js';
