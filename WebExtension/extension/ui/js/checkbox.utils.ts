@@ -1,5 +1,7 @@
 "use strict";
 
+import { saveCheckboxValue } from './session.storage.js';
+
 export class SetAllCheckboxesUtils {
     static setCheckAllCheckbox(tabNumber: number, tabConfiguration: any): { checkAllCheckbox: HTMLInputElement, checkAllLabel: HTMLLabelElement } {
       const checkAllCheckbox = document.createElement("input");
@@ -18,8 +20,8 @@ export class SetAllCheckboxesUtils {
   }
 
   export class CheckboxManager {
-    // The method for updating the "check all" checkbox
-    public updateCheckAllState(tabPanel: HTMLElement): void {
+    // The method for updating the "check all" checkbox, now async
+    public async updateCheckAllState(tabPanel: HTMLElement): Promise<void> {
       const checkboxes = tabPanel.querySelectorAll<HTMLInputElement>(
         "input[type='checkbox']:not(.check-all)"
       );
@@ -42,6 +44,9 @@ export class SetAllCheckboxesUtils {
         checkAllCheckbox.indeterminate = true;
         checkAllCheckbox.checked = false;
       }
+      
+      // Save the updated state of the "Check All" checkbox
+      await saveCheckboxValue(checkAllCheckbox);
     }
   }
 

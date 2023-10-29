@@ -213,6 +213,7 @@ async function setupConfiguration(
         // get the current checkbox state for the checkbox.
         // We need to do this before we install teh event handkler to stop it from triggering.
         await loadCheckboxValue(checkBox);
+        await loadCheckboxValue(checkAllCheckbox);
 
         // hookup the event listener so we get the click events
         checkBox.addEventListener("change", async (event) => {
