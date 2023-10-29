@@ -280,4 +280,4 @@ async function setupConfiguration(
 
 import { loadCheckboxValue } from './checkbox.storage.utils.js';
 import { loadOptionsObject } from "./error.handling.js";
-import { checkboxEventHandler } from './css.scripts.utils.js';
+import { checkboxEventHandler } from './script.loading.js';

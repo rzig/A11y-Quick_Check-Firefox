@@ -78,7 +78,7 @@ export async function checkboxEventHandler(event: Event) {
   if (!(target instanceof HTMLInputElement)) {
     return;
   }
-  const handlerConfig = eventConfig.get(target);
+  const handlerConfig = eventConfig.get(target); 
   if (handlerConfig == null) {
     return;
   }
