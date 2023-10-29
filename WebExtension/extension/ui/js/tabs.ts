@@ -1,3 +1,5 @@
+import { saveActiveTab, loadActiveTab } from './session.storage.js';
+
 "use strict";
 
 export class TabManager {
@@ -12,7 +14,7 @@ export class TabManager {
     this.init();
   }
 
-  private init() {
+  private async init() {
     if (this.tabList) {
       this.tabList.addEventListener("keydown", (event) => this.handleKeyDown(event));
     } else {
@@ -25,6 +27,14 @@ export class TabManager {
       }
     } else {
       console.error('tabs are null');
+    }
+
+    const activeTabId = await loadActiveTab();
+    if (activeTabId) {
+      const activeTabElement = document.getElementById(activeTabId);
+      if (activeTabElement) {
+        activeTabElement.click(); // Trigger click to select the tab
+      }
     }
   }
 
@@ -88,5 +98,7 @@ export class TabManager {
 
     const activePanel = tabContainer!.querySelector(`#${previousTab.getAttribute("aria-controls")}`)!;
     activePanel.removeAttribute("hidden");
+
+    saveActiveTab(previousTab.id);
   }
 }
