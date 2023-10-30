@@ -1,8 +1,8 @@
 {
     "name": "A11y quick check",
     "short_name": "A11y quick check",
-    "version": "2500.2023.10.29",
-    "version_name": "Dreadnoughtus",
+    "version": "2501.2023.10.31",
+    "version_name": "2023.10.31 Tyrannosaurus rex",
     "manifest_version": 3,
     "description": "Easy to use quick checks to identify potential accessibility issues.",
     "author": "Original idea and developer Laurence Lewis (@LaurenceRLewis). Developer by Marcus Helvig (@MarcusP-P)",
@@ -24,7 +24,6 @@
         "storage",
         "activeTab",
         "scripting",
-        "windows",
         "webNavigation"
     ],
     "host_permissions": [
