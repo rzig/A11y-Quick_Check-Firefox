@@ -93,21 +93,19 @@ function checkDescriptionLists(): void {
       continue;
     }
 
-    // Check for DIV wrapping DT and DD
-    const divChild = Array.from(dlElement.children).find(
-      (child) =>
-        child.nodeName === "DIV" &&
-        child.querySelector("dt") &&
-        child.querySelector("dd"),
-    );
-    if (divChild) {
+    const children = Array.from(dlElement.children);
+    const divWrappedPairs = children.filter(child => child.nodeName === "DIV" && !!child.querySelector("dt") && !!child.querySelector("dd"));
+    const standaloneDts = children.filter(child => child.nodeName === "DT");
+    const standaloneDds = children.filter(child => child.nodeName === "DD");
+
+    if (divWrappedPairs.length === (standaloneDts.length + standaloneDds.length) / 2) {
       dlElement.classList.add("dl-valid-div-wrap-dt-dd-9927845");
-      const message = "Pass: DIV wrapping DT and DD in DL is valid.";
-      createChildMessageDiv(
-        dlElement,
-        "dl-div-wrap-message-9927845",
-        message,
-      );
+      const message = "Pass: DIV wrapping all DT and DD in DL is valid.";
+      createChildMessageDiv(dlElement, "dl-div-wrap-message-9927845", message);
+    } else if (divWrappedPairs.length > 0 && (standaloneDts.length > 0 || standaloneDds.length > 0)) {
+      dlElement.classList.add("dl-invalid-after-div-9927845");
+      const message = "Fail: DT or DD cannot be after a DIV in a DL";
+      createChildMessageDiv(dlElement, "after-div-message-9927845", message);
       continue;
     }
 
@@ -128,8 +126,7 @@ function checkDescriptionLists(): void {
     }
 
     // Check for valid HTML Description List
-    const hasHtmlDl =
-      dlElement.nodeName === "DL" && !dlElement.hasAttribute("role");
+    const hasHtmlDl = dlElement.nodeName === "DL" && !dlElement.hasAttribute("role");
     if (hasHtmlDl) {
       dlElement.classList.add("dl-valid-html-9927845");
       const message = "Pass: Description List (HTML)";
