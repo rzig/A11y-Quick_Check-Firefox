@@ -43,6 +43,7 @@ function checkChildStructure(child: Element, dlElement: Element): boolean {
 function checkDLStructure(dlElement: Element): boolean {
   let failureDetected = false;
   let lastChildWasDt = false;
+  let divEncountered = false;  // <-- Introduced this flag
 
   for (const child of Array.from(dlElement.children)) {
     if (child.nodeName === "DD" && !lastChildWasDt) {
@@ -51,6 +52,20 @@ function checkDLStructure(dlElement: Element): boolean {
       createChildMessageDiv(
         dlElement,
         "invalid-dd-message-9927845",
+        message,
+      );
+      failureDetected = true;
+      break;
+    }
+
+    if (child.nodeName === "DIV") {
+      divEncountered = true;
+    } else if (divEncountered && (child.nodeName === "DT" || child.nodeName === "DD")) {
+      dlElement.classList.add("dl-invalid-after-div-9927845");
+      const message = `Fail: Invalid DT or DD directly after a </div> inside DL.`;
+      createChildMessageDiv(
+        dlElement,
+        "after-div-message-9927845",
         message,
       );
       failureDetected = true;

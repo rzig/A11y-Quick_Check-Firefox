@@ -11,7 +11,9 @@
 }
 
 .dl--valid-html-9927845,
-.dl--valid-div-wrap-dt-dd-9927845 {
+.dl--valid-div-wrap-dt-dd-9927845,
+.dl-valid-div-wrap-dt-dd-9927845,
+.dl-valid-html-9927845 {
   @include important-styles(
     (
       border: 2px dashed var(--pass-border),
@@ -23,6 +25,7 @@
 }
 
 .html-dl-message-9927845,
+.dl-div-wrap-message-9927845,
 .div-wrap-message-9927845 {
   @include important-styles(
     (
@@ -71,9 +74,12 @@
 .dl--invalid-first-child-9927845,
 .dl--invalid-role-9927845,
 .dl--nested-9927845,
+.dl-invalid-childelement-9927845,
 .dl--invalid-child-9927845,
 .dl--invalid-childelement-9927845,
-.dl--invalid-dd-9927845,  // New class
+.dl--invalid-dd-9927845,
+.dl-invalid-child-9927845,
+.dl-invalid-role-9927845,
 [data-isNestedList] {
   @include important-styles(
     (
@@ -89,7 +95,7 @@
 .invalid-role-message-9927845,
 .nested-dl-message-9927845,
 .invalid-child-message-9927845,
-.invalid-dd-message-9927845 {  // Message div for the new class
+.invalid-dd-message-9927845 {
   @include important-styles(
     (
       border-width: 2px,
