@@ -1,6 +1,6 @@
 @import '../common';
 
-@mixin descriptionList($backgroundColor, $borderColor, $textColor) {
+@mixin description-list($backgroundColor, $borderColor, $textColor) {
   @include important-styles((
     font-size: 0.9em,
     padding: 0.5em,
@@ -10,10 +10,8 @@
   ), true);
 }
 
-.dl--valid-html-9927845,
-.dl--valid-div-wrap-dt-dd-9927845,
-.dl-valid-div-wrap-dt-dd-9927845,
-.dl-valid-html-9927845 {
+.dl-valid-html-9927845,
+.dl-valid-div-wrap-dt-dd-9927845 {
   @include important-styles(
     (
       border: 2px dashed var(--pass-border),
@@ -36,14 +34,14 @@
     ),
     true
   );
-  @include descriptionList(
+  @include description-list(
     var(--pass-background),
     var(--pass-border),
     var(--pass-text)
   );
 }
 
-.dl--single-dt-dd-9927845 {
+.dl-single-dt-dd-9927845 {
   @include important-styles(
     (
       border: 2px dashed var(--warning-border),
@@ -64,23 +62,19 @@
     ),
     true
   );
-  @include descriptionList(
+  @include description-list(
     var(--warning-background),
     var(--warning-border),
     var(--warning-text)
   );
 }
 
-.dl--invalid-first-child-9927845,
-.dl--invalid-role-9927845,
-.dl-invalid-after-div-9927845,
-.dl--nested-9927845,
-.dl-invalid-childelement-9927845,
-.dl--invalid-child-9927845,
-.dl--invalid-childelement-9927845,
-.dl--invalid-dd-9927845,
-.dl-invalid-child-9927845,
+.dl-invalid-first-child-9927845,
 .dl-invalid-role-9927845,
+.dl-invalid-after-div-9927845,
+.dl-nested-9927845,
+.dl-invalid-childelement-9927845,
+.dl-invalid-dd-9927845,
 [data-isNestedList] {
   @include important-styles(
     (
@@ -107,7 +101,7 @@
     ),
     true
   );
-  @include descriptionList(
+  @include description-list(
     var(--danger-background),
     var(--danger-border),
     var(--danger-text)
