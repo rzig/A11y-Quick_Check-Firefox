@@ -70,4 +70,4 @@ function removeInjectedDivs(messageClasses: string[]) {
 function isHidden(element: HTMLElement): boolean {
   const style: CSSStyleDeclaration = getComputedStyle(element);
   return style.display === 'none' || style.visibility === 'hidden' || element.hasAttribute('hidden');
-}
+} 

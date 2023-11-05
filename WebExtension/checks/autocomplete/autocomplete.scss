@@ -1,0 +1,29 @@
+@import '../common';
+
+@mixin headingGroup($backgroundColor, $borderColor, $textColor) {
+  @include important-styles(
+    (
+      background-color: $backgroundColor,
+      color: $textColor,
+      border: 3px solid $borderColor,
+      font-size: 0.9em,
+      margin: 1em 0,
+      padding: 0.5em,
+    ),
+    true
+  );
+}
+
+.autocomplete-common-5575855 {
+  margin: 1em 0 !important;
+  border: 2px solid var(--warning-border) !important;
+}
+
+.autocomplete-common-message-5575855 {
+  font-weight: bold;
+  @include headingGroup(
+    var(--warning-background),
+    var(--warning-border),
+    var(--warning-text)
+  );
+}
