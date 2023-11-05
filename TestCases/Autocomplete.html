@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Autocomplete test page</title>
+    <style>
+      form {
+        max-width: 25em;
+      }
+      textarea {
+        height: 5em;
+        width: 20em;
+        font-family: arial;
+      }
+      input,
+      textarea {
+        border: 2px solid #262626;
+        margin-top: 0.25em;
+        padding: 0.5em 1em;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Autocomplete test page</h1>
+    <h1>Autocomplete</h1>
+    <h2>autocomplete on input</h2>
+    <form autocomplete="on">
+      <fieldset>
+        <legend>Autocomplete is on form</legend>
+        <p>
+          <label for="honRix">Honorific</label><br />
+          <select name="honRix" id="honRix" autocomplete="honorific-prefix">
+            <option value="">--Please choose an option--</option>
+            <option value="Ms">Ms</option>
+            <option value="Mrs">Mrs</option>
+            <option value="Miss">Miss</option>
+            <option value="Mr">Mr</option>
+            <option value="Bob">Bob</option>
+          </select>
+        </p>
+        <p>
+          <label for="givenName2">Given name</label><br />
+          <input
+            type="text"
+            id="givenName2"
+            name="givenName2"
+            autocomplete="given-name"
+          />
+        </p>
+        <p>
+          <label for="familyName2">Family name</label><br />
+          <input
+            type="text"
+            id="familyName2"
+            name="familyName2"
+            autocomplete="family-name"
+          />
+        </p>
+        <p>
+          <label for="resAddress2">Residential address</label><br />
+          <textarea
+            type="text"
+            id="resAddress2"
+            name="resAddress2"
+            autocomplete="street-address"
+          ></textarea>
+        </p>
+      </fieldset>
+    </form>
+    <h2>Autocomplete the rest</h2>
+    <form>
+      <fieldset>
+        <legend>Autocomplete: left overs</legend>
+        <p>
+          <label for="honRix3">Honorific</label><br />
+          <select name="honRix3" id="honRix3" autocomplete="honorific-prefix">
+            <option value="">--Please choose an option--</option>
+            <option value="Ms">Ms</option>
+            <option value="Mrs">Mrs</option>
+            <option value="Miss">Miss</option>
+            <option value="Mr">Mr</option>
+            <option value="Bob">Bob</option>
+          </select>
+        </p>
+        <p>
+          <label for="givenName">Given name</label><br />
+          <input
+            type="text"
+            id="givenName3"
+            name="givenName"
+            autocomplete="given-name"
+          />
+        </p>
+        <p>
+          <label for="additionalName">Additional name</label><br />
+          <input
+            type="text"
+            id="additionalName"
+            name="additionalName"
+            autocomplete="additional-name"
+          /><br />
+        </p>
+        <p>
+          <label for="familyName3">Family name</label><br />
+          <input
+            type="text"
+            id="familyName3"
+            name="familyNam3"
+            autocomplete="family-name"
+          />
+        </p>
+        <p>
+          <label for="nickName3">Nick name</label><br />
+          <input
+            type="text"
+            id="nickName3"
+            name="nickName3"
+            autocomplete="nickname"
+          />
+        </p>
+        <p>
+          <label for="birthday">Birthday</label><br />
+          <input
+            type="text"
+            id="birthday"
+            name="birthday"
+            autocomplete="bday"
+          />
+        </p>
+        <p>
+          <label for="birthday-day">Birth day</label><br />
+          <input
+            type="text"
+            id="birthday-day"
+            name="birthday-day"
+            autocomplete="bday-day"
+          />
+        </p>
+        <p>
+          <label for="birthday-month">Birth month</label><br />
+          <input
+            type="text"
+            id="birthday-month"
+            name="birthday-month"
+            autocomplete="bday-month"
+          />
+        </p>
+        <p>
+          <label for="birthday-month">Birth Year</label><br />
+          <input
+            type="text"
+            id="birthday-year"
+            name="birthday-year"
+            autocomplete="bday-year"
+          />
+        </p>
+        <p>
+          <label for="email3">Email address</label><br />
+          <input type="text" id="email3" name="email3" autocomplete="email" />
+        </p>
+        <p>
+          <label for="resAddress3">Residential address</label><br />
+          <textarea
+            id="resAddress3"
+            name="resAddress3"
+            autocomplete="street-address"
+          ></textarea>
+        </p>
+      </fieldset>
+    </form>
+  </body>
+</html>

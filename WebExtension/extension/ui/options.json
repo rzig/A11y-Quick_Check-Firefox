@@ -380,7 +380,28 @@
           ]
         },
         {
-          "name": "Accessible name calculation",
+          "name": "Attributes",
+          "helpSection": "Displays aria-label text and screen reader text and identifies invalid use of ARIA naming.",
+          "-refForGroup": "",
+          "-refForGroupLink": "",
+          "items": [
+            {
+              "helpIcon": "Yes",
+              "helpIconText": "Check if autocomplete is present.",
+              "name": "Autocomplete",
+              "id": "autoComplete",
+              "resource_path": "checks/autocomplete",
+              "css": "autocomplete.css",
+              "addScript": "autocomplete.js",
+              "removeScript": "autocomplete-remove.js",
+              "-refForCheck": "",
+              "-refForCheckLink": "",
+              "-description": ""
+            }
+          ]
+        },
+        {
+          "name": "Accessible names",
           "helpSection": "Displays aria-label text and screen reader text and identifies invalid use of ARIA naming.",
           "-refForGroup": "",
           "-refForGroupLink": "",
