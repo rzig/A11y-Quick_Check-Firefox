@@ -381,7 +381,7 @@
         },
         {
           "name": "Attributes",
-          "helpSection": "Displays aria-label text and screen reader text and identifies invalid use of ARIA naming.",
+          "helpSection": "Identifies the use of autocomplete and the value for checking againse the label of the form control.",
           "-refForGroup": "",
           "-refForGroupLink": "",
           "items": [
