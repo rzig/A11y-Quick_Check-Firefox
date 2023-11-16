@@ -5,7 +5,9 @@
   &::before {
     content: "<" + $tagName + ">";
 
-    @include important-styles((color: var(--neutral-text),
+    @include important-styles((
+        background-color: var(--neutral-background),
+        color: var(--neutral-text),
         font-size: 0.875em,
         padding: 0 0.5em,
         font-weight: 700,
@@ -16,7 +18,9 @@
   &::after {
     content: "</" + $tagName + ">";
 
-    @include important-styles((color: var(--neutral-text),
+    @include important-styles((
+        background-color: var(--neutral-background),
+        color: var(--neutral-text),
         font-size: 0.875em,
         padding: 0 0.5em,
         font-weight: 700,
@@ -24,14 +28,14 @@
       true);
   }
 
-  @include important-styles((background-color: var(--neutral-background),
+  @include important-styles((
       border: 3px dashed var(--neutral-border),
     ),
     true);
 }
 
 // Apply styles to the tags
-$tags: p, hr, pre, blockquote, menu, figure, figcaption, search;
+$tags: p, hr, pre, blockquote, ol, ul, menu, li, dl, dt, dd, figure, figcaption, search, main;
 
 @each $tag in $tags {
   #{$tag} {

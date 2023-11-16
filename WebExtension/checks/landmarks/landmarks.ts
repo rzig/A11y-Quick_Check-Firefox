@@ -2,14 +2,12 @@
 
 function addLandmarkMessages() {
   const htmlLandmarks = ["header", "form", "main", "footer", "search" , "nav"];
-  const ariaRoles = ["banner", "form", "main", "contentinfo", "region", "search" , "navigation"];
+  const ariaRoles = ["banner", "form", "contentinfo", "region" , "navigation"];
 
   const ariaToHtmlMapping: Record<string, string> = {
     "banner": "header",
     "form": "form",
-    "main": "main",
     "contentinfo": "footer",
-    "search": "search",
     "navigation": "nav"
   };
 
