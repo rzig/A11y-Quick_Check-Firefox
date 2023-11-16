@@ -1,14 +1,15 @@
 "use strict";
 
 function addLandmarkMessages() {
-  const htmlLandmarks = ["header", "form", "main", "footer", "search" , "nav"];
-  const ariaRoles = ["banner", "form", "contentinfo", "region" , "navigation"];
+  const htmlLandmarks = ["header", "form", "footer", "search" , "nav"];
+  const ariaRoles = ["banner", "form", "contentinfo", "search", "region" , "navigation"];
 
   const ariaToHtmlMapping: Record<string, string> = {
     "banner": "header",
     "form": "form",
     "contentinfo": "footer",
-    "navigation": "nav"
+    "navigation": "nav",
+    "search": "search"
   };
 
   for (const landmark of htmlLandmarks) {
