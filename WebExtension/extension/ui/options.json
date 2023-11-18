@@ -342,19 +342,6 @@
             },
             {
               "helpIcon": "Yes",
-              "helpIconText": "Help for Reading order",
-              "name": "Reading order",
-              "id": "readingOrder",
-              "resource_path": "checks/reading-order",
-              "addScript": "reading-order.js",
-              "removeScript": "reading-order-remove.js",
-              "css": "reading-order.css",
-              "-refForCheck": "",
-              "-refForCheckLink": "",
-              "-description": ""
-            },
-            {
-              "helpIcon": "Yes",
               "helpIconText": "Help for Focus Order",
               "name": "Focus Order",
               "id": "focusOrderCount",
