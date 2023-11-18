@@ -74,7 +74,8 @@
 }
 
 .aria-ul-message,
-.custom-role-valid-li-message {
+.custom-role-valid-li-message,
+.aria-role-message-8892664 {
   @include important-styles(
     (
       margin-bottom: 0,
@@ -89,6 +90,18 @@
     var(--warning-text)
   );
 } 
+
+.has-aria-role-8892664 { 
+  @include important-styles(
+    (
+      border: 2px dashed var(--warning-border),
+      margin-bottom: 0,
+      margin-left: 1em,
+      padding: 1em,
+    ),
+    true
+  );
+}
 
 .unordered-list-div-child {
   @include important-styles(

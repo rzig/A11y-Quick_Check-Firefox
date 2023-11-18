@@ -6,6 +6,11 @@ function checkUnorderedLists(): void {
   for (const ulElement of ulElements) {
     const customRole = ulElement.getAttribute("role");
     
+    // Skip UL elements that will be handled by checkForAriaRoles
+    if (customRole === 'list' || ulElement.querySelectorAll("li[role='listitem']").length > 0) {
+      continue;
+    }
+
     // Check if UL has a role other than 'list'
     if (customRole && customRole !== "list") {
       const liElements = ulElement.querySelectorAll("li");
@@ -48,16 +53,6 @@ function checkUnorderedLists(): void {
       ulElement.classList.add("unordered-list-div-inside");
       const message = "Fail: The DIV element cannot be a child of UL.";
       createChildMessageDiv(ulElement, "div-inside-message", message);
-      continue;
-    }
-
-    // Check for ARIA unordered list markup
-    const hasAriaListRole = ulElement.getAttribute("role") === "list";
-    const hasAriaListItemRole = ulElement.querySelectorAll("[role='listitem']").length > 0;
-    if (hasAriaListRole && hasAriaListItemRole) {
-      ulElement.classList.add("unordered-list-aria");
-      const message = "Warning: Unordered List using (ARIA). HTML should be used.";
-      createChildMessageDiv(ulElement, "aria-ul-message", message);
       continue;
     }
 
@@ -108,6 +103,34 @@ function checkListParentRole(): void {
   }
 }
 
+function checkForAriaRoles(): void {
+  const elements = document.querySelectorAll('ul[role="list"], li[role="listitem"]');
+
+  for (const element of elements) {
+    const ariaRole = element.getAttribute('role');
+    const tagName = element.tagName.toLowerCase();
+    
+    let implicitHtmlRole = '';
+    if (tagName === 'ul') {
+      implicitHtmlRole = 'list';
+    } else if (tagName === 'li') {
+      implicitHtmlRole = 'listitem';
+    }
+
+    element.classList.add(`has-aria-role-8892664`);
+    let message = `<${tagName}> has ARIA Role ${ariaRole}`;
+
+    if (ariaRole === implicitHtmlRole) {
+      message += '. This role may be redundant as it matches the HTML implicit role.';
+    } else {
+      message += '. Check if the ARIA role is needed as the HTML is fully supported.';
+    }
+
+    createChildMessageDiv(element, `aria-role-message-8892664`, message);
+  }
+}
+
 // Run the checks
 checkUnorderedLists();
 checkListParentRole();
+checkForAriaRoles();
