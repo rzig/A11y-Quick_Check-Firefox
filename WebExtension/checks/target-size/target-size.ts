@@ -36,13 +36,28 @@ function addCircleShape(elem: Element, targetSize: number) {
 // Check if the element is excluded
 function isExcluded(elem: Element) {
     const anchorLinkRegex = /^#[\w-]+$/;
-    const isInPageLink = elem.tagName === 'A' && anchorLinkRegex.test(elem.getAttribute('href') ?? "");
-    const isInParagraph = elem.tagName === 'A' && elem.parentElement!.tagName === 'P';
-    const isInSentence = elem.tagName === 'A' && elem.parentElement!.tagName === 'SPAN';
-    const isFootnote = elem.tagName === 'A' && elem.classList.contains('footnote');
+    const isAnchor = elem.tagName === 'A';
+    const isButton = elem.tagName === 'BUTTON' || elem.getAttribute('role') === 'button';
 
-    return isInPageLink || isInParagraph || isInSentence || isFootnote;
+    const isInPageLink = isAnchor && anchorLinkRegex.test(elem.getAttribute('href') ?? "");
+    const isInParagraph = (isAnchor || isButton) && elem.parentElement!.tagName === 'P';
+    const isInSentence = (isAnchor || isButton) && elem.parentElement!.tagName === 'SPAN';
+    const isFootnote = isAnchor && elem.classList.contains('footnote');
+
+    // Check for <a>, <button>, or [role="button"] within <li> or <li role="listitem">
+    let currentElem = elem.parentElement;
+    let isExcludedListElement = false;
+    while (currentElem && !isExcludedListElement) {
+        if (currentElem.tagName === 'LI' && (currentElem.getAttribute('role') === 'listitem' || !currentElem.hasAttribute('role'))) {
+            isExcludedListElement = isAnchor || isButton;
+            break;
+        }
+        currentElem = currentElem.parentElement;
+    }
+
+    return isInPageLink || isInParagraph || isInSentence || isFootnote || isExcludedListElement;
 }
+
 
 function addTargetSize(targetSize: number) {
     // Get all interactive elements on the page
