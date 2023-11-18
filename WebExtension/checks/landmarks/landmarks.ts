@@ -45,36 +45,6 @@ function addLandmarkMessages() {
     return false;
   }
 
-  /**
-   * Checks if the HTML role and ARIA role on the same element have different roles and adds a message if they conflict.
-   * @param element The element to check.
-   */
-  function check(element: Element) {
-    const ariaRole = element.getAttribute("role");
-    if (ariaRole) {
-      const tagName = element.tagName.toLowerCase();
-      const htmlRole = ariaToHtmlMapping[ariaRole];
-
-      if (htmlRole && htmlRole !== tagName) {
-        // Remove any existing messages from the element
-        const existingMessages = element.querySelectorAll(
-          ".conflicting-roles-message-88937746"
-        );
-        existingMessages.forEach((message) => {
-          element.removeChild(message);
-        });
-
-        // Add the conflict message to the element
-        const message = `The HTML role '${tagName}' and ARIA role '${ariaRole}' on this element conflict.`;
-        addMessageToPrecedingDiv(
-          element,
-          "conflicting-roles-message-88937746",
-          message
-        );
-      }
-    }
-  }
-
   for (const landmark of htmlLandmarks) {
     const elements = document.querySelectorAll(landmark);
     const ariaElements = document.querySelectorAll(`[role=${landmark}]`);
@@ -143,6 +113,36 @@ function addLandmarkMessages() {
           ariaMessage = `ARIA ${ariaRole} landmark has accessible name ${accessibleName}`;
         }
         ariaMessageClass = `aria-${ariaRole}-message-88937746`;
+      }
+
+      /**
+       * Checks if the HTML role and ARIA role on the same element have different roles and adds a message if they conflict.
+       * @param element The element to check.
+       */
+      function check(element: Element) {
+        const ariaRole = element.getAttribute("role");
+        if (ariaRole) {
+          const tagName = element.tagName.toLowerCase();
+          const htmlRole = ariaToHtmlMapping[ariaRole];
+
+          if (htmlRole && htmlRole !== tagName) {
+            // Remove any existing messages from the element
+            const existingMessages = element.querySelectorAll(
+              ".conflicting-roles-message-88937746"
+            );
+            existingMessages.forEach((message) => {
+              element.removeChild(message);
+            });
+
+            // Add the conflict message to the element
+            const message = `The HTML role '${tagName}' and ARIA role '${ariaRole}' on this element conflict.`;
+            addMessageToPrecedingDiv(
+              element,
+              "conflicting-roles-message-88937746",
+              message
+            );
+          }
+        }
       }
 
       // Determine and add the required class for the landmark identified
