@@ -1,25 +1,27 @@
 "use strict";
 
 for (const element of document.querySelectorAll(
-  ".unordered-list-c34fac2, .invalid-list-c34fac2, .valid-html-unordered-list, .unordered-list-div-child, .unordered-list-div-inside, .html-ol-message, .ol-custom-role-valid-li"
+  ".ordered-list-c34fac2, .invalid-list-c34fac2, .valid-html-ordered-list, .ordered-list-div-child, .ordered-list-div-inside, .html-ol-message, .custom-role-ol-li, .ordered-list-aria, .has-aria-role-8892664"
 )) {
   element.classList.remove(
-    "unordered-list-c34fac2",
+    "ordered-list-c34fac2",
     "invalid-list-c34fac2",
-    "valid-html-unordered-list",
-    "unordered-list-div-child",
-    "unordered-list-div-inside",
+    "valid-html-ordered-list",
+    "ordered-list-div-child",
+    "ordered-list-div-inside",
     "html-ol-message",
-    "ol-custom-role-valid-li"
+    "custom-role-ol-li",
+    "ordered-list-aria",
+    "has-aria-role-8892664"
   );
 }
 
 removeInjectedDivs([
-  "unordered-list-div-child",
-  "unordered-list-aria",
+  "ordered-list-div-child",
   "ol--invalid-children-8892664",
   "invalid-list-c34fac2",
   "common-a11y-message-2edbc8ab",
-  "ol-custom-role-valid-li-message"
+  "custom-role-valid-li-message",
+  "aria-role-message-8892664"
   
 ]);

@@ -13,7 +13,7 @@ function checkUnorderedLists(): void {
 
     // Check if UL has a role other than 'list'
     if (customRole && customRole !== "list") {
-      const liElements = ulElement.querySelectorAll("li");
+      const liElements = ulElement.querySelectorAll("li:not(ol > li)");
       let hasValidLiRole = false;
 
       for (const liElement of liElements) {
@@ -104,7 +104,7 @@ function checkListParentRole(): void {
 }
 
 function checkForAriaRoles(): void {
-  const elements = document.querySelectorAll('ul[role="list"], li[role="listitem"]');
+  const elements = document.querySelectorAll('ul[role="list"], li[role="listitem"]:not(ol > li)');
 
   for (const element of elements) {
     const ariaRole = element.getAttribute('role');
