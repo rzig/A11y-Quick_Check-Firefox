@@ -95,7 +95,7 @@
             {
               "helpIcon": "Yes",
               "helpIconText": "Displays method used to group content.",
-              "name": "Content Grouping",
+              "name": "Content grouping",
               "id": "groupingContent",
               "resource_path": "checks/grouping-content",
               "css": "grouping-content.css",
