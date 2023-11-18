@@ -1,5 +1,6 @@
 @import "../common";
 
+// Mixin for standard heading group styling
 @mixin headingGroup($backgroundColor, $borderColor, $textColor) {
   @include important-styles(
     (
@@ -10,16 +11,17 @@
       font-size: 0.9em,
       margin: 1em 0,
       margin-bottom: 0,
-      padding: 0.5em,
     ),
     true
   );
 }
 
+// Styles for specific message classes
 .html-header-message-88937746,
 .html-nav-message-88937746,
 .html-footer-message-88937746,
-.html-aside-message-88937746 {
+.html-aside-message-88937746,
+.html-main-message-88937746 {
   font-weight: bold;
   @include headingGroup(
     var(--pass-background),
@@ -40,7 +42,7 @@
   @include important-styles(
     (
       border: 4px dashed var(--pass-border),
-      padding: 1em,
+      padding: 0.5em,
     ),
     true
   );
@@ -69,9 +71,20 @@
   @include important-styles(
     (
       border: 4px dashed var(--warning-border),
-      padding: 1em,
+      color: var(--warning-text),
+      padding: 0.5em,
     ),
     true
+  );
+}
+
+.common-inside-class-88937746,
+.common-class-for-aria-only-elements-88937746 {
+  font-weight: bold;
+  @include headingGroup(
+    var(--neutral-background),
+    var(--neutral-border),
+    var(--neutral-text)
   );
 }
 
@@ -92,63 +105,43 @@
   );
 }
 
-.html-aria-duplicate-header-message-88937746,
-.html-aria-duplicate-nav-message-88937746,
-.html-aria-duplicate-main-message-88937746,
-.html-aria-duplicate-footer-message-88937746,
-.html-aria-duplicate-aside-message-88937746 {
-  font-weight: bold;
-  @include headingGroup(
-    var(--danger-background),
-    var(--danger-border),
-    var(--danger-text)
-  );
+// Mixin for applying styles to HTML tags
+@mixin applyStrongStyles($tagName) {
+  #{$tagName} {
+    &:before {
+      content: "<#{$tagName}>";
+      @include important-styles(
+        (
+          background-color: var(--neutral-background),
+          color: var(--neutral-text),
+          border: 2px dashed var(--neutral-border),
+          font-size: 0.875em,
+          padding: 0 0.5em,
+          font-weight: 700,
+        ),
+        true
+      );
+    }
+
+    &:after {
+      content: "</#{$tagName}>";
+      @include important-styles(
+        (
+          background-color: var(--neutral-background),
+          color: var(--neutral-text),
+          border: 2px dashed var(--neutral-border),
+          font-size: 0.875em,
+          padding: 0 0.5em,
+          font-weight: 700,
+        ),
+        true
+      );
+    }
+  }
 }
 
-// Adding opening and closing tags as pseudo-elements for all sectioning content
-@mixin apply-strong-styles($tagName) {
-  &:before {
-    content: "<" + $tagName + ">";
-    @include important-styles(
-      (
-        background-color: var(--neutral-background),
-        color: var(--neutral-text),
-        border: 2px dashed var(--neutral-border),
-        font-size: 0.875em,
-        padding: 0 0.5em,
-        font-weight: 700,
-      ),
-      true
-    );
-  }
-
-  &:after {
-    content: "</" + $tagName + ">";
-    @include important-styles(
-      (
-        background-color: var(--neutral-background),
-        color: var(--neutral-text),
-        border: 2px dashed var(--neutral-border),
-        font-size: 0.875em,
-        padding: 0 0.5em,
-        font-weight: 700,
-      ),
-      true
-    );
-  }
-
-  @include important-styles(
-    (
-      border: 3px dashed var(--neutral-border),
-    ),
-    true
-  );
-}
-
-// Apply styles to the sectioning content tags
-$sectioningTags: header, main, footer, search;
+// Apply styles to each HTML tag
+$sectioningTags: "header", "nav", "footer", "aside", "article", "main", "section";
 @each $tag in $sectioningTags {
-  #{$tag} {
-    @include apply-strong-styles(#{$tag});
-  }
+  @include applyStrongStyles($tag);
 }
