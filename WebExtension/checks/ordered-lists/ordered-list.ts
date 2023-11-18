@@ -55,7 +55,7 @@ function checkOrderedLists(): void {
     const hasHtmlOl = olElement.nodeName === "OL" && !olElement.hasAttribute("role");
     if (hasHtmlOl) {
       olElement.classList.add("valid-html-ordered-list");
-      const message = "Pass: Ordered List (HTML)";
+      const message = "Ordered List uses valid (HTML)";
       createChildMessageDiv(olElement, "html-ol-message", message);
     }
   }

@@ -60,7 +60,7 @@ function checkUnorderedLists(): void {
     const hasHtmlUl = ulElement.nodeName === "UL" && !ulElement.hasAttribute("role");
     if (hasHtmlUl) {
       ulElement.classList.add("valid-html-unordered-list");
-      const message = "Pass: Unordered List (HTML)";
+      const message = "This Unordered List uses valid (HTML)";
       createChildMessageDiv(ulElement, "html-ul-message", message);
     }
   }

@@ -100,7 +100,7 @@ function checkDescriptionLists(): void {
 
     if (divWrappedPairs.length === (standaloneDts.length + standaloneDds.length) / 2) {
       dlElement.classList.add("dl-valid-div-wrap-dt-dd-9927845");
-      const message = "Pass: DIV wrapping all DT and DD in DL is valid.";
+      const message = "DIV wrapping all DT and DD in DL is valid.";
       createChildMessageDiv(dlElement, "dl-div-wrap-message-9927845", message);
     } else if (divWrappedPairs.length > 0 && (standaloneDts.length > 0 || standaloneDds.length > 0)) {
       dlElement.classList.add("dl-invalid-after-div-9927845");
@@ -129,7 +129,7 @@ function checkDescriptionLists(): void {
     const hasHtmlDl = dlElement.nodeName === "DL" && !dlElement.hasAttribute("role");
     if (hasHtmlDl) {
       dlElement.classList.add("dl-valid-html-9927845");
-      const message = "Pass: Description List (HTML)";
+      const message = "Description List uses valid (HTML)";
       createChildMessageDiv(dlElement, "html-dl-message-9927845", message);
     }
 
