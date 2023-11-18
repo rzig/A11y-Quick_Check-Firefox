@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landmark Checks Test Page</title>
+    <style>
+        article, aside, nav, section, main, header, footer, div[role] {
+            border: 1px solid black;
+            margin: 10px;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Standalone landmarks -->
+    <header>Header</header>
+    <nav>Navigation</nav>
+    <main>Main Content</main>
+    <footer>Footer</footer>
+
+    <!-- Landmarks within an article -->
+    <article>
+        <header role="banner">Article Header</header>
+        <section>Article Section</section>
+        <footer role="contentinfo">Article Footer</footer>
+    </article>
+
+    <!-- Landmarks within an aside -->
+    <aside>
+        <nav>Aside Navigation</nav>
+    </aside>
+
+    <!-- Landmarks within a section -->
+    <section>
+        <header>Section Header</header>
+        <footer>Section Footer</footer>
+    </section>
+
+    <!-- Main with nested landmarks -->
+    <main>
+        <article>Main Article</article>
+        <aside>Main Aside</aside>
+    </main>
+
+    <!-- ARIA roles -->
+    <div role="navigation">ARIA Navigation</div>
+    <div role="main">ARIA Main</div>
+    <div role="banner">ARIA Header</div>
+    <div role="contentinfo">ARIA Footer</div>
+
+    <!-- Examples with both HTML and ARIA landmark roles -->
+    <nav role="navigation">Navigation with ARIA Role</nav>
+    <footer role="contentinfo">Footer with ARIA Role</footer>
+
+    <!-- Example where HTML has a role that is not the equivalent -->
+    <main role="article">Main with role 'article'</main>
+
+</body>
+</html>
