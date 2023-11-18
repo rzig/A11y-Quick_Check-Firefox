@@ -11,7 +11,7 @@ function checkOrderedLists(): void {
       continue;
     }
 
-    // Check if UL has a role other than 'list'
+    // Check if OL has a role other than 'list'
     if (customRole && customRole !== "list") {
       const liElements = olElement.querySelectorAll("li:not(ul > li)");
       let hasValidLiRole = false;
@@ -42,22 +42,22 @@ function checkOrderedLists(): void {
     const firstChild = olElement.firstElementChild;
     if (firstChild && firstChild.nodeName === "DIV") {
       olElement.classList.add("ordered-list-div-child");
-      const message = "Fail: The first child of UL must be a Li, Script or Template tag. The first child of UL is DIV.";
+      const message = "Fail: The first child of OL must be a Li, Script or Template tag. The first child of OL is DIV.";
       createChildMessageDiv(olElement, "div-child-message", message);
       continue;
     }
 
-    // Check for any DIV element as a direct child of UL
+    // Check for any DIV element as a direct child of OL
     const hasDivChild = olElement.querySelector(":scope > div");
     if (hasDivChild) {
       olElement.classList.add("ordered-list-div-inside");
-      const message = "Fail: The DIV element cannot be a child of UL.";
+      const message = "Fail: The DIV element cannot be a child of OL.";
       createChildMessageDiv(olElement, "div-inside-message", message);
       continue;
     }
 
     // Check for HTML ordered list markup
-    const hasHtmlOl = olElement.nodeName === "UL" && !olElement.hasAttribute("role");
+    const hasHtmlOl = olElement.nodeName === "OL" && !olElement.hasAttribute("role");
     if (hasHtmlOl) {
       olElement.classList.add("valid-html-ordered-list");
       const message = "This Ordered List uses valid (HTML)";
@@ -123,7 +123,7 @@ function checkForOlAriaRoles(): void {
     if (ariaRole === implicitHtmlRole) {
       message += '. This role may be redundant as it matches the HTML implicit role.';
     } else {
-      message += '. Check if the ARIA role is needed as the HTML is folly supported.';
+      message += '. Check if the ARIA role is needed as the HTML is fully supported.';
     }
 
     createChildMessageDiv(element, `aria-role-message-8892664`, message);
