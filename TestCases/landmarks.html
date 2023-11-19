@@ -14,48 +14,81 @@
 </head>
 <body>
 
+    <h1>Landmark Checks Test Page</h1>
+
     <!-- Standalone landmarks -->
-    <header>Header</header>
-    <nav>Navigation</nav>
-    <main>Main Content</main>
-    <footer>Footer</footer>
+    <h2>Standalone Landmarks</h2>
+    <header>Standalone Header</header>
+    <nav>Standalone Navigation</nav>
+    <main>Standalone Main Content</main>
+    <footer>Standalone Footer</footer>
 
     <!-- Landmarks within an article -->
+    <h2>Landmarks Within an Article</h2>
     <article>
-        <header role="banner">Article Header</header>
+        <header>Article Header</header>
         <section>Article Section</section>
-        <footer role="contentinfo">Article Footer</footer>
+        <footer>Article Footer</footer>
+    </article>
+
+    <!-- Incorrect nesting: header and footer in article -->
+    <h2>Incorrect Nesting Within an Article</h2>
+    <article>
+        <header role="banner">Incorrect Article Header (Banner)</header>
+    </article>
+    <article>
+        <footer role="contentinfo">Incorrect Article Footer (Contentinfo)</footer>
     </article>
 
     <!-- Landmarks within an aside -->
+    <h2>Landmarks Within an Aside</h2>
     <aside>
         <nav>Aside Navigation</nav>
+        <footer>Aside Footer</footer>
     </aside>
 
     <!-- Landmarks within a section -->
+    <h2>Landmarks Within a Section</h2>
     <section>
         <header>Section Header</header>
         <footer>Section Footer</footer>
     </section>
 
     <!-- Main with nested landmarks -->
+    <h2>Main with Nested Landmarks</h2>
     <main>
         <article>Main Article</article>
         <aside>Main Aside</aside>
+        <footer>Main Footer</footer>
     </main>
 
     <!-- ARIA roles -->
+    <h2>ARIA Roles</h2>
     <div role="navigation">ARIA Navigation</div>
     <div role="main">ARIA Main</div>
     <div role="banner">ARIA Header</div>
     <div role="contentinfo">ARIA Footer</div>
 
     <!-- Examples with both HTML and ARIA landmark roles -->
+    <h2>HTML and ARIA Landmark Roles Together</h2>
     <nav role="navigation">Navigation with ARIA Role</nav>
     <footer role="contentinfo">Footer with ARIA Role</footer>
 
     <!-- Example where HTML has a role that is not the equivalent -->
+    <h2>Incorrect Role Equivalents</h2>
     <main role="article">Main with role 'article'</main>
+
+    <!-- Additional incorrect nesting scenarios -->
+    <h2>Additional Incorrect Nesting Scenarios</h2>
+    <article>
+        <main>Incorrectly nested Main in Article</main>
+    </article>
+    <nav>
+        <section>Incorrectly nested Section in Nav</section>
+    </nav>
+    <main>
+        <aside>Incorrectly nested Aside in Main</aside>
+    </main>
 
 </body>
 </html>
