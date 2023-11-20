@@ -386,9 +386,9 @@
               "name": "Show Aria Label",
               "id": "labelledByARIA",
               "resource_path": "checks/accname-calc",
-              "css": "accname-calc.css",
-              "addScript": "accname-calc.js",
-              "removeScript": "accname-calc-remove.js",
+              "css": "aria-label.css",
+              "addScript": "aria-label.js",
+              "removeScript": "aria-label-remove.js",
               "-refForCheck": "",
               "-refForCheckLink": "",
               "-description": ""
