@@ -139,7 +139,7 @@
         },
         {
           "name": "Content Types",
-          "helpSection": "Landmark roles programmatically identify sections of a page and serve as navigational aids to assistive technology users. The landmark check tests for valid use of ARIA roles and their HTML equivilent. Warnings are provided if both ARIA and HTML landmarks are used on the same element, or there is a conflicts od HTML and ARIA roles.",
+          "helpSection": "Landmark roles programmatically identify sections of a page and serve as navigational aids to assistive technology users. In HTML article, aside, nav and section elements are called 'Sectioning content'.",
           "-refForGroup": "",
           "-refForGroupLink": "",
           "items": [
@@ -384,7 +384,7 @@
               "helpIcon": "Yes",
               "helpIconText": "Check for valid use of ARIA accessible name.",
               "name": "Show Aria Label",
-              "id": "labelledByARIA",
+              "id": "ariaLabelValue",
               "resource_path": "checks/accname-calc",
               "css": "aria-label.css",
               "addScript": "aria-label.js",
