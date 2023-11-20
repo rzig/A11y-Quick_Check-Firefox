@@ -139,7 +139,7 @@
         },
         {
           "name": "Content Types",
-          "helpSection": "Sectioning content refers to HTML elements that divide a web page into subject-oriented groups of content. Landmark roles programmatically identify sections of a page and serve as navigational aids to assistive technology users. The landmark check tests for valid use of ARIA roles and their HTML equivilent. Warnings are provided if both ARIA and HTML landmarks are used on the same element.",
+          "helpSection": "Landmark roles programmatically identify sections of a page and serve as navigational aids to assistive technology users. The landmark check tests for valid use of ARIA roles and their HTML equivilent. Warnings are provided if both ARIA and HTML landmarks are used on the same element, or there is a conflicts od HTML and ARIA roles.",
           "-refForGroup": "",
           "-refForGroupLink": "",
           "items": [
@@ -152,19 +152,6 @@
               "css": "landmarks.css",
               "addScript": "landmarks.js",
               "removeScript": "landmarks-remove.js",
-              "-refForCheck": "",
-              "-refForCheckLink": "",
-              "-description": ""
-            },
-            {
-              "helpIcon": "Yes",
-              "helpIconText": "Help for HTML sectioning content",
-              "name": "Sectioning content",
-              "id": "sectioningContent",
-              "resource_path": "checks/content-sectioning",
-              "css": "content-sectioning.css",
-              "addScript": "content-sectioning.js",
-              "removeScript": "content-sectioning-remove.js",
               "-refForCheck": "",
               "-refForCheckLink": "",
               "-description": ""
