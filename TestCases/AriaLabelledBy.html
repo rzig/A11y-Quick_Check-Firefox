@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARIA-labelledby Test Page</title>
+    <style>
+        .test-section {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+        .message-aria-labelledby-valid-889756,
+        .message-aria-labelledby-invalid-889756 {
+            margin-top: 10px;
+            color: blue;
+        }
+        .message-aria-labelledby-invalid-889756 {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>ARIA-labelledby Test Page</h1>
+
+    <div class="test-section">
+        <h2>Test for aria-labelledby</h2>
+
+        <!-- Valid Use Cases -->
+        <h3 id="productLabel">Product Description</h3>
+        <input type="text" id="test-01" aria-labelledby="productLabel" aria-describedby="productDescription">
+        <p id="productDescription">This is a detailed description of a product.</p>
+
+        <span id="feedbackLabel">User Feedback</span>
+        <div aria-labelledby="feedbackLabel">
+            <p>This is user feedback on our service.</p>
+        </div>
+
+        <div id="sectionHeading">Section Heading</div>
+        <div role="region" aria-labelledby="sectionHeading">
+            <p>Content under a section heading.</p>
+        </div>
+
+        <!-- Invalid Use Cases -->
+        <div id="invalidCodeLabel">Invalid Code Label</div>
+        <div role="code" aria-labelledby="invalidCodeLabel">
+            <p>Content with invalid aria-labelledby (code role).</p>
+        </div>
+
+        <span id="invalidDeletionLabel">Invalid Deletion Label</span>
+        <span role="deletion" aria-labelledby="invalidDeletionLabel">
+            Content with invalid aria-labelledby (deletion role).
+        </span>
+
+        <div id="invalidEmphasisLabel">Invalid Emphasis Label</div>
+        <div role="emphasis" aria-labelledby="invalidEmphasisLabel">
+            Content with invalid aria-labelledby (emphasis role).
+        </div>
+    </div>
+
+</body>
+</html>

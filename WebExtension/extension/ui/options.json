@@ -382,13 +382,26 @@
           "items": [
             {
               "helpIcon": "Yes",
-              "helpIconText": "Check for valid use of ARIA accessible name.",
-              "name": "Show Aria Label",
+              "helpIconText": "Check for aria-label, displays value on-screen, and identifies if is invalid according to the ARIA specification.",
+              "name": "Show Aria-Label",
               "id": "ariaLabelValue",
               "resource_path": "checks/accname-calc",
               "css": "aria-label.css",
               "addScript": "aria-label.js",
               "removeScript": "aria-label-remove.js",
+              "-refForCheck": "",
+              "-refForCheckLink": "",
+              "-description": ""
+            },
+            {
+              "helpIcon": "Yes",
+              "helpIconText": "Check for aria-labelledby, displays value on-screen, and identifies if is invalid according to the ARIA specification.",
+              "name": "Show Aria-Labelledby",
+              "id": "ariaLabelledbyValue",
+              "resource_path": "checks/accname-calc",
+              "css": "aria-labelledby.css",
+              "addScript": "aria-labelledby.js",
+              "removeScript": "aria-labelledby-remove.js",
               "-refForCheck": "",
               "-refForCheckLink": "",
               "-description": ""
