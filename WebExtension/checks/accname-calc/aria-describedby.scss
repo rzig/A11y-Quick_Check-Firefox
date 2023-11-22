@@ -1,0 +1,29 @@
+@import '../common';
+
+@mixin description-list($backgroundColor, $borderColor, $textColor) {
+    @include important-styles((
+      font-size: 0.9em,
+      padding: 0.5em,
+      background-color: $backgroundColor,
+      color: $textColor,
+      border: 3px solid $borderColor,
+    ), true);
+  }
+  
+  .message-aria-describedby-889756 {
+    @include important-styles(
+      (
+        border-width: 2px,
+        border-style: dashed,
+        font-weight:700,
+        margin-left: 1em,
+        padding: 1em,
+      ),
+      true
+    );
+    @include description-list(
+      var(--neutral-background),
+      var(--neutral-border),
+      var(--neutral-text)
+    );
+  }
