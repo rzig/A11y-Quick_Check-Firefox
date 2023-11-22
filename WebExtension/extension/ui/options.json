@@ -408,6 +408,19 @@
             },
             {
               "helpIcon": "Yes",
+              "helpIconText": "Check for aria-describedby, displays value on-screen, and identifies if is invalid according to the ARIA specification.",
+              "name": "Show Aria-Describedby",
+              "id": "ariaDescribedbyValue",
+              "resource_path": "checks/accname-calc",
+              "css": "aria-describedby.css",
+              "addScript": "aria-describedby.js",
+              "removeScript": "aria-describedby-remove.js",
+              "-refForCheck": "",
+              "-refForCheckLink": "",
+              "-description": ""
+            },
+            {
+              "helpIcon": "Yes",
               "helpIconText": "Check if screen reader only text is present.",
               "name": "Show Screen Reader Only Content",
               "id": "labelledBySR",

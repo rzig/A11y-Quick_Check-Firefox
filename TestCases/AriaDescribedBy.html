@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARIA-describedby Test Page</title>
+    <style>
+        .test-section {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+        .message-aria-describedby-889756 {
+            margin-top: 10px;
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+    <h1>ARIA-describedby Test Page</h1>
+
+    <div class="test-section">
+        <h2>Test for aria-describedby</h2>
+
+        <!-- Input Example -->
+        <label for="textInput">Text Input:</label>
+        <input type="text" id="textInput" aria-describedby="textInputDesc">
+        <p id="textInputDesc">Enter your name in this text field.</p>
+
+        <!-- Radio Button Group Example -->
+        <fieldset>
+            <legend id="radioGroupLabel">Choose your favorite color:</legend>
+            <div aria-describedby="radioGroupDesc">
+                <input type="radio" id="colorRed" name="favoriteColor" value="red">
+                <label for="colorRed">Red</label><br>
+                <input type="radio" id="colorBlue" name="favoriteColor" value="blue">
+                <label for="colorBlue">Blue</label><br>
+                <input type="radio" id="colorGreen" name="favoriteColor" value="green">
+                <label for="colorGreen">Green</label>
+            </div>
+            <p id="radioGroupDesc">Select one of the colors as your favorite.</p>
+        </fieldset>
+
+        <!-- Checkbox Group Example -->
+        <fieldset>
+            <legend id="checkboxGroupLabel">Choose your hobbies:</legend>
+            <div aria-describedby="checkboxGroupDesc">
+                <input type="checkbox" id="hobbyReading" name="hobbies" value="reading">
+                <label for="hobbyReading">Reading</label><br>
+                <input type="checkbox" id="hobbySwimming" name="hobbies" value="swimming">
+                <label for="hobbySwimming">Swimming</label><br>
+                <input type="checkbox" id="hobbyCooking" name="hobbies" value="cooking">
+                <label for="hobbyCooking">Cooking</label>
+            </div>
+            <p id="checkboxGroupDesc">Select any hobbies that you enjoy.</p>
+        </fieldset>
+    </div>
+
+</body>
+</html>
