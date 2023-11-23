@@ -28,6 +28,7 @@
     var(--pass-border),
     var(--pass-text)
   );
+  @include flex-width-container;
 }
 
 .header--aria--88937746,
@@ -60,6 +61,7 @@
     var(--warning-border),
     var(--warning-text)
   );
+  @include flex-width-container;
 }
 
 .header--aria-html-88937746,
@@ -87,6 +89,7 @@
     var(--neutral-border),
     var(--neutral-text)
   );
+  @include flex-width-container;
 }
 
 .roleWarning-83009276 {
@@ -104,6 +107,7 @@
     var(--danger-border),
     var(--danger-text)
   );
+  @include flex-width-container;
 }
 
 // Mixin for applying styles to HTML tags

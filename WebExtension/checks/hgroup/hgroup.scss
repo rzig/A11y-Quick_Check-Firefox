@@ -26,6 +26,7 @@
     var(--pass-border),
     var(--pass-text)
   );
+  @include flex-width-container;
 }
 
 .aria-hgroup-message-58997365 {
@@ -35,6 +36,7 @@
     var(--pass-border),
     var(--pass-text)
   );
+  @include flex-width-container;
 }
 
 .missing-heading-message-58997365 {
@@ -44,4 +46,5 @@
     var(--danger-border),
     var(--danger-text)
   );
+  @include flex-width-container;
 }

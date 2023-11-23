@@ -43,6 +43,7 @@
     var(--danger-border),
     var(--danger-text)
   );
+  @include flex-width-container;
 }
 
 .ordered-list-c34fac2 { 
@@ -71,6 +72,7 @@
     var(--pass-border),
     var(--pass-text)
   );
+  @include flex-width-container;
 }
 
 .aria-ol-message,
@@ -89,6 +91,7 @@
     var(--warning-border),
     var(--warning-text)
   );
+  @include flex-width-container;
 } 
 
 .has-aria-role-8892664 { 
@@ -154,4 +157,5 @@
     var(--danger-border),
     var(--danger-text)
   );
+  @include flex-width-container;
 }
