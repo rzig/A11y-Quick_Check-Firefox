@@ -39,6 +39,7 @@
     var(--pass-border),
     var(--pass-text)
   );
+  @include flex-width-container;
 }
 
 .dl-single-dt-dd-9927845 {
@@ -67,6 +68,7 @@
     var(--warning-border),
     var(--warning-text)
   );
+  @include flex-width-container;
 }
 
 .dl-invalid-first-child-9927845,
@@ -106,4 +108,5 @@
     var(--danger-border),
     var(--danger-text)
   );
+  @include flex-width-container;
 }
