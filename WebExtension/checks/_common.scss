@@ -73,3 +73,12 @@
     #{$property}: $value #{if($important, "!important", "")};
   }
 }
+
+// Define a mixin for container width
+@mixin flex-width-container($max-width: 380px) {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: $max-width;
+  width: auto;
+}
