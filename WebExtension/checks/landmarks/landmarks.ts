@@ -199,7 +199,8 @@ function addLandmarkMessages() {
     );
 
     for (const element of ariaElements) {
-      const message = `HTML <${htmlEquivalent}> is fully supported and should be used to replace ARIA role '${ariaRole}'`;
+      // const message = `HTML <${htmlEquivalent}> fully supported and should be used to replace ARIA role '${ariaRole}'`;
+      const message = `Has ARIA role=\"${ariaRole}\". Check for current support of HTML <${htmlEquivalent}> using https://caniuse.com/?search=${htmlEquivalent}'`;
       const messageClass = `replace-aria-${ariaRole}-with-html-${htmlEquivalent}-88937746`;
       addMessageToPrecedingDiv(element as HTMLElement, messageClass, message);
 
