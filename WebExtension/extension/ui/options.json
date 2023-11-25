@@ -7,68 +7,44 @@
         {
           "name": "Headings",
           "helpSection": "Checks if visually designed headings and heading groups are conveyed by semantic markup, identifies large text to check if it should be a heading, and warns if heading levels are skipped.",
-          "refForGroup": "1.3.1 Info and Relationships",
-          "refForGroupLink": "https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships",
           "items": [
             {
-              "helpIcon": "Yes",
-              "helpIconText": "Help for Has Heading Mark-up",
               "name": "Has Heading Mark-up",
               "id": "headingsYes",
               "resource_path": "checks/headings",
               "css": "headings.css",
               "addScript": "headings.js",
-              "removeScript": "headings-remove.js",
-              "-refForCheck": "1.3.1 Info and Relationships , 1.3.3 Sensory Characteristics",
-              "-refForCheckLink": "https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships , https://www.w3.org/WAI/WCAG22/Understanding/sensory-characteristics",
-              "description": "This visibly shows the elements coded as headings and identfies errors and warnings for best practice."
+              "removeScript": "headings-remove.js"
             },
             {
-              "helpIcon": "Yes",
-              "helpIconText": "Help for No Heading Mark-up",
               "name": "No Heading Mark-up",
               "id": "headingNo",
               "resource_path": "checks/headings-not-coded",
               "css": "headings-not-coded.css",
               "addScript": "headings-not-coded.js",
-              "removeScript": "headings-not-coded-remove.js",
-              "-refForCheck": "1.3.1 Info and Relationships",
-              "-refForCheckLink": "https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships",
-              "description": "Finds potential headings by font size and flags them for checking"
+              "removeScript": "headings-not-coded-remove.js"
             },
             {
-              "helpIcon": "Yes",
-              "helpIconText": "Help for HTML hgroup",
               "name": "HTML hgroup",
               "id": "hGroup",
               "resource_path": "checks/hgroup",
               "css": "hgroup.css",
               "addScript": "hgroup.js",
-              "removeScript": "hgroup-remove.js",
-              "-refForCheck": "",
-              "-refForCheckLink": "",
-              "-description": ""
+              "removeScript": "hgroup-remove.js"
             }
           ]
         },
         {
           "name": "Grouping elements",
           "helpSection": "Grouping content in HTML are p, hr, pre, blockquote, ol, ul, menu, li, dl, dt, dd, figcaption, main, search and div. <div> is not included in the check. Related form control checks for the use of <fieldset>, <legend>, role=group and role=radiogroup.",
-          "refForGroup": "1.3.1 Info and Relationships",
-          "refForGroupLink": "https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships",
           "items": [
             {
-              "helpIcon": "Yes",
-              "helpIconText": "Help for list mark-up",
               "name": "Ordered list structure",
               "id": "oList",
               "resource_path": "checks/ordered-lists",
               "css": "ordered-list.css",
               "addScript": "ordered-list.js",
-              "removeScript": "ordered-list-remove.js",
-              "-refForCheck": "",
-              "-refForCheckLink": "",
-              "-description": ""
+              "removeScript": "ordered-list-remove.js"
             },
             {
               "name": "Unordered list structure",
@@ -76,10 +52,7 @@
               "resource_path": "checks/unordered-lists",
               "css": "unordered-list.css",
               "addScript": "unordered-list.js",
-              "removeScript": "unordered-list-remove.js",
-              "-refForCheck": "",
-              "-refForCheckLink": "",
-              "-description": ""
+              "removeScript": "unordered-list-remove.js"
             },
             {
               "name": "Description list structure",
@@ -87,74 +60,47 @@
               "resource_path": "checks/description-lists",
               "css": "description-list.css",
               "addScript": "description-list.js",
-              "removeScript": "description-list-remove.js",
-              "-refForCheck": "",
-              "-refForCheckLink": "",
-              "-description": ""
+              "removeScript": "description-list-remove.js"
             },
             {
-              "helpIcon": "Yes",
-              "helpIconText": "Displays method used to group content.",
               "name": "Content grouping",
               "id": "groupingContent",
               "resource_path": "checks/grouping-content",
-              "css": "grouping-content.css",
-              "-refForCheck": "",
-              "-refForCheckLink": "",
-              "-description": ""
+              "css": "grouping-content.css"
             },
             {
-              "helpIcon": "Yes",
-              "helpIconText": "Help for Related form controls",
               "name": "Related form controls",
               "id": "relatedFormControls",
               "resource_path": "checks/related-form-controls",
               "css": "related-controls.css",
               "addScript": "related-controls.js",
-              "removeScript": "related-controls-remove.js",
-              "-refForCheck": "",
-              "-refForCheckLink": "",
-              "-description": ""
+              "removeScript": "related-controls-remove.js"
             }
           ]
         },
         {
           "name": "Text-level semantics",
           "helpSection": "Text-level semantics are elements used to describe the structure and meaning of text within a web page, for example <strong>, <em> and <code>. Sometimes referred to as inline elements, these tags add semantic meaning or styling to text.",
-          "-refForGroup": "",
-          "-refForGroupLink": "",
           "items": [
             {
-              "helpIcon": "Yes",
-              "helpIconText": "Help for Text-Level Semantics",
               "name": "Inline elements",
               "id": "textLevelSemantics",
               "resource_path": "checks/text-level-semantics",
-              "css": "text-level-semantics.css",
-              "-refForCheck": "",
-              "-refForCheckLink": "",
-              "-description": ""
+              "css": "text-level-semantics.css"
             }
           ]
         },
         {
           "name": "Content Types",
           "helpSection": "Landmark roles programmatically identify sections of a page and serve as navigational aids to assistive technology users. In HTML article, aside, nav and section elements are called 'Sectioning content'.",
-          "-refForGroup": "",
-          "-refForGroupLink": "",
           "items": [
             {
-              "helpIcon": "Yes",
-              "helpIconText": "Help for landmarks",
               "name": "Landmark roles",
               "id": "landmarkRoles",
               "resource_path": "checks/landmarks",
               "css": "landmarks.css",
               "addScript": "landmarks.js",
-              "removeScript": "landmarks-remove.js",
-              "-refForCheck": "",
-              "-refForCheckLink": "",
-              "-description": ""
+              "removeScript": "landmarks-remove.js"
             }
           ]
         }
@@ -167,94 +113,60 @@
         {
           "name": "Images",
           "helpSection": "Checks for valid markup, if the image is decorative and exposes the accessible name for images that provide meaning to the content.",
-          "refForGroup": "1.3.1 Info and Relationships",
-          "refForGroupLink": "https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships",
           "items": [
             {
               "name": "Show image accessible name",
-              "helpIcon": "Yes",
-              "helpIconText": "Help for img accName",
               "id": "hasAlt",
               "resource_path": "checks/image-alt",
               "css": "show-alt-text.css",
               "addScript": "show-alt-text.js",
-              "removeScript": "show-alt-text-remove.js",
-              "refForCheck": "1.3.1 Info and Relationships , 1.3.3 Sensory Characteristics",
-              "refForCheckLink": "https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships , https://www.w3.org/WAI/WCAG22/Understanding/sensory-characteristics",
-              "description": "This visibly shows the elements coded as hesdings and identfies errors and warnings for best practice."
+              "removeScript": "show-alt-text-remove.js"
             },
             {
               "name": "Show decorative images",
-              "helpIcon": "Yes",
-              "helpIconText": "Help for decorative images",
               "id": "decoImg",
               "resource_path": "checks/image-decorative",
               "css": "decorative-image.css",
               "addScript": "decorative-image.js",
-              "removeScript": "decorative-image-remove.js",
-              "-refForCheck": "",
-              "-refForCheckLink": "",
-              "-description": ""
+              "removeScript": "decorative-image-remove.js"
             },
             {
               "name": "Image is missing the ALT attribute",
-              "helpIcon": "Yes",
-              "helpIconText": "Help for images missing alt tag",
               "id": "missAlt",
               "resource_path": "checks/image-missing-alt",
               "css": "missing-alt.css",
               "addScript": "missing-alt.js",
-              "removeScript": "missing-alt-remove.js",
-              "-refForCheck": "",
-              "-refForCheckLink": "",
-              "-description": ""
+              "removeScript": "missing-alt-remove.js"
             },
             {
               "name": "CSS Background images",
-              "helpIcon": "Yes",
-              "helpIconText": "Help for background css images",
               "id": "cssInj",
               "resource_path": "checks/css-background-images",
               "css": "css-background-images.css",
               "addScript": "css-background-images.js",
-              "removeScript": "css-background-images-remove.js",
-              "-refForCheck": "",
-              "-refForCheckLink": "",
-              "-description": ""
+              "removeScript": "css-background-images-remove.js"
             }
           ]
         },
         {
           "name": "SVGs",
           "helpSection": "Checks for valid markup, if the SVG is decorative and exposes the accessible name for images that provide meaning to the content.",
-          "-refForGroup": "",
-          "-refForGroupLink": "",
           "items": [
             {
               "name": "Show SVG's accessible name",
-              "helpIcon": "Yes",
-              "helpIconText": "Help for svg is named",
               "id": "svgHasName",
               "resource_path": "checks/svg-name",
               "css": "show-svg-name.css",
               "addScript": "show-svg-name.js",
-              "removeScript": "show-svg-name-remove.js",
-              "-refForCheck": "",
-              "-refForCheckLink": "",
-              "-description": ""
+              "removeScript": "show-svg-name-remove.js"
             },
             {
               "name": "Show decorative SVGs",
-              "helpIcon": "Yes",
-              "helpIconText": "Help for svg is decorative",
               "id": "svgDecoration",
               "resource_path": "checks/svg-decorative",
               "css": "decorative-svg.css",
               "addScript": "decoration-svg.js",
-              "removeScript": "decoration-svg-remove.js",
-              "-refForCheck": "",
-              "-refForCheckLink": "",
-              "-description": ""
+              "removeScript": "decoration-svg-remove.js"
             }
           ]
         }
@@ -267,20 +179,13 @@
         {
           "name": "User Experience",
           "helpSection": "Assessing Interaction and Content Readability.",
-          "-refForGroup": "",
-          "-refForGroupLink": "",
           "items": [
             {
-              "helpIcon": "Yes",
-              "helpIconText": "Help for Target size",
               "name": "Target Size (24px)",
               "id": "targetSize24",
               "resource_path": "checks/target-size",
               "css": "target-size.css",
               "addScript": ["target-size.js", "target-size24.js"],
-              "-refForCheck": "",
-              "-refForCheckLink": "",
-              "-description": "",
               "removeScript": [
                 "target-size-remove.js",
                 "target-size-remove24.js"
@@ -292,9 +197,6 @@
               "resource_path": "checks/target-size",
               "css": "target-size.css",
               "addScript": ["target-size.js", "target-size44.js"],
-              "-refForCheck": "",
-              "-refForCheckLink": "",
-              "-description": "",
               "removeScript": [
                 "target-size-remove.js",
                 "target-size-remove44.js"
@@ -306,131 +208,84 @@
               "resource_path": "checks/target-size",
               "css": "target-size.css",
               "addScript": ["target-size.js", "target-size48.js"],
-              "-refForCheck": "",
-              "-refForCheckLink": "",
-              "-description": "",
               "removeScript": [
                 "target-size-remove.js",
                 "target-size-remove48.js"
               ]
             },
             {
-              "helpIcon": "Yes",
-              "helpIconText": "Help for Text Spacing",
               "name": "Text Spacing",
               "id": "textSpacing",
               "resource_path": "checks/text-spacing",
               "css": "text-spacing.css",
               "addScript": "text-spacing.js",
-              "removeScript": "text-spacing-remove.js",
-              "-refForCheck": "",
-              "-refForCheckLink": "",
-              "-description": ""
+              "removeScript": "text-spacing-remove.js"
             },
             {
-              "helpIcon": "Yes",
-              "helpIconText": "Help for Focus Order",
               "name": "Focus Order",
               "id": "focusOrderCount",
               "resource_path": "checks/focus-order-count",
               "addScript": "focus-order-count.js",
               "removeScript": "focus-order-count-remove.js",
-              "css": "focus-order-count.css",
-              "-refForCheck": "",
-              "-refForCheckLink": "",
-              "-description": ""
+              "css": "focus-order-count.css"
             },
             {
-              "helpIcon": "Yes",
-              "helpIconText": "Help for Focus Visible",
               "name": "Focus Visible",
               "id": "focusVisible",
               "resource_path": "checks/force-focus-visible",
-              "css": "force-focus-visible.css",
-              "-refForCheck": "",
-              "-refForCheckLink": "",
-              "-description": ""
+              "css": "force-focus-visible.css"
             }
           ]
         },
         {
           "name": "Attributes",
-          "helpSection": "Identifies the use of autocomplete and the value for checking againse the label of the form control.",
-          "-refForGroup": "",
-          "-refForGroupLink": "",
+          "helpSection": "Identifies the use of autocomplete and the value for checking against the label of the form control.",
           "items": [
             {
-              "helpIcon": "Yes",
-              "helpIconText": "Check if autocomplete is present.",
               "name": "Autocomplete",
               "id": "autoComplete",
               "resource_path": "checks/autocomplete",
               "css": "autocomplete.css",
               "addScript": "autocomplete.js",
-              "removeScript": "autocomplete-remove.js",
-              "-refForCheck": "",
-              "-refForCheckLink": "",
-              "-description": ""
+              "removeScript": "autocomplete-remove.js"
             }
           ]
         },
         {
           "name": "Accessible names",
-          "helpSection": "Displays the value and identifies invalid use of aria-label. Checks for potential use of screen reader only content",
-          "-refForGroup": "",
-          "-refForGroupLink": "",
+          "helpSection": "Displays the name from aria-label and aria-labelledby, and the description from aria-describedby. Sets a number against the named element and the element providing the name or description. Checks for potential use of screen reader only content",
           "items": [
             {
-              "helpIcon": "Yes",
-              "helpIconText": "Check for aria-label, displays value on-screen, and identifies if is invalid according to the ARIA specification.",
               "name": "Show Aria-Label",
               "id": "ariaLabelValue",
               "resource_path": "checks/accname-calc",
               "css": "aria-label.css",
               "addScript": "aria-label.js",
-              "removeScript": "aria-label-remove.js",
-              "-refForCheck": "",
-              "-refForCheckLink": "",
-              "-description": ""
+              "removeScript": "aria-label-remove.js"
             },
             {
-              "helpIcon": "Yes",
-              "helpIconText": "Check for aria-labelledby, displays value on-screen, and identifies if is invalid according to the ARIA specification.",
               "name": "Show Aria-Labelledby",
               "id": "ariaLabelledbyValue",
               "resource_path": "checks/accname-calc",
               "css": "aria-labelledby.css",
               "addScript": "aria-labelledby.js",
-              "removeScript": "aria-labelledby-remove.js",
-              "-refForCheck": "",
-              "-refForCheckLink": "",
-              "-description": ""
+              "removeScript": "aria-labelledby-remove.js"
             },
             {
-              "helpIcon": "Yes",
-              "helpIconText": "Check for aria-describedby, displays value on-screen, and identifies if is invalid according to the ARIA specification.",
               "name": "Show Aria-Describedby",
               "id": "ariaDescribedbyValue",
               "resource_path": "checks/accname-calc",
               "css": "aria-describedby.css",
               "addScript": "aria-describedby.js",
-              "removeScript": "aria-describedby-remove.js",
-              "-refForCheck": "",
-              "-refForCheckLink": "",
-              "-description": ""
+              "removeScript": "aria-describedby-remove.js"
             },
             {
-              "helpIcon": "Yes",
-              "helpIconText": "Check if screen reader only text is present.",
               "name": "Show Screen Reader Only Content",
               "id": "labelledBySR",
               "resource_path": "checks/sr-only",
               "css": "sr-only.css",
               "addScript": "sr-only.js",
-              "removeScript": "sr-only-remove.js",
-              "-refForCheck": "",
-              "-refForCheckLink": "",
-              "-description": ""
+              "removeScript": "sr-only-remove.js"
             }
           ]
         }
