@@ -1,11 +1,11 @@
 /* Custom CSS variables defining color codes */
 :root {
-  --white: #ffffff;
-  --black: #262626;
+  --extension-white: #ffffff;
+  --extension-black: #262626;
   --danger-border: #b31818;
   --danger-background: #f8eaea;
   --danger-text: #410505;
-  --warning-border: #D93B02;
+  --warning-border: #d93b02;
   --warning-text: #221603;
   --warning-background: #f1d6ac;
   --pass-border: #1e830a;
@@ -18,8 +18,9 @@
 
 [data-a11y-wrapper-2edbc8ab],
 [data-before-div-9f2dc5ea] {
-  font-family: Aptos, Bierstadt, "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-  line-height:1.5;
+  font-family: Aptos, Bierstadt, "Segoe UI", -apple-system, BlinkMacSystemFont,
+    Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  line-height: 1.5;
 }
 
 /* Styling for a specific data attribute */
@@ -43,10 +44,18 @@
   z-index: 100000 !important;
 }
 
-/* Mixin for applying danger styles */
-@mixin danger-styles() {
-  background-color: var(--danger-background) !important;
-  color: var(--danger-text) !important;
+/* Styling for message container */
+@mixin messageContainer($backgroundColor, $borderColor, $textColor) {
+  @include important-styles(
+    (
+      background-color: $backgroundColor,
+      color: $textColor,
+      border: 3px solid $borderColor,
+      font-size: 1rem,
+      padding: 0.5em,
+    ),
+    true
+  );
 }
 
 /* Mixin for applying warning styles */
@@ -55,10 +64,16 @@
   color: var(--warning-text) !important;
 }
 
-/* Mixin for applying pass styles */
+/* Mixin for applying pass/valid styles */
 @mixin pass-styles() {
   background-color: var(--pass-background) !important;
   color: var(--pass-text) !important;
+}
+
+/* Mixin for applying danger/Invalid styles */
+@mixin danger-styles() {
+  background-color: var(--danger-background) !important;
+  color: var(--danger-text) !important;
 }
 
 /* Mixin for applying neutral styles */

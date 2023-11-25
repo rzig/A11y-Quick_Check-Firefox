@@ -3,10 +3,10 @@
 function showDecorativeImages(): void {
     const imgElements = document.querySelectorAll("img");
 
-    const ariaHiddenMessageClass = "aria-hidden-message-8892664";
-    const presentationRoleMessageClass = "presentation-role-message-8892664";
-    const redundantRoleMessageClass = "redundant-role-message-8892664";
-    const decorativeMessageClass = "decorative-message-8892664";
+    const ariaHiddenMessageClass = "neutral-message-9927845";
+    const presentationRoleMessageClass = "neutral-message-9927845";
+    const redundantRoleMessageClass = "neutral-message-9927845";
+    const decorativeMessageClass = "neutral-message-9927845";
 
     for (const imgElement of imgElements) {
         const altText: string = imgElement.alt;

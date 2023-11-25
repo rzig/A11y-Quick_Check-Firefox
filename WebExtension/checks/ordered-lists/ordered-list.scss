@@ -1,20 +1,6 @@
-@import '../common';
+@import "../common";
 
-@mixin OrderedList($backgroundColor, $borderColor, $textColor) {
-  @include important-styles(
-    (
-      background-color: $backgroundColor,
-      color: $textColor,
-      border: 3px dashed $borderColor,
-      font-size: 1rem,
-      padding: 0.5em,
-      max-width: 15em
-    ),
-    true
-  ); 
-}
-
-.valid-html-ordered-list{
+.valid-9927845 {
   @include important-styles(
     (
       border: 2px dashed var(--pass-border),
@@ -26,39 +12,7 @@
   );
 }
 
-.div-child-message,
-.div-inside-message{
-  @include important-styles(
-    (
-      border-width: 2px,
-      border-style: dashed,
-      margin-bottom: 0,
-      margin-left: 1em,
-      padding: 1em,
-    ),
-    true
-  );
-  @include OrderedList(
-    var(--danger-background),
-    var(--danger-border),
-    var(--danger-text)
-  );
-  @include flex-width-container;
-}
-
-.ordered-list-c34fac2 { 
-  @include important-styles(
-    (
-      border: 2px dashed var(--pass-border),
-      margin-bottom: 0,
-      margin-left: 1em,
-      padding: 1em,
-    ),
-    true
-  );
-}
-
-.html-ol-message {
+.valid-message-9927845 {
   @include important-styles(
     (
       margin-bottom: 0,
@@ -67,7 +21,8 @@
     ),
     true
   );
-  @include OrderedList(
+  max-width: 15em;
+  @include messageContainer(
     var(--pass-background),
     var(--pass-border),
     var(--pass-text)
@@ -75,26 +30,7 @@
   @include flex-width-container;
 }
 
-.aria-ol-message,
-.custom-role-valid-li-message,
-.aria-role-message-8892664 {
-  @include important-styles(
-    (
-      margin-bottom: 0,
-      margin-left: 1em,
-      padding: 1em,
-    ),
-    true
-  );
-  @include OrderedList(
-    var(--warning-background),
-    var(--warning-border),
-    var(--warning-text)
-  );
-  @include flex-width-container;
-} 
-
-.has-aria-role-8892664 { 
+.warning-9927845 {
   @include important-styles(
     (
       border: 2px dashed var(--warning-border),
@@ -106,7 +42,25 @@
   );
 }
 
-.ordered-list-div-child {
+.warning-message-9927845 {
+  @include important-styles(
+    (
+      margin-bottom: 0,
+      margin-left: 1em,
+      padding: 1em,
+    ),
+    true
+  );
+  max-width: 15em;
+  @include messageContainer(
+    var(--warning-background),
+    var(--warning-border),
+    var(--warning-text)
+  );
+  @include flex-width-container;
+}
+
+.invalid-9927845 {
   @include important-styles(
     (
       border: 2px dashed var(--danger-border),
@@ -118,41 +72,19 @@
   );
 }
 
-.invalid-list-c34fac2 {
+.invalid-message-9927845 {
   @include important-styles(
     (
-      border: 2px dashed var(--danger-border),
+      border-width: 2px,
+      border-style: dashed,
       margin-bottom: 0,
       margin-left: 1em,
       padding: 1em,
     ),
     true
   );
-}
-
-.ordered-list-div-inside,
-.custom-role-ol-li {
-  @include important-styles(
-    (
-      border: 2px dashed var(--danger-border),
-      margin-bottom: 0,
-      margin-left: 1em,
-      padding: 1em,
-    ),
-    true
-  );
-}
-
-.ol--invalid-children-8892664 {
-  @include important-styles(
-    (
-      margin: 0,
-      margin-left: 1em,
-      padding: 1em,
-    ),
-    true
-  );
-  @include OrderedList(
+  max-width: 15em;
+  @include messageContainer(
     var(--danger-background),
     var(--danger-border),
     var(--danger-text)

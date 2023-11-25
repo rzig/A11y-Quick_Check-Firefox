@@ -1,19 +1,14 @@
 "use strict";
 
 function removeInjectedScreenReaderMessages(): void {
-  for (const element of document.querySelectorAll(".screen-reader-identifier, .how-many-srts, .screen-reader-text-message")) {
+  for (const element of document.querySelectorAll(".warning-9927845")) {
     element.classList.remove(
-      "screen-reader-identifier",
-      "how-many-srts",
-      "screen-reader-text-message"
+      "warning-9927845",
     );
   }
 
   removeInjectedDivs([
-    "screen-reader-identifier",
-    "how-many-srts",
-    "screen-reader-text-message",
-    "common-a11y-message-2edbc8ab"
+    "warning-message-9927845",
   ]);
 }
 

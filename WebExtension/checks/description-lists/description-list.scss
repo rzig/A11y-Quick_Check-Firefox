@@ -1,17 +1,6 @@
-@import '../common';
+@import "../common";
 
-@mixin description-list($backgroundColor, $borderColor, $textColor) {
-  @include important-styles((
-    font-size: 0.9em,
-    padding: 0.5em,
-    background-color: $backgroundColor,
-    color: $textColor,
-    border: 3px solid $borderColor,
-  ), true);
-}
-
-.dl-valid-html-9927845,
-.dl-valid-div-wrap-dt-dd-9927845 {
+.valid-9927845 {
   @include important-styles(
     (
       border: 2px dashed var(--pass-border),
@@ -22,9 +11,7 @@
   );
 }
 
-.html-dl-message-9927845,
-.dl-div-wrap-message-9927845,
-.div-wrap-message-9927845 {
+.valid-message-9927845 {
   @include important-styles(
     (
       border-width: 2px,
@@ -34,7 +21,7 @@
     ),
     true
   );
-  @include description-list(
+  @include messageContainer(
     var(--pass-background),
     var(--pass-border),
     var(--pass-text)
@@ -42,7 +29,7 @@
   @include flex-width-container;
 }
 
-.dl-single-dt-dd-9927845 {
+.warning-9927845 {
   @include important-styles(
     (
       border: 2px dashed var(--warning-border),
@@ -53,7 +40,7 @@
   );
 }
 
-.single-dt-dd-message-9927845 {
+.warning-message-9927845 {
   @include important-styles(
     (
       border-width: 2px,
@@ -63,7 +50,7 @@
     ),
     true
   );
-  @include description-list(
+  @include messageContainer(
     var(--warning-background),
     var(--warning-border),
     var(--warning-text)
@@ -71,12 +58,7 @@
   @include flex-width-container;
 }
 
-.dl-invalid-first-child-9927845,
-.dl-invalid-role-9927845,
-.dl-invalid-after-div-9927845,
-.dl-nested-9927845,
-.dl-invalid-childelement-9927845,
-.dl-invalid-dd-9927845,
+.invalid-9927845,
 [data-isNestedList] {
   @include important-styles(
     (
@@ -88,12 +70,7 @@
   );
 }
 
-.invalid-first-child-message-9927845,
-.after-div-message-9927845,
-.invalid-role-message-9927845,
-.nested-dl-message-9927845,
-.invalid-child-message-9927845,
-.invalid-dd-message-9927845 {
+.invalid-message-9927845 {
   @include important-styles(
     (
       border-width: 2px,
@@ -103,7 +80,7 @@
     ),
     true
   );
-  @include description-list(
+  @include messageContainer(
     var(--danger-background),
     var(--danger-border),
     var(--danger-text)

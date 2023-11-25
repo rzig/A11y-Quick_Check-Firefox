@@ -1,30 +1,23 @@
-@import '../common';
+@import "../common";
 
-@mixin headingGroup($backgroundColor, $borderColor, $textColor) {
+.neutral-9927845 {
   @include important-styles(
     (
-      background-color: $backgroundColor,
-      color: $textColor,
-      border: 3px solid $borderColor,
-      font-size: 0.9em,
+      border: 2px dashed var(--neutral-border),
       margin: 1em 0,
-      padding: 0.5em,
+      margin-bottom: 0,
     ),
     true
   );
 }
 
-.autocomplete-common-5575855 {
-  margin: 1em 0 !important;
-  border: 2px solid var(--warning-border) !important;
-}
-
-.autocomplete-common-message-5575855 {
+.neutral-message-9927845 {
   font-weight: bold;
-  @include headingGroup(
-    var(--warning-background),
-    var(--warning-border),
-    var(--warning-text)
+  margin: 0;
+  @include messageContainer(
+    var(--neutral-background),
+    var(--neutral-border),
+    var(--neutral-text)
   );
   @include flex-width-container;
 }

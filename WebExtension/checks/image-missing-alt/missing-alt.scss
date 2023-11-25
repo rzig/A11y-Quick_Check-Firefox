@@ -19,15 +19,7 @@
   );
 }
 
-.missing-alt-message-8892664 {
-  @include missingALT(
-    var(--danger-background),
-    var(--danger-border),
-    var(--danger-text)
-  );
-}
-
-.aria-hidden-ancestor-message-8892664 {
+.invalid-message-9927845 {
   @include missingALT(
     var(--danger-background),
     var(--danger-border),

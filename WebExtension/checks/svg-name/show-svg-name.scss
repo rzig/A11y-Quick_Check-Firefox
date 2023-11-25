@@ -1,5 +1,5 @@
-@import '../common';
-@import '../scss-partial-overflow-hidden-hack';
+@import "../common";
+@import "../scss-partial-overflow-hidden-hack";
 
 @mixin commonStyle($backgroundColor, $borderColor, $textColor) {
   background-color: $backgroundColor !important;
@@ -7,10 +7,7 @@
   border: 3px solid $borderColor !important;
 }
 
-.svg--hasName-882726654,
-.svg--hasAriaLabel-882726654,
-.svg--ancestorAccessibleName-882726654,
-.svg--hiddenAncestor-882726654 {
+.valid-message-9927845 {
   @include commonStyle(
     var(--pass-background),
     var(--pass-border),
@@ -18,15 +15,7 @@
   );
 }
 
-.svg--nodecorative-noname-882726654 {
-  @include commonStyle(
-    var(--danger-background),
-    var(--danger-border),
-    var(--danger-text)
-  );
-}
-
-.non-imgRole-8228965 {
+.warning-message-9927845 {
   @include commonStyle(
     var(--warning-background),
     var(--warning-border),
@@ -35,4 +24,12 @@
   font-weight: 700 !important;
   padding: 0.2em !important;
   max-width: 9em !important;
+}
+
+.invalid-message-9927845 {
+  @include commonStyle(
+    var(--danger-background),
+    var(--danger-border),
+    var(--danger-text)
+  );
 }
