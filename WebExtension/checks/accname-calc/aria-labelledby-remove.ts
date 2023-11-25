@@ -1,3 +1,6 @@
+// Immediately Invoked Function Expression (IIFE) to avoid polluting the global namespace
+(function () {
+
 "use strict";
 
 for (const element of document.querySelectorAll(".valid-9927845, .invalid-9927845, [data-elementnamedby-9927845], [data-namedfrom-9927845]")) {
@@ -20,3 +23,5 @@ const classLabelledByNames: string[] = [
 ];
 
 removeInjectedDivs(classLabelledByNames);
+
+})();
