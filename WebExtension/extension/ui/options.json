@@ -253,7 +253,7 @@
         },
         {
           "name": "Accessible names",
-          "helpSection": "Displays the name from aria-label and aria-labelledby, and the description from aria-describedby. Sets a number against the named element and the element providing the name or description. Checks for potential use of screen reader only content",
+          "helpSection": "Displays the name from aria-labelledby, aria-label, or the description from aria-describedby, and sets a number against the named element and the element providing the name or description. The \"Element named by method\" indicates the technique employed to assign the accessible name to an element, as determined by the accessible name calculation. Checks for potential use of screen reader only content",
           "items": [
             {
               "name": "Show Aria-Label",
@@ -278,6 +278,14 @@
               "css": "aria-describedby.css",
               "addScript": "aria-describedby.js",
               "removeScript": "aria-describedby-remove.js"
+            },
+            {
+              "name": "Element named by method",
+              "id": "elementNameFrom",
+              "resource_path": "checks/accname-calc",
+              "css": "element-name-from.css",
+              "addScript": "element-name-from.js",
+              "removeScript": "element-name-from-remove.js"
             },
             {
               "name": "Show Screen Reader Only Content",

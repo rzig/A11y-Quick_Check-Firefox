@@ -17,7 +17,7 @@
 }
 
 .aria-hgroup-message-58997365 {
-  font-weight: bold;
+  font-weight: 700;
   margin: 1em 0;
   @include messageContainer(
     var(--pass-background),
@@ -28,7 +28,7 @@
 }
 
 .missing-heading-message-58997365 {
-  font-weight: bold;
+  font-weight: 700;
   margin: 1em 0;
   @include messageContainer(
     var(--danger-background),

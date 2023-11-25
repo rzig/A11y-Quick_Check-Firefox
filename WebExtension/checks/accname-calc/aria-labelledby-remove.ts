@@ -13,10 +13,10 @@ for (const element of document.querySelectorAll(".valid-9927845, .invalid-992784
   }
 }
 
-const classNames: string[] = [
+const classLabelledByNames: string[] = [
   "valid-message-9927845",
   "invalid-message-9927845",
   "numbered-square-9927845",
 ];
 
-removeInjectedDivs(classNames);
+removeInjectedDivs(classLabelledByNames);

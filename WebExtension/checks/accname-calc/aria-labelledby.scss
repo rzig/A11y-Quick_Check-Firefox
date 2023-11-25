@@ -23,7 +23,7 @@
 }
 
 .valid-message-9927845 {
-  font-weight: bold;
+  font-weight: 700;
   margin: 0;
   @include messageContainer(
     var(--pass-background),
@@ -34,7 +34,7 @@
 }
 
 .invalid-message-9927845 {
-  font-weight: bold;
+  font-weight: 700;
   margin: 0;
   @include messageContainer(
     var(--danger-background),
