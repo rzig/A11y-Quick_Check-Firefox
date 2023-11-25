@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accessible Name Test</title>
+    <style>
+        .accessible-name-message {
+            margin-top: 10px;
+            font-size: 14px;
+            color: blue;
+            border: 1px solid #ddd;
+            padding: 5px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Accessible Name Test Page</h1>
+
+    <div id="label1">Label 1</div>
+    <div id="label2">Label 2</div>
+
+    <input type="text" aria-labelledby="label1 label2" placeholder="Input with aria-labelledby">
+    <button aria-label="Custom Button">Button with aria-label</button>
+    <input type="text" title="Input Title" placeholder="Input with title">
+    <button>Button with text content</button>
+
+</body>
+</html>

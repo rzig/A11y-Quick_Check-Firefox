@@ -1,0 +1,48 @@
+@import "../common";
+
+
+.neutral-9927845 {
+  @include font-styling;
+  @include important-styles(
+    (
+      border: 2px dashed var(--neutral-border),
+      margin: 1em 0,
+      margin-bottom: 0,
+    ),
+    true
+  );
+}
+
+.neutral-message-9927845 {
+  @include font-styling;
+  @include messageContainer(
+    var(--neutral-background),
+    var(--neutral-border),
+    var(--neutral-text)
+  );
+  @include flex-width-container;
+  font-weight: 700;
+  margin: 0;
+}
+
+.from-content-class-9927845 {
+  @include font-styling;
+  &::before {
+    content: "Name from Content";
+    display: block;
+    margin-bottom: 5px;
+    color: var(--warning-border);
+    font-weight: bold;
+  }
+}
+
+.from-author-class-9927845 {
+  @include font-styling;
+  &::before {
+    content: "Name from Author";
+    display: block;
+    margin-bottom: 5px;
+    color: var(--pass-border);
+    font-weight: bold;
+  }
+}

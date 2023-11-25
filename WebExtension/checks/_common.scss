@@ -16,6 +16,11 @@
   --neutral-text: #07011c;
 }
 
+@mixin font-styling {
+  font-family: Aptos, Bierstadt, "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  line-height: 1.5;
+}
+
 [data-a11y-wrapper-2edbc8ab],
 [data-before-div-9f2dc5ea] {
   font-family: Aptos, Bierstadt, "Segoe UI", -apple-system, BlinkMacSystemFont,
