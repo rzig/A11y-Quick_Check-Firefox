@@ -1,49 +1,63 @@
-@import '../common';
+@import "../common";
 
-@mixin description-list($backgroundColor, $borderColor, $textColor) {
-    @include important-styles((
-      font-size: 0.9em,
-      padding: 0.5em,
-      background-color: $backgroundColor,
-      color: $textColor,
-      border: 3px solid $borderColor,
-    ), true);
-  }
-  
-  .message-aria-labelledby-valid-889756 {
-    @include important-styles(
-      (
-        border-width: 2px,
-        border-style: dashed,
-        font-weight:700,
-        margin-left: 1em,
-        padding: 1em,
-      ),
-      true
-    );
-    @include description-list(
-      var(--pass-background),
-      var(--pass-border),
-      var(--pass-text)
-    );
-    @include flex-width-container;
-  }
+.valid-9927845 {
+  @include important-styles(
+    (
+      border: 2px dashed var(--pass-border),
+      margin: 1em 0,
+      margin-bottom: 0,
+    ),
+    true
+  );
+}
 
-  .message-aria-labelledby-invalid-889756 {
-    @include important-styles(
-      (
-        border-width: 2px,
-        border-style: dashed,
-        font-weight:700,
-        margin-left: 1em,
-        padding: 1em,
-      ),
-      true
-    );
-    @include description-list(
-      var(--danger-background),
-      var(--danger-border),
-      var(--danger-text)
-    );
-    @include flex-width-container;
-  }
+.invalid-9927845 {
+  @include important-styles(
+    (
+      border: 2px dashed var(--danger-border),
+      margin: 1em 0,
+      margin-bottom: 0,
+    ),
+    true
+  );
+}
+
+.valid-message-9927845 {
+  font-weight: bold;
+  margin: 0;
+  @include messageContainer(
+    var(--pass-background),
+    var(--pass-border),
+    var(--pass-text)
+  );
+  @include flex-width-container;
+}
+
+.invalid-message-9927845 {
+  font-weight: bold;
+  margin: 0;
+  @include messageContainer(
+    var(--danger-background),
+    var(--danger-border),
+    var(--danger-text)
+  );
+  @include flex-width-container;
+}
+
+.numbered-square-9927845 {
+  @include important-styles(
+    (
+      display: inline-block,
+      width: 20px,
+      height: 20px,
+      text-align: center,
+      font-weight:700,
+      background-color: var(--neutral-text),
+      color: var(--extension-white),
+      border: 1px solid var(--neutral-border),
+      border-radius: 1em,
+      margin-left: .5em,
+    ),
+    true
+  );
+}

@@ -29,10 +29,10 @@ function checkOrderedLists(): void {
       if (hasValidLiRole) {
         const firstLiElement = liElements.item(0);
         if (firstLiElement !== null) {
-          olElement.classList.add("custom-role-ol-li");
+          olElement.classList.add("warning-9927845");
           const liRole = firstLiElement.getAttribute("role");
           const message = `Warning: UL has a Role of ${customRole} and the LI elements have the ${liRole} Role. Make sure that the code structure is valid according to the Specifications.`;
-          createChildMessageDiv(olElement, "custom-role-valid-li-message", message);
+          createChildMessageDiv(olElement, "warning-message-9927845", message);
         }
         continue;
       }           
@@ -41,27 +41,27 @@ function checkOrderedLists(): void {
     // Check for first child of UL being DIV
     const firstChild = olElement.firstElementChild;
     if (firstChild && firstChild.nodeName === "DIV") {
-      olElement.classList.add("ordered-list-div-child");
-      const message = "Fail: The first child of OL must be a Li, Script or Template tag. The first child of OL is DIV.";
-      createChildMessageDiv(olElement, "div-child-message", message);
+      olElement.classList.add("invalid-9927845");
+      const message = "Invalid: The first child of OL must be a Li, Script or Template tag. The first child of OL is DIV.";
+      createChildMessageDiv(olElement, "invalid-message-9927845", message);
       continue;
     }
 
     // Check for any DIV element as a direct child of OL
     const hasDivChild = olElement.querySelector(":scope > div");
     if (hasDivChild) {
-      olElement.classList.add("ordered-list-div-inside");
-      const message = "Fail: The DIV element cannot be a child of OL.";
-      createChildMessageDiv(olElement, "div-inside-message", message);
+      olElement.classList.add("invalid-9927845");
+      const message = "Invalid: The DIV element cannot be a child of OL.";
+      createChildMessageDiv(olElement, "invalid-message-9927845", message);
       continue;
     }
 
     // Check for HTML ordered list markup
     const hasHtmlOl = olElement.nodeName === "OL" && !olElement.hasAttribute("role");
     if (hasHtmlOl) {
-      olElement.classList.add("valid-html-ordered-list");
-      const message = "This Ordered List uses valid (HTML)";
-      createChildMessageDiv(olElement, "html-ol-message", message);
+      olElement.classList.add("valid-9927845");
+      const message = "Valid: Ordered List uses valid (HTML)";
+      createChildMessageDiv(olElement, "valid-message-9927845", message);
     }
   }
 }
@@ -87,15 +87,15 @@ function checkOlListParentRole(): void {
       }
 
       if (!hasValidLiRole) {
-        const invalidParentClass = "ol--invalid-children-8892664";
-        const invalidListClass = "invalid-list-c34fac2";
+        const invalidParentClass = "invalid-message-9927845";
+        const invalidListClass = "invalid-9927845";
 
         // Add class and message only once per ol
         if (!parentElement.classList.contains(invalidParentClass)) {
           parentElement.classList.add(invalidListClass);
           const capitalizedRole = parentRole ? parentRole.charAt(0).toUpperCase() + parentRole.slice(1) : null;
           const capitalizedTag = parentElement.tagName.charAt(0).toUpperCase() + parentElement.tagName.slice(1);
-          const message = `Fail: This list is missing a parent of UL or OL. The list has a parent with a Role of ${capitalizedRole || capitalizedTag}`;
+          const message = `Invalid: This list is missing a parent of UL or OL. The list has a parent with a Role of ${capitalizedRole || capitalizedTag}`;
           createChildMessageDiv(parentElement, invalidParentClass, message);
         }
       }
@@ -117,7 +117,7 @@ function checkForOlAriaRoles(): void {
       implicitHtmlRole = 'listitem';
     }
 
-    element.classList.add(`has-aria-role-8892664`);
+    element.classList.add(`warning-9927845`);
     let message = `<${tagName}> has ARIA Role ${ariaRole}`;
 
     if (ariaRole === implicitHtmlRole) {
@@ -126,7 +126,7 @@ function checkForOlAriaRoles(): void {
       message += '. Check if the ARIA role is needed as the HTML is fully supported.';
     }
 
-    createChildMessageDiv(element, `aria-role-message-8892664`, message);
+    createChildMessageDiv(element, `warning-message-9927845s`, message);
   }
 }
 

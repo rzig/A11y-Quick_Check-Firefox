@@ -4,13 +4,9 @@ function checkDivChild(child: Element, dlElement: Element): boolean {
   const hasDt = !!child.querySelector("dt");
   const hasDd = !!child.querySelector("dd");
   if (!(hasDt && hasDd)) {
-    dlElement.classList.add("dl-invalid-child-9927845");
-    const message = `Fail: Invalid DIV without DT and DD detected inside DL.`;
-    createChildMessageDiv(
-      dlElement,
-      "invalid-child-message-9927845",
-      message,
-    );
+    dlElement.classList.add("invalid-9927845");
+    const message = `Invalid: DIV without DT and DD detected inside DL.`;
+    createChildMessageDiv(dlElement, "invalid-message-9927845", message);
     return true;
   }
   return false;
@@ -18,13 +14,9 @@ function checkDivChild(child: Element, dlElement: Element): boolean {
 
 function checkOtherChild(child: Element, dlElement: Element): boolean {
   if (!["DT", "DD", "SCRIPT", "TEMPLATE"].includes(child.nodeName)) {
-    dlElement.classList.add("dl-invalid-childelement-9927845");
-    const message = `Fail: Invalid child ${child.nodeName} detected inside DL.`;
-    createChildMessageDiv(
-      dlElement,
-      "invalid-child-message-9927845",
-      message,
-    );
+    dlElement.classList.add("invalid-9927845");
+    const message = `Invalid: Child ${child.nodeName} detected inside DL.`;
+    createChildMessageDiv(dlElement, "invalid-message-9927845", message);
     return true;
   }
   return false;
@@ -43,31 +35,26 @@ function checkChildStructure(child: Element, dlElement: Element): boolean {
 function checkDLStructure(dlElement: Element): boolean {
   let failureDetected = false;
   let lastChildWasDt = false;
-  let divEncountered = false;  // <-- Introduced this flag
+  let divEncountered = false;
 
   for (const child of Array.from(dlElement.children)) {
     if (child.nodeName === "DD" && !lastChildWasDt) {
-      dlElement.classList.add("dl-invalid-dd-9927845");
-      const message = `Fail: DD without preceding DT detected inside DL.`;
-      createChildMessageDiv(
-        dlElement,
-        "invalid-dd-message-9927845",
-        message,
-      );
+      dlElement.classList.add("invalid-9927845");
+      const message = `Invalid: DD without preceding DT detected inside DL.`;
+      createChildMessageDiv(dlElement, "invalid-message-9927845", message);
       failureDetected = true;
       break;
     }
 
     if (child.nodeName === "DIV") {
       divEncountered = true;
-    } else if (divEncountered && (child.nodeName === "DT" || child.nodeName === "DD")) {
-      dlElement.classList.add("dl-invalid-after-div-9927845");
-      const message = `Fail: Invalid DT or DD directly after a </div> inside DL.`;
-      createChildMessageDiv(
-        dlElement,
-        "after-div-message-9927845",
-        message,
-      );
+    } else if (
+      divEncountered &&
+      (child.nodeName === "DT" || child.nodeName === "DD")
+    ) {
+      dlElement.classList.add("invalid-9927845");
+      const message = `Invalid: DT or DD directly after a </div> inside DL.`;
+      createChildMessageDiv(dlElement, "invalid-message-9927845", message);
       failureDetected = true;
       break;
     }
@@ -87,25 +74,36 @@ function checkDescriptionLists(): void {
   for (const dlElement of dlElements) {
     // Check for nested DL elements
     if (dlElement.parentElement && dlElement.parentElement.nodeName === "DL") {
-      dlElement.classList.add("dl-nested-9927845");
-      const message = "Fail: Nested DL detected.";
-      createChildMessageDiv(dlElement, "nested-dl-message-9927845", message);
+      dlElement.classList.add("warning-9927845");
+      const message = "Warning: Nested DL detected.";
+      createChildMessageDiv(dlElement, "warning-message-9927845", message);
       continue;
     }
 
     const children = Array.from(dlElement.children);
-    const divWrappedPairs = children.filter(child => child.nodeName === "DIV" && !!child.querySelector("dt") && !!child.querySelector("dd"));
-    const standaloneDts = children.filter(child => child.nodeName === "DT");
-    const standaloneDds = children.filter(child => child.nodeName === "DD");
+    const divWrappedPairs = children.filter(
+      (child) =>
+        child.nodeName === "DIV" &&
+        !!child.querySelector("dt") &&
+        !!child.querySelector("dd")
+    );
+    const standaloneDts = children.filter((child) => child.nodeName === "DT");
+    const standaloneDds = children.filter((child) => child.nodeName === "DD");
 
-    if (divWrappedPairs.length === (standaloneDts.length + standaloneDds.length) / 2) {
-      dlElement.classList.add("dl-valid-div-wrap-dt-dd-9927845");
-      const message = "DIV wrapping all DT and DD in DL is valid.";
-      createChildMessageDiv(dlElement, "dl-div-wrap-message-9927845", message);
-    } else if (divWrappedPairs.length > 0 && (standaloneDts.length > 0 || standaloneDds.length > 0)) {
-      dlElement.classList.add("dl-invalid-after-div-9927845");
-      const message = "Fail: DT or DD cannot be after a DIV in a DL";
-      createChildMessageDiv(dlElement, "after-div-message-9927845", message);
+    if (
+      divWrappedPairs.length ===
+      (standaloneDts.length + standaloneDds.length) / 2
+    ) {
+      dlElement.classList.add("valid-9927845");
+      const message = "Valid: DIV wrapping all DT and DD in DL.";
+      createChildMessageDiv(dlElement, "valid-message-9927845", message);
+    } else if (
+      divWrappedPairs.length > 0 &&
+      (standaloneDts.length > 0 || standaloneDds.length > 0)
+    ) {
+      dlElement.classList.add("invalid-9927845");
+      const message = "Invalid: DT or DD cannot be after a DIV in a DL";
+      createChildMessageDiv(dlElement, "invalid-message-9927845", message);
       continue;
     }
 
@@ -116,36 +114,29 @@ function checkDescriptionLists(): void {
     const dtCount = dlElement.querySelectorAll("dt").length;
     const ddCount = dlElement.querySelectorAll("dd").length;
     if (dtCount === 1 && ddCount === 1) {
-      dlElement.classList.add("dl-single-dt-dd-9927845");
+      dlElement.classList.add("warning-9927845");
       const message = "Warning: This DL contains a single key-value pair";
-      createChildMessageDiv(
-        dlElement,
-        "single-dt-dd-message-9927845",
-        message,
-      );
+      createChildMessageDiv(dlElement, "warning-message-9927845", message);
     }
 
     // Check for valid HTML Description List
-    const hasHtmlDl = dlElement.nodeName === "DL" && !dlElement.hasAttribute("role");
+    const hasHtmlDl =
+      dlElement.nodeName === "DL" && !dlElement.hasAttribute("role");
     if (hasHtmlDl) {
-      dlElement.classList.add("dl-valid-html-9927845");
-      const message = "Description List uses valid (HTML)";
-      createChildMessageDiv(dlElement, "html-dl-message-9927845", message);
+      dlElement.classList.add("valid-9927845");
+      const message = "Valid: Description List uses valid (HTML)";
+      createChildMessageDiv(dlElement, "valid-message-9927845", message);
     }
 
     // Check if the DL element, being a parent, has an invalid role
     const role = dlElement.getAttribute("role");
     if (role && role !== "descriptionlist") {
-      dlElement.classList.add("dl-invalid-role-9927845");
+      dlElement.classList.add("invalid-9927845");
       const capitalizedRole = role
         ? role.charAt(0).toUpperCase() + role.slice(1)
         : null;
-      const message = `Fail: This DL has an invalid role of ${capitalizedRole}`;
-      createChildMessageDiv(
-        dlElement,
-        "invalid-role-message-9927845",
-        message,
-      );
+      const message = `Invalid: DL has an invalid role of ${capitalizedRole}`;
+      createChildMessageDiv(dlElement, "invalid-message-9927845", message);
     }
   }
 }

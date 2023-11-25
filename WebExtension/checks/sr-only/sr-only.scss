@@ -1,11 +1,11 @@
 @import '../common';
 
-.screen-reader-detected {
+.warning-9927845 {
   margin: 1em 0 !important;
   border: 2px solid var(--warning-border) !important;
 }
 
-.sr-only-message-identifier {
+.warning-message-9927845 {
   font-weight: bold;
   @include important-styles(
     (

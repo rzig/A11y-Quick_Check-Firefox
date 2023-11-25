@@ -1,27 +1,17 @@
 "use strict";
 
 for (const element of document.querySelectorAll(
-  ".ordered-list-c34fac2, .invalid-list-c34fac2, .valid-html-ordered-list, .ordered-list-div-child, .ordered-list-div-inside, .html-ol-message, .custom-role-ol-li, .ordered-list-aria, .has-aria-role-8892664"
+  ".valid-9927845, .warning-9927845, .invalid-9927845",
 )) {
   element.classList.remove(
-    "ordered-list-c34fac2",
-    "invalid-list-c34fac2",
-    "valid-html-ordered-list",
-    "ordered-list-div-child",
-    "ordered-list-div-inside",
-    "html-ol-message",
-    "custom-role-ol-li",
-    "ordered-list-aria",
-    "has-aria-role-8892664"
+    "valid-9927845",
+    "warning-9927845",
+    "invalid-9927845",
   );
 }
 
 removeInjectedDivs([
-  "ordered-list-div-child",
-  "ol--invalid-children-8892664",
-  "invalid-list-c34fac2",
-  "common-a11y-message-2edbc8ab",
-  "custom-role-valid-li-message",
-  "aria-role-message-8892664"
-  
+  "valid-message-9927845",
+  "warning-message-9927845",
+  "invalid-message-9927845",
 ]);

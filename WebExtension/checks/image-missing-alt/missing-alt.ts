@@ -5,8 +5,8 @@ function showMissingAltAttributes(): void {
   const imgElements: NodeListOf<HTMLImageElement> = document.querySelectorAll("img");
 
   // Define class names to associate with the messages
-  const missingAltMessageClass: string = "missing-alt-message-8892664";
-  const ariaHiddenAncestorMessageClass: string = "aria-hidden-ancestor-message-8892664";
+  const missingAltMessageClass: string = "invalid-message-9927845";
+  const ariaHiddenAncestorMessageClass: string = "invalid-message-9927845";
 
   // Loop through each 'img' element and get the current 'img' element
   for (const imgElement of imgElements) {

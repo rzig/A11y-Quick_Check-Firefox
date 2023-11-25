@@ -2,7 +2,7 @@
 
 function checkScreenReaderText() {
   const allElements = document.querySelectorAll("body *");
-  const srOnlyMessageClass = "sr-only-message-identifier";
+  const srOnlyMessageClass = "warning-message-9927845";
 
   for (const element of allElements) {
     // Check if the element's text content is not null and not empty or whitespace
@@ -13,7 +13,7 @@ function checkScreenReaderText() {
 
         const message = `Possible Screen Reader Only Text Detected: ${element.textContent}`;
         createChildMessageDiv(element, srOnlyMessageClass, message);
-        element.classList.add("screen-reader-detected");
+        element.classList.add("warning-9927845");
       }
     }
   }

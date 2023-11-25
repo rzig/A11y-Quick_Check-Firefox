@@ -2,8 +2,8 @@
 
 function checkSvgDecorative() {
     const svgElements = document.querySelectorAll("svg");
-    const decorativeSvgClass = "svg--decorative-8892664";
-    const decorativeSvgWithNameClass = "svg--decorative-with-name-8892664";
+    const decorativeSvgClass = "neutral-message-9927845";
+    const decorativeSvgWithNameClass = "neutral-message-9927845";
 
     for (const svgElement of svgElements) {
         const ariaHidden = svgElement.getAttribute("aria-hidden");

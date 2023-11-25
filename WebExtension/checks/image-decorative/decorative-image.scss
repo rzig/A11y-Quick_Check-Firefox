@@ -1,16 +1,13 @@
 @import '../common';
 @import '../scss-partial-overflow-hidden-hack';
 
-.aria-hidden-message-8892664,
-.presentation-role-message-8892664,
-.redundant-role-message-8892664,
-.decorative-message-8892664 {
+@mixin messageContainerDefaults($backgroundColor, $borderColor, $textColor) {
   @include important-styles(
     (
-      background-color: var(--neutral-background),
-      border: 2px solid var(--neutral-border),
+      background-color: $backgroundColor,
+      color: $textColor,
+      border: 3px solid $borderColor,
       bottom: 0.5em,
-      color: var(--neutral-text),
       font-size: 1rem,
       left: 0.5em,
       line-height: 1.5,
@@ -19,5 +16,13 @@
       z-index: 10000,
     ),
     true
+  );
+}
+
+.neutral-message-9927845 {
+  @include messageContainerDefaults(
+    var(--neutral-background),
+    var(--neutral-border),
+    var(--neutral-text)
   );
 }

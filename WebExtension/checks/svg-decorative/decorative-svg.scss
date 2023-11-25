@@ -18,10 +18,7 @@
   );
 }
 
-.svg--decorative-8892664,
-.svg--decorative-with-name-8892664,
-.svg--hiddenAncestor-882726654,
-.svg--decorativeAncestor-882726654 {
+.neutral-message-9927845 {
   @include decorativeSVG(
     var(--neutral-background),
     var(--neutral-border),
@@ -29,15 +26,7 @@
   );
 }
 
-.svg--nodecorative-noname-8892664 {
-  @include decorativeSVG(
-    var(--danger-background),
-    var(--danger-border),
-    var(--danger-text)
-  );
-}
-
-.non-imgRole-8228965 {
+.warning-9927845 {
   @include important-styles(
     (
       border: 3px dashed var(--warning-border),
@@ -47,5 +36,13 @@
       max-width: 9em,
     ),
     true
+  );
+}
+
+.invalid-message-9927845 {
+  @include decorativeSVG(
+    var(--danger-background),
+    var(--danger-border),
+    var(--danger-text)
   );
 }

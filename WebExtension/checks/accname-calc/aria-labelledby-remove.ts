@@ -1,14 +1,22 @@
 "use strict";
 
-// for (const element of document.querySelectorAll(
-//   ".message-aria-labelledby-889756",
-// )) {
-//   element.classList.remove(
-//     "message-aria-labelledby-889756"
-//   );
-// }
+for (const element of document.querySelectorAll(".valid-9927845, .invalid-9927845, [data-elementnamedby-9927845], [data-namedfrom-9927845]")) {
+  console.log("Found element:", element);
 
-removeInjectedDivs([
-  "message-aria-labelledby-valid-889756",
-  "message-aria-labelledby-invalid-889756"
-]);
+  element.classList.remove("valid-9927845", "invalid-9927845");
+
+  if (element.hasAttribute("data-elementnamedby-9927845")) {
+      element.removeAttribute("data-elementnamedby-9927845");
+  }
+  if (element.hasAttribute("data-namedfrom-9927845")) {
+      element.removeAttribute("data-namedfrom-9927845");
+  }
+}
+
+const classNames: string[] = [
+  "valid-message-9927845",
+  "invalid-message-9927845",
+  "numbered-square-9927845",
+];
+
+removeInjectedDivs(classNames);

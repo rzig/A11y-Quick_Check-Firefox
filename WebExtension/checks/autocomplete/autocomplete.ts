@@ -14,12 +14,12 @@ function addAutocompleteMessages(): void {
 
     const autocompleteMessage: string = `Check that the value autocomplete="${autocompleteValue}" matches the required input`;
     const autocompleteMessageClass: string = `autocomplete-${autocompleteValue.replace(/ /g, '-')}-message-5575855`;
-    const commonAutocompleteClass: string = 'autocomplete-common-5575855';
-    const commonAutocompleteMessageClass: string = 'autocomplete-common-message-5575855';
+    const commonAutocompleteClass: string = 'neutral-9927845';
+    const commonAutocompleteMessageClass: string = 'neutral-message-9927845';
 
     element.classList.add(autocompleteMessageClass, commonAutocompleteClass); // Add both classes
-    // You might need to adjust this call according to how you're adding messages
-    addMessageToPrecedingDiv(element, commonAutocompleteMessageClass, autocompleteMessage); // Use imported function
+    // addMessageToPrecedingDiv(element, commonAutocompleteMessageClass, autocompleteMessage);
+    createChildMessageDiv(element, commonAutocompleteMessageClass, autocompleteMessage);
   }
 
   for (const element of elementsWithAriaAutocomplete as any) {
@@ -28,8 +28,8 @@ function addAutocompleteMessages(): void {
 
     const ariaAutocompleteMessage: string = `Check that the value aria-autocomplete="${ariaAutocompleteValue}" matches the required input.`;
     const ariaAutocompleteMessageClass: string = `aria-autocomplete-${ariaAutocompleteValue.replace(/ /g, '-')}-message-5575855`;
-    const commonAriaAutocompleteClass: string = 'autocomplete-common-5575855';
-    const commonAriaAutocompleteMessageClass: string = 'autocomplete-common-message-5575855';
+    const commonAriaAutocompleteClass: string = 'neutral-9927845';
+    const commonAriaAutocompleteMessageClass: string = 'neutral-message-9927845';
 
     element.classList.add(ariaAutocompleteMessageClass, commonAriaAutocompleteClass); // Add both classes
     // You might need to adjust this call according to how you're adding messages

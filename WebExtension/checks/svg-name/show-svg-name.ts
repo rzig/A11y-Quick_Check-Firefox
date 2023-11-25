@@ -5,11 +5,11 @@ function checkSvgAccessibleNames() {
   const svgElements = document.querySelectorAll("svg");
 
   // Define the CSS classes used to categorize SVG elements
-  const showSvgTextClass = "svg--hasName-882726654";
-  const notNamedDecorativeClass = "svg--nodecorative-noname-882726654";
-  const imgRoleWithLabelClass = "svg--roleimg-withlabel-882726654";
-  const hasAncestorWithAccessibleNameClass = "svg--ancestorAccessibleName-882726654";
-  const hiddenAncestorClass = "svg--hiddenAncestor-882726654";
+  const showSvgTextClass = "valid-message-9927845";
+  const notNamedDecorativeClass = "invalid-message-9927845";
+  const imgRoleWithLabelClass = "warning-message-9927845";
+  const hasAncestorWithAccessibleNameClass = "valid-message-9927845";
+  const hiddenAncestorClass = "valid-message-9927845";
 
   // Iterate through each SVG element
   for (const svgElement of svgElements) {
@@ -44,7 +44,7 @@ function checkSvgAccessibleNames() {
       hiddenElement !== "true"
     ) {
       const message =
-        "This SVG is following best practices for a meaningful SVG. The accName is: " +
+        "SVG is following best practices for a meaningful SVG. The accName is: " +
         svgText;
       createChildMessageDiv(svgElement, showSvgTextClass, message);
     }
@@ -54,7 +54,7 @@ function checkSvgAccessibleNames() {
       (role !== "img" || accessibleNameMissing)
     ) {
       const message =
-        "Warning: This SVG element is missing 'aria-hidden' or 'role img', and or an accessible name.";
+        "Warning: SVG element is missing 'aria-hidden' or 'role img', and or an accessible name.";
       createChildMessageDiv(svgElement, notNamedDecorativeClass, message);
     }
 

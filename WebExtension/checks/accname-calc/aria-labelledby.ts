@@ -1,83 +1,120 @@
-(function() {
-    "use strict";
+// Immediately Invoked Function Expression (IIFE) to avoid polluting the global namespace
+(function () {
+  "use strict";
 
-    const prohibitedRoles = ['caption', 'code', 'deletion', 'emphasis', 'generic', 'insertion', 'paragraph', 'presentation', 'strong', 'subscript', 'superscript'];
+  // Global counter for data attribute numbering
+  let ariaLabelCounter = 1;
 
-    function ariaLbNameCheck() {
-        let allNodes = document.querySelectorAll('[aria-labelledby]');
-        processNodes(allNodes);
-    }
+  const prohibitedRoles = [
+    "caption",
+    "code",
+    "deletion",
+    "emphasis",
+    "generic",
+    "insertion",
+    "paragraph",
+    "presentation",
+    "strong",
+    "subscript",
+    "superscript",
+  ];
 
-    function processNodes(nodes: NodeListOf<Element>) {
-        for (const currentNode of nodes) {
-            const ariaLabelledBy = currentNode.getAttribute('aria-labelledby');
-            if (ariaLabelledBy) {
-                const labelledByIds = ariaLabelledBy.split(' ');
-                let computedName = '';
+  function ariaLbNameCheck() {
+    let allNodes = document.querySelectorAll("[aria-labelledby]");
+    processNodes(allNodes);
+  }
 
-                for (const id of labelledByIds) {
-                    const labelledByElement = document.getElementById(id);
-                    if (labelledByElement) {
-                        computedName += labelledByElement.textContent + ' ';
-                    }
-                }
+  function processNodes(nodes: NodeListOf<Element>) {
+    for (const currentNode of nodes) {
+      const ariaLabelledBy = currentNode.getAttribute("aria-labelledby");
+      if (ariaLabelledBy) {
+        const labelledByIds = ariaLabelledBy.split(" ");
+        let computedName = "";
 
-                const elementType = currentNode.nodeName.toUpperCase();
-                let currentRole = currentNode.getAttribute('role') || inferRoleFromElement(elementType);
+        for (const id of labelledByIds) {
+          const labelledByElement = document.getElementById(id);
+          if (labelledByElement) {
+            computedName += labelledByElement.textContent + " ";
 
-                let messageClassName = '';
-                let message;
+            let labelCounterString = String(ariaLabelCounter).padStart(5, '0');
+            labelledByElement.setAttribute('data-elementnamedby-9927845', labelCounterString);
+            currentNode.setAttribute('data-namedfrom-9927845', labelCounterString);
 
-                if (elementType === 'DIV' && !currentRole) {
-                    // <div> without a role is considered invalid
-                    messageClassName = `message-aria-labelledby-invalid-889756`;
-                    message = `aria-labelledby is not valid on <${elementType}> without a valid Role.`;
-                } else {
-                    const isInherentlyInvalid = prohibitedRoles.includes(currentRole.toLowerCase());
+            // Add numbered square next to the labelledByElement and currentNode
+            addNumberedRelationship(labelledByElement, ariaLabelCounter);
+            addNumberedRelationship(currentNode, ariaLabelCounter);
 
-                    if (!isInherentlyInvalid) {
-                        if (computedName) {
-                            computedName = computedName.trim();
-                            messageClassName = `message-aria-labelledby-valid-889756`;
-                            message = `Valid: The calculated name for <${elementType}> is \"${computedName}\".`;
-                        }
-                    } else {
-                        messageClassName = `message-aria-labelledby-invalid-889756`;
-                        message = `aria-labelledby is not valid on <${elementType}> with a role of ${currentRole.toUpperCase()}.`;
-                    }
-                }
+            ariaLabelCounter++;
+          }
+        }
 
-                if (message) {
-                    addMessageToPrecedingDiv(currentNode, messageClassName, message);
-                }
+        const elementType = currentNode.nodeName.toUpperCase();
+        let currentRole = currentNode.getAttribute("role") || inferRoleFromElement(elementType);
+        let messageClassName = '';
+        let message;
+        let isValid = true;
+
+        if (elementType === "DIV" && !currentRole) {
+          messageClassName = 'invalid-message-9927845';
+          message = `Invalid: aria-labelledby is not valid on <${elementType}> without a valid Role.`;
+          isValid = false;
+        } else {
+          const isInherentlyInvalid = prohibitedRoles.includes(currentRole.toLowerCase());
+          if (!isInherentlyInvalid) {
+            if (computedName) {
+              computedName = computedName.trim();
+              messageClassName = 'valid-message-9927845';
+              message = `Valid: The name for <${elementType}> is \"${computedName}\".`;
+              isValid = true;
             }
+          } else {
+            messageClassName = 'invalid-message-9927845';
+            message = `Invalid: aria-labelledby is not valid on <${elementType}> with a role of ${currentRole.toUpperCase()}.`;
+            isValid = false;
+          }
         }
-    }
 
-    function inferRoleFromElement(elementType: string): string {
-        switch (elementType) {
-            case 'DEL':
-                return 'deletion';
-            case 'EM':
-            case 'I': // Typically treated as emphasis
-                return 'emphasis';
-            case 'STRONG':
-            case 'B': // Typically treated as strong
-                return 'strong';
-            case 'INS':
-                return 'insertion';
-            case 'P':
-                return 'paragraph';
-            case 'CODE':
-                return 'code';
-            case 'SUP':
-                return 'superscript';
-            case 'SUB':
-                return 'subscript';
-            default:
-                return '';
+        currentNode.classList.add(isValid ? "valid-9927845" : "invalid-9927845");
+
+        if (message) {
+          addMessageToPrecedingDiv(currentNode, messageClassName, message);
         }
+      }
     }
+  }
 
-    ariaLbNameCheck();
+  function inferRoleFromElement(elementType: string): string {
+    switch (elementType) {
+      case "DEL":
+        return "deletion";
+      case "EM":
+      case "I":
+        return "emphasis";
+      case "STRONG":
+      case "B":
+        return "strong";
+      case "INS":
+        return "insertion";
+      case "P":
+        return "paragraph";
+      case "CODE":
+        return "code";
+      case "SUP":
+        return "superscript";
+      case "SUB":
+        return "subscript";
+      default:
+        return "";
+    }
+  }
+
+  // Define the function to add a numbered square next to an element
+  function addNumberedRelationship(element: Element, number: number) {
+    let square = document.createElement('div');
+    square.textContent = number.toString();
+    square.classList.add('numbered-square-9927845');
+    element.insertAdjacentElement('afterend', square);
+  }
+
+  ariaLbNameCheck();
 })();
