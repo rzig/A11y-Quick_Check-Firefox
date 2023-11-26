@@ -1,6 +1,6 @@
 @import '../common';
 
-.missingRoleGroupName-5599775 {
+.missing-role-group-name-5599775 {
   @include important-styles((border: 4px ridge var(--warning-border),
       font-weight: 700,
       padding: 0.5em,
@@ -9,7 +9,7 @@
   @include warning-styles;
 }
 
-.missingRoleRadioGroupName-559977 {
+.missing-role-radio-group-name-5599775 {
   @include important-styles((border: 4px ridge var(--danger-border),
       font-weight: 700,
       padding: 0.5em,
@@ -103,10 +103,10 @@
     true);
 }
 
-.labelledByName-5599775,
-.labelledByRadioGroupName-5599775,
-.ariaLabelRadioGroupName-5599775,
-.ariaLabelName-5599775 {
+.labelled-by-name-5599775,
+.labelled-by-radio-group-name-5599775,
+.aria-label-radio-group-name-5599775,
+.aria-label-name-5599775 {
   @include important-styles((border: 3px ridge var(--pass-checks),
       font-weight: 700,
       padding: 0.5em,

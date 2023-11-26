@@ -1,19 +1,15 @@
-/* Set line height to at least 1.5 times the font size */
 [data-textspacing-7783664] {
+  /* Set line height to at least 1.5 times the font size */
   line-height: 1.5 !important;
-}
 
-/* Set spacing following paragraphs to at least 2 times the font size */
-[data-textspacing-7783664] p {
-  margin-bottom: 2em !important;
-}
-
-/* Set letter spacing (tracking) to at least 0.12 times the font size */
-[data-textspacing-7783664] {
+  /* Set letter spacing (tracking) to at least 0.12 times the font size */
   letter-spacing: 0.12em !important;
+
+  /* Set word spacing to at least 0.16 times the font size */
+  word-spacing: 0.16em !important;
 }
 
-/* Set word spacing to at least 0.16 times the font size */
-[data-textspacing-7783664] {
-  word-spacing: 0.16em !important;
+[data-textspacing-7783664] p {
+  /* Set spacing following paragraphs to at least 2 times the font size */
+  margin-bottom: 2em !important;
 }

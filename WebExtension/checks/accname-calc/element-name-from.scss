@@ -15,12 +15,13 @@
 
 .neutral-message-9927845 {
   @include font-styling;
-  @include messageContainer(
+  @include message-container(
     var(--neutral-background),
     var(--neutral-border),
     var(--neutral-text)
   );
   @include flex-width-container;
+
   font-weight: 700;
   margin: 0;
 }

@@ -26,12 +26,12 @@ function removeRelatedControls() {
     'not-first-number5599775',
     'group-present-5599775',
     'radiogroup-present-5599775',
-    'labelledByName-5599775',
-    'labelledByRadioGroupName-5599775',
-    'missingRoleGroupName-5599775',
-    'missingRoleRadioGroupName-5599775',
-    'ariaLabelName-5599775',
-    'ariaLabelRadioGroupName-5599775'
+    'labelled-by-name-5599775',
+    'labelled-by-radio-group-name-5599775',
+    'missing-role-group-name-5599775',
+    'missing-role-radio-group-name-5599775',
+    'aria-label-name-5599775',
+    'aria-label-radio-group-name-5599775'
   ]);
 }
 

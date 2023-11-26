@@ -53,12 +53,12 @@ function restoreElements() {
 }
 
 for (const element of document.querySelectorAll(
-    ".displayNone-45865, .visibilityHidden-45865, .opacityZero-45865"
+    ".display-none-45865, .visibility-hidden-45865, .opacity-zero-45865"
   )) {
     element.classList.remove(
-      "displayNone-45865",
-      "visibilityHidden-45865",
-      "opacityZero-45865",
+      "display-none-45865",
+      "visibility-hidden-45865",
+      "opacity-zero-45865",
     );
   }
 

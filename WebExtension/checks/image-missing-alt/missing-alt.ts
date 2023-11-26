@@ -55,7 +55,7 @@ function checkMissingAltElementParentOverflowHidden(): void {
       const style: CSSStyleDeclaration = getComputedStyle(parent);
 
       if (style.overflow === 'hidden') {
-        element.classList.add('positionAbsolute00898');
+        element.classList.add('position-absolute-00898');
         break;
       }
 

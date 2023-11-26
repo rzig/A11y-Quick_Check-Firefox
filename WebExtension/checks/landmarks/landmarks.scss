@@ -9,7 +9,8 @@
   font-weight: 700;
   margin: 1em 0;
   margin-bottom: 0;
-  @include messageContainer(
+
+  @include message-container(
     var(--pass-background),
     var(--pass-border),
     var(--pass-text)
@@ -17,15 +18,15 @@
   @include flex-width-container;
 }
 
-.header--aria--88937746,
-.header--html--88937746,
-.nav--aria--88937746,
-.nav--html--88937746,
-.footer--aria--88937746,
-.footer--html--88937746,
-.aside--aria--88937746,
-.aside--html--88937746,
-.search-html--88937746 {
+.header-aria-88937746,
+.header-html-88937746,
+.nav-aria-88937746,
+.nav-html-88937746,
+.footer-aria-88937746,
+.footer-html-88937746,
+.aside-aria-88937746,
+.aside-html-88937746,
+.search-html-88937746 {
   @include important-styles(
     (
       border: 4px dashed var(--pass-border),
@@ -44,7 +45,8 @@
   font-weight: 700;
   margin: 1em 0;
   margin-bottom: 0;
-  @include messageContainer(
+
+  @include message-container(
     var(--warning-background),
     var(--warning-border),
     var(--warning-text)
@@ -52,12 +54,12 @@
   @include flex-width-container;
 }
 
-.header--aria-html-88937746,
-.nav--aria-html-88937746,
-.main--aria-html-88937746,
-.footer--aria-html-88937746,
-.aside--aria-html-88937746,
-.search-html-support--88937746 {
+.header-aria-html-88937746,
+.nav-aria-html-88937746,
+.main-aria-html-88937746,
+.footer-aria-html-88937746,
+.aside-aria-html-88937746,
+.search-html-support-88937746 {
   @include important-styles(
     (
       border: 4px dashed var(--warning-border),
@@ -74,7 +76,8 @@
   font-weight: 700;
   margin: 1em 0;
   margin-bottom: 0;
-  @include messageContainer(
+
+  @include message-container(
     var(--neutral-background),
     var(--neutral-border),
     var(--neutral-text)
@@ -82,7 +85,7 @@
   @include flex-width-container;
 }
 
-.roleWarning-83009276 {
+.role-warning-83009276 {
   color: var(--warning-text) !important;
 }
 
@@ -94,7 +97,8 @@
   font-weight: 700;
   margin: 1em 0;
   margin-bottom: 0;
-  @include messageContainer(
+
+  @include message-container(
     var(--danger-background),
     var(--danger-border),
     var(--danger-text)
@@ -103,10 +107,11 @@
 }
 
 // Mixin for applying styles to HTML tags
-@mixin applyStrongStyles($tagName) {
+@mixin apply-strong-styles($tagName) {
   #{$tagName} {
-    &:before {
+    &::before {
       content: "<#{$tagName}>";
+
       @include important-styles(
         (
           background-color: var(--neutral-background),
@@ -120,8 +125,9 @@
       );
     }
 
-    &:after {
+    &::after {
       content: "</#{$tagName}>";
+
       @include important-styles(
         (
           background-color: var(--neutral-background),
@@ -138,7 +144,8 @@
 }
 
 // Apply styles to each HTML tag
-$sectioningTags: "header", "nav", "footer", "aside", "article", "main", "section";
-@each $tag in $sectioningTags {
-  @include applyStrongStyles($tag);
+$sectioning-tags: "header", "nav", "footer", "aside", "article", "main", "section";
+
+@each $tag in $sectioning-tags {
+  @include apply-strong-styles($tag);
 }

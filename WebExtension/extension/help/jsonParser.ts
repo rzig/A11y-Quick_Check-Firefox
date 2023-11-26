@@ -26,7 +26,7 @@ function generateHTML(tabData: Tab): string {
   for (const fieldset of tabData.fieldsets) {
     console.log(`Processing fieldset: ${fieldset.name}`); // Debugging the current fieldset
     const fieldsetNameID = `${fieldset.name}-8894767`;
-    htmlString += `<h2 id="${fieldsetNameID}" class="h2Class">${fieldset.name}</h2>`;
+    htmlString += `<h2 id="${fieldsetNameID}" class="h2-class">${fieldset.name}</h2>`;
     htmlString += `<p>${fieldset.helpSection}</p>`;
 
     // Check if refForGroup and refForGroupLink exist, then add them to htmlString
@@ -35,7 +35,7 @@ function generateHTML(tabData: Tab): string {
         const links = Array.isArray(fieldset.refForGroupLink) ? fieldset.refForGroupLink : fieldset.refForGroupLink.split(", ");
         
         if (refs.length === links.length) {
-          htmlString += `<h3 class="ref--links-header">References for ${fieldset.name}</h3><ul>`;
+          htmlString += `<h3 class="ref-links-header">References for ${fieldset.name}</h3><ul>`;
           for (let i = 0; i < refs.length; i++) {
             htmlString += `<li><a href="${links[i]}" class="groupRefClass">${refs[i]}</a></li>`;
           }

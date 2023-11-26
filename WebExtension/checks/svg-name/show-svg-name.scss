@@ -1,14 +1,14 @@
 @import "../common";
 @import "../scss-partial-overflow-hidden-hack";
 
-@mixin commonStyle($backgroundColor, $borderColor, $textColor) {
+@mixin common-style($backgroundColor, $borderColor, $textColor) {
   background-color: $backgroundColor !important;
   color: $textColor !important;
   border: 3px solid $borderColor !important;
 }
 
 .valid-message-9927845 {
-  @include commonStyle(
+  @include common-style(
     var(--pass-background),
     var(--pass-border),
     var(--pass-text)
@@ -16,18 +16,19 @@
 }
 
 .warning-message-9927845 {
-  @include commonStyle(
+  @include common-style(
     var(--warning-background),
     var(--warning-border),
     var(--warning-text)
   );
+
   font-weight: 700 !important;
   padding: 0.2em !important;
   max-width: 9em !important;
 }
 
 .invalid-message-9927845 {
-  @include commonStyle(
+  @include common-style(
     var(--danger-background),
     var(--danger-border),
     var(--danger-text)

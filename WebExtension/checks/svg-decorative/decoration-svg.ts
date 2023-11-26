@@ -27,7 +27,7 @@ checkSvgDecorative();
 
 function checkSvgAccessibleNamesDecorative() {
     const svgElements = document.querySelectorAll("svg");
-    const hiddenAncestorClass = "svg--hiddenAncestor-882726654";
+    const hiddenAncestorClass = "svg-hidden-ancestor-882726654";
     const decorativeAncestorClass = "svg--decorativeAncestor-882726654";
 
     function checkAncestors(element: Element) {

@@ -3,14 +3,12 @@ ul {
   padding-left: 0;
 }
 
-.toggle--label {
+.toggle-label {
   font-size: 1.1em;
   position: relative;
 }
 
-.toggleAllOptions { 
-  -webkit-appearance: none;
-  -moz-appearance: none;
+.toggle-all-options { 
   appearance: none;
   width: 62px;
   height: 32px;
@@ -26,7 +24,7 @@ ul {
   top: 0.8em;
 }
 
-.toggleAllOptions:before {
+.toggle-all-options::before {
   content: "on off";
   display: block;
   position: absolute;
@@ -37,22 +35,21 @@ ul {
   left: 2px;
   top: 2px;
   border-radius: 50%;
-  font: 10px/28px Helvetica;
   text-transform: uppercase;
   font-weight: 700;
   text-indent: -22px;
   word-spacing: 37px;
   color: #fff;
-  text-shadow: -1px -1px rgba(0, 0, 0, 0.15);
+  text-shadow: -1px -1px rgb(0 0 0 / 15%);
   white-space: nowrap;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 20%);
   transition: all cubic-bezier(0.3, 1.5, 0.7, 1) 0.3s;
 }
 
-.toggleAllOptions:checked {
+.toggle-all-options:checked {
   background-color: #262626;
 }
 
-.toggleAllOptions:checked:before {
+.toggle-all-options:checked::before {
   left: 32px;
 }

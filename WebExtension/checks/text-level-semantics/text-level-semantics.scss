@@ -2,8 +2,9 @@
 
 // Mixin to encapsulate styles for the tags
 @mixin apply-strong-styles($tagName) {
-  &:before {
+  &::before {
     content: "[" + $tagName + "]";
+
     @include important-styles(
       (
         color: var(--neutral-text),
@@ -15,8 +16,9 @@
     );
   }
 
-  &:after {
+  &::after {
     content: "[/" + $tagName + "]";
+
     @include important-styles(
       (
         color: var(--neutral-text),
@@ -39,6 +41,7 @@
 
 // Apply styles to the tags
 $tags: strong, small, s, cite, q, dfn, abbr, i, b, u, mark, kbd, sub, sup;
+
 @each $tag in $tags {
   #{$tag} {
     @include apply-strong-styles(#{$tag});

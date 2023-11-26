@@ -1,6 +1,6 @@
 /* Custom CSS variables defining color codes */
 :root {
-  --extension-white: #ffffff;
+  --extension-white: #fff;
   --extension-black: #262626;
   --danger-border: #b31818;
   --danger-background: #f8eaea;
@@ -33,8 +33,7 @@
   border: none !important;
   display: inline-flex !important;
   align-items: flex-start !important;
-  align-content: flex-start !important;
-  justify-content: flex-start !important;
+  place-content: flex-start flex-start !important;
   padding: 0.5em !important;
   position: relative !important;
 }
@@ -50,7 +49,7 @@
 }
 
 /* Styling for message container */
-@mixin messageContainer($backgroundColor, $borderColor, $textColor) {
+@mixin message-container($backgroundColor, $borderColor, $textColor) {
   @include important-styles(
     (
       background-color: $backgroundColor,

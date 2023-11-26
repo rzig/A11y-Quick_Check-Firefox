@@ -18,9 +18,9 @@ function checkTextNodesForHeadings(): void {
   const fontSizeRatio = bodyFontSize / defaultFontSize;
 
   // Define CSS classes for use later in the code
-  const heavyTextClass = "text--heavy-a11y-9892664";
-  const largeTextClass = "text--large-a11y-9892664";
-  const missingHeadingClass = "headingTagMissing8898";
+  const heavyTextClass = "text-heavy-a11y-9892664";
+  const largeTextClass = "text-large-a11y-9892664";
+  const missingHeadingClass = "heading-tag-missing-8898";
 
   let node: Node | null;
   while (node = walk.nextNode()) {
