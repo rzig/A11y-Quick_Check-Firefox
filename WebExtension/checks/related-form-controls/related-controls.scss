@@ -7,6 +7,7 @@
     ),
     true);
   @include warning-styles;
+  @include font-styling;
 }
 
 .missing-role-radio-group-name-5599775 {
@@ -16,6 +17,7 @@
     ),
     true);
   @include danger-styles;
+  @include font-styling;
 }
 
 .legend-present-5599775.not-first-number5599775 {
@@ -24,6 +26,7 @@
     ),
     true);
   @include warning-styles;
+  @include font-styling;
 }
 
 .fieldset-present-5599775 {
@@ -32,6 +35,7 @@
       font-weight: 700,
     ),
     true);
+    @include font-styling;
 }
 
 [data-fieldset-present-5599775] {
@@ -39,6 +43,7 @@
       padding: 0.5em,
     ),
     true);
+    @include font-styling;
 }
 
 .nested-fieldset-present-5599775 {
@@ -47,6 +52,7 @@
       font-weight: 700,
     ),
     true);
+    @include font-styling;
 }
 
 [data-nested-fieldset-present-5599775] {
@@ -54,6 +60,7 @@
       margin: 1em,
     ),
     true);
+    @include font-styling;
 }
 
 .legend-present-5599775 {
@@ -63,6 +70,7 @@
       font-weight: 700,
     ),
     true);
+    @include font-styling;
 }
 
 [data-legend-present-5599775] {
@@ -85,6 +93,7 @@
       font-weight: 700,
     ),
     true);
+    @include font-styling;
 }
 
 [role="radiogroup"] {
@@ -101,6 +110,7 @@
       font-weight: 700,
     ),
     true);
+    @include font-styling;
 }
 
 .labelled-by-name-5599775,
@@ -113,4 +123,5 @@
     ),
     true);
   @include pass-styles;
+  @include font-styling;
 }

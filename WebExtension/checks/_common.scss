@@ -31,8 +31,8 @@
 /* Styling for a specific data attribute */
 [data-a11y-wrapper-2edbc8ab] {
   border: none !important;
-  display: inline-flex !important;
-  align-items: flex-start !important;
+  display: flex !important;
+  flex-direction: column !important;
   place-content: flex-start flex-start !important;
   padding: 0.5em !important;
   position: relative !important;
