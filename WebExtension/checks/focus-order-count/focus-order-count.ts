@@ -21,7 +21,7 @@ function addClassToFocusableElements(): void {
 // Function to add a child div to each element with a data-domCount-889557 attribute
 function addDomCountDivs(): void {
     const elementsWithDomCount = Array.from(document.querySelectorAll("[data-domCount-889557]")) as HTMLElement[];
-    const domCountDivClass = "domCountDiv";
+    const domCountDivClass = "dom-count-div";
 
     for (const element of elementsWithDomCount) {
         const dataCount = element.getAttribute("data-domCount-889557");

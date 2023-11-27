@@ -1,7 +1,7 @@
 @import '../common';
 @import '../scss-partial-overflow-hidden-hack';
 
-@mixin messageContainerDefaults($backgroundColor, $borderColor, $textColor) {
+@mixin message-container-defaults($backgroundColor, $borderColor, $textColor) {
   @include important-styles(
     (
       background-color: $backgroundColor,
@@ -20,7 +20,7 @@
 }
 
 .neutral-message-9927845 {
-  @include messageContainerDefaults(
+  @include message-container-defaults(
     var(--neutral-background),
     var(--neutral-border),
     var(--neutral-text)

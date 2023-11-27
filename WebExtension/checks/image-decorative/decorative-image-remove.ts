@@ -2,5 +2,5 @@
 
 removeInjectedDivs([
   "neutral-message-9927845",
-  "positionAbsolute00898",
+  "position-absolute-00898",
 ]);

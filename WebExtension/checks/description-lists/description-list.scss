@@ -21,7 +21,7 @@
     ),
     true
   );
-  @include messageContainer(
+  @include message-container(
     var(--pass-background),
     var(--pass-border),
     var(--pass-text)
@@ -50,7 +50,7 @@
     ),
     true
   );
-  @include messageContainer(
+  @include message-container(
     var(--warning-background),
     var(--warning-border),
     var(--warning-text)
@@ -80,7 +80,7 @@
     ),
     true
   );
-  @include messageContainer(
+  @include message-container(
     var(--danger-background),
     var(--danger-border),
     var(--danger-text)

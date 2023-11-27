@@ -1,6 +1,6 @@
 "use strict";
 
 removeInjectedDivs([
-  'svg--hiddenAncestor-882726654',
-  'svg--ancestorAccessibleName-882726654'
+  'svg-hidden-ancestor-882726654',
+  'svg-ancestor-accessible-name-882726654'
 ]);

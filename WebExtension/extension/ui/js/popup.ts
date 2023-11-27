@@ -159,7 +159,7 @@ async function setupConfiguration(
       }
 
       const divWrapper = document.createElement("div");
-      divWrapper.classList.add("column--container-299867");
+      divWrapper.classList.add("column-container-299867");
 
       // We use a list for the controls
       const list = document.createElement("ul");
@@ -189,7 +189,7 @@ async function setupConfiguration(
 
         // Create the label
         const label = document.createElement("label");
-        label.classList.add("switch--label-88947");
+        label.classList.add("switch-label-88947");
 
         // I'm not sure why we have a span within the label
         const span = document.createElement("span");

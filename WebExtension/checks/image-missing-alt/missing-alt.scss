@@ -1,7 +1,7 @@
 @import '../common';
 @import '../scss-partial-overflow-hidden-hack';
 
-@mixin missingALT($backgroundColor, $borderColor, $textColor) {
+@mixin missing-alt($backgroundColor, $borderColor, $textColor) {
   @include important-styles(
     (
       background-color: $backgroundColor,
@@ -20,7 +20,7 @@
 }
 
 .invalid-message-9927845 {
-  @include missingALT(
+  @include missing-alt(
     var(--danger-background),
     var(--danger-border),
     var(--danger-text)

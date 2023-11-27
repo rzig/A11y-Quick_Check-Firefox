@@ -5,7 +5,7 @@ function checkSvgAccessibleNamesHiddenAncestor() {
   const svgElements = document.querySelectorAll("svg");
 
   // Define the CSS classes used to categorize SVG elements
-  const hiddenAncestorClass = "svg--hiddenAncestor-882726654";
+  const hiddenAncestorClass = "svg-hidden-ancestor-882726654";
 
   // Iterate through each SVG element
   for (const svgElement of svgElements) {

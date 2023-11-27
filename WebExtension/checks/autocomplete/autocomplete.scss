@@ -14,7 +14,8 @@
 .neutral-message-9927845 {
   font-weight: 700;
   margin: 0;
-  @include messageContainer(
+  
+  @include message-container(
     var(--neutral-background),
     var(--neutral-border),
     var(--neutral-text)

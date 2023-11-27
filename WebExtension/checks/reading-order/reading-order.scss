@@ -1,6 +1,6 @@
 @import "../common";
 
-.displayNone-45865 {
+.display-none-45865 {
   @include important-styles(
     (
       border: 2px dashed var(--pass-border),
@@ -12,14 +12,14 @@
   );
 }
 
-.displayNone-45865:before {
+.display-none-45865::before {
   content: "This element is hidden with 'display: none'";
   color: var(--warning-text);
   font-size: 1rem;
   font-weight: 700;
 }
 
-.visibilityHidden-45865 {
+.visibility-hidden-45865 {
   @include important-styles(
     (
       border: 2px dashed var(--pass-border),
@@ -31,14 +31,14 @@
   );
 }
 
-.visibilityHidden-45865:before {
+.visibility-hidden-45865::before {
   content: "This element is hidden with 'visibility: hidden'";
   color: var(--warning-text);
   font-size: 1rem;
   font-weight: 700;
 }
 
-.opacityZero-4586 {
+.opacity-zero-45865 {
   @include important-styles(
     (
       border: 2px dashed var(--pass-border),
@@ -50,7 +50,7 @@
   );
 }
 
-.opacityZero-4586:before {
+.opacity-zero-45865::before {
   content: "This element is hidden with 'opacity: 0'";
   color: var(--warning-text);
   font-size: 1rem;

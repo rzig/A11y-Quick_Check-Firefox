@@ -7,5 +7,5 @@ for (const element of document.querySelectorAll(
 }
 
 removeInjectedDivs([
-    'domCountDiv',
+    'dom-count-div',
   ]);

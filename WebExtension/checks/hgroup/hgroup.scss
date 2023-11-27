@@ -8,7 +8,8 @@
 .html-hgroup-message-58997365 {
   font-style: italic;
   margin: 1em 0;
-  @include messageContainer(
+
+  @include message-container(
     var(--pass-background),
     var(--pass-border),
     var(--pass-text)
@@ -19,7 +20,8 @@
 .aria-hgroup-message-58997365 {
   font-weight: 700;
   margin: 1em 0;
-  @include messageContainer(
+
+  @include message-container(
     var(--pass-background),
     var(--pass-border),
     var(--pass-text)
@@ -30,7 +32,8 @@
 .missing-heading-message-58997365 {
   font-weight: 700;
   margin: 1em 0;
-  @include messageContainer(
+
+  @include message-container(
     var(--danger-background),
     var(--danger-border),
     var(--danger-text)

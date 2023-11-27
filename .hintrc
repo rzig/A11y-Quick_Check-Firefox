@@ -10,12 +10,35 @@
       ]
     },
     {
+      "domain": "file:.*\/TestCases\/DescriptionListTest.html",
+      "hints": [
+        "axe/structure"
+      ]
+    },
+    {
+      "domain": "file:.*\/TestCases\/HeadingsTest.html",
+      "hints": [
+        "axe/aria"
+      ]
+    },
+    {
+      "domain": "file:.*\/TestCases\/OrderedList.html",
+      "hints": [
+        "axe/structure"
+      ]
+    },
+    {
       "domain": "file:.*\/TestCases\/SVGtests.html",
       "hints": [
         "axe/text-alternatives",
         "axe/aria"
       ]
+    },
+    {
+      "domain": "file:.*\/TestCases\/UnorderedList.html",
+      "hints": [
+        "axe/structure"
+      ]
     }
-
   ]
 }

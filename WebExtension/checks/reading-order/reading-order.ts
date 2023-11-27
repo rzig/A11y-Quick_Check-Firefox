@@ -105,13 +105,13 @@ function addHiddenClasses() {
     for (const element of bodyElements) {
         const computedStyle = getComputedStyle(element);
         if (computedStyle.display === 'none') {
-            element.classList.add('displayNone-45865');
+            element.classList.add('display-none-45865');
         }
         if (computedStyle.visibility === 'hidden') {
-            element.classList.add('visibilityHidden-45865');
+            element.classList.add('visibility-hidden-45865');
         }
         if (computedStyle.opacity === '0') {
-            element.classList.add('opacityZero-45865');
+            element.classList.add('opacity-zero-45865');
         }
     }
 }

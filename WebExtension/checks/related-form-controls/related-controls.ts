@@ -93,7 +93,7 @@ function roleGroupName() {
     if (labelledElement) {
       const textNode = labelledElement.textContent;
       const messageDiv = document.createElement('div');
-      messageDiv.classList.add('labelledByName-5599775');
+      messageDiv.classList.add('labelled-by-name-5599775');
       messageDiv.textContent = `aria-labelledby provides the accessible name "${textNode}" for the group.`;
       
       // Insert the message div before the group element
@@ -102,7 +102,7 @@ function roleGroupName() {
       // Check if the element is not an hgroup before showing the warning
       if (groupElement.nodeName.toLowerCase() !== 'hgroup') {
         const messageDiv = document.createElement('div');
-        messageDiv.classList.add('missingRoleGroupName-5599775');
+        messageDiv.classList.add('missing-role-group-name-5599775');
         messageDiv.textContent = `(Warning) Role Group should have a name via aria-label or aria-labelledby.`;
         
         // Insert the message div before the group element
@@ -122,14 +122,14 @@ function roleRadioGroupName() {
     if (labelledRadioGroup) {
       const textNode = labelledRadioGroup.textContent;
       const messageDiv = document.createElement('div');
-      messageDiv.classList.add('labelledByRadioGroupName-5599775');
+      messageDiv.classList.add('labelled-by-radio-group-name-5599775');
       messageDiv.textContent = `aria-labelledby provides the accessible name "${textNode}" for the radio group.`;
       
       // Insert the message div before the group element
       radioGroupElement.parentNode!.insertBefore(messageDiv, radioGroupElement);
     } else if (!radioGroupElement.hasAttribute('aria-label')) {
       const messageDiv = document.createElement('div');
-      messageDiv.classList.add('missingRoleRadioGroupName-5599775');
+      messageDiv.classList.add('missing-role-radio-group-name-5599775');
       messageDiv.textContent = `(Fail) Role Radiogroup must have a name via aria-label or aria-labelledby.`;
       
       // Insert the message div before the group element
@@ -146,7 +146,7 @@ function roleGroupAriaLabel() {
     
     if (ariaLabel) {
       const messageDiv = document.createElement('div');
-      messageDiv.classList.add('ariaLabelName-5599775');
+      messageDiv.classList.add('aria-label-name-5599775');
       messageDiv.textContent = `aria-label provides the accessible name "${ariaLabel}" for the group.`;
       
       // Insert the message div before the group element
@@ -163,7 +163,7 @@ function roleRadioGroupAriaLabel() {
     
     if (ariaLabel) {
       const messageDiv = document.createElement('div');
-      messageDiv.classList.add('ariaLabelRadioGroupName-5599775');
+      messageDiv.classList.add('aria-label-radio-group-name-5599775');
       messageDiv.textContent = `aria-label provides the accessible name "${ariaLabel}" for the radio group.`;
       
       // Insert the message div before the group element
