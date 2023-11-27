@@ -127,18 +127,21 @@ async function setupConfiguration(
     checkAllCheckbox.addEventListener("change", async (event) => {
       const state = (event.target as HTMLInputElement).checked;
     
-      // Update the state of individual checkboxes
+      // Update the state of individual checkboxes only if their current state is different
       const checkboxes = tabPanel.querySelectorAll<HTMLInputElement>(
         "input[type='checkbox']:not(.check-all)"
       );
       checkboxes.forEach((checkbox) => {
-        checkbox.checked = state;
-        checkbox.dispatchEvent(new Event("change"));
+        if (checkbox.checked !== state) {
+          checkbox.checked = state;
+          checkbox.dispatchEvent(new Event("change"));
+        }
       });
     
       // Save the state of the "Check All" checkbox
       await saveCheckboxValue(checkAllCheckbox);
     });
+    
     
 
     // setup fieldsets for the checkbox groupings
