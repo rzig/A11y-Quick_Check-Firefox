@@ -1,15 +1,26 @@
 "use strict";
 
+// function checkDivChild(child: Element, dlElement: Element): boolean {
+//   const hasDt = !!child.querySelector("dt");
+//   const hasDd = !!child.querySelector("dd");
+//   if (!(hasDt && hasDd)) {
+//     dlElement.classList.add("invalid-9927845");
+//     const message = `Invalid: DIV without DT and DD detected inside DL.`;
+//     createChildMessageDiv(dlElement, "invalid-message-9927845", message);
+//     return true;
+//   }
+//   return false;
+// }
 function checkDivChild(child: Element, dlElement: Element): boolean {
-  const hasDt = !!child.querySelector("dt");
-  const hasDd = !!child.querySelector("dd");
-  if (!(hasDt && hasDd)) {
-    dlElement.classList.add("invalid-9927845");
-    const message = `Invalid: DIV without DT and DD detected inside DL.`;
-    createChildMessageDiv(dlElement, "invalid-message-9927845", message);
-    return true;
+  // Check if the child is a DT or DD containing a DIV
+  if ((child.nodeName === "DT" || child.nodeName === "DD") && child.querySelector("div")) {
+    return false;
   }
-  return false;
+
+  dlElement.classList.add("invalid-9927845");
+  const message = `Invalid: DIV without DT and DD detected inside DL.`;
+  createChildMessageDiv(dlElement, "invalid-message-9927845", message);
+  return true;
 }
 
 function checkOtherChild(child: Element, dlElement: Element): boolean {
