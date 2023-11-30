@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARIA Label Test Page</title>
+    <style>
+        .valid-aria, .invalid-aria {
+            margin: 10px;
+            padding: 10px;
+        }
+
+        .valid-aria {
+            border: 2px solid green;
+        }
+
+        .invalid-aria {
+            border: 2px solid red;
+        }
+    </style>
+</head>
+<body>
+    <h1>ARIA Label Test Page</h1>
+
+    <!-- Valid Uses of aria-label -->
+    <div class="valid-aria" role="region" aria-label="A valid region with an aria-label.">
+        <p>This div is a valid use of aria-label with role="region".</p>
+    </div>
+
+    <button class="valid-aria" aria-label="A valid button with an aria-label.">Click Me</button>
+
+    <!-- Invalid Uses of aria-label -->
+    <span class="invalid-aria" aria-label="Invalid use of aria-label on a span without a role.">Invalid Span</span>
+
+    <div class="invalid-aria" aria-label="Invalid use of aria-label on a div without a role.">
+        <p>This div is an invlid use of aria-label without a role.</p>
+    </div>
+
+</body>
+</html>

@@ -14,6 +14,9 @@
   font-weight: 700;
   opacity: 1;
   content: 'aria-label="' attr(aria-label) '"';
+  
+  @include font-styling;
+  @include flex-width-container;
 }
 
 div[aria-label][data-name-permitted-aria]:not([role])::before,
@@ -91,6 +94,9 @@ sub[aria-label]::before {
       font-size: .9rem,
       font-weight: 700,
     ), true);
+
+    @include font-styling;
+    @include flex-width-container;
 }
 
 div[aria-label][data-name-permitted-aria][data-name-prohibited-aria]:not([role])::before,
@@ -122,4 +128,9 @@ span[aria-label][data-name-permitted-aria][data-name-prohibited-aria]:not([role]
   @include aria-prohibited-style(var(--danger-background), var(--danger-border), var(--danger-text));
 
   content: " [Invalid] aria-labelledby cannot be used on HTML element " attr(data-name-prohibited-html) " ";
+}
+
+// Add styles for div with role="region"
+div[role="region"][aria-label][data-name-permitted-aria]::before {
+  @include aria-permitted-style(var(--pass-background), var(--pass-border), var(--pass-text));
 }
