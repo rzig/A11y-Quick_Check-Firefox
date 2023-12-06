@@ -2,7 +2,7 @@
   "tabs": [
     {
       "name": "Content and Structure",
-      "helpUrl": "/extension/help/extensionBootlegVersionHelp.html",
+      "helpUrl": "/extension/help/extension-help.html",
       "fieldsets": [
         {
           "name": "Headings",
@@ -108,7 +108,7 @@
     },
     {
       "name": "Graphic Media",
-      "helpUrl": "/extension/help/extensionBootlegVersionHelp.html",
+      "helpUrl": "/extension/help/extension-help.html",
       "fieldsets": [
         {
           "name": "Images",
@@ -174,7 +174,7 @@
     },
     {
       "name": "Usability and Readability",
-      "helpUrl": "/extension/help/extensionBootlegVersionHelp.html",
+      "helpUrl": "/extension/help/extension-help.html",
       "fieldsets": [
         {
           "name": "User Experience",
