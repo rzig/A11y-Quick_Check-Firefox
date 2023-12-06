@@ -2,12 +2,12 @@
 
 "use strict";
 
-function createChildMessageDiv(parentElement: Element, className: string, message: string): void {
-  const messageDiv = document.createElement("div");
-  messageDiv.className = className;
-  messageDiv.textContent = message;
-  parentElement.appendChild(messageDiv);
-}
+// function createChildMessageDiv(parentElement: Element, className: string, message: string): void {
+//   const messageDiv = document.createElement("div");
+//   messageDiv.className = className;
+//   messageDiv.textContent = message;
+//   parentElement.appendChild(messageDiv);
+// }
 
 function isDivWithDtDd(child: Element): boolean {
   return child.nodeName === "DIV" && !!child.querySelector("dt") && !!child.querySelector("dd");
