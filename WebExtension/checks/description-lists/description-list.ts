@@ -1,26 +1,26 @@
 "use strict";
 
-// function checkDivChild(child: Element, dlElement: Element): boolean {
-//   const hasDt = !!child.querySelector("dt");
-//   const hasDd = !!child.querySelector("dd");
-//   if (!(hasDt && hasDd)) {
-//     dlElement.classList.add("invalid-9927845");
-//     const message = `Invalid: DIV without DT and DD detected inside DL.`;
-//     createChildMessageDiv(dlElement, "invalid-message-9927845", message);
-//     return true;
-//   }
-//   return false;
-// }
-function checkDivChild(child: Element, dlElement: Element): boolean {
-  // Check if the child is a DT or DD containing a DIV
-  if ((child.nodeName === "DT" || child.nodeName === "DD") && child.querySelector("div")) {
-    return false;
-  }
+"use strict";
 
-  dlElement.classList.add("invalid-9927845");
-  const message = `Invalid: DIV without DT and DD detected inside DL.`;
-  createChildMessageDiv(dlElement, "invalid-message-9927845", message);
-  return true;
+function createChildMessageDiv(parentElement: Element, className: string, message: string): void {
+  const messageDiv = document.createElement("div");
+  messageDiv.className = className;
+  messageDiv.textContent = message;
+  parentElement.appendChild(messageDiv);
+}
+
+function isDivWithDtDd(child: Element): boolean {
+  return child.nodeName === "DIV" && !!child.querySelector("dt") && !!child.querySelector("dd");
+}
+
+function checkDivChild(child: Element, dlElement: Element): boolean {
+  if (!isDivWithDtDd(child)) {
+    dlElement.classList.add("invalid-9927845");
+    const message = `Invalid: DIV without DT and DD detected inside DL.`;
+    createChildMessageDiv(dlElement, "invalid-message-9927845", message);
+    return true;
+  }
+  return false;
 }
 
 function checkOtherChild(child: Element, dlElement: Element): boolean {
@@ -45,32 +45,18 @@ function checkChildStructure(child: Element, dlElement: Element): boolean {
 
 function checkDLStructure(dlElement: Element): boolean {
   let failureDetected = false;
-  let lastChildWasDt = false;
-  let divEncountered = false;
+  let lastChildWasDtOrDiv = false;
 
   for (const child of Array.from(dlElement.children)) {
-    if (child.nodeName === "DD" && !lastChildWasDt) {
+    if (child.nodeName === "DD" && !lastChildWasDtOrDiv) {
       dlElement.classList.add("invalid-9927845");
-      const message = `Invalid: DD without preceding DT detected inside DL.`;
+      const message = `Invalid: DD without preceding DT or DIV wrapping detected inside DL.`;
       createChildMessageDiv(dlElement, "invalid-message-9927845", message);
       failureDetected = true;
       break;
     }
 
-    if (child.nodeName === "DIV") {
-      divEncountered = true;
-    } else if (
-      divEncountered &&
-      (child.nodeName === "DT" || child.nodeName === "DD")
-    ) {
-      dlElement.classList.add("invalid-9927845");
-      const message = `Invalid: DT or DD directly after a </div> inside DL.`;
-      createChildMessageDiv(dlElement, "invalid-message-9927845", message);
-      failureDetected = true;
-      break;
-    }
-
-    lastChildWasDt = child.nodeName === "DT";
+    lastChildWasDtOrDiv = child.nodeName === "DT" || isDivWithDtDd(child);
     failureDetected = checkChildStructure(child, dlElement);
 
     if (failureDetected) {
@@ -83,7 +69,6 @@ function checkDLStructure(dlElement: Element): boolean {
 function checkDescriptionLists(): void {
   const dlElements = document.querySelectorAll("dl");
   for (const dlElement of dlElements) {
-    // Check for nested DL elements
     if (dlElement.parentElement && dlElement.parentElement.nodeName === "DL") {
       dlElement.classList.add("warning-9927845");
       const message = "Warning: Nested DL detected.";
