@@ -1,14 +1,5 @@
 "use strict";
 
-"use strict";
-
-// function createChildMessageDiv(parentElement: Element, className: string, message: string): void {
-//   const messageDiv = document.createElement("div");
-//   messageDiv.className = className;
-//   messageDiv.textContent = message;
-//   parentElement.appendChild(messageDiv);
-// }
-
 function isDivWithDtDd(child: Element): boolean {
   return child.nodeName === "DIV" && !!child.querySelector("dt") && !!child.querySelector("dd");
 }
@@ -109,11 +100,11 @@ function checkDescriptionLists(): void {
 
     const dtCount = dlElement.querySelectorAll("dt").length;
     const ddCount = dlElement.querySelectorAll("dd").length;
-    if (dtCount === 1 && ddCount === 1) {
-      dlElement.classList.add("warning-9927845");
-      const message = "Warning: This DL contains a single key-value pair";
-      createChildMessageDiv(dlElement, "warning-message-9927845", message);
-    }
+    // if (dtCount === 1 && ddCount === 1) {
+    //   dlElement.classList.add("warning-9927845");
+    //   const message = "Warning: This DL contains a single key-value pair";
+    //   createChildMessageDiv(dlElement, "warning-message-9927845", message);
+    // }
 
     // Check for valid HTML Description List
     const hasHtmlDl =
