@@ -178,41 +178,8 @@
       "fieldsets": [
         {
           "name": "User Experience",
-          "helpSection": "Assessing Interaction and Content Readability.",
+          "helpSection": "Assessing Interaction and Content Readability. The target-size checks are temporarily removed due to false positive reporting. Once this has been fixed they will make a return.",
           "items": [
-            {
-              "name": "Target Size (24px)",
-              "id": "targetSize24",
-              "resource_path": "checks/target-size",
-              "css": "target-size.css",
-              "addScript": ["target-size.js", "target-size24.js"],
-              "removeScript": [
-                "target-size-remove.js",
-                "target-size-remove24.js"
-              ]
-            },
-            {
-              "name": "Target Size (44px)",
-              "id": "targetSize44",
-              "resource_path": "checks/target-size",
-              "css": "target-size.css",
-              "addScript": ["target-size.js", "target-size44.js"],
-              "removeScript": [
-                "target-size-remove.js",
-                "target-size-remove44.js"
-              ]
-            },
-            {
-              "name": "Target Size (48px)",
-              "id": "targetSize48",
-              "resource_path": "checks/target-size",
-              "css": "target-size.css",
-              "addScript": ["target-size.js", "target-size48.js"],
-              "removeScript": [
-                "target-size-remove.js",
-                "target-size-remove48.js"
-              ]
-            },
             {
               "name": "Text Spacing",
               "id": "textSpacing",

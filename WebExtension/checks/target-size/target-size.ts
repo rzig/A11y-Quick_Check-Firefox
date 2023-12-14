@@ -58,15 +58,47 @@ function isExcluded(elem: Element) {
     return isInPageLink || isInParagraph || isInSentence || isFootnote || isExcludedListElement;
 }
 
+// Function to check if an undersized target has sufficient spacing around it
+function hasSufficientSpacingBetweenTargets(elem: Element, targetSize: number, inputElements: NodeListOf<Element>): boolean {
+    const rect = elem.getBoundingClientRect();
+    const circleRadius = targetSize / 2;
+
+    const elemCenter = {
+        x: rect.left + rect.width / 2,
+        y: rect.top + rect.height / 2
+    };
+
+    for (const target of inputElements) {
+        if (target === elem) continue;
+
+        const targetRect = target.getBoundingClientRect();
+        const targetCenter = {
+            x: targetRect.left + targetRect.width / 2,
+            y: targetRect.top + targetRect.height / 2
+        };
+
+        const dx = elemCenter.x - targetCenter.x;
+        const dy = elemCenter.y - targetCenter.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        // Check if the target is within the circle area
+        if (distance < circleRadius + targetSize / 2) {
+            return true; // There is an intersection, return true
+        }
+    }
+
+    // No intersections found, return false
+    return false;
+}
 
 function addTargetSize(targetSize: number) {
     // Get all interactive elements on the page
     const inputElements = document.querySelectorAll('a, button, input[type="button"], input[type="submit"], select, [role="button"], [role="link"]');
     
-    // Loop through each element and check its dimensions
+    // Loop through each element and check its dimensions and spacing
     for (const elem of inputElements) {
         const rect = elem.getBoundingClientRect();
-        const {width: extraWidth, height: extraHeight} = getPseudoElementAdjustment(elem);
+        const { width: extraWidth, height: extraHeight } = getPseudoElementAdjustment(elem);
         
         const elemWidth = rect.width + extraWidth;
         const elemHeight = rect.height + extraHeight;
@@ -75,27 +107,28 @@ function addTargetSize(targetSize: number) {
         const identifier = role ? `role="${role}"` : tagName;
         
         const parentTag = elem.parentElement!.tagName;
-        // If the paragraph is marked up as a div and nnot a P this will trigger the check.
+        // If the paragraph is marked up as a div and not a P, this will trigger the check.
         const isInTextBlock = ['P', 'SPAN'].includes(parentTag);
         
         const isHidden = getComputedStyle(elem).display === 'none' || getComputedStyle(elem).opacity === '0' || getComputedStyle(elem).visibility === 'hidden';
         const isTooSmall = elemWidth <= 1 || elemHeight <= 1;
 
-        if ((elemWidth < targetSize || elemHeight < targetSize)
-            && !isInTextBlock  // Exclude buttons that are positioned within text blocks
+        // Check for exceptions before running the targetSize check
+        if (!(tagName === 'button' && isInTextBlock)
+            && elemWidth < targetSize
+            && elemHeight < targetSize
+            && !isInTextBlock
             && !['OL', 'UL', 'DL', 'LI', 'DT', 'DD'].includes(parentTag)
             && !isHidden
             && !isTooSmall
             && !isExcluded(elem)) {
-
-            elem.classList.add(`small-target-${targetSize}-8228965`);
-            
-            if (!(tagName === 'button' && isInTextBlock)) {
-                // Don't add the message if the button is conpained inside a text block
+            // Check if there is sufficient spacing
+            if (hasSufficientSpacingBetweenTargets(elem, targetSize, inputElements)) {
+                elem.classList.add(`small-target-${targetSize}-8228965`);
+                // Don't add the message if the button is contained inside a text block
                 const messageDiv = createChildMessageDiv(elem, `target-size-${targetSize}-8228965`, `The target size for element <${identifier}> is ${elemWidth.toFixed(2)} x ${elemHeight.toFixed(2)}, which is smaller than ${targetSize} x ${targetSize}.`, ["target-size-8228965"]);
+                addCircleShape(elem, targetSize);
             }
-            
-            addCircleShape(elem, targetSize);
         }
     }
 }
