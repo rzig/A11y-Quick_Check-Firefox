@@ -1,34 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-
-  <head>
+<head>
     <title>Tests for target size</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-  </head>
-
-  <body>
+    <style>
+        /* Existing styles... */
+    </style>
+</head>
+<body>
     <h1>Test for WCAG 2.5.5 and 2.5.8 Target Size</h1>
-    <h2>buttons</h2>
-    <p>23px x 23px button should fail all</p>
-    <button type="button" style="width: 23px; height: 23px;">target</button>
-    <p>24px x 24px button should fail 44px and 48px</p>
-    <button type="button" style="width: 24px; height: 24px;">target</button>
-    <p>25px x 25px button should fail 44px and 48px</p>
-    <button type="button" style="width: 25px; height: 25px;">target</button>
-    <p>43px x 43px button should fail 44px and 48px</p>
-    <button type="button" style="width: 43px; height: 43px;">target</button>
-    <p>44px x 44px button should fail 48px</p>
-    <button type="button" style="width: 44px; height: 44px;">target</button>
-    <p>45px x 45px button should fail 48px</p>
-    <button type="button" style="width: 45px; height: 45px;">target</button>
-    <p>47px x 47px button should fail 48px</p>
-    <button type="button" style="width: 47px; height: 47px;">target</button>
-    <p>48px x 48px button should pass all</p>
-    <button type="button" style="width: 48px; height: 48px;">target</button>
-    <p>49px x 49px button should pass all</p>
-    <button type="button" style="width: 49px; height: 49px;">target</button>
 
-  </body>
+    <!-- Standard Sized Targets -->
+    <div class="test-section">
+        <h2>Standard Sized Targets</h2>
+        <button style="width: 50px; height: 50px;">50x50 Button</button>
+        <a href="#" style="display: inline-block; width: 50px; height: 50px;">50x50 Link</a>
+    </div>
 
+    <!-- Undersized Targets -->
+    <div class="test-section">
+        <h2>Undersized Targets</h2>
+        <button style="width: 20px; height: 20px;">20x20 Button</button>
+        <a href="#" style="display: inline-block; width: 20px; height: 20px;">20x20 Link</a>
+    </div>
+
+    <!-- Targets with Pseudo Elements -->
+    <div class="test-section">
+        <h2>Targets with Pseudo Elements</h2>
+        <button class="pseudo-element-button">Button with ::before and ::after</button>
+    </div>
+
+    <!-- Hidden Targets -->
+    <div class="test-section">
+        <h2>Hidden Targets</h2>
+        <button style="display: none;">Hidden Button</button>
+        <a href="#" style="visibility: hidden;">Hidden Link</a>
+    </div>
+
+    <!-- Targets with Sufficient Spacing -->
+    <div class="test-section">
+        <h2>Targets with Sufficient Spacing</h2>
+        <button style="width: 20px; height: 20px; margin-right: 100px;">20x20 Button</button>
+        <a href="#" style="display: inline-block; width: 20px; height: 20px; margin-right: 100px;">20x20 Link</a>
+    </div>
+
+    <!-- Targets with Insufficient Spacing -->
+    <div class="test-section">
+        <h2>Targets with Insufficient Spacing</h2>
+        <button style="width: 20px; height: 20px; margin-right: 5px;">20x20 Button</button>
+        <button style="width: 20px; height: 20px;">20x20 Button</button>
+    </div>
+
+    <!-- Excluded Targets -->
+    <div class="test-section">
+        <h2>Excluded Targets</h2>
+        <!-- Assuming links in footnotes are excluded as per your script -->
+        <footer>
+            <a href="#" class="footnote" style="display: inline-block; width: 20px; height: 20px;">20x20 Footnote Link</a>
+        </footer>
+        <!-- Assuming links within paragraphs are excluded -->
+        <p>
+            <a href="#" style="display: inline-block; width: 20px; height: 20px;">20x20 Link in Paragraph</a>
+        </p>
+    </div>
+</body>
 </html>
