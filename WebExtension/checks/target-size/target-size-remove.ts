@@ -1,31 +1,28 @@
-"use strict";
-
 function removeTargetSize(targetSize: number) {
+    // Remove the target size messages and their associated classes
+    const messageDivs = document.querySelectorAll(`.target-size-${targetSize}-8228965`);
+    for (const div of messageDivs) {
+        div.classList.remove(`target-sufficient-8228965`, `target-insufficient-8228965`);
+        div.remove();
+    }
 
-    // Get all elements with the small-target class
+    // Remove the small target classes and circle shapes from elements
     const targets = document.querySelectorAll(`.small-target-${targetSize}-8228965`);
-    // Loop through each element and remove the class
     for (const elem of targets) {
-        // Remove the circle shape if it exists
         const circleShapeElem = elem.querySelector(`.circle-shape-size-${targetSize}-8228965`);
         if (circleShapeElem) {
             circleShapeElem.remove();
         }
 
-        // Remove the div container if it exists
-        removeInjectedDivs([`target-size-${targetSize}-8228965`]);
+        elem.classList.remove(`small-target-${targetSize}-8228965`, `pos-rel-size-${targetSize}-8228965`);
 
-        // Remove the small-target and pos-rel classes
-        elem.classList.remove(`small-target-${targetSize}-8228965`);
-        elem.classList.remove(`pos-rel-size-${targetSize}-8228965`);
-
-        // Check if we have any other elements here still
+        // Check if there are any other related classes remaining
         let additionalRelsFound = false;
         for (const cssClass of elem.classList) {
             additionalRelsFound = additionalRelsFound || /pos-rel-size-[0-9]+-8228965/.test(cssClass);
         }
 
-        // if we don't have any more circles, we can remove the pos-rel
+        // Remove the pos-rel class if no more related classes are found
         if (!additionalRelsFound) {
             elem.classList.remove(`pos-rel-8228965`);
         }

@@ -1,13 +1,33 @@
 @import '../common';
 
-.small-target-8228965 {
+.small-target-8228965.target-insufficient-8228965 {
   border: 4px solid var(--danger-border) !important;
 }
 
-.target-size-8228965 {
+.target-size-8228965.target-insufficient-8228965 {
   @include important-styles((
   background-color: var(--danger-background),
   border: 1px solid var(--danger-border),
+  bottom: 0.5em,
+  color: var(--danger-text),
+  font-size: 1rem,
+  left: 0.5em,
+  line-height: 1.5,
+  opacity: 0.8,
+  padding: 0.5em,
+  width: 12em,
+  z-index: 10000,
+  ), true);
+}
+
+.small-target-8228965.target-sufficient-8228965 {
+  border: 4px solid var(--pass-border) !important;
+}
+
+.target-size-8228965.target-sufficient-8228965 {
+  @include important-styles((
+  background-color: var(--pass-background),
+  border: 1px solid var(--pass-border),
   bottom: 0.5em,
   color: var(--danger-text),
   font-size: 1rem,
