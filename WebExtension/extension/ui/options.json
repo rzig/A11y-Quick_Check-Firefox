@@ -178,7 +178,7 @@
       "fieldsets": [
         {
           "name": "User Experience",
-          "helpSection": "Assessing Interaction and Content Readability. The target-size checks are temporarily removed due to false positive reporting. Once this has been fixed they will make a return.",
+          "helpSection": "Assessing Interaction and Content Readability.",
           "items": [
             {
               "name": "Target Size (24px)",
