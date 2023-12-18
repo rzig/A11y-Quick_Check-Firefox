@@ -55,42 +55,10 @@ function isExcluded(elem: Element): boolean {
     return isInPageLink || isInParagraph || isInSentence || isFootnote;
 }
 
-
-// Function to check if an undersized target has sufficient spacing around it
-function hasSufficientSpacingBetweenTargets(elem: Element, targetSize: number, inputElements: NodeListOf<Element>): boolean {
-    const rect = elem.getBoundingClientRect();
-    const circleRadius = targetSize / 2;
-
-    const elemCenter = {
-        x: rect.left + rect.width / 2,
-        y: rect.top + rect.height / 2
-    };
-
-    for (const target of inputElements) {
-        if (target === elem) continue;
-
-        const targetRect = target.getBoundingClientRect();
-        const targetCenter = {
-            x: targetRect.left + targetRect.width / 2,
-            y: targetRect.top + targetRect.height / 2
-        };
-
-        const dx = elemCenter.x - targetCenter.x;
-        const dy = elemCenter.y - targetCenter.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-
-        // Check if the target is within the circle area
-        if (distance < circleRadius + targetSize / 2) {
-            return true; // There is an intersection, return true
-        }
-    }
-
-    // No intersections found, return false
-    return false;
-}
-
 function checkSpacing(elem: Element, targetSize: number): boolean {
+    console.log(`Checking spacing for element: `, elem);
     const rect = elem.getBoundingClientRect();
+
     const expandedRect = {
         top: rect.top - targetSize / 2,
         left: rect.left - targetSize / 2,
@@ -101,7 +69,7 @@ function checkSpacing(elem: Element, targetSize: number): boolean {
     const inputElements = document.querySelectorAll('a, button, input[type="button"], input[type="submit"], select, [role="button"], [role="link"]');
 
     for (let otherElem of inputElements) {
-        if (otherElem === elem) continue;
+        if (otherElem === elem) continue; // Skip comparing the element with itself
 
         const otherRect = otherElem.getBoundingClientRect();
         const otherExpandedRect = {
@@ -111,17 +79,20 @@ function checkSpacing(elem: Element, targetSize: number): boolean {
             right: otherRect.right + targetSize / 2
         };
 
-        const intersects = !(expandedRect.right < otherExpandedRect.left || 
-                              expandedRect.left > otherExpandedRect.right || 
-                              expandedRect.bottom < otherExpandedRect.top || 
+        // Check if the expanded rectangles intersect
+        const intersects = !(expandedRect.right < otherExpandedRect.left ||
+                              expandedRect.left > otherExpandedRect.right ||
+                              expandedRect.bottom < otherExpandedRect.top ||
                               expandedRect.top > otherExpandedRect.bottom);
 
         if (intersects) {
-            return false; // Intersection found, spacing is insufficient
+            console.log(`Insufficient spacing found between:`, elem, `and`, otherElem);
+            return false; // Intersection found, indicating insufficient spacing
         }
     }
 
-    return true; // No intersections found, spacing is sufficient
+    console.log(`Sufficient spacing for element: `, elem);
+    return true; // No intersections found, indicating sufficient spacing
 }
 
 function addTargetSize(targetSize: number) {
@@ -149,8 +120,8 @@ function addTargetSize(targetSize: number) {
                 const hasSufficientSpacing = checkSpacing(elem, targetSize);
                 let extraClass = hasSufficientSpacing ? `target-sufficient-8228965` : `target-insufficient-8228965`;
 
-                let message = `The target size for element <${identifier}> is ${elemWidth.toFixed(2)} x ${elemHeight.toFixed(2)}`;
-                message += hasSufficientSpacing ? `. Exempt as there is sufficient spacing around the element. Consider increasing target size to a minimum of 24 by 24.` : ``;
+                let message = `The target size for element <${identifier}> is ${elemWidth.toFixed(2)}px x ${elemHeight.toFixed(2)}px`;
+                message += hasSufficientSpacing ? `. The element has sufficient spacing.` : `which is less than ${targetSize}px x ${targetSize}px`;
 
                 createChildMessageDiv(elem, `target-size-${targetSize}-8228965`, message, ["target-size-8228965", extraClass]);
                 addCircleShape(elem, targetSize);
