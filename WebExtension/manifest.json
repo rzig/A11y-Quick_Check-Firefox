@@ -1,7 +1,7 @@
 {
     "name": "A11y quick check",
     "short_name": "A11y quick check",
-    "version": "2501.2023.12.18",
+    "version": "2501.2023.12.19",
     "version_name": "2501.2023.12.19",
     "manifest_version": 3,
     "description": "Easy to use quick checks to identify potential accessibility issues.",
