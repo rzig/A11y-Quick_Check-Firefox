@@ -178,7 +178,7 @@
       "fieldsets": [
         {
           "name": "User Experience",
-          "helpSection": "Assessing Interaction and Content Readability.",
+          "helpSection": "There is currently a false positive result where the Target size check is identifying links and buttons in lists as having insufficient vertical spacing for the 24px check when the list is positioned horizontally.",
           "items": [
             {
               "name": "Target Size (24px)",

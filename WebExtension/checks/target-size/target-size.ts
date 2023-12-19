@@ -40,10 +40,9 @@ function isExcluded(elem: Element): boolean {
     const isButton = elem.tagName === 'BUTTON' || elem.getAttribute('role') === 'button';
     const isInPageLink = isAnchor && anchorLinkRegex.test(elem.getAttribute('href') ?? "");
     const isInParagraph = (isAnchor || isButton) && elem.parentElement?.tagName === 'P';
-    const isInSentence = (isAnchor || isButton) && elem.parentElement?.tagName === 'SPAN';
     const isFootnote = isAnchor && elem.classList.contains('footnote');
 
-    return isInPageLink || isInParagraph || isInSentence || isFootnote;
+    return isInPageLink || isInParagraph || isFootnote;
 }
 
 function checkSpacing(elem: Element, targetSize: number): boolean {
@@ -102,15 +101,23 @@ function addTargetSize(targetSize: number) {
         const isHidden = getComputedStyle(elem).display === 'none' || getComputedStyle(elem).opacity === '0' || getComputedStyle(elem).visibility === 'hidden';
         const isTooSmall = elemWidth <= 1 || elemHeight <= 1;
 
+        // Check if the element is a child of a list item with display inline or inline-block
+        const parentLi = elem.closest('li');
+        const isChildOfInlineLi = parentLi && (window.getComputedStyle(parentLi).display === 'inline' || window.getComputedStyle(parentLi).display === 'inline-block');
+
         if (!isHidden && !isTooSmall && (elemWidth < targetSize || elemHeight < targetSize)) {
             if (!isExcluded(elem)) {
-                elem.classList.add(`small-target-${targetSize}-8228965`);
-
-                const hasSufficientSpacing = checkSpacing(elem, targetSize);
-                let extraClass = hasSufficientSpacing ? `target-sufficient-8228965` : `target-insufficient-8228965`;
+                const hasSufficientSpacing = isChildOfInlineLi || checkSpacing(elem, targetSize);
+                let extraClass = (hasSufficientSpacing && targetSize <= 24) ? `target-sufficient-8228965` : `target-insufficient-8228965`;
 
                 let message = `The target size for element <${identifier}> is ${elemWidth.toFixed(2)}px x ${elemHeight.toFixed(2)}px`;
-                message += hasSufficientSpacing ? `. The element has sufficient spacing.` : ` which is less than ${targetSize}px x ${targetSize}px`;
+
+                // Adjust message based on spacing and the targetSize
+                if (targetSize <= 24 && hasSufficientSpacing) {
+                    message += ` which is less than ${targetSize}px x ${targetSize}px. The element has sufficient spacing.`;
+                } else {
+                    message += ` which is less than ${targetSize}px x ${targetSize}px.`;
+                }
 
                 // Create and append the message div
                 const messageDiv = document.createElement('div');

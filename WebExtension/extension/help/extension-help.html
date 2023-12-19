@@ -24,8 +24,9 @@
           <p>A11y Quick Check is a testing tool that exposes accessibility issues to provide a high level check to help meet the requirements of the WCAG guidelines and coding best practices.</p>
           <h3>Identified false/positives</h3>
           <ul>
+            <li>The Target size check is identifying links and buttons in lists as having insufficient vertical spacing when the LI has display: inline or inline-block.</li>
+            <li>The spacing exemption for Target size only applies to the AA and not AAA.</li>
             <li><strong>(Fixed)</strong> Target-Size when there are two or more adjacent targets with insufficient spacing, the tool is incorrectly identifying the last element as having sufficient spacing.</li>
-            <li><strong>(Fixed)</strong> The Target size check was identifying links and buttons in lists as having insufficient spacing when the LI has display: inline or inline-block.</li>
             <li><strong>(Fixed)</strong> Lists were included in the spacing exemption.</li>
             <li><strong>(Fixed)</strong> The Landmarks check was incorrectly identifying Landmarks nested in a DIV as 'should not be exposed by screen readers.</li>
           </ul>

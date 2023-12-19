@@ -6,14 +6,15 @@ function removeTargetSize(targetSize: number) {
         div.remove();
     }
 
-    // Remove the small target classes and circle shapes from elements
+    // Remove all circle shapes related to the target size
+    const circleShapes = document.querySelectorAll(`.circle-shape-size-${targetSize}-8228965`);
+    for (const circleShape of circleShapes) {
+        circleShape.remove();
+    }
+
+    // Remove the small target classes from elements
     const targets = document.querySelectorAll(`.small-target-${targetSize}-8228965`);
     for (const elem of targets) {
-        const circleShapeElem = elem.querySelector(`.circle-shape-size-${targetSize}-8228965`);
-        if (circleShapeElem) {
-            circleShapeElem.remove();
-        }
-
         elem.classList.remove(`small-target-${targetSize}-8228965`, `pos-rel-size-${targetSize}-8228965`);
 
         // Check if there are any other related classes remaining
