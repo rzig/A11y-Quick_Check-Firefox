@@ -11,7 +11,7 @@
       <header>
         <hgroup role="group" aria-roledescription="Heading group">
           <h1>A11y Quick Check</h1>
-          <p>Version: 2501.2023.12.20</p>
+          <p>Version: 2501.2023.12.21</p>
         </hgroup>
         <div class="a11yqc-logo">
           <img src="../../extension/ui/images/icon.svg" alt="" />
@@ -22,14 +22,17 @@
         <div id="content" class="bootleg">
           <h2>Introduction</h2>
           <p>A11y Quick Check is a testing tool that exposes accessibility issues to provide a high level check to help meet the requirements of the WCAG guidelines and coding best practices.</p>
-          <h3>Known false/positives</h3>
+          <h3>Identified false/positives</h3>
           <ul>
-            <li>Target-Size when there are two or more adjacent targets with insufficient spacing, the tool is incorrectly identifying the last element as having sufficient spacing.</li>
+            <li><strong>(Fixed)</strong> Target-Size when there are two or more adjacent targets with insufficient spacing, the tool is incorrectly identifying the last element as having sufficient spacing.</li>
+            <li><strong>(Fixed)</strong> The Target size check was identifying links and buttons in lists as having insufficient spacing when the LI has display: inline or inline-block.</li>
+            <li><strong>(Fixed)</strong> Lists were included in the spacing exemption.</li>
+            <li><strong>(Fixed)</strong> The Landmarks check was incorrectly identifying Landmarks nested in a DIV as 'should not be exposed by screen readers.</li>
           </ul>
 
           <h3>Disclaimer</h3>
           <p>
-            All attempts have been made to ensure the checks accurately identifies both invalid code practices and failures in meeting the WCAG Guidelines.</p>
+            All attempts have been made to ensure the checks accurately identify both invalid code practices and failures in meeting the WCAG Guidelines.</p>
         </div>
 
       </main>
