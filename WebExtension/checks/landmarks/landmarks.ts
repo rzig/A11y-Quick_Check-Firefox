@@ -37,7 +37,14 @@ function addLandmarkMessages() {
   function isElementInside(element: Element, parentTags: string[]): boolean {
     let currentElement = element.parentElement;
     while (currentElement) {
-      if (parentTags.includes(currentElement.tagName.toLowerCase())) {
+      const tagName = currentElement.tagName.toLowerCase();
+      const role = currentElement.getAttribute('role');
+
+      // Check if inside a <div> without a restricted parent role
+      if (tagName === 'div' && (!role || !parentTags.includes(role))) {
+        return false;
+      }
+      if (parentTags.includes(tagName)) {
         return true;
       }
       currentElement = currentElement.parentElement;
