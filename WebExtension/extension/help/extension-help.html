@@ -11,7 +11,7 @@
       <header>
         <hgroup role="group" aria-roledescription="Heading group">
           <h1>A11y Quick Check</h1>
-          <p>Version: 2501.2023.12.21</p>
+          <p>Version: 2501.2023.12.22</p>
         </hgroup>
         <div class="a11yqc-logo">
           <img src="../../extension/ui/images/icon.svg" alt="" />
@@ -25,10 +25,19 @@
           <h3>Identified false/positives</h3>
           <ul>
             <li>The Target size check is identifying links and buttons in lists as having insufficient vertical spacing when the LI has display: inline or inline-block.</li>
-            <li>The spacing exemption for Target size only applies to the AA and not AAA.</li>
+          </ul>
+
+          <h3>Fixed false/positives in version: 2501.2023.12.22 update</h3>
+          <ul>
             <li><strong>(Fixed)</strong> Target-Size when there are two or more adjacent targets with insufficient spacing, the tool is incorrectly identifying the last element as having sufficient spacing.</li>
             <li><strong>(Fixed)</strong> Lists were included in the spacing exemption.</li>
             <li><strong>(Fixed)</strong> The Landmarks check was incorrectly identifying Landmarks nested in a DIV as 'should not be exposed by screen readers.</li>
+          </ul>
+
+          <h3>Other updates to version: 2501.2023.12.22 update</h3>
+          <ul>
+            <li>Removed the 48 x 48 Target size check as there is no WCAG requirement to meet 48px by 48px.</li>
+            <li>Removed the circle target size indicator due to positioning issues. Will reinstate once issue is fixed.</li>
           </ul>
 
           <h3>Disclaimer</h3>

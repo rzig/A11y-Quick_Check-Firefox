@@ -22,16 +22,16 @@ function getPseudoElementAdjustment(elem: Element): {width: number, height: numb
 }
 
 // Add a circle shape to a specific element
-function addCircleShape(elem: Element, targetSize: number) {
-    const circle = document.createElement('div');
-    circle.classList.add('circle-shape-8228965');
-    circle.classList.add(`circle-shape-size-${targetSize}-8228965`);
-    circle.style.width = `${targetSize}px`;
-    circle.style.height = `${targetSize}px`;
-    elem.classList.add(`pos-rel-size-${targetSize}-8228965`);
-    elem.classList.add(`pos-rel-8228965`);
-    elem.appendChild(circle);
-}
+// function addCircleShape(elem: Element, targetSize: number) {
+//     const circle = document.createElement('div');
+//     circle.classList.add('circle-shape-8228965');
+//     circle.classList.add(`circle-shape-size-${targetSize}-8228965`);
+//     circle.style.width = `${targetSize}px`;
+//     circle.style.height = `${targetSize}px`;
+//     elem.classList.add(`pos-rel-size-${targetSize}-8228965`);
+//     elem.classList.add(`pos-rel-8228965`);
+//     elem.appendChild(circle);
+// }
 
 // Check if the element is excluded
 function isExcluded(elem: Element): boolean {
@@ -126,7 +126,7 @@ function addTargetSize(targetSize: number) {
                 messageDiv.textContent = message;
                 elem.appendChild(messageDiv);
 
-                addCircleShape(elem, targetSize);
+                //addCircleShape(elem, targetSize);
             }
         }
     }

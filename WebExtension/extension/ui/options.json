@@ -203,17 +203,6 @@
               ]
             },
             {
-              "name": "Target Size (48px)",
-              "id": "targetSize48",
-              "resource_path": "checks/target-size",
-              "css": "target-size.css",
-              "addScript": ["target-size.js", "target-size48.js"],
-              "removeScript": [
-                "target-size-remove.js",
-                "target-size-remove48.js"
-              ]
-            },
-            {
               "name": "Text Spacing",
               "id": "textSpacing",
               "resource_path": "checks/text-spacing",
