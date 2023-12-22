@@ -28,4 +28,10 @@ function removeTargetSize(targetSize: number) {
             elem.classList.remove(`pos-rel-8228965`);
         }
     }
+
+    // Remove the show/hide button
+    const toggleButton = document.getElementById('rmb-8228965');
+    if (toggleButton) {
+        toggleButton.remove();
+    }
 }

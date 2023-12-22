@@ -22,16 +22,16 @@ function getPseudoElementAdjustment(elem: Element): {width: number, height: numb
 }
 
 // Add a circle shape to a specific element
-// function addCircleShape(elem: Element, targetSize: number) {
-//     const circle = document.createElement('div');
-//     circle.classList.add('circle-shape-8228965');
-//     circle.classList.add(`circle-shape-size-${targetSize}-8228965`);
-//     circle.style.width = `${targetSize}px`;
-//     circle.style.height = `${targetSize}px`;
-//     elem.classList.add(`pos-rel-size-${targetSize}-8228965`);
-//     elem.classList.add(`pos-rel-8228965`);
-//     elem.appendChild(circle);
-// }
+function addCircleShape(elem: Element, targetSize: number) {
+    const circle = document.createElement('div');
+    circle.classList.add('circle-shape-8228965');
+    circle.classList.add(`circle-shape-size-${targetSize}-8228965`);
+    circle.style.width = `${targetSize}px`;
+    circle.style.height = `${targetSize}px`;
+    elem.classList.add(`pos-rel-size-${targetSize}-8228965`);
+    elem.classList.add(`pos-rel-8228965`);
+    elem.appendChild(circle);
+}
 
 // Check if the element is excluded
 function isExcluded(elem: Element): boolean {
@@ -48,13 +48,16 @@ function isExcluded(elem: Element): boolean {
 function checkSpacing(elem: Element, targetSize: number): boolean {
     const rect = elem.getBoundingClientRect();
     const computedStyle = window.getComputedStyle(elem);
-    const isInlineDisplay = computedStyle.display === 'inline' || computedStyle.display === 'inline-block';
 
+    // Calculate total height including pseudo-elements
+    const totalHeight = rect.height + getPseudoElementAdjustment(elem).height;
+
+    // Expand the rectangle to the target size for spacing check
     const expandedRect = {
-        top: rect.top - (isInlineDisplay ? 0 : targetSize / 2),
-        left: rect.left - targetSize / 2,
-        bottom: rect.bottom + (isInlineDisplay ? 0 : targetSize / 2),
-        right: rect.right + targetSize / 2
+        top: rect.top - (targetSize - rect.height) / 2,
+        left: rect.left - (targetSize - rect.width) / 2,
+        bottom: rect.bottom + (targetSize - rect.height) / 2,
+        right: rect.right + (targetSize - rect.width) / 2
     };
 
     const inputElements = document.querySelectorAll('a, button, input[type="button"], input[type="submit"], select, [role="button"], [role="link"], li');
@@ -63,20 +66,18 @@ function checkSpacing(elem: Element, targetSize: number): boolean {
         if (otherElem === elem || otherElem.classList.contains('spacing-ignore-8228965')) continue;
 
         const otherRect = otherElem.getBoundingClientRect();
-        const otherComputedStyle = window.getComputedStyle(otherElem);
-        const otherIsInlineDisplay = otherComputedStyle.display === 'inline' || otherComputedStyle.display === 'inline-block';
 
+        // Expand the other element's rectangle to the target size
         const otherExpandedRect = {
-            top: otherRect.top - (otherIsInlineDisplay ? 0 : targetSize / 2),
-            left: otherRect.left - targetSize / 2,
-            bottom: otherRect.bottom + (otherIsInlineDisplay ? 0 : targetSize / 2),
-            right: otherRect.right + targetSize / 2
+            top: otherRect.top - (targetSize - otherRect.height) / 2,
+            left: otherRect.left - (targetSize - otherRect.width) / 2,
+            bottom: otherRect.bottom + (targetSize - otherRect.height) / 2,
+            right: otherRect.right + (targetSize - otherRect.width) / 2
         };
 
         // Check if the expanded rectangles intersect
         const intersects = !(expandedRect.right < otherExpandedRect.left ||
                               expandedRect.left > otherExpandedRect.right ||
-                              (isInlineDisplay && otherIsInlineDisplay) || // Skip vertical spacing check for inline or inline-block elements
                               expandedRect.bottom < otherExpandedRect.top ||
                               expandedRect.top > otherExpandedRect.bottom);
 
@@ -84,6 +85,8 @@ function checkSpacing(elem: Element, targetSize: number): boolean {
             return false;
         }
     }
+
+    // If the height is slightly less than the target size but does not intersect with other elements, consider it sufficient
     return true;
 }
 
@@ -91,6 +94,10 @@ function addTargetSize(targetSize: number) {
     const inputElements = document.querySelectorAll('a, button, input[type="button"], input[type="submit"], select, [role="button"], [role="link"]');
 
     for (const elem of inputElements) {
+        // Exclude the 'Toggle messages' button
+        if (elem.id === 'rmb-8228965') {
+            continue;
+        }
         const rect = elem.getBoundingClientRect();
         const {width: extraWidth, height: extraHeight} = getPseudoElementAdjustment(elem);
         const elemWidth = rect.width + extraWidth;
@@ -126,8 +133,51 @@ function addTargetSize(targetSize: number) {
                 messageDiv.textContent = message;
                 elem.appendChild(messageDiv);
 
-                //addCircleShape(elem, targetSize);
+                addCircleShape(elem, targetSize);
             }
         }
     }
+    
 }
+
+function toggleMessageDivsVisibility() {
+    // Select all divs with the class 'target-size-8228965'
+    const messageDivs = document.querySelectorAll('.target-size-8228965');
+    let areMessagesVisible = false; // Declare the variable here and initialize it
+
+    // Toggle visibility of each div
+    messageDivs.forEach(div => {
+        const htmlDiv = div as HTMLElement; // Type assertion to HTMLElement
+        if (htmlDiv.style.display === 'none') {
+            htmlDiv.style.display = 'block';
+            areMessagesVisible = true;
+        } else {
+            htmlDiv.style.display = 'none';
+        }
+    });
+
+    // Update the button text based on the visibility of messages
+    const button = document.getElementById('rmb-8228965') as HTMLButtonElement;
+    if (button) {
+        button.textContent = areMessagesVisible ? 'Hide messages' : 'Show messages';
+        button.setAttribute('aria-pressed', areMessagesVisible.toString()); // Set aria-pressed attribute
+    }
+}
+
+// Function to inject the button and add the click event listener
+function injectButton() {
+    const button = document.createElement('button');
+    button.setAttribute('type', 'button');
+    button.id = 'rmb-8228965';
+    button.className = 'toggleMessage-8228965';
+    button.setAttribute('aria-pressed', 'false'); // Set initial aria-pressed attribute
+    button.textContent = 'Hide messages'; // Set the default button name
+
+    // Add click event listener to the button
+    button.addEventListener('click', toggleMessageDivsVisibility);
+
+    document.body.prepend(button);
+}
+
+// Call the function to inject the button
+injectButton();

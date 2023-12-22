@@ -178,7 +178,7 @@
       "fieldsets": [
         {
           "name": "User Experience",
-          "helpSection": "There is currently a false positive result where the Target size check is identifying links and buttons in lists as having insufficient vertical spacing for the 24px check when the list is positioned horizontally.",
+          "helpSection": "The Target Size messages can be toggled on/off to reveal the target area circles. If a target is undersize, but there is exempt by spacing, the circles will not intersect. If any circles intersect then tatget size is not met. Note that the Spacing exception is only applicable to 2.5.8 Target Size (Minimum) (Level AA)",
           "items": [
             {
               "name": "Target Size (24px)",
