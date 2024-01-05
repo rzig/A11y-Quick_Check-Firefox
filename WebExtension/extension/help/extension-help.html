@@ -11,7 +11,7 @@
       <header>
         <hgroup role="group" aria-roledescription="Heading group">
           <h1>A11y Quick Check</h1>
-          <p>Version: 2501.2023.12.23</p>
+          <p>Version: 2501.2024.01.06</p>
         </hgroup>
         <div class="a11yqc-logo">
           <img src="../../extension/ui/images/icon.svg" alt="" />
@@ -21,32 +21,28 @@
       <main>
         <div id="content" class="bootleg">
           <h2>Introduction</h2>
-          <p>A11y Quick Check is a testing tool that exposes accessibility issues to provide a high level check to help meet the requirements of the WCAG guidelines and coding best practices.</p>
-          
+          <p>
+            A11y Quick Check is a testing tool that exposes accessibility issues
+            to provide a high level check to help meet the requirements of the
+            WCAG guidelines and coding best practices.
+          </p>
+
           <h3>Identified false/positives</h3>
           <ul>
-            <li>The Target size check is identifying links and buttons in lists as having insufficient vertical spacing when the LI has display: inline or inline-block.</li>
-          </ul>
-
-          <h3>Fixed false/positives in version: 2501.2023.12.23 update</h3>
-          <ul>
-            <li><strong>Fixed</strong> Target-Size when there are two or more adjacent targets with insufficient spacing, the tool is incorrectly identifying the last element as having sufficient spacing.</li>
-            <li><strong>Fixed</strong> Lists were included in the spacing exemption.</li>
-            <li><strong>Fixed</strong> The Landmarks check was incorrectly identifying Landmarks nested in a DIV as 'should not be exposed by screen readers.</li>
-            <li><strong>Work around</strong> When the target size is just under 24 x 24 it is sometimes identified as a failure. Use the Toggle button positioned top left of the screen to turn off the messages. This is allow the bounding spacing circles to display. If the circles do not intersect (overlap) the test is passed for sufficient spacing.</li>
-          </ul>
-
-          <h3>Other updates to version: 2501.2023.12.23 update</h3>
-          <ul>
-            <li>Removed the 48 x 48 Target size check as there is no WCAG requirement to meet 48px by 48px.</li>
-            <li>Added a button to enable the option to show or hide the Target size messages. Turning them off allows the target area circle to be viewed.</li>
+            <li>
+              The Target size check is identifying links and buttons in lists as
+              having insufficient vertical spacing when the LI has display:
+              inline or inline-block.
+            </li>
           </ul>
 
           <h3>Disclaimer</h3>
           <p>
-            All attempts have been made to ensure the checks accurately identify both invalid code practices and failures in meeting the WCAG Guidelines.</p>
+            Every effort has been made to ensure the checks accurately identify
+            both invalid code practices and failures in meeting the WCAG
+            Guidelines. However, some false positive reporting may occur.
+          </p>
         </div>
-
       </main>
       <footer>
         <p>
