@@ -1,9 +1,9 @@
 "use strict";
 
 // Function to get adjustment made by :before and :after pseudo-elements
-function getPseudoElementAdjustment(elem: Element): {width: number, height: number} {
-    const after = window.getComputedStyle(elem, ':after');
-    const before = window.getComputedStyle(elem, ':before');
+function getPseudoElementAdjustment(elem: Element): {width: number, height: number, extendsTarget: boolean} {
+    const after = window.getComputedStyle(elem, '::after');
+    const before = window.getComputedStyle(elem, '::before');
 
     const topAfter = parseFloat(after.getPropertyValue('top')) || 0;
     const bottomAfter = parseFloat(after.getPropertyValue('bottom')) || 0;
@@ -18,7 +18,18 @@ function getPseudoElementAdjustment(elem: Element): {width: number, height: numb
     const extraHeight = Math.abs(topAfter) + Math.abs(bottomAfter) + Math.abs(topBefore) + Math.abs(bottomBefore);
     const extraWidth = Math.abs(leftAfter) + Math.abs(rightAfter) + Math.abs(leftBefore) + Math.abs(rightBefore);
 
-    return {width: extraWidth, height: extraHeight};
+    function pseudoElementExtendsTarget(pseudoElemStyle: CSSStyleDeclaration): boolean {
+        return pseudoElemStyle.content === '""' &&
+               pseudoElemStyle.position === 'absolute' &&
+               pseudoElemStyle.left === '0px' &&
+               pseudoElemStyle.top === '0px' &&
+               pseudoElemStyle.right === '0px' &&
+               pseudoElemStyle.bottom === '0px';
+    }
+
+    const extendsTarget = pseudoElementExtendsTarget(after) || pseudoElementExtendsTarget(before);
+
+    return {width: extraWidth, height: extraHeight, extendsTarget};
 }
 
 // Add a circle shape to a specific element
@@ -91,6 +102,8 @@ function checkSpacing(elem: Element, targetSize: number): boolean {
 }
 
 function addTargetSize(targetSize: number) {
+    let hasIssues = false;
+    
     const inputElements = document.querySelectorAll('a, button, input[type="button"], input[type="submit"], select, [role="button"], [role="link"]');
 
     for (const elem of inputElements) {
@@ -98,8 +111,9 @@ function addTargetSize(targetSize: number) {
         if (elem.id === 'rmb-8228965') {
             continue;
         }
+
         const rect = elem.getBoundingClientRect();
-        const {width: extraWidth, height: extraHeight} = getPseudoElementAdjustment(elem);
+        const {width: extraWidth, height: extraHeight, extendsTarget} = getPseudoElementAdjustment(elem);
         const elemWidth = rect.width + extraWidth;
         const elemHeight = rect.height + extraHeight;
         const tagName = elem.tagName.toLowerCase();
@@ -108,36 +122,35 @@ function addTargetSize(targetSize: number) {
         const isHidden = getComputedStyle(elem).display === 'none' || getComputedStyle(elem).opacity === '0' || getComputedStyle(elem).visibility === 'hidden';
         const isTooSmall = elemWidth <= 1 || elemHeight <= 1;
 
-        // Check if the element is a child of a list item with display inline or inline-block
-        const parentLi = elem.closest('li');
-        const isChildOfInlineLi = parentLi && (window.getComputedStyle(parentLi).display === 'inline' || window.getComputedStyle(parentLi).display === 'inline-block');
+        if (!isHidden && !isTooSmall) {
+            // If pseudo-elements extend the target area to an acceptable size, consider it a pass
+            if (!extendsTarget || elemWidth >= targetSize && elemHeight >= targetSize) {
+                if (elemWidth < targetSize || elemHeight < targetSize && !isExcluded(elem)) {
+                    // Existing logic for handling target size issues
+                    hasIssues = true;
+                    const hasSufficientSpacing = checkSpacing(elem, targetSize);
+                    let extraClass = (hasSufficientSpacing && targetSize <= 24) ? `target-sufficient-8228965` : `target-insufficient-8228965`;
 
-        if (!isHidden && !isTooSmall && (elemWidth < targetSize || elemHeight < targetSize)) {
-            if (!isExcluded(elem)) {
-                const hasSufficientSpacing = isChildOfInlineLi || checkSpacing(elem, targetSize);
-                let extraClass = (hasSufficientSpacing && targetSize <= 24) ? `target-sufficient-8228965` : `target-insufficient-8228965`;
-
-                let message = `The target size for element <${identifier}> is ${elemWidth.toFixed(2)}px x ${elemHeight.toFixed(2)}px`;
-
-                // Adjust message based on spacing and the targetSize
-                if (targetSize <= 24 && hasSufficientSpacing) {
-                    message += ` which is less than ${targetSize}px x ${targetSize}px. The element has sufficient spacing.`;
-                } else {
-                    message += ` which is less than ${targetSize}px x ${targetSize}px.`;
+                    let message = `The target size for element <${identifier}> is ${elemWidth.toFixed(2)}px x ${elemHeight.toFixed(2)}px`;
+                    if (targetSize <= 24 && hasSufficientSpacing) {
+                        message += ` which is less than ${targetSize}px x ${targetSize}px. The element has sufficient spacing.`;
+                    } else {
+                        message += ` which is less than ${targetSize}px x ${targetSize}px.`;
+                    }
+                    const messageDiv = document.createElement('div');
+                    messageDiv.className = `target-size-${targetSize}-8228965`;
+                    messageDiv.classList.add("target-size-8228965", extraClass, 'spacing-ignore-8228965');
+                    messageDiv.textContent = message;
+                    elem.appendChild(messageDiv);
+                    addCircleShape(elem, targetSize);
                 }
-
-                // Create and append the message div
-                const messageDiv = document.createElement('div');
-                messageDiv.className = `target-size-${targetSize}-8228965`;
-                messageDiv.classList.add("target-size-8228965", extraClass, 'spacing-ignore-8228965');
-                messageDiv.textContent = message;
-                elem.appendChild(messageDiv);
-
-                addCircleShape(elem, targetSize);
             }
         }
     }
-    
+
+    if (hasIssues) {
+        injectButton();
+    }
 }
 
 function toggleMessageDivsVisibility() {
@@ -149,12 +162,12 @@ function toggleMessageDivsVisibility() {
     messageDivs.forEach(div => {
         const htmlDiv = div as HTMLElement; // Type assertion to HTMLElement
         if (htmlDiv.style.display === 'none') {
-            htmlDiv.style.display = 'block';
+            htmlDiv.style.setProperty('display', 'block', 'important');
             areMessagesVisible = true;
         } else {
-            htmlDiv.style.display = 'none';
+            htmlDiv.style.setProperty('display', 'none', 'important');
         }
-    });
+    });    
 
     // Update the button text based on the visibility of messages
     const button = document.getElementById('rmb-8228965') as HTMLButtonElement;
@@ -178,6 +191,3 @@ function injectButton() {
 
     document.body.prepend(button);
 }
-
-// Call the function to inject the button
-injectButton();

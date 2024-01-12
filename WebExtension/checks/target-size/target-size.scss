@@ -24,7 +24,8 @@
   border: 4px solid var(--pass-border) !important;
 }
 
-.target-size-8228965.target-sufficient-8228965 {
+.target-size-8228965.target-sufficient-8228965,
+.pseudo-extends-target-8228965 {
   @include important-styles((
   background-color: var(--pass-background),
   border: 1px solid var(--pass-border),
@@ -80,7 +81,7 @@
   border-radius: 4px;
   padding: 1em 1.5em;
   font-size: 1.2rem;
-  cursor: pointer;
+  z-index: 100000;
 }
 
 .toggleMessage-8228965:focus {
