@@ -1,7 +1,7 @@
 @import '../common';
 
 @mixin heading-decoration($heading-level) {
-  #{$heading-level}:before, [role="heading"]:before {
+  #{$heading-level}:before {
     @include important-styles((
       content: "<#{$heading-level}>",
       font-size: 0.875em,
@@ -13,7 +13,7 @@
     ), true);
   }
 
-  #{$heading-level}:after, [role="heading"]:after {
+  #{$heading-level}:after {
     @include important-styles((
       content: "</#{$heading-level}>",
       font-size: 0.875em,
@@ -30,12 +30,24 @@
   [role="heading"]::before {
     @include important-styles((
       content: "[ARIA H" attr(data-aria-heading-555897) "]",
+      font-size: 0.875em,
+      padding: 0.5em,
+      margin-right: .25em,
+      font-weight: 700,
+      color: var(--pass-text),
+      border: 3px dashed var(--neutral-border)
     ), true);
   }
 
   [role="heading"]::after {
     @include important-styles((
       content: "[END]",
+      font-size: 0.875em,
+      padding: 0.5em,
+      margin-left: .25em,
+      font-weight: 700,
+      color: var(--pass-text),
+      border: 3px dashed var(--neutral-border)
     ), true);
   }
 }
@@ -57,7 +69,7 @@
 .aria-missing-level-555897,
 .skipped-level-555897 {
   @include important-styles((
-      margin-top:0.5em,
+      margin-top: 0.5em,
     ), true);
 }
 
@@ -78,12 +90,13 @@
 // Apply mixins
 @for $i from 1 through 6 {
   @include heading-decoration('h' + $i);
-  @include aria-heading-decoration;
 }
+
+@include aria-heading-decoration;
 
 @include heading-background-border('h1', var(--extension-white), 2px dashed var(--neutral-border));
 @include heading-background-border('h2', var(--extension-white), 2px dashed var(--neutral-border));
 @include heading-background-border('h3', var(--extension-white), 2px dashed var(--neutral-border));
 @include heading-background-border('h4', var(--extension-white), 2px dashed var(--neutral-border));
 @include heading-background-border('h5', var(--extension-white), 2px dashed var(--neutral-border));
-@include heading-background-border('h6', var(--extension-white), 2px dashed var(--neutral-border)); 
+@include heading-background-border('h6', var(--extension-white), 2px dashed var(--neutral-border));

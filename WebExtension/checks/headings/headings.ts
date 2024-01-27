@@ -2,15 +2,21 @@
 
 // Helper function to get the effective heading level
 function getEffectiveHeadingLevel(heading: Element | undefined): number {
-  if (!heading) return 0; // Return 0 if the heading is undefined
+  if (!heading) return 0;
 
   const tagName = heading.tagName.toLowerCase();
+  const ariaRole = heading.getAttribute('role');
+  const ariaLevel = heading.getAttribute('aria-level');
+
   if (tagName.startsWith('h') && tagName.length === 2) {
     return parseInt(tagName.slice(1));
   }
 
-  const ariaLevel = heading.getAttribute('aria-level');
-  return ariaLevel ? parseInt(ariaLevel) : 2; // Default ARIA level to 2 if not specified
+  if (ariaRole === 'heading') {
+    return ariaLevel ? parseInt(ariaLevel) : 2; // Defaults to 2 if aria-level is not specified
+  }
+
+  return 0; // Return 0 for non-heading elements
 }
 
 // Detect if any heading levels are skipped on the page.
@@ -70,36 +76,39 @@ function checkRedundantARIA() {
     const ariaRole = heading.getAttribute('role');
     const ariaLevel = heading.getAttribute('aria-level') ? parseInt(heading.getAttribute('aria-level')!) : null;
 
-    // Condition 1: Redundant ARIA Heading Role
+    // Update data-aria-heading-555897 for elements with role="heading"
+    if (ariaRole === 'heading') {
+      updateDataAriaHeading(heading, ariaLevel ? ariaLevel.toString() : null);
+    }
+
+    // Logic for redundant ARIA Role
     if (htmlLevel && ariaRole === 'heading' && !ariaLevel) {
       heading.classList.add('redundant-aria-role-555897');
-      const message = '(Warning) Redundant ARIA Heading Role';
+      const message = '(Warning) ARIA Heading is replacing HTML heading level';
       addMessageToPrecedingDiv(heading, 'redundant-aria-role-message-555897', message);
     }
 
-    // Condition 2: ARIA-LEVEL changes HTML heading level
+    // Logic for changed ARIA Level
     if (htmlLevel && ariaRole === 'heading' && ariaLevel && htmlLevel !== ariaLevel) {
       heading.classList.add('changed-aria-level-555897');
-      const message = `(Warning) Redundant ARIA Heading Role. ARIA-LEVEL changes HTML heading level from h${htmlLevel} to aria-level=${ariaLevel}`;
+      const message = `(Warning) ARIA Heading Role replaces HTML heading value. ARIA-LEVEL changes HTML heading level from h${htmlLevel} to H${ariaLevel}`;
       addMessageToPrecedingDiv(heading, 'changed-aria-level-message-555897', message);
-  }
+    }
   });
 }
 
 function checkMissingARIALevel() {
-  const ariaHeadings = document.querySelectorAll('[role="heading"]:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6)');
+  const ariaHeadings = document.querySelectorAll('[role="heading"]');
 
   ariaHeadings.forEach((heading: Element) => {
     const ariaLevel = heading.getAttribute('aria-level');
 
-    // Condition 3: ARIA Heading Role missing an ARIA-LEVEL
     if (!ariaLevel) {
       heading.classList.add('aria-missing-level-555897');
       const message = '(Warning) ARIA Heading Role missing an ARIA-LEVEL. Defaults to H2';
       addMessageToPrecedingDiv(heading, 'aria-missing-level-message-555897', message);
     }
 
-    // Update the data-aria-heading attribute
     updateDataAriaHeading(heading, ariaLevel);
   });
 }
