@@ -8,6 +8,11 @@ for (const element of document.querySelectorAll(
     "aria-skipped-level-555897",
     "aria-level-missing-555897"
   );
+
+  // Removing the data-aria-heading-555897 attribute from elements with role="heading"
+for (const headingElement of document.querySelectorAll('[role="heading"]')) {
+  headingElement.removeAttribute("data-aria-heading-555897");
+}
 }
 
 // Remove the added span element

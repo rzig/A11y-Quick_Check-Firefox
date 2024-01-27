@@ -66,13 +66,22 @@ function checkMissingARIALevel() {
   ariaHeadings.forEach((heading: Element) => {
     const ariaLevel = heading.getAttribute('aria-level');
 
-    // Condition 3: ARIA Heading Role missing a ARIA-LEVEL
+    // Condition 3: ARIA Heading Role missing an ARIA-LEVEL
     if (!ariaLevel) {
       heading.classList.add('aria-missing-level-555897');
       const message = '(Warning) ARIA Heading Role missing an ARIA-LEVEL.';
       addMessageToPrecedingDiv(heading, 'aria-missing-level-message-555897', message);
     }
+
+    // Update the data-aria-heading attribute
+    updateDataAriaHeading(heading, ariaLevel);
   });
+}
+
+function updateDataAriaHeading(heading: Element, ariaLevel: string | null) {
+  // If aria-level is missing, use the default value of 2
+  const dataAriaHeadingValue = ariaLevel || '2';
+  heading.setAttribute('data-aria-heading-555897', dataAriaHeadingValue);
 }
 
 function detectSkippedARIAHeadings() {

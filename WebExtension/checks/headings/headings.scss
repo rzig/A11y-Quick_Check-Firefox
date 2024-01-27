@@ -26,16 +26,16 @@
   }
 }
 
-@mixin aria-heading-decoration($heading-level) {
+@mixin aria-heading-decoration {
   [role="heading"]::before {
     @include important-styles((
-      content: "[ARIA]"
+      content: "[ARIA H" attr(data-aria-heading-555897) "]",
     ), true);
   }
 
   [role="heading"]::after {
     @include important-styles((
-      content: "[END]"
+      content: "[END]",
     ), true);
   }
 }
@@ -78,7 +78,7 @@
 // Apply mixins
 @for $i from 1 through 6 {
   @include heading-decoration('h' + $i);
-  @include aria-heading-decoration($i);
+  @include aria-heading-decoration;
 }
 
 @include heading-background-border('h1', var(--extension-white), 2px dashed var(--neutral-border));
