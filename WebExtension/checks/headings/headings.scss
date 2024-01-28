@@ -8,7 +8,7 @@
       padding: 0.5em,
       margin-right: .25em,
       font-weight: 700,
-      color: var(--pass-text),
+      color: inherit,
       border: 3px dashed var(--neutral-border)
     ), true);
   }
@@ -20,7 +20,7 @@
       padding: 0.5em,
       margin-left: .25em,
       font-weight: 700,
-      color: var(--pass-text),
+      color: inherit,
       border: 3px dashed var(--neutral-border)
     ), true);
   }
@@ -34,7 +34,7 @@
       padding: 0.5em,
       margin-right: .25em,
       font-weight: 700,
-      color: var(--pass-text),
+      color: inherit,
       border: 3px dashed var(--neutral-border)
     ), true);
   }
@@ -46,16 +46,16 @@
       padding: 0.5em,
       margin-left: .25em,
       font-weight: 700,
-      color: var(--pass-text),
+      color: inherit,
       border: 3px dashed var(--neutral-border)
     ), true);
   }
 }
 
-@mixin heading-background-border($heading-level, $background, $border) {
+@mixin heading-border($heading-level, $border) {
   #{$heading-level} .headingWrapper-8878, [role="heading"] .headingWrapper-8878 {
     @include important-styles((
-      background-color: $background,
+      background-color: inherit,
       border: $border,
       font-size: inherit,
     ), true);
@@ -94,9 +94,9 @@
 
 @include aria-heading-decoration;
 
-@include heading-background-border('h1', var(--extension-white), 2px dashed var(--neutral-border));
-@include heading-background-border('h2', var(--extension-white), 2px dashed var(--neutral-border));
-@include heading-background-border('h3', var(--extension-white), 2px dashed var(--neutral-border));
-@include heading-background-border('h4', var(--extension-white), 2px dashed var(--neutral-border));
-@include heading-background-border('h5', var(--extension-white), 2px dashed var(--neutral-border));
-@include heading-background-border('h6', var(--extension-white), 2px dashed var(--neutral-border));
+@include heading-border('h1', 2px dashed var(--neutral-border));
+@include heading-border('h2', 2px dashed var(--neutral-border));
+@include heading-border('h3', 2px dashed var(--neutral-border));
+@include heading-border('h4', 2px dashed var(--neutral-border));
+@include heading-border('h5', 2px dashed var(--neutral-border));
+@include heading-border('h6', 2px dashed var(--neutral-border));
