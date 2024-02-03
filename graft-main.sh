@@ -38,22 +38,27 @@ echo from making any changes.
 exit
 
 # Get the current remote
-REMOTE=$(git remote show origin | grep 'Fetch URL' | sed 's#.*\(http.*\)$#\1#')
+REMOTE_BETA=$(git remote show origin | grep 'Fetch URL' | sed 's#.*\(http.*\)$#\1#')
 
-pushd ..
+BETA_CHECKOUT=A11yQC-beta-merge
+
+cd ..
+
+rm -rf ${BETA_CHECKOUT}
 
 # get the base path for the current repo
-REMOTE_BASE=$(echo $REMOTE | sed 's#\(.*/\)[^/]*$#\1#')
+REMOTE_BASE=$(echo ${REMOTE_BETA} | sed 's#\(.*/\)[^/]*$#\1#')
 REMOTE_RELEASE=${REMOTE_BASE}A11y-Quick-Check.git
+REMOTE_RELEASE_MARCUS=$(echo ${REMOTE_RELEASE}|sed 's/LaurenceRLewis/MarcusP-P/g')
 
 # Backup the repos
-for BACKUP_REPO in ${REMOTE} ${REMOTE_RELEASE}; do
+for BACKUP_REPO in ${REMOTE_BETA} ${REMOTE_RELEASE} ${REMOTE_RELEASE_MARCUS}; do
 	# We start with a mirror clone, then bundle it into a single bundle file.
 	echo Backing up ${BACKUP_REPO}
-	BACKUP_REPO_NAME=$(echo ${BACKUP_REPO} | sed 's#.*/\([^/]*\)$#\1#')
+	BACKUP_REPO_NAME=$(echo ${BACKUP_REPO} | sed 's#.*/\([^/]*\)/\([^/]*\)$#\1-\2#')
 
 	rm -rf ${BACKUP_REPO_NAME} ${BACKUP_REPO_NAME}.bundle
-	git clone --quiet --mirror ${BACKUP_REPO}
+	git clone --quiet --mirror ${BACKUP_REPO} ${BACKUP_REPO_NAME}
 	pushd ${BACKUP_REPO_NAME}
 
 	git bundle create --quiet ../${BACKUP_REPO_NAME}.bundle --all
@@ -63,16 +68,16 @@ for BACKUP_REPO in ${REMOTE} ${REMOTE_RELEASE}; do
 	rm -rf ${BACKUP_REPO_NAME}
 done
 
-popd
-
-# While we're here, remove any .DS_Store turds left lying around
-# This will also help make sure it's a freshly cloned repo
-echo Removing any .DS_Store files.
-git filter-repo --quiet --invert-paths --path '.DS_Store' --use-base-name
+git clone REMOTE_BETA ${BETA_CHECKOUT}
+cd ${BETA_CHECKOUT}
 
 # Add the release version as a remote
 echo Adding release origin
 git remote add release-origin ${REMOTE_RELEASE}
+
+# Add Marcus release version as a remote
+echo Adding release origin
+git remote add release-origin-marcus ${REMOTE_RELEASE_MARCUS}
 
 # Get everything...
 echo Fetching all remotes
@@ -89,6 +94,17 @@ git replace --graft $FIRST_COMMIT 75c442c4876c32a90e8a7133d27dda7a42f14cae
 echo Linking the graft permanently
 git filter-repo --quiet --force
 
+# This is where I've tested up to
+
+exit
+
+# Cleanup repos
+
+# While we're here, remove any .DS_Store turds left lying around
+# This will also help make sure it's a freshly cloned repo
+echo Removing any .DS_Store files.
+git filter-repo --quiet --invert-paths --path '.DS_Store' --use-base-name
+
 # We don't want to risk the release tree.
 echo Forgetting release remote
 git remote remove release-origin
@@ -98,6 +114,8 @@ git remote add origin ${REMOTE}
 
 # Fetch the origin
 git fetch --quiet --all
+
+exit
 
 # Re-add the upstream branch
 for BRANCH in $(git branch --list --format '%(refname:short)'); do
