@@ -59,39 +59,43 @@ for BACKUP_REPO in ${REMOTE_BETA} ${REMOTE_RELEASE} ${REMOTE_RELEASE_MARCUS}; do
 
 	rm -rf ${BACKUP_REPO_NAME} ${BACKUP_REPO_NAME}.bundle
 	git clone --quiet --mirror ${BACKUP_REPO} ${BACKUP_REPO_NAME}
-	pushd ${BACKUP_REPO_NAME}
+	pushd ${BACKUP_REPO_NAME} > /dev/null
 
 	git bundle create --quiet ../${BACKUP_REPO_NAME}.bundle --all
 
-	popd
+	popd > /dev/null
 
 	rm -rf ${BACKUP_REPO_NAME}
 done
 
-git clone -o beta-origin ${REMOTE_BETA} ${BETA_CHECKOUT}
+# Clone the main repo
+echo Cloning main repo ${REMOTE_BETA}
+git clone --quiet -o beta-origin ${REMOTE_BETA} ${BETA_CHECKOUT}
 cd ${BETA_CHECKOUT}
 
+BETA_MAIN_NAME=local-beta-origin/beta
+
 # Rename the main branch
-git branch -m main local-beta-origin/beta
+git branch --quiet -m main ${BETA_MAIN_NAME}
 
 # Add the release version as a remote
 echo Adding release origin
-git remote add -f --tags release-origin ${REMOTE_RELEASE}
+git remote add release-origin ${REMOTE_RELEASE}
 
 # Add Marcus release version as a remote
 echo Adding marcus release origin
-git remote add -f --tags release-origin-marcus ${REMOTE_RELEASE_MARCUS}
+git remote add release-origin-marcus ${REMOTE_RELEASE_MARCUS}
 
 # Get everything...
 echo Fetching all remotes
-git fetch --quiet --all
+git fetch --tags --quiet --all
 
 # Find the second commit
-FIRST_COMMIT=$(git log --before "Tue Mar 14 06:49:43 2023 +1000" --pretty=oneline -1 | sed 's/^\([^ ]*\) .*/\1/')
+BATA_FIRST_COMMIT=$(git rev-list HEAD | tail -n 2 | head -n 1)
 
 # graft the Beta to the release version.
 echo Grafting the history into the the beta tree.
-git replace --graft $FIRST_COMMIT 75c442c4876c32a90e8a7133d27dda7a42f14cae
+git replace --graft ${BATA_FIRST_COMMIT} 75c442c4876c32a90e8a7133d27dda7a42f14cae
 
 # filter the repo to change the the graft into a real tree link
 echo Linking the graft permanently
@@ -99,15 +103,53 @@ git filter-repo --quiet --force
 
 # Create local copies of all branches
 for CURRENT_BRANCH in $(git branch -r | grep -v 'beta-origin\/main'); do
-	git switch -c local-${CURRENT_BRANCH} ${CURRENT_BRANCH}
+	git switch --quiet -c local-${CURRENT_BRANCH} ${CURRENT_BRANCH}
 done
 
+git checkout ${BETA_MAIN_NAME}
 
 # Cleanup repos
 
 # While we're here, remove any .DS_Store turds left lying around
 echo Removing any .DS_Store files.
 git filter-repo --quiet --invert-paths --path '.DS_Store' --use-base-name
+
+# Find first commit of old main
+echo Finding first commit
+FIRST_COMMIT=$(git rev-list HEAD | tail -n 1)
+
+# Convert line endings
+
+git checkout ${FIRST_COMMIT}
+
+cat << --EOF > .gitattributes
+# Set the default behavior, in case people don't have core.autocrlf set.
+* text lf
+
+# Explicitly declare text files you want to always be normalized and converted
+# to native line endings on checkout.
+#*.c text=auto
+
+# Declare files that will always have CRLF line endings on checkout.
+#*.sln text eol=crlf
+
+# Denote all files that are truly binary and should not be modified.
+*.png binary
+*.jpg binary
+--EOF
+
+git add .gitattributes
+
+git commit --amend
+
+git tag tmp
+
+git checkout ${BETA_MAIN_NAME}
+
+git rebase --rebase-merges --onto tmp ${FIRST_COMMIT}
+
+git tag -d tmp
+
 
 exit
 
