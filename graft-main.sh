@@ -35,7 +35,7 @@ echo Because this does re-write the history, you should know what you are doing
 echo before you run it. This script contains a protection that will rpevent it 
 echo from making any changes.
 
-exit
+# exit
 
 # Get the current remote
 REMOTE_BETA=$(git remote show origin | grep 'Fetch URL' | sed 's#.*\(http.*\)$#\1#')
@@ -91,11 +91,11 @@ echo Fetching all remotes
 git fetch --tags --quiet --all
 
 # Find the second commit
-BATA_FIRST_COMMIT=$(git rev-list HEAD | tail -n 2 | head -n 1)
+BETA_FIRST_COMMIT=$(git rev-list HEAD | tail -n 2 | head -n 1)
 
 # graft the Beta to the release version.
 echo Grafting the history into the the beta tree.
-git replace --graft ${BATA_FIRST_COMMIT} 75c442c4876c32a90e8a7133d27dda7a42f14cae
+git replace --graft ${BETA_FIRST_COMMIT} 75c442c4876c32a90e8a7133d27dda7a42f14cae
 
 # filter the repo to change the the graft into a real tree link
 echo Linking the graft permanently
@@ -114,19 +114,17 @@ git checkout ${BETA_MAIN_NAME}
 echo Removing any .DS_Store files.
 git filter-repo --quiet --invert-paths --path '.DS_Store' --use-base-name
 
-# Find first commit of old main
-echo Finding first commit
-FIRST_COMMIT=$(git rev-list HEAD | tail -n 1)
-
 # Convert line endings
 
-git filter-branch --tree-filter 'git ls-files  | grep -v "\.png$" | tr "\n" "\0" | xargs -0 -L1 dos2unix -q -r' -- --all
+# Find first commit of old main
+#echo Finding first commit
 
-exit
+#FIRST_COMMIT=$(git rev-list HEAD | tail -n 1)
 
-git checkout ${FIRST_COMMIT}
+#git checkout ${FIRST_COMMIT}
 
-cat << --EOF > .gitattributes
+echo Creating .gitAttributes
+cat << --EOF > ../.gitattributes
 # Set the default behavior, in case people don't have core.autocrlf set.
 * text lf
 
@@ -142,18 +140,19 @@ cat << --EOF > .gitattributes
 *.jpg binary
 --EOF
 
-git add .gitattributes
+CURRENT_DIR=$(pwd)
 
-git commit --amend
+echo Convert all text files to unix line endings, and add .gitattributes
+FILTER_BRANCH_SQUELCH_WARNING=1 git filter-branch --tree-filter "cp ${CURRENT_DIR}/../.gitattributes . && git add .gitattributes && git ls-files -z | xargs -0 dos2unix -q -r -e -ic0 -- | xargs -0 dos2unix -r -e --" -- --all
 
-git tag tmp
+echo Removing backup refs
+rm -rf .git/refs/original
 
-git checkout ${BETA_MAIN_NAME}
+#echo Add .gitattributes to all history
+#FILTER_BRANCH_SQUELCH_WARNING=1 git filter-branch --tree-filter 'cp ../.gitattributes . && git add .gitattributes' -- --all
 
-git rebase --rebase-merges --onto tmp ${FIRST_COMMIT}
-
-git tag -d tmp
-
+#echo Removing backup refs
+#rm -rf .git/refs/original
 
 exit
 
@@ -169,6 +168,21 @@ git remote add origin ${REMOTE}
 git fetch --quiet --all
 
 exit
+
+# TODO:
+# * Run eslint -fix, stylelint -fix, and prettier -fix on all code
+#   * Before WebExtension directory
+#   * WebExtension directory, no package.json
+#   * WebExtension directory, package.json in WebExtension
+#   * WebExtension directory, package.json in root
+#   * WebExtension directory, package.json in root, linting fix in package.json
+# * Upgrade npm packages
+# * Move the generation scripts from Release to Beta (Without enforcing linting)
+# * Push changes back to remotes
+#   * Release main renamed to old-release and added to all 3 repos
+#   * Beta main to be added to all 3 repos as main
+#   * All other branches force pushed
+# * Close the Beta repository
 
 # Re-add the upstream branch
 for BRANCH in $(git branch --list --format '%(refname:short)'); do
