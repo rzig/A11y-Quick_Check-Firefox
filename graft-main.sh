@@ -120,6 +120,10 @@ FIRST_COMMIT=$(git rev-list HEAD | tail -n 1)
 
 # Convert line endings
 
+git filter-branch --tree-filter 'git ls-files  | grep -v "\.png$" | tr "\n" "\0" | xargs -0 -L1 dos2unix -q -r' -- --all
+
+exit
+
 git checkout ${FIRST_COMMIT}
 
 cat << --EOF > .gitattributes
