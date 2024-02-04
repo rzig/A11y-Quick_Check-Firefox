@@ -68,16 +68,19 @@ for BACKUP_REPO in ${REMOTE_BETA} ${REMOTE_RELEASE} ${REMOTE_RELEASE_MARCUS}; do
 	rm -rf ${BACKUP_REPO_NAME}
 done
 
-git clone REMOTE_BETA ${BETA_CHECKOUT}
+git clone -o beta-origin ${REMOTE_BETA} ${BETA_CHECKOUT}
 cd ${BETA_CHECKOUT}
+
+# Rename the main branch
+git branch -m main local-beta-origin/beta
 
 # Add the release version as a remote
 echo Adding release origin
-git remote add release-origin ${REMOTE_RELEASE}
+git remote add -f --tags release-origin ${REMOTE_RELEASE}
 
 # Add Marcus release version as a remote
-echo Adding release origin
-git remote add release-origin-marcus ${REMOTE_RELEASE_MARCUS}
+echo Adding marcus release origin
+git remote add -f --tags release-origin-marcus ${REMOTE_RELEASE_MARCUS}
 
 # Get everything...
 echo Fetching all remotes
@@ -94,20 +97,24 @@ git replace --graft $FIRST_COMMIT 75c442c4876c32a90e8a7133d27dda7a42f14cae
 echo Linking the graft permanently
 git filter-repo --quiet --force
 
-# This is where I've tested up to
+# Create local copies of all branches
+for CURRENT_BRANCH in $(git branch -r | grep -v 'beta-origin\/main'); do
+	git switch -c local-${CURRENT_BRANCH} ${CURRENT_BRANCH}
+done
 
-exit
 
 # Cleanup repos
 
 # While we're here, remove any .DS_Store turds left lying around
-# This will also help make sure it's a freshly cloned repo
 echo Removing any .DS_Store files.
 git filter-repo --quiet --invert-paths --path '.DS_Store' --use-base-name
+
+exit
 
 # We don't want to risk the release tree.
 echo Forgetting release remote
 git remote remove release-origin
+git remote remove release-origin-marcus
 
 # Add in the origional remote.
 git remote add origin ${REMOTE}
