@@ -247,7 +247,7 @@
             {
               "name": "Show Aria-Label",
               "id": "ariaLabelValue",
-              "resource_path": "checks/accname-calc",
+              "resource_path": "checks/aria-label",
               "css": "aria-label.css",
               "addScript": "aria-label.js",
               "removeScript": "aria-label-remove.js"
@@ -255,7 +255,7 @@
             {
               "name": "Show Aria-Labelledby",
               "id": "ariaLabelledbyValue",
-              "resource_path": "checks/accname-calc",
+              "resource_path": "checks/aria-labelledby",
               "css": "aria-labelledby.css",
               "addScript": "aria-labelledby.js",
               "removeScript": "aria-labelledby-remove.js"
@@ -263,15 +263,23 @@
             {
               "name": "Show Aria-Describedby",
               "id": "ariaDescribedbyValue",
-              "resource_path": "checks/accname-calc",
+              "resource_path": "checks/aria-describedby",
               "css": "aria-describedby.css",
               "addScript": "aria-describedby.js",
               "removeScript": "aria-describedby-remove.js"
             },
             {
+              "name": "Show Aria-Controls",
+              "id": "ariaControlsValue",
+              "resource_path": "checks/aria-controls",
+              "css": "aria-controls.css",
+              "addScript": "aria-controls.js",
+              "removeScript": "aria-controls-remove.js"
+            },
+            {
               "name": "Element named by method",
               "id": "elementNameFrom",
-              "resource_path": "checks/accname-calc",
+              "resource_path": "checks/element-name-from",
               "css": "element-name-from.css",
               "addScript": "element-name-from.js",
               "removeScript": "element-name-from-remove.js"
