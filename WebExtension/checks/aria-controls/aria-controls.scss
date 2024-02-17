@@ -1,0 +1,42 @@
+@import "../common";
+
+.neutral-control-9927845 {
+  @include important-styles(
+    (
+      border: 2px dashed var(--neutral-border),
+      margin: 1em 0,
+      margin-bottom: 0,
+    ),
+    true
+  );
+}
+
+.neutral-control-message-9927845 {
+  font-weight: 700;
+  margin: 0;
+
+  @include message-container(
+    var(--neutral-background),
+    var(--neutral-border),
+    var(--neutral-text)
+  );
+  @include flex-width-container;
+}
+
+.numbered-controlled-square-9927845 {
+  @include important-styles(
+    (
+      display: inline-block,
+      width: 20px,
+      height: 20px,
+      text-align: center,
+      font-weight:700,
+      background-color: var(--neutral-text),
+      color: var(--extension-white),
+      border: 1px solid var(--neutral-border),
+      border-radius: 1em,
+      margin-left: .5em,
+    ),
+    true
+  );
+}

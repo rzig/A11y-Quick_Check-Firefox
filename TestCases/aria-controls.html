@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARIA-controls Test Page</title>
+    <style>
+        .test-section {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+        .message-aria-controls-889756 {
+            margin-top: 10px;
+            color: blue;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+    <script>
+        function toggleVisibility(controlledElementId) {
+            var element = document.getElementById(controlledElementId);
+            if (element) {
+                element.classList.toggle('hidden');
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>ARIA-controls Test Page</h1>
+
+    <div class="test-section">
+        <h2>Test for aria-controls</h2>
+
+        <!-- Accordion Example -->
+        <button id="accordionButton" aria-controls="accordionContent" onclick="toggleVisibility('accordionContent')">Toggle Accordion Content</button>
+        <div id="accordionContent" class="hidden">
+            This is the content controlled by the accordion button. Clicking the button toggles this content.
+        </div>
+		<div>
+		<!-- No matching ID -->
+        <button id="noMatchingID" aria-controls="noMatchingIDFound" onclick="toggleVisibility('accordionContent')">Toggle Accordion Content</button>
+        <div id="accordionContent" class="hidden">
+            aria-controls has no matching ID.
+        </div>
+		</div>
+
+        <!-- Tab Example -->
+        <div>
+            <button id="tab1" aria-controls="tabpanel1" onclick="toggleVisibility('tabpanel1')">Tab 1</button>
+            <div id="tabpanel1" class="hidden" role="tabpanel">
+                Content of Tab Panel 1.
+            </div>
+        </div>
+        <div>
+            <button id="tab2" aria-controls="tabpanel2" onclick="toggleVisibility('tabpanel2')">Tab 2</button>
+            <div id="tabpanel2" class="hidden" role="tabpanel">
+                Content of Tab Panel 2.
+            </div>
+        </div>
+
+        <!-- Dropdown Menu Example -->
+        <div>
+            <button id="dropdownButton" aria-haspopup="true" aria-controls="dropdownMenu" onclick="toggleVisibility('dropdownMenu')">Toggle Dropdown Menu</button>
+            <div id="dropdownMenu" class="hidden" role="menu">
+                <ul>
+                    <li>Option 1</li>
+                    <li>Option 2</li>
+                    <li>Option 3</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
