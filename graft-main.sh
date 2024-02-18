@@ -161,7 +161,7 @@ echo Creating and adding .gitattributes
 # Copy the .gitattributes file
 cp \${CURRENT_DIR}/../.gitattributes . 
 
-git add .gitattributes
+# git add .gitattributes
 
 echo Converting line endings
 
@@ -255,14 +255,12 @@ cat << !!EOF >  .stylelintrc
 	"no-descending-specificity": null,
 	"custom-property-pattern": null,
 	"no-duplicate-selectors": null,
-	"custom-property-pattern": null,
 	"scss/load-no-partial-leading-underscore": null,
 	"scss/at-mixin-pattern": null,
   }
 }
 !!EOF
 }
-
 
 ## .eslintignore
 # stage 1 for before creation of the WebExtension folder
@@ -352,23 +350,152 @@ if [ -f manifest.json ]; then
 
 	npm install -d --no-audit --no-fund --loglevel warn
 
-	# if [ "\$(shasum graft-main.sh)" = "ec8f70df6cc9f0ec9a33c3afcf4ff36878539b21  graft-main.sh" ]
-	#sed -i@ 's/; border 3px/; border: 3px/g' css/headings.css
-	#sed -i~ 's/; border 2px/; border: 2px/g' css/headings.css
-	#sed -i~ 's/^role="heading"]/[role="heading"]/g' css/headings.css
-	#rm css/headings.css~
+	if [ "\$(shasum css/headings.css)" = "c989269620bc500b09a7b62a98622f05f3f70333  css/headings.css" ]; then
+        echo Patching css/headings.css...
+		sed -i@1 's/; border 3px/; border: 3px/g' css/headings.css
+		sed -i~ 's/; border 2px/; border: 2px/g' css/headings.css
+		sed -i~ 's/^role="heading"]/[role="heading"]/g' css/headings.css
+		rm css/headings.css~
+	fi
 
-	#sed -i@ "s/\',0);}//g" css/relatedFormControls.css
+    if [ "\$(shasum css/relatedFormControls.css)" = "aad81dc03eb9509bcebfb2f755543eabd84c7221  css/relatedFormControls.css" ]; then
+        echo Patching css/relatedFormControls...
+        sed -i@1 "s/\',0);}//g" css/relatedFormControls.css
+    fi
 
-	#sed -i@ 's#<div class="the--icon"><img src="icons/icon.svg"</div>#<div class="the--icon"><img src="icons/icon.svg"></div>#g' popup.html
+    if [ "\$(shasum popup.html)" = "e60cd90157b33508c8ed5e422b2ace668778679d  popup.html" ]; then
+        echo Patching popup.html... 
+	    sed -i@1 's#<div class="the--icon"><img src="icons/icon.svg"</div>#<div class="the--icon"><img src="icons/icon.svg"></div>#g' popup.html
+        ed popup.html << !!EOF
+44a
+		<li>
+.
+w
+!!EOF
+    fi
 
-	set +e
+    if [ "\$(shasum popup.html)" = "6463930b0ef12d108513191b097cd160d9c65104  popup.html" ]; then
+        echo Patching popup.html v2... 
+	    sed -i@2 's#<div class="the--icon"><img src="icons/icon.svg"</div>#<div class="the--icon"><img src="icons/icon.svg"></div>#g' popup.html
+    fi
+
+    if [ "\$(shasum popup.html)" = "dabf011fccdfd9408c2889055abbe3f607f60c38  popup.html" ]; then
+        echo Patching popup.html v3... 
+		cp popup.html popup.html@3
+        ed popup.html << !!EOF
+12c
+        <label for="toggleAllOptions" class="toggle--label">Toggle all</label>
+.
+w
+!!EOF
+    fi
+
+    if [ "\$(shasum popup.html)" = "8df6e8ce4754f0b8ad6eb7ce8b6f33705f1319c6  popup.html" ]; then
+        echo Patching popup.html v4... 
+		cp popup.html popup.html@4
+        ed popup.html << !!EOF
+13c
+        <label for="toggleAllOptions" class="toggle--label">Toggle all</label>
+.
+w
+!!EOF
+    fi
+
 	npm run stylelint-fix
 	npm run eslint-fix
 	npm run prettier-fix
-	set -e
+
+    if [ -f css/headings.css@1 ] ; then
+		echo Reverting css/headings.css...
+        ed css/headings.css << !!EOF
+208c
+  border: 2px dashed rgb(255 161 23);
+.
+204c
+  border: 3px dashed rgb(187 171 28);
+.
+138c
+[role="heading"][aria-level="3"]::before {
+.
+131c
+[role="heading"][aria-level="2"]::after {
+.
+124c
+[role="heading"][aria-level="2"]::before {
+.
+117c
+[role="heading"][aria-level="1"]::after {
+.
+99c
+  border: 2px dashed rgb(255 161 23);
+.
+95c
+  border: 3px dashed rgb(187 171 28);
+.
+w
+!!EOF
+        rm css/headings.css@1
+    fi
+
+
+    if [ -f css/relatedFormControls.css@1 ] ; then
+		echo Reverting css/relatedFormControls.css...
+        ed css/relatedFormControls.css << !!EOF
+62c
+}',0);}
+.
+w
+!!EOF
+        rm css/relatedFormControls.css@1
+    fi
+
+    if [ -f popup.html@1 ] ; then
+		echo Reverting popup.html...
+        ed popup.html << !!EOF
+44d
+10c
+      <div class="the--icon"><img src="icons/icon.svg"</div>
+.
+w
+!!EOF
+        rm popup.html@1
+    fi
 
 	rm package.json
+
+    if [ -f popup.html@2 ] ; then
+		echo Reverting popup.html v2...
+        ed popup.html << !!EOF
+10c
+      <div class="the--icon"><img src="icons/icon.svg"</div>
+.
+w
+!!EOF
+        rm popup.html@2
+    fi
+
+    if [ -f popup.html@3 ] ; then
+		echo Reverting popup.html v3...
+        ed popup.html << !!EOF
+11c
+      <label for="toggleAllOptions" class="toggle--label">Toggle all
+.
+w
+!!EOF
+        rm popup.html@3
+    fi
+
+    if [ -f popup.html@4 ] ; then
+		echo Reverting popup.html v4...
+        ed popup.html << !!EOF
+12c
+      <label for="toggleAllOptions" class="toggle--label">Toggle all
+.
+w
+!!EOF
+        rm popup.html@4
+    fi
+
 	rm package-lock.json
 	rm .stylelintignore
 	rm .stylelintrc
@@ -379,6 +506,7 @@ if [ -f manifest.json ]; then
 	rm -rf node_modules
 # The WebExtension folder has been created
 elif [ -d WebExtension ]; then
+	exit
 	# At this stage we are still using JavaScript and CSS
 	if [ ! -f WebExtension/package.json -a ! -f package.json ]; then
 		create_package_json_stage2
@@ -389,12 +517,15 @@ elif [ -d WebExtension ]; then
 		create_prettierignore_stage1
 		create_prettierrc
 
+		# error in 
+		# 89e9cc4859d87f76b445b31ccfdff8b2744927fc
+		# WebExtension/extension/ui/options.json
+		# merge turd left over
+
 		npm install -d --no-audit --no-fund --loglevel warn
 
-		set +e
 		npm run stylelint-fix
 		npm run eslint-fix
-		set -e
 		npm run prettier-fix
 
 		rm package.json
