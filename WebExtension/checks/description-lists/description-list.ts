@@ -36,10 +36,11 @@ function checkChildStructure(child: Element, dlElement: Element): boolean {
 
 function checkDLStructure(dlElement: Element): boolean {
   let failureDetected = false;
-  let lastChildWasDtOrDiv = false;
+  let lastChildWasDt = false;
 
   for (const child of Array.from(dlElement.children)) {
-    if (child.nodeName === "DD" && !lastChildWasDtOrDiv) {
+    // Check for DD elements without a preceding DT or DIV and handle null case for previousElementSibling.
+    if (child.nodeName === "DD" && !lastChildWasDt && !(child.previousElementSibling && isDivWithDtDd(child.previousElementSibling))) {
       dlElement.classList.add("invalid-9927845");
       const message = `Invalid: DD without preceding DT or DIV wrapping detected inside DL.`;
       createChildMessageDiv(dlElement, "invalid-message-9927845", message);
@@ -47,7 +48,12 @@ function checkDLStructure(dlElement: Element): boolean {
       break;
     }
 
-    lastChildWasDtOrDiv = child.nodeName === "DT" || isDivWithDtDd(child);
+    if (child.nodeName === "DT") {
+      lastChildWasDt = true;
+    } else if (child.nodeName !== "DD") {
+      lastChildWasDt = false;
+    }
+
     failureDetected = checkChildStructure(child, dlElement);
 
     if (failureDetected) {
