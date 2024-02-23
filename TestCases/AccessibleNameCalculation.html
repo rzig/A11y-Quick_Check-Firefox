@@ -18,14 +18,59 @@
 <body>
 
     <h1>Accessible Name Test Page</h1>
+<div>
+    <button id="button1">Click Me</button>
+	</div>
+	<div>
+	<a href="#" id="link1">Go to link</a>
+	</div>
+	<div role="button" id="divAsButton">Simulated Button</div>
+	<div>
+<span role="link" id="spanAsLink" tabindex="0">Simulated Link</span>
+</div>
 
-    <div id="label1">Label 1</div>
-    <div id="label2">Label 2</div>
+<div role="button" aria-label="Close" id="closeButton">X</div>
+<div>
+<span role="checkbox" aria-label="Accept Terms" tabindex="0" id="checkboxTerms"></span>
+</div>
+<div id="label1">Label for below input</div>
+<input aria-labelledby="label1" id="inputWithLabelledby">
+</div>
+<div>
+<label for="inputText1">Username:</label>
+<input type="text" id="inputText1">
+</div>
+<div title="Tooltip for div" id="divWithTitle">Hover over me</div>
+<div>
+<img src="example.jpg" alt="Example Image" id="imageWithAlt">
+</div>
+<div role="button" style="display: none;" id="hiddenButton">Hidden Button</div>
 
-    <input type="text" aria-labelledby="label1 label2" placeholder="Input with aria-labelledby">
-    <button aria-label="Custom Button">Button with aria-label</button>
-    <input type="text" title="Input Title" placeholder="Input with title">
-    <button>Button with text content</button>
+<div>
+<label for="inputLabelFor">Label via for attribute</label>
+<input type="text" id="inputLabelFor">
+</div>
+
+<div>
+<label for="inputAriaLabel">Label should be overridden</label>
+<input type="text" id="inputAriaLabel" aria-label="Aria Label Name">
+</div>
+
+<div>
+<input type="text" id="inputTitle" title="Title Name">
+</div>
+
+<div>
+<div id="nameFromDiv">Name from this div</div>
+<input type="text" id="inputAriaLabelledby" aria-labelledby="nameFromDiv">
+</div>
+
+<div>
+<label for="inputCombined">Label Text</label>
+<div id="nameFromDivForCombined">Name from aria-labelledby</div>
+<input type="text" id="inputCombined" aria-label="Aria Label Override" aria-labelledby="nameFromDivForCombined" title="Title Fallback">
+</div>
+	
 
 </body>
 </html>

@@ -279,10 +279,10 @@
             {
               "name": "Element named by method",
               "id": "elementNameFrom",
-              "resource_path": "checks/element-name-from",
-              "css": "element-name-from.css",
-              "addScript": "element-name-from.js",
-              "removeScript": "element-name-from-remove.js"
+              "resource_path": "checks/element-named-from",
+              "css": "element-named-from.css",
+              "addScript": "element-named-from.js",
+              "removeScript": "element-named-from-remove.js"
             },
             {
               "name": "Show Screen Reader Only Content",

@@ -184,43 +184,51 @@
    * @returns {object} Object containing the accessible name and the technique used.
    */
   function getAccessibleName(node: Element): { name: string; method: string } {
-    // Priority 1: aria-labelledby
+    // Check for aria-labelledby first
     let labelledby = node.getAttribute("aria-labelledby");
     if (labelledby) {
-      let names = labelledby
-        .split(" ")
-        .map((id) => document.getElementById(id)?.textContent?.trim() ?? "")
-        .filter((text) => text.length > 0)
-        .join(" ");
-      if (names.length > 0) {
-        return { name: names, method: "aria-labelledby" };
-      }
+        let names = labelledby.split(" ")
+            .map(id => document.getElementById(id)?.textContent?.trim() ?? "")
+            .filter(text => text.length > 0)
+            .join(" ");
+        if (names.length > 0) {
+            return { name: names, method: "aria-labelledby" };
+        }
     }
 
-    // Priority 2: aria-label
+    // Check for aria-label next
     let label = node.getAttribute("aria-label");
     if (label) {
-      return { name: label, method: "aria-label" };
+        return { name: label, method: "aria-label" };
     }
 
-    // Priority 3: Text content or alt text of child img elements
+    // Check for associated label via 'for' attribute
+    // This step is new and checks if a label element is associated with the input
+    if (node.id) {
+        let labelFor = document.querySelector(`label[for="${node.id}"]`);
+        if (labelFor && labelFor.textContent) {
+            return { name: labelFor.textContent.trim(), method: "Contents (label for)" };
+        }
+    }
+
+    // Then, check for text content or alt text of child img elements
     let textContent = node.textContent?.trim();
     let imgAltText = node.querySelector("img")?.getAttribute("alt")?.trim();
     if (textContent && textContent.length > 0) {
-      return { name: textContent, method: "Contents" };
+        return { name: textContent, method: "Contents" };
     } else if (imgAltText && imgAltText.length > 0) {
-      return { name: imgAltText, method: "Contents" };
+        return { name: imgAltText, method: "Contents" };
     }
 
-    // Priority 4: Title
+    // Lastly, check for title attribute
     let title = node.getAttribute("title");
     if (title) {
-      return { name: title, method: "Title" };
+        return { name: title, method: "Title" };
     }
 
-    // Default case: No accessible name found
+    // Default case if no accessible name found
     return { name: "No accessible name", method: "none" };
-  }
+}
 
   function createExtendedChildMessageDiv(
     node: Element,
