@@ -11,7 +11,7 @@
       <header>
         <hgroup role="group" aria-roledescription="Heading group">
           <h1>A11y Quick Check</h1>
-          <p>Version: 2501.2024.02.17</p>
+          <p>Version: 2501.2024.02.24</p>
         </hgroup>
         <div class="a11yqc-logo">
           <img src="../../extension/ui/images/icon.svg" alt="" />
@@ -27,11 +27,9 @@
             WCAG guidelines and coding best practices.
           </p>
 
-          <h3>Version: 2501.2024.02.19 update</h3>
+          <h3>Version: 2501.2024.02.24 update</h3>
           <ul>
-            <li>Added check for aria-controls.</li>
-            <li>Fixed bug in Description list reporting incorrectly as invalid for a DT with multiple DD.</li>
-            <li>Updated aria-labelledby check to support 'name prohibited'. <em>If the element does not support name from author, Authors MUST NOT use the aria-labelledby attributes to name the element.</em></li>
+            <li>Bug fix where the accessible name of input using 'label for' was being reported as 'Name from none'.</li>
           </ul>
 
           <h3>Identified false/positives</h3>
