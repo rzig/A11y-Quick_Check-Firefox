@@ -11,7 +11,7 @@
       <header>
         <hgroup role="group" aria-roledescription="Heading group">
           <h1>A11y Quick Check</h1>
-          <p>Version: 2501.2024.02.24</p>
+          <p>Version: 2501.2024.03.01</p>
         </hgroup>
         <div class="a11yqc-logo">
           <img src="../../extension/ui/images/icon.svg" alt="" />
@@ -27,17 +27,15 @@
             WCAG guidelines and coding best practices.
           </p>
 
+          <h3>Version: 2501.2024.03.01 update</h3>
+          <ul>
+            <li>Update to SVG images check. Now checks for naming via &lt;title&gt;, &lt;text&gt; and the title attribute.</li>
+            <li>Updated DL check which was not reporting correctly when DL is a child of UL > LI or OL LI.</li>
+          </ul>
+          
           <h3>Version: 2501.2024.02.24 update</h3>
           <ul>
             <li>Bug fix where the accessible name of input using 'label for' was being reported as 'Name from none'.</li>
-          </ul>
-
-          <h3>Identified false/positives</h3>
-          <ul>
-            <li>
-              If an HTML heading is followed by an ARIA heading and then another ARIA heading, and there are no skipped heading levels, the Headings check with report a skipped heaading level.
-            </li>
-
           </ul>
 
           <h3>Disclaimer</h3>
