@@ -16,7 +16,7 @@ export class HelpUtils {
 
   static createHelpLink(tabPanel: HTMLElement, helpUrl?: string) {
     const helpLink = document.createElement("a");
-    helpLink.innerText = "Known bugs or false positive reporting";
+    helpLink.innerText = "About A11y Quick Check";
     helpLink.classList.add("help-link");
 
     if (helpUrl) {
