@@ -30,7 +30,7 @@
       <dd>"Moby Dick"</dd>
     </dl>
 
-    <h2>With DIV Element as first child</h2>
+    <h2>With DIV Element as first child - invalid</h2>
     <dl>
       <div></div>
       <dt>Name</dt>
@@ -52,7 +52,7 @@
       <dd>"Moby Dick"</dd>
     </dl>
 
-    <h2>With DIV wrapping one key-value pair</h2>
+    <h2>With DIV wrapping one key-value pair - invalid</h2>
     <dl>
       <div>
         <dt>Name</dt>
@@ -74,8 +74,73 @@
       <dt>Favorite Book</dt>
       <dd>"Moby Dick"</dd>
     </dl>
+	
+	<h2>DL nested in a UL LI has DIV wrapping one key-value pair - invalid</h2>
+	<ul>
+	<li>I have a nested DL</li>
+	<li>
+    <dl>
+      <div>
+        <dt>Name</dt>
+        <dd>John Doe</dd>
+      </div>
 
-    <h2>With DIV wrapping multiple key-value pairs</h2>
+      <dt>Phone</dt>
+      <dd>+123456789</dd>
+
+    </dl>
+	</li>
+	</ul>
+	
+	<h2>DL nested in a OL LI has DIV wrapping one key-value pair - invalid</h2>
+	<ol>
+	<li>I have a nested DL</li>
+	<li>
+    <dl>
+      <div>
+        <dt>Name</dt>
+        <dd>John Doe</dd>
+      </div>
+
+      <dt>Phone</dt>
+      <dd>+123456789</dd>
+
+    </dl>
+	</li>
+	</ol>
+	
+	<h2>DL nested in a UL - invalid</h2>
+	<ul>
+	<dl>
+        <dt>Name</dt>
+        <dd>John Doe</dd>
+
+      <dt>Phone</dt>
+      <dd>+123456789</dd>
+
+    </dl>
+	<li>My UL has a nested DL</li>
+	</ul>
+	
+	<h2>DL nested in a UL LI has DIV wrapping all key-value pairs - valid</h2>
+	<ul>
+	<li>I have a nested DL</li>
+	<li>
+    <dl>
+      <div>
+        <dt>Name</dt>
+        <dd>John Doe</dd>
+      </div>
+<div>
+      <dt>Phone</dt>
+      <dd>+123456789</dd>
+	  </div>
+
+    </dl>
+	</li>
+	</ul>
+
+    <h2>With DIV wrapping some key-value pairs - Invalid</h2>
     <dl>
       <div>
         <dt>Name</dt>
@@ -100,7 +165,7 @@
       <dd>"Moby Dick"</dd>
     </dl>
 
-    <h2>With DIV wrapping Dt and DD</h2>
+    <h2>With DIV wrapping all Dt and DD - valid</h2>
     <dl>
       <div>
         <dt>Name</dt>
@@ -128,7 +193,7 @@
       </div>
     </dl>
 
-    <h2>With SCRIPT Element</h2>
+    <h2>With SCRIPT Element - valid</h2>
 
     <dl>
       <script>
@@ -153,7 +218,7 @@
       <dd>"Moby Dick"</dd>
     </dl>
 
-    <h2>With TEMPLATE Element</h2>
+    <h2>With TEMPLATE Element - valid</h2>
 
     <dl>
       <template id="myTemplate"> </template>
@@ -176,7 +241,7 @@
       <dd>"Moby Dick"</dd>
     </dl>
 
-    <h2>Parent has invalid role</h2>
+    <h2>Parent has invalid role - Invalid</h2>
     <dl role="region" aria-label="I am not allowed here!">
       <dt>Name</dt>
       <dd>John Doe</dd>
@@ -197,7 +262,7 @@
       <dd>"Moby Dick"</dd>
     </dl>
 
-    <h2>Check for single key-value pair</h2>
+    <h2>Check for single key-value pair - valid</h2>
     <dl>
       <dt>Name</dt>
       <dd>John Doe</dd>
@@ -207,7 +272,7 @@
       <dd>Jane Doe</dd>
     </dl>
 
-    <h2>Test for invalid nested elements</h2>
+    <h2>Test for invalid nested elements - Invalid</h2>
     <dl>
       <dt>Your reference</dt>
       <dd>iiuy77876778.</dd>
