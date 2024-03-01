@@ -13,6 +13,8 @@
     var(--pass-border),
     var(--pass-text)
   );
+
+  @include messageDisplayStyles;
 }
 
 .warning-message-9927845 {
@@ -22,9 +24,7 @@
     var(--warning-text)
   );
 
-  font-weight: 700 !important;
-  padding: 0.2em !important;
-  max-width: 9em !important;
+  @include messageDisplayStyles;
 }
 
 .invalid-message-9927845 {
@@ -33,4 +33,6 @@
     var(--danger-border),
     var(--danger-text)
   );
+
+  @include messageDisplayStyles;
 }

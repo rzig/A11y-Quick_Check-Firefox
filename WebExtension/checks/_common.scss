@@ -101,3 +101,10 @@
   max-width: $max-width;
   width: auto;
 }
+
+//Set a width on message containers
+@mixin messageDisplayStyles {
+  font-weight: 700 !important;
+  padding: 0.2em !important;
+  max-width: 30em !important;
+}
