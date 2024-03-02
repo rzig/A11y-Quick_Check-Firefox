@@ -36,3 +36,13 @@
 
   @include messageDisplayStyles;
 }
+
+.tips-message-9927845 {
+  @include common-style(
+    var(--neutral-background),
+    var(--neutral-border),
+    var(--neutral-text)
+  );
+
+  @include messageDisplayStyles;
+}

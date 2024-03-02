@@ -123,7 +123,8 @@ function checkSvgAccessibleNames() {
     const svgElements = document.querySelectorAll("svg");
     const showSvgTextClass = "valid-message-9927845"; // Used for valid naming
     const notNamedDecorativeClass = "invalid-message-9927845"; // Used for missing names
-    const imgRoleWithLabelClass = "warning-message-9927845"; // Used for warnings, including the <text> element warning
+    const imgRoleWithLabelClass = "warning-message-9927845"; // Used for warnings
+    const generalTips = "tips-message-9927845"; // Used for general tips
 
     for (const svgElement of svgElements) {
         const ancestorCheck = checkAncestors(svgElement);
@@ -147,8 +148,8 @@ function checkSvgAccessibleNames() {
 
         // Warning when <title> is used with aria-label or aria-labelledby
         if ((method === "aria-labelledby" || method === "aria-label") && titleElement && titleElement.textContent) {
-            const multipleMethodsWarning = `Warning: Using <title> with ${method} may cause confusion for screen reader users, because both are spoken as the name of the image.`;
-            createChildMessageDiv(svgElement, imgRoleWithLabelClass, multipleMethodsWarning);
+            const multipleMethodsWarning = `Tip: The <title> element provides a description. Make sure this supports the name provided by ${method}. This will be announced after the name where supported.`;
+            createChildMessageDiv(svgElement, generalTips, multipleMethodsWarning);
         }
 
         // Warning for <text> element usage regarding cross-browser and AT support
