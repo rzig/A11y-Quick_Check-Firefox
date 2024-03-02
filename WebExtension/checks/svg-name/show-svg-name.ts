@@ -56,7 +56,8 @@ function getAccessibleName(node: Element): AccessibleNameResult {
   // This ensures that <title> is not incorrectly used as the primary accessible name when better methods are available
   if (!result.name && titleElement && titleElement.textContent) {
     // Name is now set based on <title> only if other more appropriate methods are not available
-    result.additionalMessage = "Note: The <title> element provides a description, not a direct accessible name.";
+    result.additionalMessage =
+      "Note: The <title> element provides a description, not a direct accessible name.";
     result.method = "<title> element"; // This is kept for backward compatibility but should be revisited for correct usage
   }
 
@@ -129,60 +130,100 @@ function checkSvgAccessibleNames() {
   const generalTips = "tips-message-9927845"; // Used for general tips
 
   for (const svgElement of svgElements) {
-      const ancestorCheck = checkAncestors(svgElement);
-      if (ancestorCheck?.isHidden) {
-          continue; // Skip SVGs with hidden ancestors
-      }
-
-      const { name, method, isLabelledByIdMissing } = getAccessibleName(svgElement);
-      const role = svgElement.getAttribute("role");
-      const hiddenElement = svgElement.getAttribute("aria-hidden");
-      const titleElement = svgElement.querySelector('title'); // Retrieve title element for current SVG
-
-      if (hiddenElement === "true") {
-          continue; // Skip SVGs that are explicitly hidden
-      }
-
-      if (name) {
-          const nameMessage = `The SVG is named using ${method}: "${name}".`;
-          createChildMessageDiv(svgElement, showSvgTextClass, nameMessage);
-      }
-
-      if (titleElement) { // This line checks if there is a <title> element present
-        // Safely accessing the text content of the <title> element, providing a fallback if it is null
-        const svgDesc = titleElement.textContent ? titleElement.textContent.trim() : 'No description provided';
-        const titleElementWarning = `Tip: The <title> element provides a short description (“${svgDesc}”). Make sure this supports the name provided. This will be announced after the name where supported.`;
-        createChildMessageDiv(svgElement, generalTips, titleElementWarning);
+    const ancestorCheck = checkAncestors(svgElement);
+    if (ancestorCheck?.isHidden) {
+      continue; // Skip SVGs with hidden ancestors
     }
 
-      // Warning for <text> element usage regarding cross-browser and AT support
-      if (method === "<text>") {
-          const textWarning = "Warning: The SVG is named using <text>. This does not have reliable cross-browser and AT support.";
-          createChildMessageDiv(svgElement, imgRoleWithLabelClass, textWarning);
-      }
+    const { name, method, isLabelledByIdMissing } =
+      getAccessibleName(svgElement);
+    const role = svgElement.getAttribute("role");
+    const hiddenElement = svgElement.getAttribute("aria-hidden");
+    const titleElement = svgElement.querySelector("title"); // Retrieve title element for current SVG
 
-      let showGeneralMissingNameMessage = true; // Flag to determine if general missing name message should be shown
+    if (hiddenElement === "true") {
+      continue; // Skip SVGs that are explicitly hidden
+    }
 
-      if (role === "img") {
-          if (method === "none" || method === "<title> element") { // Updated condition
-              const roleImgWarning = "Warning: SVG element has 'role=img' but is missing an accessible name.";
-              createChildMessageDiv(svgElement, notNamedDecorativeClass, roleImgWarning);
-              showGeneralMissingNameMessage = false; // Prevent general missing name message if this specific message is shown
-          }
-      } else if (role !== "img" && (method !== "none" && method !== "<title> element")) { // Updated condition
-          const roleWarning = "Warning: SVG element is missing 'role=img'.";
-          createChildMessageDiv(svgElement, imgRoleWithLabelClass, roleWarning);
-      }
+    if (name) {
+      const nameMessage = `The SVG is named using ${method}: "${name}".`;
+      createChildMessageDiv(svgElement, showSvgTextClass, nameMessage);
+    }
 
-      if (showGeneralMissingNameMessage && (method === "none" || method === "<title> element")) { // Updated condition
-          const missingNameMessage = "Warning: SVG element is missing an accessible name.";
-          createChildMessageDiv(svgElement, notNamedDecorativeClass, missingNameMessage);
-      }
+    if (titleElement) {
+      // This line checks if there is a <title> element present
+      // Safely accessing the text content of the <title> element, providing a fallback if it is null
+      const svgDesc = titleElement.textContent
+        ? titleElement.textContent.trim()
+        : "No description provided";
+      const titleElementWarning = `Tip: The <title> element provides a short description (“${svgDesc}”). Make sure this supports the name provided. This will be announced after the name where supported.`;
+      createChildMessageDiv(svgElement, generalTips, titleElementWarning);
+    }
 
-      if (isLabelledByIdMissing) {
-          const missingIdMessage = "Warning: SVG element uses 'aria-labelledby', but the ID referenced does not exist.";
-          createChildMessageDiv(svgElement, notNamedDecorativeClass, missingIdMessage);
+    // Warning for <text> element usage regarding cross-browser and AT support
+    if (method === "<text>") {
+      const textWarning =
+        "Warning: The SVG is named using <text>. This does not have reliable cross-browser and AT support.";
+      createChildMessageDiv(svgElement, imgRoleWithLabelClass, textWarning);
+    }
+
+    // Add check for role="presentation" or role="none"
+    if (role === "presentation" || role === "none") {
+      const roleRemovedWarning = `Warning: The SVG has 'role=${role}' which negates the implicit semantics. Consider revising if the SVG is intended to convey meaning.`;
+      createChildMessageDiv(
+        svgElement,
+        notNamedDecorativeClass,
+        roleRemovedWarning
+      );
+    }
+
+    let showGeneralMissingNameMessage = true; // Flag to determine if general missing name message should be shown
+
+    if (role === "img") {
+      if (method === "none" || method === "<title> element") {
+        // Updated condition
+        const roleImgWarning =
+          "Warning: SVG element has 'role=img' but is missing an accessible name.";
+        createChildMessageDiv(
+          svgElement,
+          notNamedDecorativeClass,
+          roleImgWarning
+        );
+        showGeneralMissingNameMessage = false; // Prevent general missing name message if this specific message is shown
       }
+    } else if (
+      role !== "img" &&
+      method !== "none" &&
+      method !== "<title> element"
+    ) {
+      // Updated condition
+      const roleWarning = "Warning: SVG element is missing 'role=img'.";
+      createChildMessageDiv(svgElement, imgRoleWithLabelClass, roleWarning);
+    }
+
+    if (
+      showGeneralMissingNameMessage &&
+      (method === "none" || method === "<title> element")
+    ) {
+      // Updated condition
+      const missingNameMessage =
+        "Warning: SVG element is missing an accessible name.";
+      createChildMessageDiv(
+        svgElement,
+        notNamedDecorativeClass,
+        missingNameMessage
+      );
+    }
+
+    if (isLabelledByIdMissing) {
+      const missingIdMessage =
+        "Warning: SVG element uses 'aria-labelledby', but the ID referenced does not exist.";
+      createChildMessageDiv(
+        svgElement,
+        notNamedDecorativeClass,
+        missingIdMessage
+      );
+    }
   }
 }
 
