@@ -4,13 +4,13 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <title>Unordered List Test</title>
+    <title>Unrdered List Test</title>
   </head>
 
   <body>
-    <h1>Unordered List Test</h1>
+    <h1>Urdered List Test</h1>
 
-    <h2>Unordered List with Five Animals</h2>
+    <h2>Urdered List - Valid</h2>
     <ul>
       <li>Dog</li>
       <li>Cat</li>
@@ -19,24 +19,80 @@
       <li>Monkey</li>
     </ul>
 
-    <h2>Unordered List with DIV Element</h2>
+    <h2>List with DIV Element - Invalid</h2>
     <ul>
-      <div></div>
+      <div class="myDiv"></div>
       <li>Item 1</li>
       <li>Item 2</li>
       <li>Item 3</li>
     </ul>
-
-    <h2>Unordered List with DIV between Items</h2>
+	
+	<h2>Ordered List with Heading Element - Invalid</h2>
     <ul>
       <li>Item 1</li>
-      <div></div>
+	  <h3>Heading here</h3>
       <li>Item 2</li>
-      <div></div>
+      <li>Item 3</li>
+    </ul>
+	
+	<h2>List with button Element - Invalid</h2>
+    <ol>
+      <li>Item 1</li>
+	  <button type="button">Heading here</button>
+      <li>Item 2</li>
+      <li>Item 3</li>
+    </ol>
+	
+	<h2>List with anchor Element - Invalid</h2>
+    <ul>
+      <li>Item 1</li>
+	  <a href="#">Heading here</a>
+      <li>Item 2</li>
+      <li>Item 3</li>
+    </ul>
+	
+	<h2>List with input Element - Invalid</h2>
+    <ul>
+      <li>Item 1</li>
+	  <input type="text" value="text">
+      <li>Item 2</li>
       <li>Item 3</li>
     </ul>
 
-    <h2>Unordered List with SCRIPT Element</h2>
+    <h2>List with DIV between Items - invalid</h2>
+    <ol>
+      <li>Item 1</li>
+      <div class="myDiv"></div>
+      <li>Item 2</li>
+      <div class="myDiv"></div>
+      <li>Item 3</li>
+    </ol>
+	
+	<h2>List with DIV wrapping all li - invalid</h2>
+    <ul>
+	<div>
+      <li>Item 1</li>
+      </div>
+	  <div>
+      <li>Item 2</li>
+      </div>
+	  <div>
+      <li>Item 3</li>
+	  <div>
+    </ul>
+	
+	<h2>List with DIV wrapping some li - invalid</h2>
+    <ul>
+	<div>
+      <li>Item 1</li>
+      </div>
+	  <div>
+      <li>Item 2</li>
+      </div>
+      <li>Item 3</li>
+    </ul>	
+
+    <h2>List with SCRIPT Element - valid</h2>
     <ul>
       <script>
         console.log("This is a script element.");
@@ -46,9 +102,9 @@
       <li>Item 3</li>
     </ul>
 
-    <h2>Unordered List with TEMPLATE Element</h2>
+    <h2>List with TEMPLATE Element - valid</h2>
     <ul>
-      <template>
+      <template id="myTemplate">
         <li>Template item</li>
       </template>
       <li>Item 1</li>
@@ -56,8 +112,8 @@
       <li>Item 3</li>
     </ul>
 
-    <h2>Parent has invalid role</h2>
-    <ul role="region" aria-label="I am not allowed here!">
+    <h2>Parent has changed rule - invalid</h2>
+    <ul rule="region" aria-label="I am not allowed here!">
       <li>Item 1</li>
       <li>Item 2</li>
       <li>Item 3</li>

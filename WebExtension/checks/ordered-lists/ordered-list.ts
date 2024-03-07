@@ -4,133 +4,75 @@ function checkOrderedLists(): void {
   const olElements = document.querySelectorAll("ol");
 
   for (const olElement of olElements) {
+    // Reset state for each OL element
+    olElement.classList.remove("valid-9927845", "invalid-9927845");
+    // Remove previous messages
+    olElement
+      .querySelectorAll(".validation-message")
+      .forEach((msg) => msg.remove());
+
+    let invalidMessages = new Set<string>();
+
+    // Role checks for custom roles
     const customRole = olElement.getAttribute("role");
-    
-    // Skip UL elements that will be handled by checkForOlAriaRoles
-    if (customRole === 'list' || olElement.querySelectorAll("li[role='listitem']").length > 0) {
-      continue;
-    }
-
-    // Check if OL has a role other than 'list'
     if (customRole && customRole !== "list") {
-      const liElements = olElement.querySelectorAll("li:not(ul > li)");
-      let hasValidLiRole = false;
-
-      for (const liElement of liElements) {
-        const liRole = liElement.getAttribute("role");
-        
-        // Check if any LI has a valid role
-        if (liRole && liRole !== "listitem") {
-          hasValidLiRole = true;
-          break;
-        }
-      }
-
-      if (hasValidLiRole) {
-        const firstLiElement = liElements.item(0);
-        if (firstLiElement !== null) {
-          olElement.classList.add("warning-9927845");
-          const liRole = firstLiElement.getAttribute("role");
-          const message = `Warning: UL has a Role of ${customRole} and the LI elements have the ${liRole} Role. Make sure that the code structure is valid according to the Specifications.`;
-          createChildMessageDiv(olElement, "warning-message-9927845", message);
-        }
-        continue;
-      }           
+      invalidMessages.add(
+        `Invalid: <li> is missing a parent of UL or OL. The list has a parent with a Role of '${customRole}''.`
+      );
     }
 
-    // Check for first child of UL being DIV
-    const firstChild = olElement.firstElementChild;
-    if (firstChild && firstChild.nodeName === "DIV") {
+    // Checking direct children validity against allowed elements (LI, SCRIPT, TEMPLATE)
+    const invalidChildren = olElement.querySelectorAll(
+      ":scope > :not(li):not(script):not(template)"
+    );
+    invalidChildren.forEach((child) => {
+      const tagName = child.tagName.toLowerCase();
+      invalidMessages.add(
+        `Invalid: <${tagName}> cannot be direct child of OL.`
+      );
+    });
+
+    if (invalidMessages.size > 0) {
       olElement.classList.add("invalid-9927845");
-      const message = "Invalid: The first child of OL must be a Li, Script or Template tag. The first child of OL is DIV.";
-      createChildMessageDiv(olElement, "invalid-message-9927845", message);
-      continue;
+      invalidMessages.forEach((message: string) => {
+        createChildMessageDiv(olElement, "invalid-message-9927845", message);
+      });
+      continue; // Move to the next ol element as this one has invalid content
     }
 
-    // Check for any DIV element as a direct child of OL
-    const hasDivChild = olElement.querySelector(":scope > div");
-    if (hasDivChild) {
-      olElement.classList.add("invalid-9927845");
-      const message = "Invalid: The DIV element cannot be a child of OL.";
-      createChildMessageDiv(olElement, "invalid-message-9927845", message);
-      continue;
-    }
-
-    // Check for HTML ordered list markup
-    const hasHtmlOl = olElement.nodeName === "OL" && !olElement.hasAttribute("role");
-    if (hasHtmlOl) {
+    // If no issues were found, mark the list as valid
+    if (!olElement.classList.contains("invalid-9927845")) {
       olElement.classList.add("valid-9927845");
-      const message = "Valid: Ordered List uses valid (HTML)";
-      createChildMessageDiv(olElement, "valid-message-9927845", message);
+      createChildMessageDiv(
+        olElement,
+        "valid-message-9927845",
+        "Valid: Ordered List uses valid HTML."
+      );
     }
   }
 }
 
-function checkOlListParentRole(): void {
-  const olElements = document.querySelectorAll("ol");
-
-  for (const parentElement of olElements) {
-    const parentRole = parentElement.getAttribute("role");
-
-    // Check if the element is not a ol or the role is overwritten
-    if (parentElement.tagName !== "OL" || (parentRole && parentRole !== "list" && parentRole !== "listbox")) {
-      const liElements = parentElement.querySelectorAll("li");
-      let hasValidLiRole = false;
-
-      for (const liElement of liElements) {
-        const liRole = liElement.getAttribute("role");
-
-        if (liRole && liRole !== "listitem") {
-          hasValidLiRole = true;
-          break;
-        }
-      }
-
-      if (!hasValidLiRole) {
-        const invalidParentClass = "invalid-message-9927845";
-        const invalidListClass = "invalid-9927845";
-
-        // Add class and message only once per ol
-        if (!parentElement.classList.contains(invalidParentClass)) {
-          parentElement.classList.add(invalidListClass);
-          const capitalizedRole = parentRole ? parentRole.charAt(0).toUpperCase() + parentRole.slice(1) : null;
-          const capitalizedTag = parentElement.tagName.charAt(0).toUpperCase() + parentElement.tagName.slice(1);
-          const message = `Invalid: This list is missing a parent of UL or OL. The list has a parent with a Role of ${capitalizedRole || capitalizedTag}`;
-          createChildMessageDiv(parentElement, invalidParentClass, message);
-        }
-      }
-    }
-  }
-}
-
-function checkForOlAriaRoles(): void {
-  const elements = document.querySelectorAll('ol[role="list"], li[role="listitem"]:not(ul > li)');
+function checkForAriaRolesonOL(): void {
+  const elements = document.querySelectorAll(
+    'ol[role="list"], li[role="listitem"]:not(ol > li)'
+  );
 
   for (const element of elements) {
-    const ariaRole = element.getAttribute('role');
+    const ariaRole = element.getAttribute("role");
     const tagName = element.tagName.toLowerCase();
-    
-    let implicitHtmlRole = '';
-    if (tagName === 'ol') {
-      implicitHtmlRole = 'list';
-    } else if (tagName === 'li') {
-      implicitHtmlRole = 'listitem';
+
+    // ARIA role check should not assume invalid, only add warnings if there is an actual issue
+    if (
+      (tagName === "ol" && ariaRole !== "list") ||
+      (tagName === "li" && ariaRole !== "listitem")
+    ) {
+      element.classList.add("warning-9927845");
+      const message = `<${tagName}> has an incorrect ARIA Role ${ariaRole}.`;
+      createChildMessageDiv(element, "warning-message-9927845", message);
     }
-
-    element.classList.add(`warning-9927845`);
-    let message = `<${tagName}> has ARIA Role ${ariaRole}`;
-
-    if (ariaRole === implicitHtmlRole) {
-      message += '. This role may be redundant as it matches the HTML implicit role.';
-    } else {
-      message += '. Check if the ARIA role is needed as the HTML is fully supported.';
-    }
-
-    createChildMessageDiv(element, `warning-message-9927845s`, message);
   }
 }
 
 // Run the checks
 checkOrderedLists();
-checkOlListParentRole();
-checkForOlAriaRoles();
+checkForAriaRolesonOL();
