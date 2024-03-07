@@ -10,7 +10,7 @@
   <body>
     <h1>Ordered List Test</h1>
 
-    <h2>Ordered List with Five Animals</h2>
+    <h2>Ordered List - Valid</h2>
     <ol>
       <li>Dog</li>
       <li>Cat</li>
@@ -19,15 +19,47 @@
       <li>Monkey</li>
     </ol>
 
-    <h2>Ordered List with DIV Element</h2>
+    <h2>Ordered List with DIV Element - Invalid</h2>
     <ol>
       <div class="myDiv"></div>
       <li>Item 1</li>
       <li>Item 2</li>
       <li>Item 3</li>
     </ol>
+	
+	<h2>Ordered List with Heading Element - Invalid</h2>
+    <ol>
+      <li>Item 1</li>
+	  <h3>Heading here</h3>
+      <li>Item 2</li>
+      <li>Item 3</li>
+    </ol>
+	
+	<h2>Ordered List with button Element - Invalid</h2>
+    <ol>
+      <li>Item 1</li>
+	  <button type="button">Heading here</button>
+      <li>Item 2</li>
+      <li>Item 3</li>
+    </ol>
+	
+	<h2>Ordered List with anchor Element - Invalid</h2>
+    <ol>
+      <li>Item 1</li>
+	  <a href="#">Heading here</a>
+      <li>Item 2</li>
+      <li>Item 3</li>
+    </ol>
+	
+	<h2>Ordered List with input Element - Invalid</h2>
+    <ol>
+      <li>Item 1</li>
+	  <input type="text" value="text">
+      <li>Item 2</li>
+      <li>Item 3</li>
+    </ol>
 
-    <h2>Ordered List with DIV between Items</h2>
+    <h2>Ordered List with DIV between Items - invalid</h2>
     <ol>
       <li>Item 1</li>
       <div class="myDiv"></div>
@@ -35,8 +67,32 @@
       <div class="myDiv"></div>
       <li>Item 3</li>
     </ol>
+	
+	<h2>Ordered List with DIV wrapping all li - invalid</h2>
+    <ol>
+	<div>
+      <li>Item 1</li>
+      </div>
+	  <div>
+      <li>Item 2</li>
+      </div>
+	  <div>
+      <li>Item 3</li>
+	  <div>
+    </ol>
+	
+	<h2>Ordered List with DIV wrapping some li - invalid</h2>
+    <ol>
+	<div>
+      <li>Item 1</li>
+      </div>
+	  <div>
+      <li>Item 2</li>
+      </div>
+      <li>Item 3</li>
+    </ol>	
 
-    <h2>Ordered List with SCRIPT Element</h2>
+    <h2>Ordered List with SCRIPT Element - valid</h2>
     <ol>
       <script>
         console.log("This is a script element.");
@@ -46,7 +102,7 @@
       <li>Item 3</li>
     </ol>
 
-    <h2>Ordered List with TEMPLATE Element</h2>
+    <h2>Ordered List with TEMPLATE Element - valid</h2>
     <ol>
       <template id="myTemplate">
         <li>Template item</li>
@@ -56,7 +112,7 @@
       <li>Item 3</li>
     </ol>
 
-    <h2>Parent has invalid role</h2>
+    <h2>Parent has changed role - invalid</h2>
     <ol role="region" aria-label="I am not allowed here!">
       <li>Item 1</li>
       <li>Item 2</li>
