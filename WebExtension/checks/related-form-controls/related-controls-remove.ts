@@ -31,7 +31,9 @@ function removeRelatedControls() {
     'missing-role-group-name-5599775',
     'missing-role-radio-group-name-5599775',
     'aria-label-name-5599775',
-    'aria-label-radio-group-name-5599775'
+    'aria-label-radio-group-name-5599775',
+    'legend-not-first-child-5599775',
+    'legend-first-child-5599775'
   ]);
 }
 
