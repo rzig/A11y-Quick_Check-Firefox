@@ -11,7 +11,7 @@
       <header>
         <hgroup role="group" aria-roledescription="Heading group">
           <h1>A11y Quick Check</h1>
-          <p>Version: 2501.2024.03.07</p>
+          <p>Version: 2501.2024.03.10</p>
         </hgroup>
         <div class="a11yqc-logo">
           <img src="../../extension/ui/images/icon.svg" alt="" />
@@ -26,6 +26,13 @@
             to provide a high level check to help meet the requirements of the
             WCAG guidelines and coding best practices.
           </p>
+
+          <h3>Version: 2501.2024.03.07 update</h3>
+          <ul>
+            <li>Major revamping of Landmarks check. Determines if a given element is nested within specified tag names or roles, checks if an element contains a heading, identifies elements with conflicting ARIA and HTML roles, evaluates the document for the appropriate number of main landmarks, and applies all accessibility checks to specified HTML landmarks while adding appropriate messages and styles based on their compliance.</li>
+            <li>Fixes bug where target size 24 was not identifying SPAN in a P</li>
+            <li>Fixes bug where LEGEND was not being correctly identified if not first child of FIELDSET.</li>
+          </ul>
 
           <h3>Version: 2501.2024.03.07 update</h3>
           <ul>
