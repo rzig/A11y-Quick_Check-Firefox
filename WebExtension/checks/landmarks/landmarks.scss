@@ -1,109 +1,99 @@
 @import "../common";
 
-// Styles for specific message classes
-.html-header-message-88937746,
-.html-nav-message-88937746,
-.html-footer-message-88937746,
-.html-aside-message-88937746,
-.html-main-message-88937746 {
-  font-weight: 700;
-  margin: 1em 0;
-  margin-bottom: 0;
+.valid-9927845 {
+  @include important-styles(
+    (
+      border: 2px dashed var(--pass-border),
+      margin: 1em 0,
+      margin-bottom: 0,
+    ),
+    true
+  );
+}
 
+.valid-message-9927845 {
+  font-weight: 700;
+  margin: 0;
+  
   @include message-container(
     var(--pass-background),
     var(--pass-border),
     var(--pass-text)
   );
   @include flex-width-container;
+  @include messageDisplayStyles;
 }
 
-.header-aria-88937746,
-.header-html-88937746,
-.nav-aria-88937746,
-.nav-html-88937746,
-.footer-aria-88937746,
-.footer-html-88937746,
-.aside-aria-88937746,
-.aside-html-88937746,
-.search-html-88937746 {
+.invalid-9927845 {
   @include important-styles(
     (
-      border: 4px dashed var(--pass-border),
-      padding: 0.5em,
+      border: 2px dashed var(--danger-border),
+      margin: 1em 0,
+      margin-bottom: 0,
     ),
     true
   );
 }
 
-.aria-banner-message-88937746,
-.aria-navigation-message-88937746,
-.aria-main-message-88937746,
-.aria-contentinfo-message-88937746,
-.aria-complementary-message-88937746,
-.search-html-support-message-88937746 {
+.invalid-message-9927845 {
   font-weight: 700;
-  margin: 1em 0;
-  margin-bottom: 0;
-
-  @include message-container(
-    var(--warning-background),
-    var(--warning-border),
-    var(--warning-text)
-  );
-  @include flex-width-container;
-}
-
-.header-aria-html-88937746,
-.nav-aria-html-88937746,
-.main-aria-html-88937746,
-.footer-aria-html-88937746,
-.aside-aria-html-88937746,
-.search-html-support-88937746 {
-  @include important-styles(
-    (
-      border: 4px dashed var(--warning-border),
-      color: var(--warning-text),
-      padding: 0.5em,
-    ),
-    true
-  );
-}
-
-.common-inside-class-88937746,
-.common-class-for-aria-only-elements-88937746,
-.message-aside-inside-main-88937746 {
-  font-weight: 700;
-  margin: 1em 0;
-  margin-bottom: 0;
-
-  @include message-container(
-    var(--neutral-background),
-    var(--neutral-border),
-    var(--neutral-text)
-  );
-  @include flex-width-container;
-}
-
-.role-warning-83009276 {
-  color: var(--warning-text) !important;
-}
-
-.html-aria-duplicate-header-message-88937746,
-.html-aria-duplicate-nav-message-88937746,
-.html-aria-duplicate-main-message-88937746,
-.html-aria-duplicate-footer-message-88937746,
-.html-aria-duplicate-aside-message-88937746 {
-  font-weight: 700;
-  margin: 1em 0;
-  margin-bottom: 0;
-
+  margin: 0;
+  
   @include message-container(
     var(--danger-background),
     var(--danger-border),
     var(--danger-text)
   );
   @include flex-width-container;
+  @include messageDisplayStyles;
+}
+
+.warning-9927845 {
+  @include important-styles(
+    (
+      border: 2px dashed var(--warning-border),
+      margin: 1em 0,
+      margin-bottom: 0,
+    ),
+    true
+  );
+}
+
+.warning-message-9927845 {
+  font-weight: 700;
+  margin: 0;
+  
+  @include message-container(
+    var(--warning-background),
+    var(--warning-border),
+    var(--warning-text)
+  );
+  @include flex-width-container;
+  @include messageDisplayStyles;
+}
+
+.generic-9927845 {
+  @include important-styles(
+    (
+      border: 2px dashed var(--neutral-border),
+      margin: 1em 0,
+      margin-bottom: 0,
+    ),
+    true
+  );
+}
+
+.generic-message-9927845 {
+  font-weight: 700;
+  margin: 0;
+  
+  @include message-container(
+    var(--neutral-background),
+    var(--neutral-border),
+    var(--neutral-text)
+  );
+  @include flex-width-container;
+  @include messageDisplayStyles;
 }
 
 // Mixin for applying styles to HTML tags

@@ -2,16 +2,16 @@
 :root {
   --extension-white: #fff;
   --extension-black: #262626;
-  --danger-border: #b31818;
+  --danger-border: #d80b0b;
   --danger-background: #f8eaea;
   --danger-text: #410505;
-  --warning-border: #d93b02;
+  --warning-border: #f6581f;
   --warning-text: #221603;
-  --warning-background: #f1d6ac;
+  --warning-background: #f5e3c8;
   --pass-border: #1e830a;
-  --pass-background: #b9d6b4;
+  --pass-background: #def4db;
   --pass-text: #051901;
-  --neutral-background: #d3beff;
+  --neutral-background: #e8e3f3;
   --neutral-border: #5941a9;
   --neutral-text: #07011c;
 }
@@ -107,4 +107,32 @@
   font-weight: 700 !important;
   padding: 0.2em !important;
   max-width: 30em !important;
+}
+
+.messageLabelGeneric {
+  @include important-styles((color: var(--neutral-border)), true);
+}
+
+.messageLabelValid {
+  @include important-styles((color: var(--pass-border)), true);
+}
+
+.messageLabelWarning {
+  @include important-styles((color: var(--warning-border)), true);
+}
+
+.messageLabelInvalid {
+  @include important-styles((color: var(--danger-border)), true);
+}
+
+.messageLabelaccName {
+  @include important-styles((color: var(--neutral-border)), true);
+}
+
+.messageLabelKnowledge {
+  @include important-styles((color: var(--neutral-border)), true);
+}
+
+.accNameMessageContainer.valid-message-9927845 {
+  @include important-styles((border-color: var(--neutral-border)), true);
 }
