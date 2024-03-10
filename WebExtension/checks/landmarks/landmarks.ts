@@ -118,20 +118,21 @@ function addLandmarkMessages(): void {
           landmark !== "footer" &&
           landmark !== "main" &&
           landmark !== "article" &&
-          landmark !== "section"
+          landmark !== "section" &&
+          landmark !== "header"
         ) {
           message = `Warning: <${landmark}> landmark is missing an accessible name.`;
           messageClassSuffix = "warning";
         }
 
-        if (isInRestrictedParent && landmark !== "footer") {
-          const parentTagName = element.parentElement?.tagName.toLowerCase();
-          message = `Knowledge Testing with a screen reader, the <${landmark}> role should not be announced when nested inside a <${parentTagName}> element.`;
-          messageClassSuffix = "generic";
-        }
+        // if (isInRestrictedParent && landmark !== "footer") {
+        //   const parentTagName = element.parentElement?.tagName.toLowerCase();
+        //   message = `Knowledge Testing with a screen reader, the <${landmark}> role should not be announced when nested inside a <${parentTagName}> element.`;
+        //   messageClassSuffix = "generic";
+        // }
 
         if (
-          ["article", "section", "nav", "header", "footer"].includes(
+          ["article", "section", "header"].includes(
             landmark
           ) &&
           !hasHeadingChild(element) &&
