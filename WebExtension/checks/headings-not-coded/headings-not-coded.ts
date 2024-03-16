@@ -20,7 +20,7 @@ function checkTextNodesForHeadings(): void {
   // Define CSS classes for use later in the code
   const heavyTextClass = "text-heavy-a11y-9892664";
   const largeTextClass = "text-large-a11y-9892664";
-  const missingHeadingClass = "heading-tag-missing-8898";
+  const missingHeadingClass = "generic-9927845";
 
   let node: Node | null;
   while (node = walk.nextNode()) {
@@ -64,11 +64,11 @@ function checkTextNodesForHeadings(): void {
 
     // Check for likely headings based on styling
     if (fontSize >= (18 * fontSizeRatio) && fontWeight >= 700) {
-      const message = "Is this a heading? If yes, it is not marked up as a heading in code.";
+      const message = "Needs manual confirmation Is this a heading? If yes, it is not marked up as a heading in code.";
       parent.classList.add(missingHeadingClass);
       createChildMessageDiv(parent, heavyTextClass, message);
     } else if (fontSize >= (24 * fontSizeRatio)) {
-      const message = "Is this a heading? If yes, it is not marked up as a heading in code.";
+      const message = "Needs manual confirmation Is this a heading? If yes, it is not marked up as a heading in code.";
       parent.classList.add(missingHeadingClass);
       createChildMessageDiv(parent, largeTextClass, message);
     }

@@ -66,24 +66,32 @@
 @mixin warning-styles() {
   background-color: var(--warning-background) !important;
   color: var(--warning-text) !important;
+  white-space: normal !important;
 }
 
 /* Mixin for applying pass/valid styles */
 @mixin pass-styles() {
   background-color: var(--pass-background) !important;
   color: var(--pass-text) !important;
+  white-space: normal !important;
 }
 
 /* Mixin for applying danger/Invalid styles */
 @mixin danger-styles() {
   background-color: var(--danger-background) !important;
   color: var(--danger-text) !important;
+  white-space: normal !important;
 }
 
 /* Mixin for applying neutral styles */
 @mixin neutral-styles() {
   background-color: var(--neutral-background) !important;
   color: var(--neutral-text) !important;
+  white-space: normal !important;
+}
+
+@mixin whiteSpace() {
+  white-space: normal !important;
 }
 
 /* Mixin for applying styles with optional !important flag */
@@ -109,9 +117,13 @@
   max-width: 30em !important;
 }
 
-.messageLabelGeneric {
-  @include important-styles((color: var(--neutral-border)), true);
-}
+/* Message Label styles */
+// .messageLabelGeneric,
+// .messageLabelaccName,
+// .messageLabelKnowledge,
+// .messageLabelManualConfirmation {
+//   @include important-styles((color: var(--neutral-border)), true);
+// }
 
 .messageLabelValid {
   @include important-styles((color: var(--pass-border)), true);
@@ -125,14 +137,10 @@
   @include important-styles((color: var(--danger-border)), true);
 }
 
-.messageLabelaccName {
-  @include important-styles((color: var(--neutral-border)), true);
-}
-
-.messageLabelKnowledge {
-  @include important-styles((color: var(--neutral-border)), true);
-}
-
 .accNameMessageContainer.valid-message-9927845 {
   @include important-styles((border-color: var(--neutral-border)), true);
+}
+
+.messageLabelManualConfirmation {
+  @include important-styles((color: var(--neutral-border)), true);
 }

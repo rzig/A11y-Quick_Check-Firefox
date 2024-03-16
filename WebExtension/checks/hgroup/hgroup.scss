@@ -6,15 +6,17 @@
 }
 
 .html-hgroup-message-58997365 {
-  font-style: italic;
-  margin: 1em 0;
-
+  font-weight: 700;
+  margin: 0;
+  white-space: normal;
+  
   @include message-container(
-    var(--pass-background),
-    var(--pass-border),
-    var(--pass-text)
+    var(--neutral-background),
+    var(--neutral-border),
+    var(--neutral-text)
   );
   @include flex-width-container;
+  @include messageDisplayStyles;
 }
 
 .aria-hgroup-message-58997365 {

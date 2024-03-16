@@ -63,14 +63,16 @@ function addCircleShape(elem: Element, targetSize: number) {
 
 // Check if the element is excluded
 function isExcluded(elem: Element): boolean {
-    const anchorLinkRegex = /^#[\w-]+$/;
-    const isAnchor = elem.tagName === 'A';
-    const isButton = elem.tagName === 'BUTTON' || elem.getAttribute('role') === 'button';
-    const isInPageLink = isAnchor && anchorLinkRegex.test(elem.getAttribute('href') ?? "");
-    let isInParagraph = (isAnchor || isButton) && elem.closest('p') !== null;
-    const isFootnote = isAnchor && elem.classList.contains('footnote');
+  const anchorLinkRegex = /^#[\w-]+$/;
+  const isAnchor = elem.tagName === "A";
+  const isButton =
+    elem.tagName === "BUTTON" || elem.getAttribute("role") === "button";
+  const isInPageLink =
+    isAnchor && anchorLinkRegex.test(elem.getAttribute("href") ?? "");
+  let isInParagraph = (isAnchor || isButton) && elem.closest("p") !== null;
+  const isFootnote = isAnchor && elem.classList.contains("footnote");
 
-    return isInPageLink || isInParagraph || isFootnote;
+  return isInPageLink || isInParagraph || isFootnote;
 }
 
 function checkSpacing(elem: Element, targetSize: number): boolean {
@@ -129,6 +131,7 @@ function checkSpacing(elem: Element, targetSize: number): boolean {
 function addTargetSize(targetSize: number) {
   let hasIssues = false;
 
+  // Handling individual elements such as links, buttons, etc.
   const inputElements = document.querySelectorAll(
     'a, button, input[type="button"], input[type="submit"], select, [role="button"], [role="link"]'
   );
@@ -196,6 +199,63 @@ function addTargetSize(targetSize: number) {
       }
     }
   }
+
+  // New code for handling lists - start
+  // Check for lists containing both links and non-link text
+  const lists = document.querySelectorAll("ul, ol");
+  lists.forEach((list) => {
+    let hasMixedContent = false;
+    const listItems = list.querySelectorAll("li");
+
+    listItems.forEach((li) => {
+      const textContent = li.textContent || "";
+      const links = li.querySelectorAll("a");
+      const hasNonLinkText =
+        textContent.trim().length > 0 &&
+        li.querySelectorAll("*:not(a)").length > 0; // Check for mixed content
+      hasMixedContent = hasMixedContent || (links.length > 0 && hasNonLinkText);
+    });
+
+    if (hasMixedContent) {
+      // Add 'Excluded by Inline' message once per list with mixed content
+      hasIssues = true;
+      const messageText =
+        "If the list is a sentence or contains both active elements and non-target text, exceptions for inline elements may apply!";
+      const fullMessageClassName = "manual-confirmation-9927845"; // New class name to match pattern
+
+      // Create the message div and append it using the existing function
+      const messageDiv = document.createElement("div");
+      messageDiv.className = fullMessageClassName;
+
+      const span = document.createElement("span");
+      span.className = "messageLabelManualConfirmation";
+      span.textContent = "Needs manual confirmation "; // Space added after the text
+      messageDiv.appendChild(span);
+
+      const textNode = document.createTextNode(messageText);
+      messageDiv.appendChild(textNode);
+
+      // Adding line break
+      const lineBreak = document.createElement("br");
+      messageDiv.appendChild(lineBreak);
+
+      // Creating and appending the link
+      const link = document.createElement("a");
+      link.href =
+        "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum#:~:text=the%20%22Equivalent%22%20exception.-,Inline%3A,-The%20Success%20Criterion";
+      link.textContent = "W3C Inline exception definition";
+      link.classList.add("hyperlinked-text-9927845");
+      link.setAttribute("rel", "noopener noreferrer");
+      messageDiv.appendChild(link);
+
+      // Append the constructed message div to the list item
+      const precedingDiv = createPrecedingDiv(list);
+      precedingDiv.appendChild(messageDiv);
+
+      list.classList.add("manual-9927845");
+    }
+  });
+  // New code for handling lists - end
 
   if (hasIssues) {
     injectButton();

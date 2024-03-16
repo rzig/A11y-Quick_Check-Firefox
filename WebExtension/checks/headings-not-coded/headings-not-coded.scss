@@ -1,19 +1,48 @@
 @import '../common';
 
 .text-large-a11y-9892664,
-.text-heavy-a11y-9892664{
-    @include important-styles((
-    background-color: var(--warning-background),
-    border: 3px dashed var(--warning-text),
-    color: var(--black),
-    font-size: 1.1rem,
-    ), true);
-}
+.text-heavy-a11y-9892664 {
+    font-weight: 700;
+    margin: 0;
+    white-space: normal;
+    
+    @include message-container(
+      var(--neutral-background),
+      var(--neutral-border),
+      var(--neutral-text)
+    );
+    @include flex-width-container;
+    @include messageDisplayStyles;
+  }
 
-.heading-tag-missing-8898{
+.neutral-message-9927845{
     @include important-styles((
     background-color: var(--white),
     border: 3px dashed var(--warning-text),
     color: var(--black),
     ), true);
+}
+
+.generic-9927845 {
+  @include important-styles(
+    (
+      border: 2px dashed var(--neutral-border),
+      margin: 1em 0,
+      margin-bottom: 0,
+    ),
+    true
+  );
+}
+
+.generic-message-9927845 {
+  font-weight: 700;
+  margin: 0;
+  
+  @include message-container(
+    var(--neutral-background),
+    var(--neutral-border),
+    var(--neutral-text)
+  );
+  @include flex-width-container;
+  @include messageDisplayStyles;
 }

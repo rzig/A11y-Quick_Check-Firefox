@@ -58,7 +58,7 @@
                     // Increment the global counter
                     dataControlsAttributeCounter++;
                 } else {
-                    message = `aria-controls id "${ariaControls}" present, but no controlled element found!`;
+                    message = `Needs manual confirmation aria-controls id "${ariaControls}" present, but no controlled element found!`;
                 }
     
                 createChildMessageDiv(currentNode, messageClassName, message);

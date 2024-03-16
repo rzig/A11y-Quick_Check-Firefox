@@ -12,7 +12,7 @@ function addAutocompleteMessages(): void {
     const autocompleteValue: string | null = element.getAttribute('autocomplete');
     if (autocompleteValue === null) continue;
 
-    const autocompleteMessage: string = `Check that the value autocomplete="${autocompleteValue}" matches the required input`;
+    const autocompleteMessage: string = `Needs manual confirmation Check that the value autocomplete="${autocompleteValue}" matches the required input`;
     const autocompleteMessageClass: string = `autocomplete-${autocompleteValue.replace(/ /g, '-')}-message-5575855`;
     const commonAutocompleteClass: string = 'neutral-9927845';
     const commonAutocompleteMessageClass: string = 'neutral-message-9927845';
@@ -26,7 +26,7 @@ function addAutocompleteMessages(): void {
     const ariaAutocompleteValue: string | null = element.getAttribute('aria-autocomplete');
     if (ariaAutocompleteValue === null) continue;
 
-    const ariaAutocompleteMessage: string = `Check that the value aria-autocomplete="${ariaAutocompleteValue}" matches the required input.`;
+    const ariaAutocompleteMessage: string = `Needs manual confirmation Check that the value aria-autocomplete="${ariaAutocompleteValue}" matches the required input.`;
     const ariaAutocompleteMessageClass: string = `aria-autocomplete-${ariaAutocompleteValue.replace(/ /g, '-')}-message-5575855`;
     const commonAriaAutocompleteClass: string = 'neutral-9927845';
     const commonAriaAutocompleteMessageClass: string = 'neutral-message-9927845';

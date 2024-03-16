@@ -11,7 +11,7 @@ function checkScreenReaderText() {
       if ((style.position === 'absolute' && style.clip !== 'auto') ||
           (style.width === '1px' && style.height === '1px')) {
 
-        const message = `Possible Screen Reader Only Text Detected: ${element.textContent}`;
+        const message = `Warning Possible Screen Reader Only Text Detected: ${element.textContent}`;
         createChildMessageDiv(element, srOnlyMessageClass, message);
         element.classList.add("warning-9927845");
       }
