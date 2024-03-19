@@ -154,10 +154,14 @@ function addTargetSize(targetSize: number) {
     if (!isHidden && !isTooSmall) {
         if (!extendsTarget && (elemWidth < targetSize || elemHeight < targetSize)) {
             hasIssues = true; // Flag that there's an issue
-            console.log(`[Issue Found] Issue detected with element: ${identifier}. Element details:`, elem.outerHTML);
+           // console.log(`[Issue Found] Issue detected with element: ${identifier}. Element details:`, elem.outerHTML);
             
             const hasSufficientSpacing = checkSpacing(elem, targetSize);
-            let extraClass = hasSufficientSpacing ? 'target-sufficient-8228965' : 'target-insufficient-8228965';
+            // let extraClass = hasSufficientSpacing ? 'target-sufficient-8228965' : 'target-insufficient-8228965';
+            let extraClass =
+            hasSufficientSpacing && targetSize <= 24
+              ? `target-sufficient-8228965`
+              : `target-insufficient-8228965`;
             let message = `The target size for element <${identifier}> is ${elemWidth.toFixed(2)}px x ${elemHeight.toFixed(2)}px`;
 
             // Only append 'sufficient spacing' if spacing is actually sufficient
@@ -189,7 +193,7 @@ function addTargetSize(targetSize: number) {
     // Now we check if the list itself should display the message
     if (listHasIssues) {
       hasIssues = true; // This flags that there are overall issues found on the page due to this list
-      console.log(`[List Issue Detected] Displaying message for list due to target size issues in list ID: ${list.id}`);
+      //console.log(`[List Issue Detected] Displaying message for list due to target size issues in list ID: ${list.id}`);
 
       const messageText = "If the list is a sentence or contains both active elements and non-target text, exceptions for inline elements may apply!";
       const fullMessageClassName = "manual-confirmation-9927845"; 
@@ -223,12 +227,12 @@ function addTargetSize(targetSize: number) {
   });
   // End new code block for handling lists
 
-  console.log(`[Final Status] hasIssues: ${hasIssues}`);
+  //console.log(`[Final Status] hasIssues: ${hasIssues}`);
   if (hasIssues) {
-    console.log("[Action] Injecting toggle button due to detected issues.");
+    //console.log("[Action] Injecting toggle button due to detected issues.");
     injectButton(); // Function that adds a UI element for users to address issues
   } else {
-    console.log("[No Issues] No issues detected, no button injected.");
+    //console.log("[No Issues] No issues detected, no button injected.");
   }
 }
 
