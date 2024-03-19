@@ -130,7 +130,7 @@ function checkSpacing(elem: Element, targetSize: number): boolean {
 
 function addTargetSize(targetSize: number) {
   let hasIssues = false;  // Reset hasIssues for each invocation
-  console.log("[addTargetSize] Start checking target sizes.");
+  //console.log("[addTargetSize] Start checking target sizes.");
 
   // Handling individual elements such as links, buttons, etc.
   const inputElements = document.querySelectorAll(
@@ -181,16 +181,16 @@ function addTargetSize(targetSize: number) {
   // Start new code block for handling lists
   const lists = document.querySelectorAll("ul, ol");
   lists.forEach((list) => {
-    let listHasIssues = false; // Initially, we assume the list has no issues
+    let listHasIssues = false; // Initially, assume the list has no issues
 
     const listItems = list.querySelectorAll("li");
     listItems.forEach((li) => {
-      if (li.querySelector('.target-size-8228965')) { // Change this to the correct class used for indicating issues
+      if (li.querySelector('.target-size-8228965')) {
         listHasIssues = true;
       }
     });
 
-    // Now we check if the list itself should display the message
+    // Check if the list itself should display the message
     if (listHasIssues) {
       hasIssues = true; // This flags that there are overall issues found on the page due to this list
       //console.log(`[List Issue Detected] Displaying message for list due to target size issues in list ID: ${list.id}`);
@@ -230,7 +230,7 @@ function addTargetSize(targetSize: number) {
   //console.log(`[Final Status] hasIssues: ${hasIssues}`);
   if (hasIssues) {
     //console.log("[Action] Injecting toggle button due to detected issues.");
-    injectButton(); // Function that adds a UI element for users to address issues
+    injectButton(); // Function that adds a UI element for users to better see the bounding circle
   } else {
     //console.log("[No Issues] No issues detected, no button injected.");
   }
@@ -243,7 +243,7 @@ function toggleMessageDivsVisibility() {
 
   // Toggle visibility of each div
   messageDivs.forEach((div) => {
-    const htmlDiv = div as HTMLElement; // Type assertion to HTMLElement
+    const htmlDiv = div as HTMLElement;
     if (htmlDiv.style.display === "none") {
       htmlDiv.style.setProperty("display", "block", "important");
       areMessagesVisible = true;
