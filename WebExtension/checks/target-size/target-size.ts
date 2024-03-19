@@ -129,136 +129,106 @@ function checkSpacing(elem: Element, targetSize: number): boolean {
 }
 
 function addTargetSize(targetSize: number) {
-  let hasIssues = false;
+  let hasIssues = false;  // Reset hasIssues for each invocation
+  console.log("[addTargetSize] Start checking target sizes.");
 
   // Handling individual elements such as links, buttons, etc.
   const inputElements = document.querySelectorAll(
     'a, button, input[type="button"], input[type="submit"], select, [role="button"], [role="link"]'
   );
 
-  for (const elem of inputElements) {
-    // Exclude the 'Toggle messages' button
-    if (elem.id === "rmb-8228965") {
-      continue;
-    }
+  inputElements.forEach((elem) => {
+    // Exclude certain elements such as 'Toggle messages' button
+    if (elem.id === "rmb-8228965") return;
 
     const rect = elem.getBoundingClientRect();
-    const {
-      width: extraWidth,
-      height: extraHeight,
-      extendsTarget,
-    } = getPseudoElementAdjustment(elem);
+    const { width: extraWidth, height: extraHeight, extendsTarget } = getPseudoElementAdjustment(elem);
     const elemWidth = rect.width + extraWidth;
     const elemHeight = rect.height + extraHeight;
     const tagName = elem.tagName.toLowerCase();
     const role = elem.getAttribute("role");
     const identifier = role ? `role="${role}"` : tagName;
-    const isHidden =
-      getComputedStyle(elem).display === "none" ||
-      getComputedStyle(elem).opacity === "0" ||
-      getComputedStyle(elem).visibility === "hidden";
+    const isHidden = getComputedStyle(elem).display === 'none' || getComputedStyle(elem).visibility === 'hidden';
     const isTooSmall = elemWidth <= 1 || elemHeight <= 1;
 
     if (!isHidden && !isTooSmall) {
-      // If pseudo-elements extend the target area to an acceptable size, consider it a pass
-      if (
-        !extendsTarget ||
-        (elemWidth >= targetSize && elemHeight >= targetSize)
-      ) {
-        if (
-          elemWidth < targetSize ||
-          (elemHeight < targetSize && !isExcluded(elem))
-        ) {
-          // Existing logic for handling target size issues
-          hasIssues = true;
-          const hasSufficientSpacing = checkSpacing(elem, targetSize);
-          let extraClass =
-            hasSufficientSpacing && targetSize <= 24
-              ? `target-sufficient-8228965`
-              : `target-insufficient-8228965`;
+        if (!extendsTarget && (elemWidth < targetSize || elemHeight < targetSize)) {
+            hasIssues = true; // Flag that there's an issue
+            console.log(`[Issue Found] Issue detected with element: ${identifier}. Element details:`, elem.outerHTML);
+            
+            const hasSufficientSpacing = checkSpacing(elem, targetSize);
+            let extraClass = hasSufficientSpacing ? 'target-sufficient-8228965' : 'target-insufficient-8228965';
+            let message = `The target size for element <${identifier}> is ${elemWidth.toFixed(2)}px x ${elemHeight.toFixed(2)}px`;
 
-          let message = `The target size for element <${identifier}> is ${elemWidth.toFixed(
-            2
-          )}px x ${elemHeight.toFixed(2)}px`;
-          if (targetSize <= 24 && hasSufficientSpacing) {
-            message += ` which is less than ${targetSize}px x ${targetSize}px. The element has sufficient spacing.`;
-          } else {
-            message += ` which is less than ${targetSize}px x ${targetSize}px.`;
-          }
-          const messageDiv = document.createElement("div");
-          messageDiv.className = `target-size-${targetSize}-8228965`;
-          messageDiv.classList.add(
-            "target-size-8228965",
-            extraClass,
-            "spacing-ignore-8228965"
-          );
-          messageDiv.textContent = message;
-          elem.appendChild(messageDiv);
-          addCircleShape(elem, targetSize);
+            // Only append 'sufficient spacing' if spacing is actually sufficient
+            message += hasSufficientSpacing ? ` which is less than ${targetSize}px x ${targetSize}px. The element has sufficient spacing.` : ` which is less than ${targetSize}px x ${targetSize}px.`;
+
+            // Append the message div and the circle shape
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `target-size-${targetSize}-8228965`;
+            messageDiv.classList.add('target-size-8228965', extraClass, 'spacing-ignore-8228965');
+            messageDiv.textContent = message;
+            elem.appendChild(messageDiv);
+            addCircleShape(elem, targetSize);
         }
-      }
     }
-  }
+});
 
-  // New code for handling lists - start
-  // Check for lists containing both links and non-link text
+  // Start new code block for handling lists
   const lists = document.querySelectorAll("ul, ol");
   lists.forEach((list) => {
-    let hasMixedContent = false;
-    const listItems = list.querySelectorAll("li");
+    let listHasIssues = false; // Initially, we assume the list has no issues
 
+    const listItems = list.querySelectorAll("li");
     listItems.forEach((li) => {
-      const textContent = li.textContent || "";
-      const links = li.querySelectorAll("a");
-      const hasNonLinkText =
-        textContent.trim().length > 0 &&
-        li.querySelectorAll("*:not(a)").length > 0; // Check for mixed content
-      hasMixedContent = hasMixedContent || (links.length > 0 && hasNonLinkText);
+      if (li.querySelector('.target-size-8228965')) { // Change this to the correct class used for indicating issues
+        listHasIssues = true;
+      }
     });
 
-    if (hasMixedContent) {
-      // Add 'Excluded by Inline' message once per list with mixed content
-      hasIssues = true;
-      const messageText =
-        "If the list is a sentence or contains both active elements and non-target text, exceptions for inline elements may apply!";
-      const fullMessageClassName = "manual-confirmation-9927845"; // New class name to match pattern
+    // Now we check if the list itself should display the message
+    if (listHasIssues) {
+      hasIssues = true; // This flags that there are overall issues found on the page due to this list
+      console.log(`[List Issue Detected] Displaying message for list due to target size issues in list ID: ${list.id}`);
 
-      // Create the message div and append it using the existing function
-      const messageDiv = document.createElement("div");
-      messageDiv.className = fullMessageClassName;
+      const messageText = "If the list is a sentence or contains both active elements and non-target text, exceptions for inline elements may apply!";
+      const fullMessageClassName = "manual-confirmation-9927845"; 
 
-      const span = document.createElement("span");
-      span.className = "messageLabelManualConfirmation";
-      span.textContent = "Needs manual confirmation "; // Space added after the text
-      messageDiv.appendChild(span);
+      // Create and append the message div only if it has not been added already
+      if (!list.querySelector(`.${fullMessageClassName}`)) {
+        const messageDiv = document.createElement("div");
+        messageDiv.className = fullMessageClassName;
 
-      const textNode = document.createTextNode(messageText);
-      messageDiv.appendChild(textNode);
+        const span = document.createElement("span");
+        span.className = "messageLabelManualConfirmation";
+        span.textContent = "Needs manual confirmation: ";
+        messageDiv.appendChild(span);
 
-      // Adding line break
-      const lineBreak = document.createElement("br");
+        const textNode = document.createTextNode(messageText);
+        messageDiv.appendChild(textNode);
+
+        const lineBreak = document.createElement("br");
       messageDiv.appendChild(lineBreak);
 
-      // Creating and appending the link
       const link = document.createElement("a");
-      link.href =
-        "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum#:~:text=the%20%22Equivalent%22%20exception.-,Inline%3A,-The%20Success%20Criterion";
+      link.href = "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum#:~:text=the%22Equivalent%22exception.-,Inline%3A,-The%20Success%20Criterion";
       link.textContent = "W3C Inline exception definition";
       link.classList.add("hyperlinked-text-9927845");
       link.setAttribute("rel", "noopener noreferrer");
       messageDiv.appendChild(link);
 
-      // Append the constructed message div to the list item
-      const precedingDiv = createPrecedingDiv(list);
-      precedingDiv.appendChild(messageDiv);
-
-      list.classList.add("manual-9927845");
+        list.prepend(messageDiv); // Add the message at the start of the list, making it the first child
+      }
     }
   });
-  // New code for handling lists - end
+  // End new code block for handling lists
 
+  console.log(`[Final Status] hasIssues: ${hasIssues}`);
   if (hasIssues) {
-    injectButton();
+    console.log("[Action] Injecting toggle button due to detected issues.");
+    injectButton(); // Function that adds a UI element for users to address issues
+  } else {
+    console.log("[No Issues] No issues detected, no button injected.");
   }
 }
 
