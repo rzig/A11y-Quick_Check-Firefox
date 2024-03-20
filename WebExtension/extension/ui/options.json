@@ -219,7 +219,7 @@
               "css": "focus-order-count.css"
             },
             {
-              "name": "Focus Visible",
+              "name": "Show a visible focus indicator",
               "id": "focusVisible",
               "resource_path": "checks/force-focus-visible",
               "css": "force-focus-visible.css"
