@@ -129,7 +129,7 @@ function checkSpacing(elem: Element, targetSize: number): boolean {
 }
 
 function addTargetSize(targetSize: number) {
-  let hasIssues = false;  // Reset hasIssues for each invocation
+  let hasIssues = false; // Reset hasIssues for each invocation
   //console.log("[addTargetSize] Start checking target sizes.");
 
   // Handling individual elements such as links, buttons, etc.
@@ -142,41 +142,46 @@ function addTargetSize(targetSize: number) {
     if (elem.id === "rmb-8228965") return;
 
     const rect = elem.getBoundingClientRect();
-    const { width: extraWidth, height: extraHeight, extendsTarget } = getPseudoElementAdjustment(elem);
+    const {
+      width: extraWidth,
+      height: extraHeight,
+      extendsTarget,
+    } = getPseudoElementAdjustment(elem);
     const elemWidth = rect.width + extraWidth;
     const elemHeight = rect.height + extraHeight;
     const tagName = elem.tagName.toLowerCase();
     const role = elem.getAttribute("role");
     const identifier = role ? `role="${role}"` : tagName;
-    const isHidden = getComputedStyle(elem).display === 'none' || getComputedStyle(elem).visibility === 'hidden';
+    const isHidden = getComputedStyle(elem).display === "none" || getComputedStyle(elem).visibility === "hidden";
     const isTooSmall = elemWidth <= 1 || elemHeight <= 1;
 
     if (!isHidden && !isTooSmall) {
-        if (!extendsTarget && (elemWidth < targetSize || elemHeight < targetSize)) {
-            hasIssues = true; // Flag that there's an issue
-           // console.log(`[Issue Found] Issue detected with element: ${identifier}. Element details:`, elem.outerHTML);
-            
-            const hasSufficientSpacing = checkSpacing(elem, targetSize);
-            // let extraClass = hasSufficientSpacing ? 'target-sufficient-8228965' : 'target-insufficient-8228965';
-            let extraClass =
-            hasSufficientSpacing && targetSize <= 24
-              ? `target-sufficient-8228965`
-              : `target-insufficient-8228965`;
-            let message = `The target size for element <${identifier}> is ${elemWidth.toFixed(2)}px x ${elemHeight.toFixed(2)}px`;
+      if (!extendsTarget && (elemWidth < targetSize || elemHeight < targetSize)) {
+        hasIssues = true; // Flag that there's an issue
+        // console.log(`[Issue Found] Issue detected with element: ${identifier}. Element details:`, elem.outerHTML);
 
-            // Only append 'sufficient spacing' if spacing is actually sufficient
-            message += hasSufficientSpacing ? ` which is less than ${targetSize}px x ${targetSize}px. The element has sufficient spacing.` : ` which is less than ${targetSize}px x ${targetSize}px.`;
+        const hasSufficientSpacing = checkSpacing(elem, targetSize);
+        let extraClass = hasSufficientSpacing && targetSize <= 24 ? `target-sufficient-8228965` : `target-insufficient-8228965`;
+        let message = `The target size for element <${identifier}> is ${elemWidth.toFixed(2)}px x ${elemHeight.toFixed(2)}px`;
 
-            // Append the message div and the circle shape
-            const messageDiv = document.createElement('div');
-            messageDiv.className = `target-size-${targetSize}-8228965`;
-            messageDiv.classList.add('target-size-8228965', extraClass, 'spacing-ignore-8228965');
-            messageDiv.textContent = message;
-            elem.appendChild(messageDiv);
-            addCircleShape(elem, targetSize);
+        const messageDiv = document.createElement("div");
+        messageDiv.className = `target-size-${targetSize}-8228965`;
+        messageDiv.classList.add("target-size-8228965", extraClass, "spacing-ignore-8228965");
+        messageDiv.textContent = message; // Set base message
+
+        // Append 'This element is exempt by the Spacing exception' only if spacing is sufficient
+        if (hasSufficientSpacing) {
+          const exceptionSpan = document.createElement("span");
+          exceptionSpan.className = "target-size-exception-8228965";
+          exceptionSpan.textContent = "This element is exempt by the Spacing exception.";
+          messageDiv.appendChild(exceptionSpan); // Append this span only once
         }
+
+        elem.appendChild(messageDiv);
+        addCircleShape(elem, targetSize);
+      }
     }
-});
+  });
 
   // Start new code block for handling lists
   const lists = document.querySelectorAll("ul, ol");
@@ -185,18 +190,19 @@ function addTargetSize(targetSize: number) {
 
     const listItems = list.querySelectorAll("li");
     listItems.forEach((li) => {
-      if (li.querySelector('.target-size-8228965')) {
+      if (li.querySelector(".target-size-8228965")) {
         listHasIssues = true;
       }
     });
 
     // Check if the list itself should display the message
     if (listHasIssues) {
-      hasIssues = true; // This flags that there are overall issues found on the page due to this list
+      hasIssues = true; // This flags that there are overall issues for lists
       //console.log(`[List Issue Detected] Displaying message for list due to target size issues in list ID: ${list.id}`);
 
-      const messageText = "If the list is a sentence or contains both active elements and non-target text, exceptions for inline elements may apply!";
-      const fullMessageClassName = "manual-confirmation-9927845"; 
+      const messageText =
+        "If the list is a sentence or contains both active elements and non-target text, exceptions for inline elements may apply!";
+      const fullMessageClassName = "manual-confirmation-9927845";
 
       // Create and append the message div only if it has not been added already
       if (!list.querySelector(`.${fullMessageClassName}`)) {
@@ -212,14 +218,15 @@ function addTargetSize(targetSize: number) {
         messageDiv.appendChild(textNode);
 
         const lineBreak = document.createElement("br");
-      messageDiv.appendChild(lineBreak);
+        messageDiv.appendChild(lineBreak);
 
-      const link = document.createElement("a");
-      link.href = "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum#:~:text=the%22Equivalent%22exception.-,Inline%3A,-The%20Success%20Criterion";
-      link.textContent = "W3C Inline exception definition";
-      link.classList.add("hyperlinked-text-9927845");
-      link.setAttribute("rel", "noopener noreferrer");
-      messageDiv.appendChild(link);
+        const link = document.createElement("a");
+        link.href =
+          "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum#:~:text=the%22Equivalent%22exception.-,Inline%3A,-The%20Success%20Criterion";
+        link.textContent = "W3C Inline exception definition";
+        link.classList.add("hyperlinked-text-9927845");
+        link.setAttribute("rel", "noopener noreferrer");
+        messageDiv.appendChild(link);
 
         list.prepend(messageDiv); // Add the message at the start of the list, making it the first child
       }
