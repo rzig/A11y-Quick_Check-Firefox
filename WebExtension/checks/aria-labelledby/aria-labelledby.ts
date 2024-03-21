@@ -60,14 +60,27 @@
       ARTICLE: "article",
     };
 
-    // Special handling for HEADER and FOOTER when not children of BODY
+    // Special handling for HEADER and FOOTER, considering their position in the document
     if (
       (node.nodeName.toUpperCase() === "HEADER" ||
         node.nodeName.toUpperCase() === "FOOTER") &&
-      node.parentNode &&
-      node.parentNode.nodeName.toUpperCase() !== "BODY"
+      !isDescendantOf(node, ["ARTICLE", "ASIDE", "MAIN", "NAV", "SECTION"])
     ) {
-      return ""; // No specific role needed
+      return node.nodeName.toUpperCase() === "HEADER"
+        ? "banner"
+        : "contentinfo";
+    }
+
+    // New helper function to check if an element is a descendant of any element with the given tag names
+    function isDescendantOf(element: Element, tagNames: string[]): boolean {
+      let parent = element.parentElement;
+      while (parent != null) {
+        if (tagNames.includes(parent.nodeName.toUpperCase())) {
+          return true;
+        }
+        parent = parent.parentElement;
+      }
+      return false;
     }
 
     // Check if the node is a structural element and return the corresponding role
