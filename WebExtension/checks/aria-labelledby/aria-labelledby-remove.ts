@@ -14,12 +14,16 @@ for (const element of document.querySelectorAll(".valid-9927845, .invalid-992784
   if (element.hasAttribute("data-namedfrom-9927845")) {
       element.removeAttribute("data-namedfrom-9927845");
   }
+  if (element.hasAttribute("data-arialabelledby-9927845")) {
+    element.removeAttribute("data-arialabelledby-9927845");
+}
 }
 
 const classLabelledByNames: string[] = [
   "valid-message-9927845",
   "invalid-message-9927845",
   "numbered-square-9927845",
+  "warning-message-9927845",
 ];
 
 removeInjectedDivs(classLabelledByNames);
