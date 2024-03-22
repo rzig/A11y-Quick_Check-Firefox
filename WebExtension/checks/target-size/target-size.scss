@@ -80,17 +80,34 @@
 .toggleMessage-8228965 {
   background-color: var(--neutral-background);
   color: var(--neutral-text);
-  border: none;
+  border: 1px dashed var(--neutral-border);
   border-radius: 4px;
-  padding: 1em 1.5em;
+  padding: 1em .5em .8em 1em;
   font-size: 1.2rem;
   z-index: 100000;
 }
 
-.toggleMessage-8228965:focus {
-  box-shadow: 0 0 0 2px var(--neutral-border), 0 0 0 4px white;
-  outline: 2px solid white;
-  outline-offset: -2px;
+.toggleMessage-8228965:focus-visible {
+  box-shadow: 0 0 0 4px var(--neutral-border), 0 0 0 4px white;
+  outline: 4px solid white;
+  outline-offset: -4px;
+}
+
+.toggleMessage-8228965:hover {
+  border: none;
+}
+
+
+//Test to make the button sticky and align vertical left to the viewport.
+.toggleMessage-8228965 {
+  position: sticky;
+  top: 2em;
+  left: 0;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg); // Rotates text to make it readable from top to bottom
 }
 
 .manual-confirmation-9927845 {
