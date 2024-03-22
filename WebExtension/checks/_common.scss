@@ -127,20 +127,25 @@
 
 .messageLabelValid {
   @include important-styles((color: var(--pass-border)), true);
+  display:flex;
 }
 
 .messageLabelWarning {
   @include important-styles((color: var(--warning-border)), true);
+  display:flex;
 }
 
 .messageLabelInvalid {
   @include important-styles((color: var(--danger-border)), true);
+  display:flex;
 }
 
 .accNameMessageContainer.valid-message-9927845 {
   @include important-styles((border-color: var(--neutral-border)), true);
+  display:flex;
 }
 
 .messageLabelManualConfirmation {
   @include important-styles((color: var(--neutral-border)), true);
+  display:flex;
 }

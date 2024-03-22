@@ -33,7 +33,9 @@ function removeRelatedControls() {
     'aria-label-name-5599775',
     'aria-label-radio-group-name-5599775',
     'legend-not-first-child-5599775',
-    'legend-first-child-5599775'
+    'legend-first-child-5599775',
+    'legend-no-parent-fieldset-5599775',
+    'legend-no-text-5599775'
   ]);
 }
 
