@@ -49,11 +49,11 @@ function addLegendsBeforeDiv() {
 
           // Check if the legend is empty and display a warning if it is
           if (!legend.textContent || !legend.textContent.trim()) {
-              createChildMessageDiv(legend, 'legend-no-text-5599775', '(Warning) There is no legend text for the fieldset.');
+              createChildMessageDiv(legend, 'legend-no-text-5599775', 'Warning There is no legend text for the fieldset.');
           }
       } else {
           // Legend has no fieldset parent, generate a warning
-          createChildMessageDiv(legend, 'legend-no-parent-fieldset-5599775', '(Warning) The Legend is present but is not contained within a Fieldset.');
+          createChildMessageDiv(legend, 'legend-no-parent-fieldset-5599775', 'Warning The Legend is present but is not contained within a Fieldset.');
       }
   }
 }

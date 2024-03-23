@@ -2,48 +2,111 @@
 (function () {
   "use strict";
 
-  // Global counter for data attribute numbering
+  // Global counter for data attribute numbering, used to associate aria-labelledby elements and their targets uniquely
   let ariaLabelCounter = 1;
 
+  // Mapping from input types to their corresponding ARIA roles
   const inputTypeToRole: { [type: string]: string } = {
-    button: "button", checkbox: "checkbox", color: "ColorWell",
-    date: "Date", "datetime-local": "DateTime", email: "textbox",
-    file: "button", image: "button", month: "DateTime", number: "spinbutton",
-    password: "textbox", radio: "radio", range: "slider", reset: "button",
-    search: "searchbox", submit: "button", tel: "textbox", text: "textbox",
-    time: "InputTime", url: "textbox", week: "DateTime"
+    button: "button",
+    checkbox: "checkbox",
+    color: "ColorWell",
+    date: "Date",
+    "datetime-local": "DateTime",
+    email: "textbox",
+    file: "button",
+    image: "button",
+    month: "DateTime",
+    number: "spinbutton",
+    password: "textbox",
+    radio: "radio",
+    range: "slider",
+    reset: "button",
+    search: "searchbox",
+    submit: "button",
+    tel: "textbox",
+    text: "textbox",
+    time: "InputTime",
+    url: "textbox",
+    week: "DateTime",
   };
 
-  const prohibitedRoles = [
-    "caption",
-    "code",
-    "deletion",
-    "emphasis",
-    "generic",
-    "insertion",
-    "paragraph",
-    "presentation",
-    "strong",
-    "subscript",
-    "superscript",
-  ];
+  interface RoleMapping {
+    [key: string]: string[];
+  }
+
+  // Mapping of prohibited ARIA roles to their HTML element counterparts
+  const prohibitedRoleMappings: RoleMapping = {
+    caption: ["caption", "figcaption"],
+    code: ["code"],
+    deletion: ["del"],
+    emphasis: ["em"],
+    generic: ["div", "span"],
+    insertion: ["ins"],
+    none: [],
+    paragraph: ["p"],
+    presentation: [],
+    strong: ["strong"],
+    subscript: ["sub"],
+    superscript: ["sup"],
+  };
 
   function inferRoleFromElement(node: Element): string {
-    if (node.nodeName.toUpperCase() === "INPUT" && node instanceof HTMLInputElement) {
+    if (node instanceof HTMLInputElement) {
       const type = node.type.toLowerCase();
-      return inputTypeToRole[type] || "textbox"; // Default role for input if not found in the map
+      return inputTypeToRole[type] || "textbox";
+    }
+
+    // Structural element roles mapping
+    const structuralElementRoles: { [element: string]: string } = {
+      HEADER: "banner",
+      FOOTER: "contentinfo",
+      ASIDE: "complementary",
+      SECTION: "",
+      ARTICLE: "article",
+    };
+
+    // Headers and footers not nested within certain parent elements
+    if (
+      (node.nodeName.toUpperCase() === "HEADER" ||
+        node.nodeName.toUpperCase() === "FOOTER") &&
+      !isDescendantOf(node, ["ARTICLE", "ASIDE", "MAIN", "NAV", "SECTION"])
+    ) {
+      return node.nodeName.toUpperCase() === "HEADER"
+        ? "banner"
+        : "contentinfo";
+    }
+
+    // Checks if an element is a descendant of any of the specified tag names
+    function isDescendantOf(element: Element, tagNames: string[]): boolean {
+      let parent = element.parentElement;
+      while (parent != null) {
+        if (tagNames.includes(parent.nodeName.toUpperCase())) {
+          return true;
+        }
+        parent = parent.parentElement;
+      }
+      return false;
+    }
+
+    // Determine the role based on the element type if it's a known structural element
+    const nodeName = node.nodeName.toUpperCase();
+    if (structuralElementRoles.hasOwnProperty(nodeName)) {
+      return structuralElementRoles[nodeName] || "";
     }
 
     // Early return for DIV or SPAN with an explicit role
     const role = node.getAttribute("role");
-    if (node.nodeName.toUpperCase() === "DIV" || node.nodeName.toUpperCase() === "SPAN") {
+    if (
+      node.nodeName.toUpperCase() === "DIV" ||
+      node.nodeName.toUpperCase() === "SPAN"
+    ) {
       if (role) {
         return role; // Return the explicit role if one is set
       }
       return "generic"; // Assign "generic" only if no explicit role is set
     }
 
-    // Handling for non-input elements based on nodeName
+    // Handle roles for other specific HTML elements
     switch (node.nodeName.toUpperCase()) {
       case "DEL":
         return "deletion";
@@ -68,71 +131,78 @@
     }
   }
 
+  // Main function to check elements with 'aria-labelledby'
   function ariaLbNameCheck() {
     let allNodes = document.querySelectorAll("[aria-labelledby]");
     processNodes(allNodes);
   }
 
-  function processNodes(nodes: NodeListOf<Element>) {
-    for (const currentNode of nodes) {
-      const ariaLabelledBy = currentNode.getAttribute("aria-labelledby");
-      if (ariaLabelledBy) {
-        const labelledByIds = ariaLabelledBy.split(" ");
-        let computedName = "";
-  
-        for (const id of labelledByIds) {
-          const labelledByElement = document.getElementById(id);
-          if (labelledByElement) {
-            computedName += labelledByElement.textContent + " ";
-  
-            let labelCounterString = String(ariaLabelCounter).padStart(5, '0');
-            labelledByElement.setAttribute('data-elementnamedby-9927845', labelCounterString);
-            currentNode.setAttribute('data-namedfrom-9927845', labelCounterString);
-  
-            addNumberedRelationship(labelledByElement, ariaLabelCounter);
-            addNumberedRelationship(currentNode, ariaLabelCounter);
-  
-            ariaLabelCounter++;
-          }
-        }
-  
-        computedName = computedName.trim();
-        const elementType = currentNode.nodeName.toUpperCase();
-        let explicitOrInferredRole = currentNode.getAttribute("role") || inferRoleFromElement(currentNode);
-        let messageClassName = '';
-        let message;
-        let isValid = true;
-  
-        // Adjusting message to include explicit or inferred role
-        if (explicitOrInferredRole) {
-          if (prohibitedRoles.includes(explicitOrInferredRole.toLowerCase())) {
-            messageClassName = 'invalid-message-9927845';
-            message = `Invalid: <${elementType}> role="${explicitOrInferredRole}" is not supported.`;
-            isValid = false;
-          } else {
-            messageClassName = 'valid-message-9927845';
-            message = `Valid: The name for <${elementType}> role="${explicitOrInferredRole}" is "${computedName}".`;
-          }
-        } else {
-          // Handle as generic if no role is detected or applied
-          messageClassName = 'invalid-message-9927845';
-          message = `Invalid: <${elementType}> without a valid role is not supported.`;
-          isValid = false;
-        }
-  
-        currentNode.classList.add(isValid ? "valid-9927845" : "invalid-9927845");
-        if (message) {
-          addMessageToPrecedingDiv(currentNode, messageClassName, message);
-        }
-      }
-    }
-  }
+  // Processes each node that has 'aria-labelledby' attribute
+function processNodes(nodes: NodeListOf<Element>) {
+  for (const currentNode of nodes) {
+      const ariaLabelledBy = currentNode.getAttribute("aria-labelledby") || "";
+      // This does nothing, just adding it for possible future use!
+      currentNode.setAttribute("data-arialabelledby-9927845", "");
+      if (ariaLabelledBy !== null) {
+          const labelledByIds = ariaLabelledBy.split(" ").filter(id => id.trim().length > 0);
+          let computedNames = [];
+          let isLabelMissing = false;
 
+          for (const id of labelledByIds) {
+              const labelledByElement = document.getElementById(id);
+              if (labelledByElement) {
+                  computedNames.push(labelledByElement.textContent || "Unnamed");
+                  addNumberedRelationship(labelledByElement, ariaLabelCounter);
+                  addNumberedRelationship(currentNode, ariaLabelCounter);
+                  ariaLabelCounter++;
+              } else {
+                  isLabelMissing = true;
+              }
+          }
+
+          const namesList = computedNames.join(', '); // Combine names for message
+          const elementType = currentNode.nodeName.toLowerCase();
+          const explicitRole = currentNode.getAttribute("role") || "";
+          let baseMessage = "";
+          let isValid = true;
+
+          // Standard validity checks
+          const isExplicitlyProhibited = explicitRole && Object.keys(prohibitedRoleMappings).includes(explicitRole);
+          const isImplicitlyProhibited = Object.entries(prohibitedRoleMappings).some(
+              ([_, elements]) => !explicitRole && elements.includes(elementType)
+          );
+
+          if (isExplicitlyProhibited || isImplicitlyProhibited) {
+              baseMessage = `Invalid: <${elementType}>${explicitRole ? ` with role="${explicitRole}"` : ''} and aria-labelledby is not supported.`;
+              isValid = false;
+          } else if (explicitRole) {
+              baseMessage = `Valid: <${elementType}> with role="${explicitRole}" and aria-labelledby is supported. Elements name is "${namesList}".`;
+          } else {
+              baseMessage = `Valid: <${elementType}> with aria-labelledby is supported. Elements name is "${namesList}".`;
+          }
+
+          currentNode.classList.add(isValid ? "valid-9927845" : "invalid-9927845");
+          addMessageToPrecedingDiv(currentNode, isValid ? "valid-message-9927845" : "invalid-message-9927845", baseMessage);
+
+          // Separate checks and messages for missing IDs and empty aria-labelledby
+          if (isLabelMissing) {
+              const warningMessage = "Warning: there is no ID associated with the aria-labelledby.";
+              addMessageToPrecedingDiv(currentNode, "warning-message-9927845", warningMessage);
+          }
+          if (ariaLabelledBy.trim() === "") {
+              const emptyAriaLabelWarning = "Warning: aria-labelledby attribute is empty.";
+              addMessageToPrecedingDiv(currentNode, "warning-message-9927845", emptyAriaLabelWarning);
+          }
+      }
+  }
+}
+
+  // Function to visually represent the relationship between elements referenced by 'aria-labelledby'
   function addNumberedRelationship(element: Element, number: number) {
-    let square = document.createElement('div');
+    let square = document.createElement("div");
     square.textContent = number.toString();
-    square.classList.add('numbered-square-9927845');
-    element.insertAdjacentElement('afterend', square);
+    square.classList.add("numbered-square-9927845");
+    element.insertAdjacentElement("afterend", square);
   }
 
   ariaLbNameCheck();

@@ -1,6 +1,6 @@
 "use strict";
 
-function getWrapperDiv(element: Element) {
+function getWrapperDiv(element: Element): HTMLDivElement {
   const wrapperAttribute = "data-a11y-wrapper-2edbc8ab";
 
   // Check if we have a sibling, and if we do that it's not our wrapper
@@ -11,7 +11,7 @@ function getWrapperDiv(element: Element) {
     wrapper.setAttribute(wrapperAttribute, "");
     element.after(wrapper);
   }
-  return wrapper;
+  return wrapper as HTMLDivElement;
 }
 
 // Create the message div as a child of the target element
@@ -22,7 +22,8 @@ function createChildMessageDiv(
   extraClasses: string[] = []
 ) {
   const wrapper = getWrapperDiv(element);
-  wrapper.appendChild(createNewMessageDiv(messageClass, message, extraClasses));
+  // Use createStyledMessageDiv instead of createNewMessageDiv for styling and prefix handling
+  wrapper.appendChild(createStyledMessageDiv(messageClass, message, extraClasses));
 }
 
 function createNewMessageDiv(
@@ -73,6 +74,7 @@ function createStyledMessageDiv(
         "Valid": "messageLabelValid",
         "Accessible name": "messageLabelaccName", //To do
         "Knowledge" : "messageLabelKnowledge",
+        "Needs manual confirmation" : "messageLabelManualConfirmation",
     };
 
     let foundPrefix = false; // Flag to indicate if a prefix is found

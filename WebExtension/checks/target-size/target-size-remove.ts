@@ -1,37 +1,42 @@
 function removeTargetSize(targetSize: number) {
     // Remove the target size messages and their associated classes
     const messageDivs = document.querySelectorAll(`.target-size-${targetSize}-8228965`);
-    for (const div of messageDivs) {
+    messageDivs.forEach(div => {
         div.classList.remove(`target-sufficient-8228965`, `target-insufficient-8228965`);
-        div.remove();
-    }
+        div.remove(); // Remove the message divs from the DOM
+    });
 
     // Remove all circle shapes related to the target size
     const circleShapes = document.querySelectorAll(`.circle-shape-size-${targetSize}-8228965`);
-    for (const circleShape of circleShapes) {
-        circleShape.remove();
-    }
+    circleShapes.forEach(circleShape => {
+        circleShape.remove(); // Remove the circle shapes from the DOM
+    });
 
-    // Remove the small target classes from elements
-    const targets = document.querySelectorAll(`.small-target-${targetSize}-8228965`);
-    for (const elem of targets) {
+    // Remove the classes added to elements
+    const targets = document.querySelectorAll(`.pos-rel-size-${targetSize}-8228965`);
+    targets.forEach(elem => {
         elem.classList.remove(`small-target-${targetSize}-8228965`, `pos-rel-size-${targetSize}-8228965`);
-
-        // Check if there are any other related classes remaining
-        let additionalRelsFound = false;
-        for (const cssClass of elem.classList) {
-            additionalRelsFound = additionalRelsFound || /pos-rel-size-[0-9]+-8228965/.test(cssClass);
+        // Check for any other related classes remaining
+        const remainingClasses = Array.from(elem.classList).filter(cls => /pos-rel-size-\d+-8228965/.test(cls));
+        if (remainingClasses.length === 0) { // If no other related classes found
+            elem.classList.remove(`pos-rel-8228965`); // Remove position related class
         }
+    });
 
-        // Remove the pos-rel class if no more related classes are found
-        if (!additionalRelsFound) {
-            elem.classList.remove(`pos-rel-8228965`);
-        }
-    }
+    // Remove the manual confirmation messages and classes for lists
+    const manualConfMessages = document.querySelectorAll('.manual-confirmation-9927845');
+    manualConfMessages.forEach(message => {
+        message.remove(); // Remove the manual confirmation messages from the DOM
+    });
 
-    // Remove the show/hide button
+    const listsWithMixedContent = document.querySelectorAll('.manual-9927845');
+    listsWithMixedContent.forEach(list => {
+        list.classList.remove('manual-9927845'); // Remove the manual confirmation class from lists
+    });
+
+    // Remove the show/hide button if it exists
     const toggleButton = document.getElementById('rmb-8228965');
     if (toggleButton) {
-        toggleButton.remove();
+        toggleButton.remove(); // Remove the toggle messages button from the DOM
     }
 }

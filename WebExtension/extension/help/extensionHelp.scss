@@ -1,10 +1,14 @@
 :root {
+  --purple-900: #4338ca;
+  --purple-700: #5941a9;
+  --purple-500: #7b61c4;
+  --purple-300: #a886e5;
+  --purple-100: #d3beff;
   --neutral-background: #d3beff;
   --nav-background: #a5a5a5;
   --neutral-border: #5941a9;
   --neutral-text: #07011c;
 }
-
 body {
   font-family: Aptos, Bierstadt, "Segoe UI", -apple-system, BlinkMacSystemFont,
     Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
@@ -43,12 +47,12 @@ header {
   }
 
   h1{
-    margin-left: 1.2em;
+    margin-left: 1em;
     margin-bottom: 0;
   }
 
   h2 {
-    font-size: 2rem;
+    font-size: 1.5rem;
     margin: 0 1em;
     margin-top:0;
   }
@@ -129,4 +133,73 @@ h3.ref-links-header {
 h3 {
   color: var(--neutral-text);
   margin-bottom: 1em;
+}
+
+details {
+  margin-bottom: 1em;
+  border: 1px solid var(--purple-300);
+  border-radius: 0.5em;
+  background: var(--white);
+  box-shadow: 0 0.125em 0.3125em rgba(0, 0, 0, 0.2);
+  
+  & > *:not(summary) {
+    padding-left: 0.9375em;
+  }
+
+  & > ul:not(summary) {
+    padding-left: 3em;
+  }
+}
+
+summary {
+  display: flex;
+  align-items: center;
+  padding: 0.9375em;
+  cursor: pointer;
+  list-style: none;
+  color: var(--black);
+  background-color: var(--purple-100);
+  border-bottom: 1px solid var(--purple-300);
+  outline: none;
+  border-radius: 0.5em 0.5em 0 0;
+
+  &:hover {
+    background-color: var(--purple-300);
+  }
+
+  &:focus-visible {
+    //background-color: var(--purple-300);
+    outline-style: outset;
+    outline-color: var(--purple-700);
+  }
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+  
+  h2 {
+    margin: 0;
+    padding: 0 0 0 2em; /* Adjust left padding to prevent overlap with icon */
+    font-size: 1.5rem;
+    line-height: 1.2;
+    flex-grow: 1;
+  }
+  h2 {
+    margin: 0;
+    padding: 0 0 0 2em; /* Adjust left padding to prevent overlap with icon */
+    font-size: 1.2rem;
+    line-height: 1.2;
+    flex-grow: 1;
+  }
+}
+
+summary::before {
+  content: "+";
+  margin-right: 1em; /* Space between icon and text */
+  font-size: 1.5rem;
+  line-height: 0.5;
+}
+
+details[open] > summary::before {
+  content: "−";
 }

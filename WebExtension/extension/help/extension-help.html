@@ -11,7 +11,7 @@
       <header>
         <hgroup role="group" aria-roledescription="Heading group">
           <h1>A11y Quick Check</h1>
-          <p>Version: 2501.2024.03.11</p>
+          <p>Version: 2501.2024.04.01</p>
         </hgroup>
         <div class="a11yqc-logo">
           <img src="../../extension/ui/images/icon.svg" alt="" />
@@ -26,44 +26,94 @@
             to provide a high level check to help meet the requirements of the
             WCAG guidelines and coding best practices.
           </p>
+          <details open>
+            <summary><h2>April 2024 updates</h2></summary>
+            <h3>Version: 2501.2024.04.01</h3>
+            <ul>
+              <li>Message type, Valid, Invalid, Warning, Best practice and Needs manual conformation. Helps to define if results of checks are an absolute fails of WCAG or spec etc.</li>
+              <li>Fixed messages to prevent the text expanding outside the container in some circumstances.</li>
+              <li>Updated Target Size that sets a 'needs manualconfirmation' message against lists, where it is not possible to automatically determine if links in an ordered or unordered list, are exempt under the Inline exception.</li>
+              <li>Fixed a false positive result for aria-labelledby not reporting correctly for some named HTML landmarks.</li>
+              <li>Fixed a false positive result where the Name from was not correctly identifying the name for buttons and links with child elements, such as img or svg providing the accessible name.</li>
+              <li>Changed name of the 'Focus visible' check to 'Show a visible focus indicator'.</li>
+            </ul>
+            </details>
 
-          <h3>Version: 2501.2024.03.11 update</h3>
-          <ul>
-            <li>Urgent fix for Landmarks that were missed in major update.</li>
-          </ul>
+          <details>
+            <summary><h2>March 2024 updates</h2></summary>
+            <h3>Version: 2501.2024.03.11</h3>
+            <ul>
+              <li>
+                Urgent fix for Landmarks that were missed in major update.
+              </li>
+            </ul>
 
-          <h3>Version: 2501.2024.03.10 update</h3>
-          <ul>
-            <li>Major revamping of Landmarks check. Determines if a given element is nested within specified tag names or roles, checks if an element contains a heading, identifies elements with conflicting ARIA and HTML roles, evaluates the document for the appropriate number of main landmarks, and applies all accessibility checks to specified HTML landmarks while adding appropriate messages and styles based on their compliance.</li>
-            <li>Fixes bug where target size 24 was not identifying SPAN in a P</li>
-            <li>Fixes bug where LEGEND was not being correctly identified if not first child of FIELDSET.</li>
-          </ul>
+            <h3>Version: 2501.2024.03.10</h3>
+            <ul>
+              <li>
+                Major revamping of Landmarks check. Determines if a given
+                element is nested within specified tag names or roles, checks if
+                an element contains a heading, identifies elements with
+                conflicting ARIA and HTML roles, evaluates the document for the
+                appropriate number of main landmarks, and applies all
+                accessibility checks to specified HTML landmarks while adding
+                appropriate messages and styles based on their compliance.
+              </li>
+              <li>
+                Fixes bug where target size 24 was not identifying SPAN in a P
+              </li>
+              <li>
+                Fixes bug where LEGEND was not being correctly identified if not
+                first child of FIELDSET.
+              </li>
+            </ul>
 
-          <h3>Version: 2501.2024.03.07 update</h3>
-          <ul>
-            <li>Updated ordered and unordered list checks to report when invalid elements are children og OL and UL.</li>
-          </ul>
+            <h3>Version: 2501.2024.03.07</h3>
+            <ul>
+              <li>
+                Updated ordered and unordered list checks to report when invalid
+                elements are children og OL and UL.
+              </li>
+            </ul>
 
-          <h3>Version: 2501.2024.03.04 update</h3>
-          <ul>
-            <li>Provides feedback when role presentation or role none is placed on &lt;svg&gt;.</li>
-          </ul>
+            <h3>Version: 2501.2024.03.04</h3>
+            <ul>
+              <li>
+                Provides feedback when role presentation or role none is placed
+                on &lt;svg&gt;.
+              </li>
+            </ul>
 
-          <h3>Version: 2501.2024.03.03 update</h3>
-          <ul>
-            <li>Changed the &lt;title&gt; element to report as a description within an SVG and issue a specific message when it exists.</li>
-          </ul>
+            <h3>Version: 2501.2024.03.03</h3>
+            <ul>
+              <li>
+                Changed the &lt;title&gt; element to report as a description
+                within an SVG and issue a specific message when it exists.
+              </li>
+            </ul>
 
-          <h3>Version: 2501.2024.03.01 update</h3>
-          <ul>
-            <li>Update to SVG images check. Now checks for naming via &lt;title&gt;, &lt;text&gt; and the title attribute.</li>
-            <li>Updated DL check which was not reporting correctly when DL is a child of UL > LI or OL LI.</li>
-          </ul>
-          
-          <h3>Version: 2501.2024.02.24 update</h3>
-          <ul>
-            <li>Bug fix where the accessible name of input using 'label for' was being reported as 'Name from none'.</li>
-          </ul>
+            <h3>Version: 2501.2024.03.01</h3>
+            <ul>
+              <li>
+                Update to SVG images check. Now checks for naming via
+                &lt;title&gt;, &lt;text&gt; and the title attribute.
+              </li>
+              <li>
+                Updated DL check which was not reporting correctly when DL is a
+                child of UL > LI or OL LI.
+              </li>
+            </ul>
+          </details>
+          <details>
+            <summary><h2>February 2024 updates</h2></summary>
+            <h3>Version: 2501.2024.02.24</h3>
+            <ul>
+              <li>
+                Bug fix where the accessible name of input using 'label for' was
+                being reported as 'Name from none'.
+              </li>
+            </ul>
+          </details>
 
           <h3>Disclaimer</h3>
           <p>

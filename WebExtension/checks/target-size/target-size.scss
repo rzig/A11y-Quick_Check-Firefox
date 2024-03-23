@@ -2,6 +2,7 @@
 
 .small-target-8228965.target-insufficient-8228965 {
   border: 4px solid var(--danger-border) !important;
+  @include whiteSpace;
 }
 
 .target-size-8228965.target-insufficient-8228965 {
@@ -18,6 +19,7 @@
   width: 12em,
   z-index: 10000,
   ), true);
+  @include whiteSpace;
 }
 
 .small-target-8228965.target-sufficient-8228965 {
@@ -36,9 +38,10 @@
   line-height: 1.5,
   padding: 0.5em,
   min-height:10em,
-  width: 12em,
+  width: 20em,
   z-index: 10000,
   ), true);
+  @include whiteSpace;
 }
 
 .target-size-24-8228965  {
@@ -68,24 +71,63 @@
   position: relative !important;
 }
 
+//CSS properties listed by Positioning, Box Model, Typographic, Visual, left-overs
+.toggleMessage-8228965 {
+  @include important-styles((
+  position: sticky,
+  top: 2em,
+  left: 0,
+  z-index: 100000,
+  display: inline-block,
+  padding: 1em .5em .8em 1em,
+  border: 1px dashed var(--neutral-border),
+  border-radius: 4px,
+  font-size: 1.2rem,
+  text-align: center,
+  text-decoration: none,
+  writing-mode: vertical-lr,
+  background-color: var(--neutral-background),
+  color: var(--neutral-text),
+  transform: rotate(180deg),
+  ), true);
+}
+
 .toggleMessage-8228965 {
   position: fixed;
   left: 1em;
   top: 1em;
 }
 
-.toggleMessage-8228965 {
-  background-color: var(--neutral-background);
-  color: var(--neutral-text);
-  border: none;
-  border-radius: 4px;
-  padding: 1em 1.5em;
-  font-size: 1.2rem;
-  z-index: 100000;
+.toggleMessage-8228965:focus-visible {
+  box-shadow: 0 0 0 4px var(--neutral-border), 0 0 0 4px white;
+  outline: 4px solid white;
+  outline-offset: -4px;
 }
 
-.toggleMessage-8228965:focus {
-  box-shadow: 0 0 0 2px var(--neutral-border), 0 0 0 4px white;
-  outline: 2px solid white;
-  outline-offset: -2px;
+.toggleMessage-8228965:hover {
+  border: none;
+}
+
+.manual-confirmation-9927845 {
+  font-weight: 700;
+  margin: 0;
+  white-space: normal;
+  
+  @include message-container(
+    var(--neutral-background),
+    var(--neutral-border),
+    var(--neutral-text)
+  );
+  @include flex-width-container;
+  @include messageDisplayStyles;
+}
+
+.hyperlinked-text-9927845 {
+  font-weight: 400;
+}
+
+.target-size-exception-8228965 {
+  display:flex;
+  font-weight:700;
+  margin-top:5px;
 }

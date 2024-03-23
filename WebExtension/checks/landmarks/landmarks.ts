@@ -50,15 +50,21 @@ function addLandmarkMessages(): void {
 
   function checkConflictingRoles(element: HTMLElement): void {
     const ariaRole = element.getAttribute("role");
+    // Add a condition to allow 'search' role on 'form' elements without flagging as invalid
+    if (ariaRole === 'search' && element.tagName.toLowerCase() === 'form') {
+        // If the element is a form with a 'search' role, exit the function early to avoid flagging as invalid
+        return;
+    }
+
     if (ariaRole) {
       const htmlRole = ariaToHtmlMapping[ariaRole];
       if (htmlRole && htmlRole !== element.tagName.toLowerCase()) {
-        const message = `Invalid The HTML role '${element.tagName.toLowerCase()}' and ARIA role '${ariaRole}' on this element conflict.`;
+        const message = `Invalid: The HTML role '${element.tagName.toLowerCase()}' and ARIA role '${ariaRole}' on this element conflict.`;
         addMessageToPrecedingDiv(element, "invalid-message-9927845", message);
         element.classList.add("invalid-9927845");
       }
     }
-  }
+}
 
   function checkMainElements(): void {
     // Select all main elements and elements with role="main"
@@ -124,6 +130,18 @@ function addLandmarkMessages(): void {
           message = `Warning: <${landmark}> landmark is missing an accessible name.`;
           messageClassSuffix = "warning";
         }
+
+        // if (
+        //   (accessibleName === "not named" || landmark === "section") &&
+        //   landmark !== "footer" &&
+        //   landmark !== "main" &&
+        //   landmark !== "article" &&
+        //   landmark !== "header" &&
+        //   landmark !== "form"
+        // ) {
+        //   message = `Needs manual confirmation <${landmark}> may not have an accessible name and is assigned a region role, <${landmark}> without an accessible name should have a role of generic.`;
+        //   messageClassSuffix = "messageLabelManualConfirmation ";
+        // }
 
         // if (isInRestrictedParent && landmark !== "footer") {
         //   const parentTagName = element.parentElement?.tagName.toLowerCase();

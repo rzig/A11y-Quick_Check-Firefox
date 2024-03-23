@@ -4,18 +4,46 @@
     <title>Tests for target size</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <style>
-        /* Existing styles... */
-    </style>
 </head>
 <body>
     <h1>Test for WCAG 2.5.5 and 2.5.8 Target Size</h1>
+	
+	<h2> Links only list</h2>
+	<ul>
+	<li><a href="#">Link 1</a></li>
+	<li><a href="#">Link 2</a></li>
+	<li><a href="#">Link 3</a></li>
+	<li><a href="#">Link 4</a></li>
+	<li><a href="#">Link 5</a></li>
+	</ul>
+	
+	<h2> Links and non-link text list</h2>
+	<ul>
+	<li><a href="#">Link 1</a> has non-link text and should not render a fail because of the inline exemption!</li>
+	<li><a href="#">Link 2</a></li>
+	<li><a href="#">Link 3</a> has non-link text and should not render a fail because of the inline exemption!</li>
+	<li><a href="#">Link 4</a></li>
+	<li><a href="#">Link 5</a>
+	</ul>
 
     <!-- Standard Sized Targets -->
     <div class="test-section">
         <h2>Standard Sized Targets</h2>
         <button style="width: 50px; height: 50px;">50x50 Button</button>
         <a href="#" style="display: inline-block; width: 50px; height: 50px;">50x50 Link</a>
+    </div>
+	
+	<h1>Test for WCAG 2.5.5 and 2.5.8 Target Size</h1>
+	<p>Lists with links and non-linked content.
+
+    <!-- Standard Sized Targets -->
+    <div class="test-section">
+        <ul style="width: 300px">
+		<li><a href="#">Link 1</a> includes non-linked text.</li>
+		<li><a href="#">Link 2</a> includes non-linked text that has content that wraps lines, hopefully, anyway this should set the inline exception.</li>
+		<li><a href="#">Link 3</a></li>
+		<li><a href="#">Link 4</a> includes non-linked text.</li>
+		</ul>
     </div>
 
     <!-- Undersized Targets -->
