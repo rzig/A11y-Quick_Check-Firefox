@@ -9,7 +9,7 @@
           "helpSection": "Checks if visually designed headings and heading groups are conveyed by semantic markup, identifies large text to check if it should be a heading, and warns if heading levels are skipped.",
           "items": [
             {
-              "name": "Has Heading Mark-up",
+              "name": "Identify text marked up as a heading",
               "id": "headingsYes",
               "resource_path": "checks/headings",
               "css": "headings.css",
@@ -17,7 +17,7 @@
               "removeScript": "headings-remove.js"
             },
             {
-              "name": "No Heading Mark-up",
+              "name": "Verify large bold text is non-heading",
               "id": "headingNo",
               "resource_path": "checks/headings-not-coded",
               "css": "headings-not-coded.css",
@@ -25,7 +25,7 @@
               "removeScript": "headings-not-coded-remove.js"
             },
             {
-              "name": "HTML hgroup",
+              "name": "Check heading group structure",
               "id": "hGroup",
               "resource_path": "checks/hgroup",
               "css": "hgroup.css",
