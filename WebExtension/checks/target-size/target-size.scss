@@ -71,20 +71,31 @@
   position: relative !important;
 }
 
+//CSS properties listed by Positioning, Box Model, Typographic, Visual, left-overs
+.toggleMessage-8228965 {
+  @include important-styles((
+  position: sticky,
+  top: 2em,
+  left: 0,
+  z-index: 100000,
+  display: inline-block,
+  padding: 1em .5em .8em 1em,
+  border: 1px dashed var(--neutral-border),
+  border-radius: 4px,
+  font-size: 1.2rem,
+  text-align: center,
+  text-decoration: none,
+  writing-mode: vertical-lr,
+  background-color: var(--neutral-background),
+  color: var(--neutral-text),
+  transform: rotate(180deg),
+  ), true);
+}
+
 .toggleMessage-8228965 {
   position: fixed;
   left: 1em;
   top: 1em;
-}
-
-.toggleMessage-8228965 {
-  background-color: var(--neutral-background);
-  color: var(--neutral-text);
-  border: 1px dashed var(--neutral-border);
-  border-radius: 4px;
-  padding: 1em .5em .8em 1em;
-  font-size: 1.2rem;
-  z-index: 100000;
 }
 
 .toggleMessage-8228965:focus-visible {
@@ -95,19 +106,6 @@
 
 .toggleMessage-8228965:hover {
   border: none;
-}
-
-
-//Test to make the button sticky and align vertical left to the viewport.
-.toggleMessage-8228965 {
-  position: sticky;
-  top: 2em;
-  left: 0;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  writing-mode: vertical-rl;
-  transform: rotate(180deg); // Rotates text to make it readable from top to bottom
 }
 
 .manual-confirmation-9927845 {
