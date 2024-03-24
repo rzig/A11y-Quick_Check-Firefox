@@ -26,6 +26,38 @@ function createChildMessageDiv(
   wrapper.appendChild(createStyledMessageDiv(messageClass, message, extraClasses));
 }
 
+const wcagLinks = {
+  "1.3.1 Info and Relationships": "https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships",
+  // Add more WCAG criteria and URLs
+};
+
+const ariaLinks = {
+  "aria-labelledby": "https://www.w3.org/TR/wai-aria/#aria-labelledby",
+  // Add more ARIA attributes and URLs
+};
+
+const customLinks = {
+  "Inline": "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html#key-terms:~:text=the%20%22Equivalent%22%20exception.-,Inline,-%3A%20The%20Success",
+  "Spacing": "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html#key-terms:~:text=are%20five%20exceptions%3A-,Spacing,-%3A%20Undersized%20targets",
+  // Add more ARIA attributes and URLs
+};
+
+// New function to append hyperlinks to messages
+function appendHyperlinksToMessage(message: string): string {
+  // Define combined links for easy lookup
+  const combinedLinks = {...wcagLinks, ...ariaLinks, ...customLinks};
+  
+  // Replace all occurrences of link keys in the message with hyperlinked versions
+  Object.entries(combinedLinks).forEach(([key, value]) => {
+    if (message.includes(key)) {
+        const linkHTML = `<a href="${value}" class="hyperlinked-text" rel="noopener noreferrer">${key}</a>`;
+        message = message.replace(new RegExp(key, 'g'), linkHTML);
+    }
+});
+
+  return message;
+}
+
 function createNewMessageDiv(
   messageClass: string,
   message: string,

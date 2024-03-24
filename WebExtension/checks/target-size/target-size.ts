@@ -128,59 +128,58 @@ function checkSpacing(elem: Element, targetSize: number): boolean {
   return true;
 }
 
-function addTargetSize(targetSize: number) {
-  let hasIssues = false; // Reset hasIssues for each invocation
-  //console.log("[addTargetSize] Start checking target sizes.");
+function addTargetSize(targetSize: number): void {
+  let hasIssues: boolean = false; // Reset hasIssues for each invocation
 
-  // Handling individual elements such as links, buttons, etc.
-  const inputElements = document.querySelectorAll(
-    'a, button, input[type="button"], input[type="submit"], select, [role="button"], [role="link"]'
+  const inputElements: NodeListOf<Element> = document.querySelectorAll(
+      'a, button, input[type="button"], input[type="submit"], select, [role="button"], [role="link"]'
   );
 
-  inputElements.forEach((elem) => {
-    // Exclude certain elements such as 'Toggle messages' button
-    if (elem.id === "rmb-8228965") return;
+  inputElements.forEach((elem: Element) => {
+      // Skip certain elements as needed
+      if (elem.id === "rmb-8228965") return;
 
-    const rect = elem.getBoundingClientRect();
-    const {
-      width: extraWidth,
-      height: extraHeight,
-      extendsTarget,
-    } = getPseudoElementAdjustment(elem);
-    const elemWidth = rect.width + extraWidth;
-    const elemHeight = rect.height + extraHeight;
-    const tagName = elem.tagName.toLowerCase();
-    const role = elem.getAttribute("role");
-    const identifier = role ? `role="${role}"` : tagName;
-    const isHidden = getComputedStyle(elem).display === "none" || getComputedStyle(elem).visibility === "hidden";
-    const isTooSmall = elemWidth <= 1 || elemHeight <= 1;
+      const rect: DOMRect = elem.getBoundingClientRect();
+      const {
+          width: extraWidth,
+          height: extraHeight,
+          extendsTarget,
+      } = getPseudoElementAdjustment(elem);
+      const elemWidth: number = rect.width + extraWidth;
+      const elemHeight: number = rect.height + extraHeight;
+      const tagName: string = elem.tagName.toLowerCase();
+      const role: string | null = elem.getAttribute("role");
+      const identifier: string = role ? `role="${role}"` : `<${tagName}>`;
+      const isHidden: boolean = getComputedStyle(elem).display === "none" || getComputedStyle(elem).visibility === "hidden";
+      const isTooSmall: boolean = elemWidth <= 1 || elemHeight <= 1;
 
-    if (!isHidden && !isTooSmall) {
-      if (!extendsTarget && (elemWidth < targetSize || elemHeight < targetSize)) {
-        hasIssues = true; // Flag that there's an issue
-        // console.log(`[Issue Found] Issue detected with element: ${identifier}. Element details:`, elem.outerHTML);
+      if (!isHidden && !isTooSmall) {
+          if (!extendsTarget && (elemWidth < targetSize || elemHeight < targetSize)) {
+              hasIssues = true; // Flag that there's an issue
 
-        const hasSufficientSpacing = checkSpacing(elem, targetSize);
-        let extraClass = hasSufficientSpacing && targetSize <= 24 ? `target-sufficient-8228965` : `target-insufficient-8228965`;
-        let message = `The target size for element <${identifier}> is ${elemWidth.toFixed(2)}px x ${elemHeight.toFixed(2)}px`;
+              const hasSufficientSpacing: boolean = checkSpacing(elem, targetSize);
+              let baseMessage: string = `The target size for ${identifier} is ${elemWidth.toFixed(2)}px x ${elemHeight.toFixed(2)}px.`;
 
-        const messageDiv = document.createElement("div");
-        messageDiv.className = `target-size-${targetSize}-8228965`;
-        messageDiv.classList.add("target-size-8228965", extraClass, "spacing-ignore-8228965");
-        messageDiv.textContent = message; // Set base message
+              // Assuming appendHyperlinksToMessage is a global function; ensure correct typing if defined elsewhere
+              let message: string = appendHyperlinksToMessage(baseMessage); // Integrate dynamic hyperlinks
 
-        // Append 'This element is exempt by the Spacing exception' only if spacing is sufficient
-        if (hasSufficientSpacing) {
-          const exceptionSpan = document.createElement("span");
-          exceptionSpan.className = "target-size-exception-8228965";
-          exceptionSpan.textContent = "This element is exempt by the Spacing exception.";
-          messageDiv.appendChild(exceptionSpan); // Append this span only once
-        }
+              const messageDiv: HTMLDivElement = document.createElement("div");
+              messageDiv.className = `target-size-${targetSize}-8228965`;
+              messageDiv.classList.add("target-size-8228965", hasSufficientSpacing && targetSize <= 24 ? "target-sufficient-8228965" : "target-insufficient-8228965", "spacing-ignore-8228965");
+              messageDiv.innerHTML = message; // Changed from textContent to innerHTML
 
-        elem.appendChild(messageDiv);
-        addCircleShape(elem, targetSize);
+              // Append an explanatory span if necessary
+              if (hasSufficientSpacing) {
+                  const exceptionSpan: HTMLSpanElement = document.createElement("span");
+                  exceptionSpan.className = "target-size-exception-8228965";
+                  exceptionSpan.innerHTML = "This element is exempt by the Spacing exception."; // HTML to support hyperlink insertion
+                  messageDiv.appendChild(exceptionSpan);
+              }
+
+              elem.appendChild(messageDiv);
+              addCircleShape(elem, targetSize);
+          }
       }
-    }
   });
 
   // Start new code block for handling lists
@@ -202,6 +201,8 @@ function addTargetSize(targetSize: number) {
 
       const messageText =
         "If the list is a sentence or contains both active elements and non-target text, exceptions for inline elements may apply!";
+      // Use appendHyperlinksToMessage
+    const updatedMessageText = appendHyperlinksToMessage(messageText);
       const fullMessageClassName = "manual-confirmation-9927845";
 
       // Create and append the message div only if it has not been added already
