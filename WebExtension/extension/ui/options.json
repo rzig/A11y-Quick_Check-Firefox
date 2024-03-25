@@ -277,7 +277,7 @@
               "removeScript": "aria-controls-remove.js"
             },
             {
-              "name": "Element named by method",
+              "name": "Element named by method (experimental check)",
               "id": "elementNameFrom",
               "resource_path": "checks/element-named-from",
               "css": "element-named-from.css",
