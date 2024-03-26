@@ -7,6 +7,8 @@
 
 .warning-message-9927845 {
   font-weight: 700;
+  z-index: 200000;
+  min-width: 15em;
 
   @include important-styles(
     (

@@ -26,24 +26,29 @@
   margin: 0;
 }
 
-// .from-content-class-9927845 {
-//   @include font-styling;
-//   &::before {
-//     content: "Name from Content";
-//     display: block;
-//     margin-bottom: 5px;
-//     color: var(--warning-border);
-//     font-weight: bold;
-//   }
-// }
+.top-left-container {
+  position: absolute;
+  max-width: 15em;
+  top: 0;
+  right: 0;
+  margin: 10px;
+  background-color: var(--warning-background);
+  border: 2px solid var(--warning-border);
+  color: var(--warning-text);
+  padding: 10px;
+  z-index: 1000;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
 
-// .from-author-class-9927845 {
-//   @include font-styling;
-//   &::before {
-//     content: "Name from Author";
-//     display: block;
-//     margin-bottom: 5px;
-//     color: var(--pass-border);
-//     font-weight: bold;
-//   }
-// }
+.dismiss-button {
+  background-color: var(--extension-white);
+  color: var(--extension-black);
+  border: 1px solid var(--neutral-border);
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: var(--neutral-background);
+  }
+}
