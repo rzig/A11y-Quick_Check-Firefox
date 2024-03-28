@@ -220,10 +220,16 @@
         return { name: imgAltText, method: "Contents" };
     }
 
-    // Lastly, check for title attribute
+    // Check for title attribute
     let title = node.getAttribute("title");
     if (title) {
         return { name: title, method: "Title" };
+    }
+
+    // Check for placeholder attribute
+    let placeholder = node.getAttribute("placeholder");
+    if (placeholder) {
+        return { name: placeholder, method: "Placeholder" };
     }
 
     // Default case if no accessible name found
@@ -264,7 +270,7 @@ function createTopLeftContainer() {
 
   // Create the paragraph element for the message
   const messagePara = document.createElement('p');
-  messagePara.textContent = 'This is an experimental check that may return false positive results. Once it is fully tested this message will be removed. The naming uses the ARIA 1.2 Name and Description calculation.';
+  messagePara.textContent = 'This is an experimental check that may return false positive results. Once it is fully tested this message will be removed.';
   
   // Create the dismiss button
   const dismissButton = document.createElement('button');
