@@ -1,0 +1,135 @@
+@import "../common";
+
+.valid-9927845 {
+  @include important-styles(
+    (
+      border: 2px dashed var(--pass-border),
+      margin: 1em 0,
+      margin-bottom: 0,
+    ),
+    true
+  );
+}
+
+.valid-message-9927845 {
+  font-weight: 700;
+  margin: 0;
+  
+  @include message-container(
+    var(--pass-background),
+    var(--pass-border),
+    var(--pass-text)
+  );
+  @include flex-width-container;
+  @include messageDisplayStyles;
+}
+
+.invalid-9927845 {
+  @include important-styles(
+    (
+      border: 2px dashed var(--danger-border),
+      margin: 1em 0,
+      margin-bottom: 0,
+    ),
+    true
+  );
+}
+
+.invalid-message-9927845 {
+  font-weight: 700;
+  margin: 0;
+  
+  @include message-container(
+    var(--danger-background),
+    var(--danger-border),
+    var(--danger-text)
+  );
+  @include flex-width-container;
+  @include messageDisplayStyles;
+}
+
+.warning-9927845 {
+  @include important-styles(
+    (
+      border: 2px dashed var(--warning-border),
+      margin: 1em 0,
+      margin-bottom: 0,
+    ),
+    true
+  );
+}
+
+.warning-message-9927845 {
+  font-weight: 700;
+  margin: 0;
+  
+  @include message-container(
+    var(--warning-background),
+    var(--warning-border),
+    var(--warning-text)
+  );
+  @include flex-width-container;
+  @include messageDisplayStyles;
+}
+
+.generic-9927845 {
+  @include important-styles(
+    (
+      border: 2px dashed var(--neutral-border),
+      margin: 1em 0,
+      margin-bottom: 0,
+    ),
+    true
+  );
+}
+
+.generic-message-9927845 {
+  font-weight: 700;
+  margin: 0;
+  
+  @include message-container(
+    var(--neutral-background),
+    var(--neutral-border),
+    var(--neutral-text)
+  );
+  @include flex-width-container;
+  @include messageDisplayStyles;
+}
+
+.tabindex-0-detected-9927845 {
+    @include important-styles(
+      (
+        border: 2px dashed var(--warning-border),
+        margin: 1em 0,
+        margin-bottom: 0,
+      ),
+      true
+    );
+  }
+
+  .top-container-9927845 {
+    position: fixed;
+    max-width: 15em;
+    top: 10px;
+    right: 10px;
+    margin: 10px;
+    background-color: var(--warning-background);
+    border: 2px solid var(--warning-border);
+    color: var(--warning-text);
+    padding: 10px;
+    z-index: 2147483647;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .dismiss-button-9927845 {
+    background-color: var(--extension-white);
+    color: var(--extension-black);
+    border: 1px solid var(--neutral-border);
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  
+    &:hover {
+      background-color: var(--neutral-background);
+    }
+  }

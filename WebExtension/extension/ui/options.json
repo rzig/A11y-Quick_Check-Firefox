@@ -237,6 +237,14 @@
               "css": "autocomplete.css",
               "addScript": "autocomplete.js",
               "removeScript": "autocomplete-remove.js"
+            },
+            {
+              "name": "Validate Tabindex usage",
+              "id": "tabIndexZero",
+              "resource_path": "checks/tabindex",
+              "css": "tabindex.css",
+              "addScript": "tabindex.js",
+              "removeScript": "tabindex-remove.js"
             }
           ]
         },
@@ -277,7 +285,7 @@
               "removeScript": "aria-controls-remove.js"
             },
             {
-              "name": "Element named by method (experimental check)",
+              "name": "Identify how the accessible name is generated",
               "id": "elementNameFrom",
               "resource_path": "checks/element-named-from",
               "css": "element-named-from.css",

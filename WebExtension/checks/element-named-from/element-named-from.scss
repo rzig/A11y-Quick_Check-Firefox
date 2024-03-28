@@ -27,16 +27,16 @@
 }
 
 .top-left-container {
-  position: absolute;
+  position: fixed;
   max-width: 15em;
-  top: 0;
-  right: 0;
+  top: 10px;
+  right: 10px;
   margin: 10px;
   background-color: var(--warning-background);
   border: 2px solid var(--warning-border);
   color: var(--warning-text);
   padding: 10px;
-  z-index: 1000;
+  z-index: 2147483647;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
