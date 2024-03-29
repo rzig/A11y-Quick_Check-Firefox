@@ -187,54 +187,58 @@
     // Check for aria-labelledby first
     let labelledby = node.getAttribute("aria-labelledby");
     if (labelledby) {
-        let names = labelledby.split(" ")
-            .map(id => document.getElementById(id)?.textContent?.trim() ?? "")
-            .filter(text => text.length > 0)
-            .join(" ");
-        if (names.length > 0) {
-            return { name: names, method: "aria-labelledby" };
-        }
+      let names = labelledby
+        .split(" ")
+        .map((id) => document.getElementById(id)?.textContent?.trim() ?? "")
+        .filter((text) => text.length > 0)
+        .join(" ");
+      if (names.length > 0) {
+        return { name: names, method: "aria-labelledby" };
+      }
     }
 
     // Check for aria-label next
     let label = node.getAttribute("aria-label");
     if (label) {
-        return { name: label, method: "aria-label" };
+      return { name: label, method: "aria-label" };
     }
 
     // Check for associated label via 'for' attribute
     // This step is new and checks if a label element is associated with the input
     if (node.id) {
-        let labelFor = document.querySelector(`label[for="${node.id}"]`);
-        if (labelFor && labelFor.textContent) {
-            return { name: labelFor.textContent.trim(), method: "Contents (label for)" };
-        }
+      let labelFor = document.querySelector(`label[for="${node.id}"]`);
+      if (labelFor && labelFor.textContent) {
+        return {
+          name: labelFor.textContent.trim(),
+          method: "Contents (label for)",
+        };
+      }
     }
 
     // Then, check for text content or alt text of child img elements
     let textContent = node.textContent?.trim();
     let imgAltText = node.querySelector("img")?.getAttribute("alt")?.trim();
     if (textContent && textContent.length > 0) {
-        return { name: textContent, method: "Contents" };
+      return { name: textContent, method: "Contents" };
     } else if (imgAltText && imgAltText.length > 0) {
-        return { name: imgAltText, method: "Contents" };
+      return { name: imgAltText, method: "Contents" };
     }
 
     // Check for title attribute
     let title = node.getAttribute("title");
     if (title) {
-        return { name: title, method: "Title" };
+      return { name: title, method: "Title" };
     }
 
     // Check for placeholder attribute
     let placeholder = node.getAttribute("placeholder");
     if (placeholder) {
-        return { name: placeholder, method: "Placeholder" };
+      return { name: placeholder, method: "Placeholder" };
     }
 
     // Default case if no accessible name found
     return { name: "No accessible name", method: "none" };
-}
+  }
 
   function createExtendedChildMessageDiv(
     node: Element,
@@ -263,31 +267,40 @@
   accessibleNameCheck();
 })();
 
+//Need to work out how to move all common bits to common.ts so the message can be easily added to individual checks where needed!!!!
+
+// Call the function to create and append the div
 function createTopLeftContainer() {
   // Create the container div
   const containerDiv = document.createElement('div');
-  containerDiv.className = 'top-left-container';
+  containerDiv.className = 'top-right-container-9927845';
+
+  // Create the paragraph element for the important note
+  const importantNotePara = document.createElement('p');
+  const strongImportantNote = document.createElement('strong');
+  strongImportantNote.textContent = 'Important note';
+  importantNotePara.appendChild(strongImportantNote);
+  importantNotePara.style.marginBottom = '0';
 
   // Create the paragraph element for the message
   const messagePara = document.createElement('p');
   messagePara.textContent = 'This is an experimental check that may return false positive results. Once it is fully tested this message will be removed.';
-  
-  // Create the dismiss button
-  const dismissButton = document.createElement('button');
-  dismissButton.className = 'dismiss-button';
-  dismissButton.textContent = 'Dismiss';
-  
-  // Append the message and button to the container
+
+  // Append all elements to the main container
+  containerDiv.appendChild(importantNotePara);
   containerDiv.appendChild(messagePara);
-  containerDiv.appendChild(dismissButton);
+
+  // Call the function to create the reference container
+  const referenceContainer = createReferenceContainer();
+
+  // Append the reference container to the main container
+  containerDiv.appendChild(referenceContainer);
+
+  // Call the function to create dismiss button
+  createDismissButton(containerDiv);
 
   // Append the container div to the body
   document.body.appendChild(containerDiv);
-
-  // Add event listener to the dismiss button
-  dismissButton.addEventListener('click', () => {
-      containerDiv.remove();
-  });
 }
 
 // Call the function to create and append the div

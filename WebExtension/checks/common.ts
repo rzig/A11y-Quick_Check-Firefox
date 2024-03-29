@@ -26,38 +26,6 @@ function createChildMessageDiv(
   wrapper.appendChild(createStyledMessageDiv(messageClass, message, extraClasses));
 }
 
-const wcagLinks = {
-  "1.3.1 Info and Relationships": "https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships",
-  // Add more WCAG criteria and URLs
-};
-
-const ariaLinks = {
-  "aria-labelledby": "https://www.w3.org/TR/wai-aria/#aria-labelledby",
-  // Add more ARIA attributes and URLs
-};
-
-const customLinks = {
-  "Inline": "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html#key-terms:~:text=the%20%22Equivalent%22%20exception.-,Inline,-%3A%20The%20Success",
-  "Spacing": "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html#key-terms:~:text=are%20five%20exceptions%3A-,Spacing,-%3A%20Undersized%20targets",
-  // Add more ARIA attributes and URLs
-};
-
-// New function to append hyperlinks to messages
-function appendHyperlinksToMessage(message: string): string {
-  // Define combined links for easy lookup
-  const combinedLinks = {...wcagLinks, ...ariaLinks, ...customLinks};
-  
-  // Replace all occurrences of link keys in the message with hyperlinked versions
-  Object.entries(combinedLinks).forEach(([key, value]) => {
-    if (message.includes(key)) {
-        const linkHTML = `<a href="${value}" class="hyperlinked-text" rel="noopener noreferrer">${key}</a>`;
-        message = message.replace(new RegExp(key, 'g'), linkHTML);
-    }
-});
-
-  return message;
-}
-
 function createNewMessageDiv(
   messageClass: string,
   message: string,
@@ -179,4 +147,126 @@ function isHidden(element: HTMLElement): boolean {
     style.visibility === "hidden" ||
     element.hasAttribute("hidden")
   );
+}
+
+// Declare linkObjects with empty objects as default values
+var linkObjects: {
+  wcag: Record<string, string>;
+  aria: Record<string, string>;
+  custom: Record<string, string>;
+} = { wcag: {}, aria: {}, custom: {} };
+
+// Initialize link objects as empty objects
+var wcagLinks: Record<string, string> = {};
+var ariaLinks: Record<string, string> = {};
+var customLinks: Record<string, string> = {};
+
+// Function to populate link objects if they are not empty
+function populateLinkObjects() {
+  if (Object.keys(wcagLinks).length === 0) {
+    wcagLinks = {
+      "1.3.1 Info and Relationships": "https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships"
+      // Add more WCAG criteria and URLs as needed
+    };
+  }
+
+  if (Object.keys(ariaLinks).length === 0) {
+    ariaLinks = {
+      "aria-labelledby": "https://www.w3.org/TR/wai-aria/#aria-labelledby"
+      // Add more ARIA attributes and URLs as needed
+    };
+  }
+
+  if (Object.keys(customLinks).length === 0) {
+    customLinks = {
+      "Inline": "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html#key-terms:~:text=the%20%22Equivalent%22%20exception.-,Inline,-%3A%20The%20Success",
+      "Spacing": "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html#key-terms:~:text=are%20five%20exceptions%3A-,Spacing,-%3A%20Undersized%20targets"
+      // Add more custom links as needed
+    };
+  }
+
+  // Assign the link objects if they are not empty
+  if (Object.keys(wcagLinks).length !== 0) {
+    linkObjects.wcag = wcagLinks;
+  }
+  if (Object.keys(ariaLinks).length !== 0) {
+    linkObjects.aria = ariaLinks;
+  }
+  if (Object.keys(customLinks).length !== 0) {
+    linkObjects.custom = customLinks;
+  }
+}
+
+// Call function to populate link objects
+populateLinkObjects();
+
+// Function to append hyperlinks to messages with specified link type
+function appendHyperlinksToMessage(
+  message: string,
+  linkType: 'wcag' | 'aria' | 'custom' = 'custom'
+): string {
+  const links: Record<string, string> = linkObjects[linkType];
+
+  // Replace all occurrences of link keys in the message with hyperlinked versions
+  Object.entries(links).forEach(([key, value]) => {
+    const linkHTML = `<a href="${value}" class="hyperlinked-text-9927845" rel="noopener noreferrer">${key}</a>`;
+    message = message.replace(new RegExp(key, 'g'), linkHTML);
+  });
+
+  return message;
+}
+
+// Function to create dismiss button
+function createDismissButton(containerDiv: HTMLDivElement): void {
+  const dismissButton = document.createElement('button');
+  dismissButton.className = 'dismiss-button-9927845';
+  dismissButton.textContent = 'Dismiss';
+
+  // Add event listener to the dismiss button
+  dismissButton.addEventListener('click', () => {
+    containerDiv.remove();
+  });
+
+  // Append the dismiss button to the container div
+  containerDiv.appendChild(dismissButton);
+}
+
+// Function to create the reference container
+function createReferenceContainer(): HTMLDivElement {
+  // Create the div element for the reference container
+  const referenceContainer = document.createElement('div');
+  referenceContainer.className = 'reference-container-9927845';
+
+  // Create text node for the word "Reference"
+  const referenceText = document.createTextNode('Reference');
+  const strongReference = document.createElement('strong');
+  strongReference.appendChild(referenceText);
+
+  // Create the paragraph element for the reference
+  const referencePara = document.createElement('p');
+  referencePara.className = 'reference-9927845';
+  referencePara.appendChild(strongReference);
+
+  // Check if wcagLinks["1.3.1 Info and Relationships"] is defined before accessing
+  const wcagLink = linkObjects.wcag["1.3.1 Info and Relationships"];
+  if (wcagLink) {
+    // Create the anchor element for the hyperlink
+    const anchorElement = document.createElement('a');
+    anchorElement.href = wcagLink;
+    anchorElement.textContent = "1.3.1 Info and Relationships";
+    anchorElement.setAttribute("rel", "noopener noreferrer");
+    anchorElement.style.textDecoration = 'underline';
+    anchorElement.style.color = 'var(--neutral-text)';
+
+    // Create the paragraph element to wrap the anchor element
+    const linkWrapper = document.createElement('p');
+    linkWrapper.className = 'linkstyler-88976';
+    linkWrapper.appendChild(anchorElement);
+
+    // Append the elements to the reference container
+    referenceContainer.appendChild(referencePara);
+    referenceContainer.appendChild(linkWrapper);
+  }
+
+  return referenceContainer;
 }

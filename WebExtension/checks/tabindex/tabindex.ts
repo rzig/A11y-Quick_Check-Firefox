@@ -190,33 +190,3 @@ document.querySelectorAll("[tabindex]").forEach((element) => {
         element.classList.add("tabindex-0-detected-9927845");
     }
 });
-
-function createTopContainer() {
-    // Create the container div
-    const containerDiv = document.createElement('div');
-    containerDiv.className = 'top-container-9927845';
-  
-    // Create the paragraph element for the message
-    const messagePara = document.createElement('p');
-    messagePara.textContent = 'This is an experimental check that may return false positive results. Once it is fully tested this message will be removed. The naming uses the ARIA 1.2 Name and Description calculation.';
-    
-    // Create the dismiss button
-    const dismissButton = document.createElement('button');
-    dismissButton.className = 'dismiss-button-9927845';
-    dismissButton.textContent = 'Dismiss';
-    
-    // Append the message and button to the container
-    containerDiv.appendChild(messagePara);
-    containerDiv.appendChild(dismissButton);
-  
-    // Append the container div to the body
-    document.body.appendChild(containerDiv);
-  
-    // Add event listener to the dismiss button
-    dismissButton.addEventListener('click', () => {
-        containerDiv.remove();
-    });
-  }
-  
-  // Call the function to create and append the div
-  createTopContainer();

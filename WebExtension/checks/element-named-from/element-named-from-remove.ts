@@ -2,5 +2,5 @@
 
 removeInjectedDivs([
   "neutral-message-9927845",
-  "top-left-container",
+  "top-right-container-9927845",
 ]);

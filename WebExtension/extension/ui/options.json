@@ -17,7 +17,7 @@
               "removeScript": "headings-remove.js"
             },
             {
-              "name": "Verify large bold text is non-heading",
+              "name": "Verify large bold text is not a heading",
               "id": "headingNo",
               "resource_path": "checks/headings-not-coded",
               "css": "headings-not-coded.css",
