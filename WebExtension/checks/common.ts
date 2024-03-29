@@ -153,12 +153,14 @@ function isHidden(element: HTMLElement): boolean {
 var linkObjects: {
   wcag: Record<string, string>;
   aria: Record<string, string>;
+  html: Record<string, string>;
   custom: Record<string, string>;
-} = { wcag: {}, aria: {}, custom: {} };
+} = { wcag: {}, aria: {}, html: {}, custom: {} };
 
 // Initialize link objects with empty objects
 var wcagLinks: Record<string, string> = {};
 var ariaLinks: Record<string, string> = {};
+var htmlLinks: Record<string, string> = {};
 var customLinks: Record<string, string> = {};
 
 function populateLinkObjects() {
@@ -222,6 +224,13 @@ function populateLinkObjects() {
     };
   }
 
+  //Add HTML related URLs as needed
+  if (Object.keys(htmlLinks).length === 0) {
+    htmlLinks = {
+      "6.6.3 The tabindex attribute": "https://html.spec.whatwg.org/multipage/interaction.html#the-tabindex-attribute",
+    };
+  }
+
 //Add URLs of explanation pages and other useful links
   if (Object.keys(customLinks).length === 0) {
     customLinks = {
@@ -230,16 +239,15 @@ function populateLinkObjects() {
     };
   }
 
-  //Needs an HTML links section
-
   linkObjects.wcag = wcagLinks;
   linkObjects.aria = ariaLinks;
+  linkObjects.html = htmlLinks;
   linkObjects.custom = customLinks;
 }
 
 populateLinkObjects();
 
-function appendHyperlinksToMessage(message: string, linkType: 'wcag' | 'aria' | 'custom' = 'custom'): string {
+function appendHyperlinksToMessage(message: string, linkType: 'wcag' | 'aria' | 'html' | 'custom' = 'custom'): string {
   const links = linkObjects[linkType];
   Object.entries(links).forEach(([key, value]) => {
     const anchor = document.createElement('a');
@@ -258,27 +266,26 @@ function appendHyperlinksToMessage(message: string, linkType: 'wcag' | 'aria' | 
   return message;
 }
 
+function createReferenceContainer(): HTMLDivElement {
+  const referenceContainer = document.createElement('div');
+  referenceContainer.className = 'reference-container-9927845';
+
+  const referencePara = document.createElement('p');
+  referencePara.className = 'reference-9927845';
+  const strongReference = document.createElement('strong');
+  const referenceText = document.createTextNode('Reference');
+  strongReference.appendChild(referenceText);
+  referencePara.appendChild(strongReference);
+
+  referenceContainer.appendChild(referencePara);
+
+  return referenceContainer;
+}
+
 function createDismissButton(containerDiv: HTMLDivElement): void {
   const dismissButton = document.createElement('button');
   dismissButton.className = 'dismiss-button-9927845';
   dismissButton.textContent = 'Dismiss';
   dismissButton.addEventListener('click', () => containerDiv.remove());
   containerDiv.appendChild(dismissButton);
-}
-
-function createReferenceContainer(): HTMLDivElement {
-  const referenceContainer = document.createElement('div');
-  referenceContainer.className = 'reference-container-9927845';
-
-  const referenceText = document.createTextNode('Reference');
-  const strongReference = document.createElement('strong');
-  strongReference.appendChild(referenceText);
-
-  const referencePara = document.createElement('p');
-  referencePara.className = 'reference-9927845';
-  referencePara.appendChild(strongReference);
-
-  referenceContainer.appendChild(referencePara);
-
-  return referenceContainer;
 }

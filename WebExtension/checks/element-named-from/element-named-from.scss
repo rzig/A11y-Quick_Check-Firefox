@@ -26,25 +26,33 @@
 }
 
 .top-right-container-9927845 {
-  font-family: Aptos, Bierstadt, "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  font-family: Aptos, Bierstadt, "Segoe UI", -apple-system, BlinkMacSystemFont,
+    Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
   position: fixed;
-  max-width: 20em;
+  max-width: 30em;
   top: 10px;
   right: 10px;
-  margin: 10px;
   background-color: var(--warning-background);
   border: 4px solid var(--warning-border);
-  color: var(--warning-text);
   padding: 1em;
   z-index: 2147483647;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   p {
     font-size: 1.2rem;
     line-height: 1.5;
+    margin-top: 0;
   }
-  ul.reference-list-9927845{
+}
+
+.reference-container-9927845 {
+  margin-top:1em;
+  ul.reference-list-9927845 {
     font-size: 1.2rem;
     line-height: 1.5;
+    margin-left: 3em;
+  }
+  ul.reference-list-9927845 li a {
+    text-decoration: underline;
   }
 }
 
@@ -53,7 +61,7 @@
   background-color: var(--warning-border);
   border: none;
   border-radius: 1em;
-  margin-top:1em;
+  margin-top: 1em;
   padding: 0.5em 1em;
   font-size: 16px;
   transition: background-color 0.3s;
@@ -73,10 +81,13 @@
 }
 
 .hyperlinked-text-9927845 {
-  @include important-styles((
-    display:block,
-    margin-top:1em,
-    text-decoration: underline,
-    color: var(--neutral-text),
-  ), true);
+  @include important-styles(
+    (
+      display: block,
+      margin-top: 1em,
+      text-decoration: underline,
+      color: var(--neutral-text),
+    ),
+    true
+  );
 }

@@ -267,62 +267,63 @@
   accessibleNameCheck();
 })();
 
-function createTopRightContainerENF() {
-  // Check if the container already exists
-  let containerDiv = document.querySelector('.top-right-container-9927845') as HTMLDivElement;
+populateLinkObjects(); // Ensure the links are populated before use.
 
-  // If the container doesn't exist, create it
-  if (!containerDiv) {
-      // Create the container div
-      containerDiv = document.createElement('div');
-      containerDiv.className = 'top-right-container-9927845';
+function createTopRightContainer(): void {
+  const containerDiv = document.createElement("div");
+  containerDiv.className = "top-right-container-9927845";
 
-      // Create the paragraph element for the important note
-      const importantNotePara = document.createElement('p');
-      const strongImportantNote = document.createElement('strong');
-      strongImportantNote.textContent = 'Important note';
-      importantNotePara.appendChild(strongImportantNote);
-      importantNotePara.style.marginBottom = '0';
+  //Title - directly under the top-right-container
+  const importantNotePara: HTMLParagraphElement = document.createElement("p");
+  const strongImportantNote: HTMLElement = document.createElement("strong");
+  strongImportantNote.textContent = "Important note:";
+  importantNotePara.appendChild(strongImportantNote);
+  containerDiv.appendChild(importantNotePara);
 
-      // Create the paragraph element for the message
-      const messagePara = document.createElement('p');
-      messagePara.textContent = 'This is an experimental check that may return false positive results. Once it is fully tested this message will be removed.';
+  // Message Paragraph - directly under the title
+  const messagePara = document.createElement("p");
+  messagePara.textContent =
+    "This is an updated check that identifies the accessible (programmatic) name of elements. It is useful to identify how the element is named, especially when it has multiple naming techniques.";
+  containerDiv.appendChild(messagePara);
 
-      // Append all elements to the main container
-      containerDiv.appendChild(importantNotePara);
-      containerDiv.appendChild(messagePara);
+  // Use createReferenceContainer to generate the reference section
+  const referenceContainer = createReferenceContainer();
+  containerDiv.appendChild(referenceContainer);
 
-      // Create the reference text element
-      const referenceText = document.createElement('p');
-      const strongReference = document.createElement('strong');
-      strongReference.textContent = 'Reference';
-      referenceText.appendChild(strongReference);
-      containerDiv.appendChild(referenceText);
+  // Link List
+  const linkList = document.createElement("ul");
+  linkList.className = "reference-list-9927845";
+  referenceContainer.appendChild(linkList); // This is key to match your HTML structure
 
-      // Create an unordered list for the links
-      const linkList = document.createElement('ul');
-      linkList.className = 'reference-list-9927845'; // Add class to the ul
-
-      // Use for ariaLinks
-      if (ariaLinks['Accessible Name and Description Computation 1.2']) {
-          const ariaLink = document.createElement('li');
-          const inlineAnchor = document.createElement('a');
-          inlineAnchor.href = ariaLinks['Accessible Name and Description Computation 1.2'];
-          inlineAnchor.textContent = 'Accessible Name and Description Computation 1.2';
-          ariaLink.appendChild(inlineAnchor);
-          linkList.appendChild(ariaLink);
-      }
-
-      // Append the link list to the main container
-      containerDiv.appendChild(linkList);
-
-      // Call the function to create dismiss button
-      createDismissButton(containerDiv);
-
-      // Append the container div to the body
-      document.body.appendChild(containerDiv);
+  // Append specified links function
+  function appendLink(
+    links: Record<string, string>,
+    key: string,
+    category: string
+  ): void {
+    const href = links[key];
+    if (href) {
+      const listItem = document.createElement("li");
+      const anchor = document.createElement("a");
+      anchor.href = href;
+      anchor.textContent = `${category} - ${key}`;
+      listItem.appendChild(anchor);
+      linkList.appendChild(listItem);
+    }
   }
+
+  // Specifying and appending links
+  appendLink(
+    ariaLinks,
+    "Accessible Name and Description Computation 1.2",
+    "ARIA"
+  );
+
+  // Add the Dismiss Button
+  createDismissButton(containerDiv);
+
+  // Append the main container to the document's body
+  document.body.appendChild(containerDiv);
 }
 
-// Call the function to create and append the div
-createTopRightContainerENF();
+createTopRightContainer();
