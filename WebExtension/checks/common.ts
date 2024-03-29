@@ -285,7 +285,7 @@ function createReferenceContainer(): HTMLDivElement {
 function createDismissButton(containerDiv: HTMLDivElement): void {
   const dismissButton = document.createElement('button');
   dismissButton.className = 'dismiss-button-9927845';
-  dismissButton.textContent = 'Dismiss';
+  dismissButton.textContent = 'CLOSE';
   dismissButton.addEventListener('click', () => containerDiv.remove());
   containerDiv.appendChild(dismissButton);
 }

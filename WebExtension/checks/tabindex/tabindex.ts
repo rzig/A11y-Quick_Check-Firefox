@@ -240,6 +240,7 @@
     const importantNotePara: HTMLParagraphElement = document.createElement("p");
     const strongImportantNote: HTMLElement = document.createElement("strong");
     strongImportantNote.textContent = "Important note:";
+    importantNotePara.className = "message-heading-9927845";
     importantNotePara.appendChild(strongImportantNote);
     containerDiv.appendChild(importantNotePara);
 
