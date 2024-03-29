@@ -239,7 +239,7 @@
     // Message Paragraph title - directly under the top-right-container
     const importantNotePara: HTMLParagraphElement = document.createElement("p");
     const strongImportantNote: HTMLElement = document.createElement("strong");
-    strongImportantNote.textContent = "Important note:";
+    strongImportantNote.textContent = "Feature Summary:";
     importantNotePara.className = "message-heading-9927845";
     importantNotePara.appendChild(strongImportantNote);
     containerDiv.appendChild(importantNotePara);

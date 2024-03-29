@@ -247,20 +247,40 @@ function populateLinkObjects() {
 
 populateLinkObjects();
 
+// Utility function to escape HTML special characters in a string
+function escapeHTML(str: string): string {
+  return str.replace(/[&<>"'/]/g, (match) => {
+    const escape: Record<string, string> = {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;',
+      '/': '&#x2F;',
+    };
+    // Provide a default case to ensure a string is always returned
+    return escape[match] || match;
+  });
+}
+
+// Utility function to escape RegExp special characters in a string
+function escapeRegExp(str: string): string {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
 function appendHyperlinksToMessage(message: string, linkType: 'wcag' | 'aria' | 'html' | 'custom' = 'custom'): string {
   const links = linkObjects[linkType];
   Object.entries(links).forEach(([key, value]) => {
-    const anchor = document.createElement('a');
-    anchor.href = value;
-    anchor.className = 'hyperlinked-text-9927845';
-    anchor.rel = 'noopener noreferrer';
-    anchor.textContent = key;
-
-    // Create a RegExp to match the key globally in the message
-    const regex = new RegExp(key, 'g');
+    const safeKey = escapeRegExp(key);
+    const safeValue = escapeHTML(value);
+    const safeLinkText = escapeHTML(key);
     
-    // Replace occurrences of the key with the anchor tag in the message
-    message = message.replace(regex, anchor.outerHTML);
+    // Construct the HTML string for the anchor tag
+    const anchorTagString = `<a href="${safeValue}" class="hyperlinked-text-9927845" rel="noopener noreferrer">${safeLinkText}</a>`;
+    const regex = new RegExp(safeKey, 'g');
+    
+    // Replace occurrences of the key with the safely constructed anchor tag string
+    message = message.replace(regex, anchorTagString);
   });
 
   return message;
