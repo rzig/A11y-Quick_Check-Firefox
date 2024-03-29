@@ -230,6 +230,8 @@ function populateLinkObjects() {
     };
   }
 
+  //Needs an HTML links section
+
   linkObjects.wcag = wcagLinks;
   linkObjects.aria = ariaLinks;
   linkObjects.custom = customLinks;
