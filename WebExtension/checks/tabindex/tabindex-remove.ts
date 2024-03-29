@@ -8,6 +8,7 @@
     "valid-message-9927845",
     "invalid-message-9927845",
     "top-container-9927845",
+    "top-right-container-9927845",
   ];
   const addedElementClass = "tabindex-0-detected";
 

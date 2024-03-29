@@ -149,124 +149,134 @@ function isHidden(element: HTMLElement): boolean {
   );
 }
 
-// Declare linkObjects with empty objects as default values
+// Declare linkObjects with types and initial empty objects
 var linkObjects: {
   wcag: Record<string, string>;
   aria: Record<string, string>;
   custom: Record<string, string>;
 } = { wcag: {}, aria: {}, custom: {} };
 
-// Initialize link objects as empty objects
+// Initialize link objects with empty objects
 var wcagLinks: Record<string, string> = {};
 var ariaLinks: Record<string, string> = {};
 var customLinks: Record<string, string> = {};
 
-// Function to populate link objects if they are not empty
 function populateLinkObjects() {
   if (Object.keys(wcagLinks).length === 0) {
     wcagLinks = {
-      "1.3.1 Info and Relationships": "https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships"
-      // Add more WCAG criteria and URLs as needed
-    };
+      "1.1.1 Non-text Content": "https://www.w3.org/WAI/WCAG22/Understanding/non-text-content",
+      "1.2.1 Audio-only and Video-only (Prerecorded)": "https://www.w3.org/WAI/WCAG22/Understanding/audio-only-and-video-only-prerecorded",
+      "1.2.2 Captions (Prerecorded)": "https://www.w3.org/WAI/WCAG22/Understanding/captions-prerecorded",
+      "1.2.3 Audio Description or Media Alternative (Prerecorded)": "https://www.w3.org/WAI/WCAG22/Understanding/audio-description-or-media-alternative-prerecorded",
+      "1.2.4 Captions (Live)": "https://www.w3.org/WAI/WCAG22/Understanding/captions-live",
+      "1.2.5 Audio Description (Prerecorded)": "https://www.w3.org/WAI/WCAG22/Understanding/audio-description-prerecorded",
+      "1.2.8 Media Alternative (Prerecorded)": "https://www.w3.org/WAI/WCAG22/Understanding/media-alternative-prerecorded",
+      "1.3.1 Info and Relationships": "https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships",
+      "1.3.2 Meaningful Sequence": "https://www.w3.org/WAI/WCAG22/Understanding/meaningful-sequence",
+      "1.3.3 Sensory Characteristics": "https://www.w3.org/WAI/WCAG22/Understanding/sensory-characteristics",
+      "1.4.1 Use of Color": "https://www.w3.org/WAI/WCAG22/Understanding/use-of-color",
+      "1.4.2 Audio Control": "https://www.w3.org/WAI/WCAG22/Understanding/audio-control",
+      "1.4.3 Contrast (Minimum)": "https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum",
+      "1.4.4 Resize text": "https://www.w3.org/WAI/WCAG22/Understanding/resize-text",
+      "1.4.5 Images of Text": "https://www.w3.org/WAI/WCAG22/Understanding/images-of-text",
+      "1.4.6 Contrast (Enhanced)": "https://www.w3.org/WAI/WCAG22/Understanding/contrast-enhanced",
+      "1.4.7 Low or No Background Audio": "https://www.w3.org/WAI/WCAG22/Understanding/low-or-no-background-audio",
+      "1.4.8 Visual Presentation": "https://www.w3.org/WAI/WCAG22/Understanding/visual-presentation",
+      "1.4.9 Images of Text (No Exception)": "https://www.w3.org/WAI/WCAG22/Understanding/images-of-text-no-exception",
+      "1.4.10 Reflow": "https://www.w3.org/WAI/WCAG22/Understanding/reflow",
+      "1.4.11 Non-text Contrast": "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast",
+      "1.4.12 Text Spacing": "https://www.w3.org/WAI/WCAG22/Understanding/text-spacing",
+      "1.4.13 Content on Hover or Focus": "https://www.w3.org/WAI/WCAG22/Understanding/content-on-hover-or-focus",
+      "2.1.1 Keyboard": "https://www.w3.org/WAI/WCAG22/Understanding/keyboard",
+      "2.1.2 No Keyboard Trap": "https://www.w3.org/WAI/WCAG22/Understanding/no-keyboard-trap",
+      "2.2.1 Timing Adjustable": "https://www.w3.org/WAI/WCAG22/Understanding/timing-adjustable",
+      "2.2.2 Pause, Stop, Hide": "https://www.w3.org/WAI/WCAG22/Understanding/pause-stop-hide",
+      "2.3.1 Three Flashes or Below Threshold": "https://www.w3.org/WAI/WCAG22/Understanding/three-flashes-or-below-threshold",
+      "2.4.1 Bypass Blocks": "https://www.w3.org/WAI/WCAG22/Understanding/bypass-blocks",
+      "2.4.2 Page Titled": "https://www.w3.org/WAI/WCAG22/Understanding/page-titled",
+      "2.4.3 Focus Order": "https://www.w3.org/WAI/WCAG22/Understanding/focus-order",
+      "2.4.4 Link Purpose (In Context)": "https://www.w3.org/WAI/WCAG22/Understanding/link-purpose-in-context",
+      "2.4.5 Multiple Ways": "https://www.w3.org/WAI/WCAG22/Understanding/multiple-ways",
+      "2.4.6 Headings and Labels": "https://www.w3.org/WAI/WCAG22/Understanding/headings-and-labels",
+      "2.4.7 Focus Visible": "https://www.w3.org/WAI/WCAG22/Understanding/focus-visible",
+      "3.1.1 Language of Page": "https://www.w3.org/WAI/WCAG22/Understanding/language-of-page",
+      "3.1.2 Language of Parts": "https://www.w3.org/WAI/WCAG22/Understanding/language-of-parts",
+      "3.2.1 On Focus": "https://www.w3.org/WAI/WCAG22/Understanding/on-focus",
+      "3.2.2 On Input": "https://www.w3.org/WAI/WCAG22/Understanding/on-input",
+      "3.2.3 Consistent Navigation": "https://www.w3.org/WAI/WCAG22/Understanding/consistent-navigation",
+      "3.2.4 Consistent Identification": "https://www.w3.org/WAI/WCAG22/Understanding/consistent-identification",
+      "3.3.1 Error Identification": "https://www.w3.org/WAI/WCAG22/Understanding/error-identification",
+      "3.3.2 Labels or Instructions": "https://www.w3.org/WAI/WCAG22/Understanding/labels-or-instructions",
+      "3.3.3 Error Suggestion": "https://www.w3.org/WAI/WCAG22/Understanding/error-suggestion",
+      "3.3.4 Error Prevention (Legal, Financial, Data)": "https://www.w3.org/WAI/WCAG22/Understanding/error-prevention-legal-financial-data",
+      "4.1.1 Parsing": "https://www.w3.org/WAI/WCAG22/Understanding/parsing",
+      "4.1.2 Name, Role, Value": "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value",
+  };
+  
   }
-
+//Add ARIA related URLs as needed
   if (Object.keys(ariaLinks).length === 0) {
     ariaLinks = {
-      "aria-labelledby": "https://www.w3.org/TR/wai-aria/#aria-labelledby"
-      // Add more ARIA attributes and URLs as needed
+      "aria-labelledby": "https://www.w3.org/TR/wai-aria/#aria-labelledby",
+      "Accessible Name and Description Computation 1.2": "https://www.w3.org/TR/accname-1.2/",
     };
   }
 
+//Add URLs of explanation pages and other useful links
   if (Object.keys(customLinks).length === 0) {
     customLinks = {
-      "Inline": "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html#key-terms:~:text=the%20%22Equivalent%22%20exception.-,Inline,-%3A%20The%20Success",
-      "Spacing": "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html#key-terms:~:text=are%20five%20exceptions%3A-,Spacing,-%3A%20Undersized%20targets"
-      // Add more custom links as needed
+      "Inline": "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum#:~:text=the%20%22Equivalent%22%20exception.-,Inline,-%3A%20The%20Success",
+      "Spacing": "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum#:~:text=are%20five%20exceptions%3A-,Spacing,-%3A%20Undersized%20targets",
     };
   }
 
-  // Assign the link objects if they are not empty
-  if (Object.keys(wcagLinks).length !== 0) {
-    linkObjects.wcag = wcagLinks;
-  }
-  if (Object.keys(ariaLinks).length !== 0) {
-    linkObjects.aria = ariaLinks;
-  }
-  if (Object.keys(customLinks).length !== 0) {
-    linkObjects.custom = customLinks;
-  }
+  linkObjects.wcag = wcagLinks;
+  linkObjects.aria = ariaLinks;
+  linkObjects.custom = customLinks;
 }
 
-// Call function to populate link objects
 populateLinkObjects();
 
-// Function to append hyperlinks to messages with specified link type
-function appendHyperlinksToMessage(
-  message: string,
-  linkType: 'wcag' | 'aria' | 'custom' = 'custom'
-): string {
-  const links: Record<string, string> = linkObjects[linkType];
-
-  // Replace all occurrences of link keys in the message with hyperlinked versions
+function appendHyperlinksToMessage(message: string, linkType: 'wcag' | 'aria' | 'custom' = 'custom'): string {
+  const links = linkObjects[linkType];
   Object.entries(links).forEach(([key, value]) => {
-    const linkHTML = `<a href="${value}" class="hyperlinked-text-9927845" rel="noopener noreferrer">${key}</a>`;
-    message = message.replace(new RegExp(key, 'g'), linkHTML);
+    const anchor = document.createElement('a');
+    anchor.href = value;
+    anchor.className = 'hyperlinked-text-9927845';
+    anchor.rel = 'noopener noreferrer';
+    anchor.textContent = key;
+
+    // Create a RegExp to match the key globally in the message
+    const regex = new RegExp(key, 'g');
+    
+    // Replace occurrences of the key with the anchor tag in the message
+    message = message.replace(regex, anchor.outerHTML);
   });
 
   return message;
 }
 
-// Function to create dismiss button
 function createDismissButton(containerDiv: HTMLDivElement): void {
   const dismissButton = document.createElement('button');
   dismissButton.className = 'dismiss-button-9927845';
   dismissButton.textContent = 'Dismiss';
-
-  // Add event listener to the dismiss button
-  dismissButton.addEventListener('click', () => {
-    containerDiv.remove();
-  });
-
-  // Append the dismiss button to the container div
+  dismissButton.addEventListener('click', () => containerDiv.remove());
   containerDiv.appendChild(dismissButton);
 }
 
-// Function to create the reference container
 function createReferenceContainer(): HTMLDivElement {
-  // Create the div element for the reference container
   const referenceContainer = document.createElement('div');
   referenceContainer.className = 'reference-container-9927845';
 
-  // Create text node for the word "Reference"
   const referenceText = document.createTextNode('Reference');
   const strongReference = document.createElement('strong');
   strongReference.appendChild(referenceText);
 
-  // Create the paragraph element for the reference
   const referencePara = document.createElement('p');
   referencePara.className = 'reference-9927845';
   referencePara.appendChild(strongReference);
 
-  // Check if wcagLinks["1.3.1 Info and Relationships"] is defined before accessing
-  const wcagLink = linkObjects.wcag["1.3.1 Info and Relationships"];
-  if (wcagLink) {
-    // Create the anchor element for the hyperlink
-    const anchorElement = document.createElement('a');
-    anchorElement.href = wcagLink;
-    anchorElement.textContent = "1.3.1 Info and Relationships";
-    anchorElement.setAttribute("rel", "noopener noreferrer");
-    anchorElement.style.textDecoration = 'underline';
-    anchorElement.style.color = 'var(--neutral-text)';
-
-    // Create the paragraph element to wrap the anchor element
-    const linkWrapper = document.createElement('p');
-    linkWrapper.className = 'linkstyler-88976';
-    linkWrapper.appendChild(anchorElement);
-
-    // Append the elements to the reference container
-    referenceContainer.appendChild(referencePara);
-    referenceContainer.appendChild(linkWrapper);
-  }
+  referenceContainer.appendChild(referencePara);
 
   return referenceContainer;
 }

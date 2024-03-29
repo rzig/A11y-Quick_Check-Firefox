@@ -107,7 +107,8 @@
     );
   }
 
-  .top-container-9927845 {
+  .top-right-container-9927845 {
+    font-family: Aptos, Bierstadt, "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
     position: fixed;
     max-width: 20em;
     top: 10px;
@@ -120,7 +121,10 @@
     z-index: 2147483647;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     p {
-      font-family: Aptos, Bierstadt, "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+      font-size: 1.2rem;
+      line-height: 1.5;
+    }
+    ul.reference-list-9927845{
       font-size: 1.2rem;
       line-height: 1.5;
     }
@@ -150,3 +154,11 @@
     box-shadow: 0 0 0 3px var(--white), 0 0 0 5px var(--neutral-border);
   }
   
+  .hyperlinked-text-9927845 {
+    @include important-styles((
+      display:block,
+      margin-top:1em,
+      text-decoration: underline,
+      color: var(--neutral-text),
+    ), true);
+  }

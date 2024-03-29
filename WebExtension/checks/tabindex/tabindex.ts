@@ -190,3 +190,78 @@ document.querySelectorAll("[tabindex]").forEach((element) => {
         element.classList.add("tabindex-0-detected-9927845");
     }
 });
+
+// Call the function to create and append the div
+function createTopRightContainer() {
+    // Create the container div
+    const containerDiv = document.createElement('div');
+    containerDiv.className = 'top-right-container-9927845';
+  
+    // Create the paragraph element for the important note
+    const importantNotePara = document.createElement('p');
+    const strongImportantNote = document.createElement('strong');
+    strongImportantNote.textContent = 'Important note';
+    importantNotePara.appendChild(strongImportantNote);
+    importantNotePara.style.marginBottom = '0';
+  
+    // Create the paragraph element for the message
+    const messagePara = document.createElement('p');
+    messagePara.textContent = 'This is an experimental check that may return false positive results. Once it is fully tested this message will be removed.';
+  
+    // Append all elements to the main container
+    containerDiv.appendChild(importantNotePara);
+    containerDiv.appendChild(messagePara);
+  
+    // Create the reference text element
+    const referenceText = document.createElement('p');
+    const strongReference = document.createElement('strong');
+    strongReference.textContent = 'Reference';
+    referenceText.appendChild(strongReference);
+    containerDiv.appendChild(referenceText);
+  
+    // Create an unordered list for the links
+    const linkList = document.createElement('ul');
+    linkList.className = 'reference-list-9927845'; // Add class to the ul
+  
+    // Use for customLinks
+    // if (customLinks['Inline']) {
+    //   const inlineLink = document.createElement('li');
+    //   const inlineAnchor = document.createElement('a');
+    //   inlineAnchor.href = customLinks['Inline']!;
+    //   inlineAnchor.textContent = 'Inline';
+    //   inlineLink.appendChild(inlineAnchor);
+    //   linkList.appendChild(inlineLink);
+    // }
+  
+    // Use for ariaLinks
+    if (ariaLinks['Accessible Name and Description Computation 1.2']) {
+      const ariaLink = document.createElement('li');
+      const inlineAnchor = document.createElement('a');
+      inlineAnchor.href = ariaLinks['Accessible Name and Description Computation 1.2'];
+      inlineAnchor.textContent = 'Accessible Name and Description Computation 1.2';
+      ariaLink.appendChild(inlineAnchor);
+      linkList.appendChild(ariaLink);
+    }
+  
+    // Use for wcagLinks
+    // if (wcagLinks['1.3.1 Info and Relationships']) {
+    //   const wcagLink = document.createElement('li');
+    //   const wcagAnchor = document.createElement('a');
+    //   wcagAnchor.href = wcagLinks['1.3.1 Info and Relationships']!;
+    //   wcagAnchor.textContent = '1.3.1 Info and Relationships';
+    //   wcagLink.appendChild(wcagAnchor);
+    //   linkList.appendChild(wcagLink);
+    // }
+  
+    // Append the link list to the main container
+    containerDiv.appendChild(linkList);
+  
+    // Call the function to create dismiss button
+    createDismissButton(containerDiv);
+  
+    // Append the container div to the body
+    document.body.appendChild(containerDiv);
+  }
+  
+  // Call the function to create and append the div
+  createTopRightContainer();
