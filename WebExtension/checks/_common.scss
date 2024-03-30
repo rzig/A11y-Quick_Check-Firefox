@@ -153,7 +153,7 @@
 .top-right-container-9927845 {
   font-family: Aptos, Bierstadt, "Segoe UI", -apple-system, BlinkMacSystemFont,
     Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif !important;
-  position: fixed !important;
+  position: absolute !important;
   max-width: 25em !important;
   top: 10px !important;
   right: 10px !important;
@@ -180,9 +180,12 @@
   ul.reference-list-9927845 {
     font-size: 1.2rem !important;
     line-height: 1.5 !important;
-    margin-left: 2em !important;
     margin-top: 0.5em !important;
     list-style: disc !important;
+
+      li {
+        margin:0.3em;
+      }
   }
   ul.reference-list-9927845 li a {
     text-decoration: underline !important;

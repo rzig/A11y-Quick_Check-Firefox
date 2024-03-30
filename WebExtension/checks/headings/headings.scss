@@ -1,64 +1,80 @@
-@import '../common';
+@import "../common";
 
 @mixin heading-decoration($heading-level) {
   #{$heading-level}:before {
-    @include important-styles((
-      content: "<#{$heading-level}>",
-      font-size: 0.875em,
-      padding: 0.5em,
-      margin-right: .25em,
-      font-weight: 700,
-      color: inherit,
-      border: 3px dashed var(--neutral-border)
-    ), true);
+    @include important-styles(
+      (
+        content: "<#{$heading-level}>",
+        font-size: 0.875em,
+        padding: 0.5em,
+        margin-right: 0.25em,
+        font-weight: 700,
+        color: inherit,
+        border: 3px dashed var(--neutral-border),
+      ),
+      true
+    );
   }
 
   #{$heading-level}:after {
-    @include important-styles((
-      content: "</#{$heading-level}>",
-      font-size: 0.875em,
-      padding: 0.5em,
-      margin-left: .25em,
-      font-weight: 700,
-      color: inherit,
-      border: 3px dashed var(--neutral-border)
-    ), true);
+    @include important-styles(
+      (
+        content: "</#{$heading-level}>",
+        font-size: 0.875em,
+        padding: 0.5em,
+        margin-left: 0.25em,
+        font-weight: 700,
+        color: inherit,
+        border: 3px dashed var(--neutral-border),
+      ),
+      true
+    );
   }
 }
 
 @mixin aria-heading-decoration {
   [role="heading"]::before {
-    @include important-styles((
-      content: "[ARIA H" attr(data-aria-heading-555897) "]",
-      font-size: 0.875em,
-      padding: 0.5em,
-      margin-right: .25em,
-      font-weight: 700,
-      color: inherit,
-      border: 3px dashed var(--neutral-border)
-    ), true);
+    @include important-styles(
+      (
+        content: "[ARIA H" attr(data-aria-heading-555897) "]",
+        font-size: 0.875em,
+        padding: 0.5em,
+        margin-right: 0.25em,
+        font-weight: 700,
+        color: inherit,
+        border: 3px dashed var(--neutral-border),
+      ),
+      true
+    );
   }
 
   [role="heading"]::after {
-    @include important-styles((
-      content: "[END]",
-      font-size: 0.875em,
-      padding: 0.5em,
-      margin-left: .25em,
-      font-weight: 700,
-      color: inherit,
-      border: 3px dashed var(--neutral-border)
-    ), true);
+    @include important-styles(
+      (
+        content: "[END]",
+        font-size: 0.875em,
+        padding: 0.5em,
+        margin-left: 0.25em,
+        font-weight: 700,
+        color: inherit,
+        border: 3px dashed var(--neutral-border),
+      ),
+      true
+    );
   }
 }
 
 @mixin heading-border($heading-level, $border) {
-  #{$heading-level} .headingWrapper-8878, [role="heading"] .headingWrapper-8878 {
-    @include important-styles((
-      background-color: inherit,
-      border: $border,
-      font-size: inherit,
-    ), true);
+  #{$heading-level} .headingWrapper-8878,
+  [role="heading"] .headingWrapper-8878 {
+    @include important-styles(
+      (
+        background-color: inherit,
+        border: $border,
+        font-size: inherit,
+      ),
+      true
+    );
   }
 }
 
@@ -68,9 +84,12 @@
 .changed-aria-level-555897,
 .aria-missing-level-555897,
 .skipped-level-555897 {
-  @include important-styles((
+  @include important-styles(
+    (
       margin-top: 0.5em,
-    ), true);
+    ),
+    true
+  );
 }
 
 .skipped-level-message-555897,
@@ -79,24 +98,44 @@
 .redundant-aria-role-message-555897,
 .changed-aria-level-message-555897,
 .aria-missing-level-message-555897 {
-  @include important-styles((
+  @include important-styles(
+    (
       background-color: var(--warning-background),
       border: 3px dashed var(--warning-border),
       color: var(--warning-text),
       max-width: 333px,
-    ), true);
+    ),
+    true
+  );
 }
 
 // Apply mixins
 @for $i from 1 through 6 {
-  @include heading-decoration('h' + $i);
+  @include heading-decoration("h" + $i);
 }
 
 @include aria-heading-decoration;
 
-@include heading-border('h1', 2px dashed var(--neutral-border));
-@include heading-border('h2', 2px dashed var(--neutral-border));
-@include heading-border('h3', 2px dashed var(--neutral-border));
-@include heading-border('h4', 2px dashed var(--neutral-border));
-@include heading-border('h5', 2px dashed var(--neutral-border));
-@include heading-border('h6', 2px dashed var(--neutral-border));
+@include heading-border("h1", 2px dashed var(--neutral-border));
+@include heading-border("h2", 2px dashed var(--neutral-border));
+@include heading-border("h3", 2px dashed var(--neutral-border));
+@include heading-border("h4", 2px dashed var(--neutral-border));
+@include heading-border("h5", 2px dashed var(--neutral-border));
+@include heading-border("h6", 2px dashed var(--neutral-border));
+
+.top-right-container-9927845 {
+  max-width:30em !important;
+}
+
+.top-right-container-9927845 p.list-heading-9927845 {
+  font-size: 1.2rem !important;
+  line-height: 1.5 !important;
+  margin-top: 1.2em !important;
+}
+
+.findings-list-9927845 {
+  font-size: 1.2rem !important;
+  line-height: 1.5 !important;
+  margin-top: 0.5em !important;
+  list-style: disc !important;
+}

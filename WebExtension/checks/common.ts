@@ -227,6 +227,7 @@ function populateLinkObjects() {
   //Add HTML related URLs as needed
   if (Object.keys(htmlLinks).length === 0) {
     htmlLinks = {
+      "4.3.11 Headings and outlines": "https://html.spec.whatwg.org/multipage/sections.html#headings-and-outlines-2",
       "6.6.3 The tabindex attribute": "https://html.spec.whatwg.org/multipage/interaction.html#the-tabindex-attribute",
     };
   }
@@ -293,7 +294,7 @@ function createReferenceContainer(): HTMLDivElement {
   const referencePara = document.createElement('p');
   referencePara.className = 'reference-9927845';
   const strongReference = document.createElement('strong');
-  const referenceText = document.createTextNode('Reference');
+  const referenceText = document.createTextNode('References');
   strongReference.appendChild(referenceText);
   referencePara.appendChild(strongReference);
 
