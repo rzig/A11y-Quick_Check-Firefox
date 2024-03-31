@@ -8,3 +8,5 @@ Safari/WebExtension
 ChromeBundle
 WebExtension/node_modules
 ChromeExtension
+# Ignore Visual Studio Code settings
+.vscode/*
