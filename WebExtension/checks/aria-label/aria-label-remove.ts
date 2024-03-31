@@ -17,3 +17,7 @@ function removedataNameProhibited() {
   }
 }
 removedataNameProhibited();
+
+removeInjectedDivs([
+  "top-right-container-9927845"
+]);

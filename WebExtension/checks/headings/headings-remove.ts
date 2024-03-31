@@ -30,16 +30,6 @@ for (const span of document.querySelectorAll(".headingWrapper-8878")) {
   }
 }
 
-// Function to remove injected divs by class names
-function removeInjectedDivs(classNames: string[]): void {
-  classNames.forEach(className => {
-    const elements = document.querySelectorAll(`.${className}`);
-    elements.forEach(element => {
-      element.parentNode?.removeChild(element);
-    });
-  });
-}
-
 removeInjectedDivs([
   "skipped-level-message-555897",
   "aria-skipped-level-message-555897",

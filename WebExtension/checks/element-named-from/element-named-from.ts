@@ -294,7 +294,7 @@ function createTopRightContainer(): void {
   // Link List
   const linkList = document.createElement("ul");
   linkList.className = "reference-list-9927845";
-  referenceContainer.appendChild(linkList); // This is key to match your HTML structure
+  referenceContainer.appendChild(linkList);
 
   // Append specified links function
   function appendLink(
@@ -322,6 +322,7 @@ function createTopRightContainer(): void {
 
   // Add the Dismiss Button
   createDismissButton(containerDiv);
+  createMinMaxButton(containerDiv);
 
   // Append the main container to the document's body
   document.body.appendChild(containerDiv);

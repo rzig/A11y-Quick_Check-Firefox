@@ -199,3 +199,5 @@ function addLandmarkMessages(): void {
 }
 
 addLandmarkMessages();
+
+//The purpose of this check is to verify the proper use of HTML landmarks and ARIA roles to improve web accessibility. It identifies landmarks such as "article" and "aside", checks for accessible naming, role conflicts, and correct landmark nesting. Additionally, it ensures there's only one main element per document. 

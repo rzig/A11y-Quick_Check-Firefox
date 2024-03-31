@@ -71,3 +71,62 @@ function ariaNamePermitted() {
 
 ariaNameProhibited();
 ariaNamePermitted();
+
+populateLinkObjects(); // Ensure the links are populated before use.
+
+  function createTopRightContainerAriaLabel(): void {
+    const containerDiv = document.createElement("div");
+    containerDiv.className = "top-right-container-9927845";
+
+    // Message Paragraph title - directly under the top-right-container
+    const importantNotePara: HTMLParagraphElement = document.createElement("p");
+    const strongImportantNote: HTMLElement = document.createElement("strong");
+    strongImportantNote.textContent = "Feature Summary:";
+    importantNotePara.className = "message-heading-9927845";
+    importantNotePara.appendChild(strongImportantNote);
+    containerDiv.appendChild(importantNotePara);
+
+    // Message Paragraph - directly under title
+    const messagePara = document.createElement("p");
+    messagePara.textContent =
+      "The purpose of this check is to highlight instances where aria-label is used, visibly displaying the label value that would be announced to screen reader users, thus providing a visual confirmation of what screen reader users will experience. It also identifies and provides feedback on instances where aria-label is improperly applied to elements where its use is not valid and may ot behave as expected.";
+    containerDiv.appendChild(messagePara);
+
+    // Use createReferenceContainer to generate the reference section
+    const referenceContainer = createReferenceContainer();
+    containerDiv.appendChild(referenceContainer);
+
+    // Link List
+    const linkList = document.createElement("ul");
+    linkList.className = "reference-list-9927845";
+    referenceContainer.appendChild(linkList);
+
+    // Specified links function
+    function appendLink(
+      links: Record<string, string>,
+      key: string,
+      category: string
+    ): void {
+      const href = links[key];
+      if (href) {
+        const listItem = document.createElement("li");
+        const anchor = document.createElement("a");
+        anchor.href = href;
+        anchor.textContent = `${category} - ${key}`;
+        listItem.appendChild(anchor);
+        linkList.appendChild(listItem);
+      }
+    }
+
+    // Append specific links
+    appendLink(ariaLinks, "aria-label property", "ARIA");
+
+    // Add the action buttons
+  createDismissButton(containerDiv);
+  createMinMaxButton(containerDiv);
+
+    // Append the main container to the document's body
+    document.body.appendChild(containerDiv);
+  }
+
+  createTopRightContainerAriaLabel();

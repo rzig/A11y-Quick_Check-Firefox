@@ -117,7 +117,7 @@ function addMessageToPrecedingDiv(
   element: Element,
   messageClass: string,
   message: string,
-  extraClasses: string[] = []
+  extraClasses: string[] = [] 
 ) {
   const precedingDiv = createPrecedingDiv(element);
   precedingDiv.appendChild(
@@ -155,71 +155,73 @@ var linkObjects: {
   aria: Record<string, string>;
   html: Record<string, string>;
   custom: Record<string, string>;
-} = { wcag: {}, aria: {}, html: {}, custom: {} };
+  canUse: Record<string, string>;
+} = { wcag: {}, aria: {}, html: {}, custom: {}, canUse: {} };
 
 // Initialize link objects with empty objects
 var wcagLinks: Record<string, string> = {};
 var ariaLinks: Record<string, string> = {};
 var htmlLinks: Record<string, string> = {};
 var customLinks: Record<string, string> = {};
+var canUseLinks: Record<string, string> = {};
 
 function populateLinkObjects() {
   if (Object.keys(wcagLinks).length === 0) {
     wcagLinks = {
-      "1.1.1 Non-text Content": "https://www.w3.org/WAI/WCAG22/Understanding/non-text-content",
-      "1.2.1 Audio-only and Video-only (Prerecorded)": "https://www.w3.org/WAI/WCAG22/Understanding/audio-only-and-video-only-prerecorded",
-      "1.2.2 Captions (Prerecorded)": "https://www.w3.org/WAI/WCAG22/Understanding/captions-prerecorded",
-      "1.2.3 Audio Description or Media Alternative (Prerecorded)": "https://www.w3.org/WAI/WCAG22/Understanding/audio-description-or-media-alternative-prerecorded",
-      "1.2.4 Captions (Live)": "https://www.w3.org/WAI/WCAG22/Understanding/captions-live",
-      "1.2.5 Audio Description (Prerecorded)": "https://www.w3.org/WAI/WCAG22/Understanding/audio-description-prerecorded",
-      "1.2.8 Media Alternative (Prerecorded)": "https://www.w3.org/WAI/WCAG22/Understanding/media-alternative-prerecorded",
-      "1.3.1 Info and Relationships": "https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships",
-      "1.3.2 Meaningful Sequence": "https://www.w3.org/WAI/WCAG22/Understanding/meaningful-sequence",
-      "1.3.3 Sensory Characteristics": "https://www.w3.org/WAI/WCAG22/Understanding/sensory-characteristics",
-      "1.4.1 Use of Color": "https://www.w3.org/WAI/WCAG22/Understanding/use-of-color",
-      "1.4.2 Audio Control": "https://www.w3.org/WAI/WCAG22/Understanding/audio-control",
-      "1.4.3 Contrast (Minimum)": "https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum",
-      "1.4.4 Resize text": "https://www.w3.org/WAI/WCAG22/Understanding/resize-text",
-      "1.4.5 Images of Text": "https://www.w3.org/WAI/WCAG22/Understanding/images-of-text",
-      "1.4.6 Contrast (Enhanced)": "https://www.w3.org/WAI/WCAG22/Understanding/contrast-enhanced",
-      "1.4.7 Low or No Background Audio": "https://www.w3.org/WAI/WCAG22/Understanding/low-or-no-background-audio",
-      "1.4.8 Visual Presentation": "https://www.w3.org/WAI/WCAG22/Understanding/visual-presentation",
-      "1.4.9 Images of Text (No Exception)": "https://www.w3.org/WAI/WCAG22/Understanding/images-of-text-no-exception",
-      "1.4.10 Reflow": "https://www.w3.org/WAI/WCAG22/Understanding/reflow",
-      "1.4.11 Non-text Contrast": "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast",
-      "1.4.12 Text Spacing": "https://www.w3.org/WAI/WCAG22/Understanding/text-spacing",
-      "1.4.13 Content on Hover or Focus": "https://www.w3.org/WAI/WCAG22/Understanding/content-on-hover-or-focus",
-      "2.1.1 Keyboard": "https://www.w3.org/WAI/WCAG22/Understanding/keyboard",
-      "2.1.2 No Keyboard Trap": "https://www.w3.org/WAI/WCAG22/Understanding/no-keyboard-trap",
-      "2.2.1 Timing Adjustable": "https://www.w3.org/WAI/WCAG22/Understanding/timing-adjustable",
-      "2.2.2 Pause, Stop, Hide": "https://www.w3.org/WAI/WCAG22/Understanding/pause-stop-hide",
-      "2.3.1 Three Flashes or Below Threshold": "https://www.w3.org/WAI/WCAG22/Understanding/three-flashes-or-below-threshold",
-      "2.4.1 Bypass Blocks": "https://www.w3.org/WAI/WCAG22/Understanding/bypass-blocks",
-      "2.4.2 Page Titled": "https://www.w3.org/WAI/WCAG22/Understanding/page-titled",
-      "2.4.3 Focus Order": "https://www.w3.org/WAI/WCAG22/Understanding/focus-order",
-      "2.4.4 Link Purpose (In Context)": "https://www.w3.org/WAI/WCAG22/Understanding/link-purpose-in-context",
-      "2.4.5 Multiple Ways": "https://www.w3.org/WAI/WCAG22/Understanding/multiple-ways",
-      "2.4.6 Headings and Labels": "https://www.w3.org/WAI/WCAG22/Understanding/headings-and-labels",
-      "2.4.7 Focus Visible": "https://www.w3.org/WAI/WCAG22/Understanding/focus-visible",
-      "3.1.1 Language of Page": "https://www.w3.org/WAI/WCAG22/Understanding/language-of-page",
-      "3.1.2 Language of Parts": "https://www.w3.org/WAI/WCAG22/Understanding/language-of-parts",
-      "3.2.1 On Focus": "https://www.w3.org/WAI/WCAG22/Understanding/on-focus",
-      "3.2.2 On Input": "https://www.w3.org/WAI/WCAG22/Understanding/on-input",
-      "3.2.3 Consistent Navigation": "https://www.w3.org/WAI/WCAG22/Understanding/consistent-navigation",
-      "3.2.4 Consistent Identification": "https://www.w3.org/WAI/WCAG22/Understanding/consistent-identification",
-      "3.3.1 Error Identification": "https://www.w3.org/WAI/WCAG22/Understanding/error-identification",
-      "3.3.2 Labels or Instructions": "https://www.w3.org/WAI/WCAG22/Understanding/labels-or-instructions",
-      "3.3.3 Error Suggestion": "https://www.w3.org/WAI/WCAG22/Understanding/error-suggestion",
-      "3.3.4 Error Prevention (Legal, Financial, Data)": "https://www.w3.org/WAI/WCAG22/Understanding/error-prevention-legal-financial-data",
-      "4.1.1 Parsing": "https://www.w3.org/WAI/WCAG22/Understanding/parsing",
-      "4.1.2 Name, Role, Value": "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value",
-  };
+      "1.1.1 Non-text Content (Level A)": "https://www.w3.org/WAI/WCAG22/Understanding/non-text-content",
+      "1.2.1 Audio-only and Video-only (Prerecorded) (Level A)": "https://www.w3.org/WAI/WCAG22/Understanding/audio-only-and-video-only-prerecorded",
+      "1.2.2 Captions (Prerecorded) (Level A)": "https://www.w3.org/WAI/WCAG22/Understanding/captions-prerecorded",
+      "1.2.3 Audio Description or Media Alternative (Prerecorded) (Level A)": "https://www.w3.org/WAI/WCAG22/Understanding/audio-description-or-media-alternative-prerecorded",
+      "1.2.5 Audio Description (Prerecorded) (Level A)": "https://www.w3.org/WAI/WCAG22/Understanding/audio-description-prerecorded",
+      "1.2.8 Media Alternative (Prerecorded) (Level A)": "https://www.w3.org/WAI/WCAG22/Understanding/media-alternative-prerecorded",
+      "1.3.1 Info and Relationships (Level A)": "https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships",
+      "1.3.2 Meaningful Sequence (Level A)": "https://www.w3.org/WAI/WCAG22/Understanding/meaningful-sequence",
+      "1.3.3 Sensory Characteristics (Level A)": "https://www.w3.org/WAI/WCAG22/Understanding/sensory-characteristics",
+      "1.4.1 Use of Color (Level A)": "https://www.w3.org/WAI/WCAG22/Understanding/use-of-color",
+      "1.4.2 Audio Control (Level A)": "https://www.w3.org/WAI/WCAG22/Understanding/audio-control",
+      "1.4.4 Resize text (Level A)": "https://www.w3.org/WAI/WCAG22/Understanding/resize-text",
+      "2.1.1 Keyboard (Level A)": "https://www.w3.org/WAI/WCAG22/Understanding/keyboard",
+      "2.1.2 No Keyboard Trap (Level A)": "https://www.w3.org/WAI/WCAG22/Understanding/no-keyboard-trap",
+      "2.2.1 Timing Adjustable (Level A)": "https://www.w3.org/WAI/WCAG22/Understanding/timing-adjustable",
+      "2.2.2 Pause, Stop, Hide (Level A)": "https://www.w3.org/WAI/WCAG22/Understanding/pause-stop-hide",
+      "2.4.1 Bypass Blocks (Level A)": "https://www.w3.org/WAI/WCAG22/Understanding/bypass-blocks",
+      "2.4.2 Page Titled (Level A)": "https://www.w3.org/WAI/WCAG22/Understanding/page-titled",
+      "2.4.3 Focus Order (Level A)": "https://www.w3.org/WAI/WCAG22/Understanding/focus-order",
+      "2.4.4 Link Purpose (In Context) (Level A)": "https://www.w3.org/WAI/WCAG22/Understanding/link-purpose-in-context",
+      "2.4.5 Multiple Ways (Level A)": "https://www.w3.org/WAI/WCAG22/Understanding/multiple-ways",
+      "2.4.6 Headings and Labels (Level A)": "https://www.w3.org/WAI/WCAG22/Understanding/headings-and-labels",
+      "2.4.7 Focus Visible (Level A)": "https://www.w3.org/WAI/WCAG22/Understanding/focus-visible",
+      "3.1.1 Language of Page (Level A)": "https://www.w3.org/WAI/WCAG22/Understanding/language-of-page",
+      "3.1.2 Language of Parts (Level A)": "https://www.w3.org/WAI/WCAG22/Understanding/language-of-parts",
+      "3.2.1 On Focus (Level A)": "https://www.w3.org/WAI/WCAG22/Understanding/on-focus",
+      "3.2.2 On Input (Level A)": "https://www.w3.org/WAI/WCAG22/Understanding/on-input",
+      "3.2.3 Consistent Navigation (Level A)": "https://www.w3.org/WAI/WCAG22/Understanding/consistent-navigation",
+      "3.2.4 Consistent Identification (Level A)": "https://www.w3.org/WAI/WCAG22/Understanding/consistent-identification",
+      "3.3.1 Error Identification (Level A)": "https://www.w3.org/WAI/WCAG22/Understanding/error-identification",
+      "3.3.2 Labels or Instructions (Level A)": "https://www.w3.org/WAI/WCAG22/Understanding/labels-or-instructions",
+      "3.3.3 Error Suggestion (Level A)": "https://www.w3.org/WAI/WCAG22/Understanding/error-suggestion",
+      "3.3.4 Error Prevention (Legal, Financial, Data) (Level A)": "https://www.w3.org/WAI/WCAG22/Understanding/error-prevention-legal-financial-data",
+      "4.1.1 Parsing (Level A)": "https://www.w3.org/WAI/WCAG22/Understanding/parsing",
+      "4.1.2 Name, Role, Value (Level A)": "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value",
+      "1.3.5 Identify Input Purpose (Level AA)": "https://www.w3.org/WAI/WCAG22/Understanding/identify-input-purpose",
+      "1.4.3 Contrast (Minimum) (Level AA)": "https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum",
+      "1.4.6 Contrast (Enhanced) (Level AA)": "https://www.w3.org/WAI/WCAG22/Understanding/contrast-enhanced",
+      "1.4.7 Low or No Background Audio (Level AA)": "https://www.w3.org/WAI/WCAG22/Understanding/low-or-no-background-audio",
+      "1.4.8 Visual Presentation (Level AA)": "https://www.w3.org/WAI/WCAG22/Understanding/visual-presentation",
+      "1.4.10 Reflow (Level AA)": "https://www.w3.org/WAI/WCAG22/Understanding/reflow",
+      "1.4.11 Non-text Contrast (Level AA)": "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast",
+      "1.4.12 Text Spacing (Level AA)": "https://www.w3.org/WAI/WCAG22/Understanding/text-spacing",
+      "1.4.13 Content on Hover or Focus (Level AA)": "https://www.w3.org/WAI/WCAG22/Understanding/content-on-hover-or-focus"
+    };
   
   }
 //Add ARIA related URLs as needed
   if (Object.keys(ariaLinks).length === 0) {
     ariaLinks = {
-      "aria-labelledby": "https://www.w3.org/TR/wai-aria/#aria-labelledby",
+      "aria-label property": "https://www.w3.org/TR/wai-aria-1.2/#aria-label",
+      "aria-labelledby property": "https://www.w3.org/TR/wai-aria/#aria-labelledby",
+      "aria-controls property": "https://www.w3.org/TR/wai-aria-1.2/#aria-controls",
+      "aria-describedby property": "https://www.w3.org/TR/wai-aria-1.2/#aria-describedby",
       "Accessible Name and Description Computation 1.2": "https://www.w3.org/TR/accname-1.2/",
     };
   }
@@ -227,8 +229,16 @@ function populateLinkObjects() {
   //Add HTML related URLs as needed
   if (Object.keys(htmlLinks).length === 0) {
     htmlLinks = {
+      "4.3.7 The hgroup element": "https://html.spec.whatwg.org/multipage/sections.html#the-hgroup-element",
       "4.3.11 Headings and outlines": "https://html.spec.whatwg.org/multipage/sections.html#headings-and-outlines-2",
+      "4.4.5 The ol element": "https://html.spec.whatwg.org/multipage/grouping-content.html#the-ol-element",
+      "4.4.6 The ul element": "https://html.spec.whatwg.org/multipage/grouping-content.html#the-ul-element",
+      "4.4.8 The li element": "https://html.spec.whatwg.org/multipage/grouping-content.html#the-li-element",
+      "4.4.9 The dl element":"https://html.spec.whatwg.org/multipage/grouping-content.html#the-dl-element",
+      "4.4.10 The dt element": "https://html.spec.whatwg.org/multipage/grouping-content.html#the-dt-element",
+      "4.4.11 The dd element": "https://html.spec.whatwg.org/multipage/grouping-content.html#the-dd-element",
       "6.6.3 The tabindex attribute": "https://html.spec.whatwg.org/multipage/interaction.html#the-tabindex-attribute",
+      "4.10.18.7.1 Autofilling form controls: the autocomplete attribute": "https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofilling-form-controls:-the-autocomplete-attribute",
     };
   }
 
@@ -240,10 +250,18 @@ function populateLinkObjects() {
     };
   }
 
+  //Add URLs of CanIUse
+  if (Object.keys(canUseLinks).length === 0) {
+    canUseLinks = {
+      "hgroup": "https://caniuse.com/?search=hgroup",
+    };
+  }
+
   linkObjects.wcag = wcagLinks;
   linkObjects.aria = ariaLinks;
   linkObjects.html = htmlLinks;
   linkObjects.custom = customLinks;
+  linkObjects.canUse = canUseLinks;
 }
 
 populateLinkObjects();
@@ -303,10 +321,38 @@ function createReferenceContainer(): HTMLDivElement {
   return referenceContainer;
 }
 
+function createMinMaxButton(containerDiv: HTMLDivElement): void {
+  const minmaxButton = document.createElement('button');
+  minmaxButton.className = 'minimize-button-9927845 button-normal';
+  minmaxButton.textContent = 'Minimize';
+
+  minmaxButton.addEventListener('click', () => {
+    const isMinimized = minmaxButton.textContent === 'Minimize';
+    Array.from(containerDiv.children).forEach(child => {
+      if (child !== minmaxButton) child.classList.toggle('hidden-feature-message-9927845', isMinimized);
+    });
+
+    if (isMinimized) {
+      minmaxButton.classList.remove('maximise-button-9927845');
+      minmaxButton.classList.add('button-fixed-9927845');
+      minmaxButton.textContent = 'Maximize';
+    } else {
+      minmaxButton.classList.remove('button-fixed-9927845');
+      minmaxButton.classList.add('maximise-button-9927845');
+      minmaxButton.textContent = 'Minimize';
+    }
+  });
+
+  containerDiv.appendChild(minmaxButton);
+}
+
+//Dismiss message
 function createDismissButton(containerDiv: HTMLDivElement): void {
   const dismissButton = document.createElement('button');
   dismissButton.className = 'dismiss-button-9927845';
-  dismissButton.textContent = 'CLOSE';
+  dismissButton.textContent = 'Dismiss Feature message';
   dismissButton.addEventListener('click', () => containerDiv.remove());
+  containerDiv.appendChild(dismissButton);
+
   containerDiv.appendChild(dismissButton);
 }

@@ -207,13 +207,14 @@ function createTopRightContainerHeadings(): void {
 
   // Message Paragraph - directly under the title
   const messagePara = document.createElement("p");
-  messagePara.textContent = "Headings identified on this page.";
+  messagePara.textContent =
+    "The purpose of this check is to analyze and highlight the structure of HTML headings. It identifies heading levels, including any that are skipped, which could impact navigability and accessibility. Additionally, it examines both HTML and ARIA-marked headings to ensure they conform to best practices.";
   containerDiv.appendChild(messagePara);
 
   // Add the original paragraph as a heading for the list
   const summaryHeadingPara = document.createElement("p");
   const summaryStrong = document.createElement("strong");
-  summaryStrong.textContent = "Headings";
+  summaryStrong.textContent = "Headings identified on this page";
   summaryHeadingPara.className = "list-heading-9927845";
   summaryHeadingPara.appendChild(summaryStrong);
   containerDiv.appendChild(summaryHeadingPara);
@@ -224,20 +225,94 @@ function createTopRightContainerHeadings(): void {
   const headingsSummary = calculateHeadingsSummary();
   const skippedCount = detectSkippedHeadings();
 
-  // Populate the list with headings stats
-  Object.entries(headingsSummary).forEach(([level, count]) => {
-    const li = document.createElement("li");
-    li.textContent = `H${level}: ${count}`;
-    findingsUL.appendChild(li);
-  });
+  // Check if there are headings
+  const hasHeadings = Object.keys(headingsSummary).length > 0;
 
-  // Append skipped heading levels count as the last list item
-  const skippedLi = document.createElement("li");
-  skippedLi.textContent = `Skipped Heading Levels: ${skippedCount}`;
-  findingsUL.appendChild(skippedLi);
+  // Check if there are any non-zero counts
+  const nonZeroCounts = Object.entries(headingsSummary).filter(
+    ([, count]) => count > 0
+  );
+
+  // Check if there are any h1 tags
+  const h1Count = headingsSummary["1"] || 0;
+
+  // Add the message "No <h1> tags found..." as the first bullet point if applicable
+  if (h1Count === 0) {
+    const noH1Li = document.createElement("li");
+    noH1Li.innerHTML =
+      "No H1 tags found. Best practice suggests there should be one h1 tag per document.";
+    findingsUL.appendChild(noH1Li);
+  }
+
+  // Populate the list with headings stats or set No headings identified in code
+  if (hasHeadings && nonZeroCounts.length > 0) {
+    // Populate the list with headings stats
+    nonZeroCounts.forEach(([level, count]) => {
+      const li = document.createElement("li");
+      li.textContent = `H${level} tags found: ${count}`;
+      findingsUL.appendChild(li);
+    });
+
+    // Append skipped heading levels count as the last list item
+    const skippedLi = document.createElement("li");
+    skippedLi.textContent = `Skipped Heading Levels: ${skippedCount}`;
+    findingsUL.appendChild(skippedLi);
+  } else {
+    // Set No headings identified in code if applicable
+    if (h1Count !== 0) {
+      const noHeadingsLi = document.createElement("li");
+      noHeadingsLi.textContent = "No headings identified in code";
+      findingsUL.appendChild(noHeadingsLi);
+    }
+  }
+
+  // Add message for multiple h1 tags if applicable
+  if (h1Count > 1) {
+    const multipleH1Li = document.createElement("li");
+    multipleH1Li.textContent =
+      "Multiple H1 tags found. Best practice suggests there should be one H1 tag per document.";
+    findingsUL.appendChild(multipleH1Li);
+  }
 
   // Append the list to the container
   containerDiv.appendChild(findingsUL);
+
+  // Calculate counts for different uses of role="heading"
+let redundantRoleHeadingCount = 0;
+let roleHeadingWithAriaLevelCount = 0;
+let roleHeadingWithoutAriaLevelCount = 0;
+
+document.querySelectorAll('[role="heading"]').forEach(heading => {
+  const isHTMLHeading = heading.tagName.match(/^H[1-6]$/);
+  const ariaLevel = heading.getAttribute("aria-level");
+
+  if (isHTMLHeading && ariaLevel) {
+    redundantRoleHeadingCount++;
+  } else if (!isHTMLHeading && ariaLevel) {
+    roleHeadingWithAriaLevelCount++;
+  } else if (!isHTMLHeading && !ariaLevel) {
+    roleHeadingWithoutAriaLevelCount++;
+  }
+});
+
+// Add new list items based on the counts
+if (redundantRoleHeadingCount > 0) {
+  const li = document.createElement("li");
+  li.textContent = `${redundantRoleHeadingCount} redundant uses of role=heading in HTML heading elements`;
+  findingsUL.appendChild(li);
+}
+
+if (roleHeadingWithAriaLevelCount > 0) {
+  const li = document.createElement("li");
+  li.textContent = `${roleHeadingWithAriaLevelCount} role headings identified, best practice is to use HTML headings`;
+  findingsUL.appendChild(li);
+}
+
+if (roleHeadingWithoutAriaLevelCount > 0) {
+  const li = document.createElement("li");
+  li.textContent = `${roleHeadingWithoutAriaLevelCount} role headings identified without an aria-level, if the aria-level is not specified the browser will apply a default heading level of 2, best practice is to use HTML headings`;
+  findingsUL.appendChild(li);
+}
 
   // Use createReferenceContainer to generate the reference section
   const referenceContainer = createReferenceContainer();
@@ -246,7 +321,7 @@ function createTopRightContainerHeadings(): void {
   // Link List
   const linkList = document.createElement("ul");
   linkList.className = "reference-list-9927845";
-  referenceContainer.appendChild(linkList); // This is key to match your HTML structure
+  referenceContainer.appendChild(linkList);
 
   // Append specified links function
   function appendLink(
@@ -266,12 +341,13 @@ function createTopRightContainerHeadings(): void {
   }
 
   // Specifying and appending links
-  appendLink(wcagLinks, "1.3.1 Info and Relationships", "WCAG");
-  appendLink(wcagLinks, "Headings and Labels", "WCAG");
+  appendLink(wcagLinks, "1.3.1 Info and Relationships (Level A)", "WCAG");
+  appendLink(wcagLinks, "Headings and Labels (Level A)", "WCAG");
   appendLink(htmlLinks, "4.3.11 Headings and outlines", "HTML");
 
-  // Add the Dismiss Button
+  // Add the action buttons
   createDismissButton(containerDiv);
+  createMinMaxButton(containerDiv);
 
   // Append the main container to the document's body
   document.body.appendChild(containerDiv);

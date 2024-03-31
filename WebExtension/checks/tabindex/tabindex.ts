@@ -236,57 +236,102 @@
     const containerDiv = document.createElement("div");
     containerDiv.className = "top-right-container-9927845";
 
-    // Message Paragraph title - directly under the top-right-container
-    const importantNotePara: HTMLParagraphElement = document.createElement("p");
-    const strongImportantNote: HTMLElement = document.createElement("strong");
+    const importantNotePara = document.createElement("p");
+    const strongImportantNote = document.createElement("strong");
     strongImportantNote.textContent = "Feature Summary:";
     importantNotePara.className = "message-heading-9927845";
     importantNotePara.appendChild(strongImportantNote);
     containerDiv.appendChild(importantNotePara);
 
-    // Message Paragraph - directly under title
     const messagePara = document.createElement("p");
     messagePara.textContent =
-      "This is a new check to identify tabindex 0 and greater.";
+        "The purpose of this check is to identify elements with a tabindex attribute that has a value of 0 or higher. The check highlights best practices in accessibility by flagging any misuse of tabindex, with warning messages against values greater than 0, which can be a barrier to accessibility. This check intentionally overlooks elements with a tabindex of -1, focusing instead on guiding developers towards enhancing web accessibility through the correct use of tabindex.";
     containerDiv.appendChild(messagePara);
 
-    // Use createReferenceContainer to generate the reference section
+    // Adding "Findings" heading
+    const findingsHeading = document.createElement("p");
+    findingsHeading.className = "findings-heading-9927845";
+    const findingsStrong = document.createElement("strong");
+    findingsStrong.textContent = "Findings:";
+    findingsHeading.appendChild(findingsStrong);
+    containerDiv.appendChild(findingsHeading);
+
+    // Creating the findings list
+    const findingsUL = document.createElement("ul");
+    findingsUL.className = "findings-list-9927845";
+
+    // Tabindex Summary
+const allElements = document.querySelectorAll('*');
+let tabIndexZeroCount = 0; // Count for tabindex=0
+let tabIndexAboveZeroCount = 0; // Count for tabindex > 0
+allElements.forEach(element => {
+    const tabindexAttr = element.getAttribute("tabindex");
+    if (tabindexAttr !== null) {
+        const tabindex = parseInt(tabindexAttr, 10);
+        if (tabindex === 0) {
+            tabIndexZeroCount++;
+        } else if (tabindex > 0) {
+            tabIndexAboveZeroCount++;
+        }
+    }
+});
+
+// Append the message about tabindex="0" usage to the findings list
+if (tabIndexZeroCount > 0) {
+    const tabindexZeroLi = document.createElement("li");
+    tabindexZeroLi.textContent = `${tabIndexZeroCount} uses of tabindex="0" identified.`;
+    findingsUL.appendChild(tabindexZeroLi);
+}
+
+// Append the message about tabindex > 0 usage to the findings list, if applicable
+if (tabIndexAboveZeroCount > 0) {
+    const tabindexAboveZeroLi = document.createElement("li");
+    tabindexAboveZeroLi.textContent = `${tabIndexAboveZeroCount} uses of tabindex greater than 0 identified.`;
+    findingsUL.appendChild(tabindexAboveZeroLi);
+}
+
+// Append the findings list to the container
+containerDiv.appendChild(findingsUL);
+
+    // Reference Section
     const referenceContainer = createReferenceContainer();
     containerDiv.appendChild(referenceContainer);
 
-    // Link List
     const linkList = document.createElement("ul");
     linkList.className = "reference-list-9927845";
-    referenceContainer.appendChild(linkList); // This is key to match your HTML structure
+    referenceContainer.appendChild(linkList);
 
-    // Specified links function
+    // Function to append links to the reference section
     function appendLink(
-      links: Record<string, string>,
-      key: string,
-      category: string
+        links: Record<string, string>, 
+        key: string, 
+        category: string
     ): void {
-      const href = links[key];
-      if (href) {
-        const listItem = document.createElement("li");
-        const anchor = document.createElement("a");
-        anchor.href = href;
-        anchor.textContent = `${category} - ${key}`;
-        listItem.appendChild(anchor);
-        linkList.appendChild(listItem);
-      }
+        const href = links[key];
+        if (href) {
+            const listItem = document.createElement("li");
+            const anchor = document.createElement("a");
+            anchor.href = href;
+            anchor.textContent = `${category} - ${key}`;
+            listItem.appendChild(anchor);
+            linkList.appendChild(listItem);
+        }
     }
 
     // Append specific links
-    appendLink(wcagLinks, "1.3.1 Info and Relationships", "WCAG");
-    appendLink(wcagLinks, "4.1.2 Name, Role, Value", "WCAG");
+    appendLink(wcagLinks, "1.3.1 Info and Relationships (Level A)", "WCAG");
+    appendLink(wcagLinks, "4.1.2 Name, Role, Value (Level A)", "WCAG");
     appendLink(htmlLinks, "6.6.3 The tabindex attribute", "HTML");
 
-    // Add the Dismiss Button
+    // Action Buttons
     createDismissButton(containerDiv);
+    createMinMaxButton(containerDiv);
 
     // Append the main container to the document's body
     document.body.appendChild(containerDiv);
-  }
+}
 
-  createTopRightContainer();
+createTopRightContainer();
+
+
 })();

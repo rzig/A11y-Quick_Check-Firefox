@@ -134,3 +134,5 @@ roleGroupName();
 roleRadioGroupName();
 roleGroupAriaLabel();
 roleRadioGroupAriaLabel();
+
+// The purpose of this check is to evaluate the use of form-related elements and roles, including fieldset, legend, and ARIA roles like group and radiogroup, within web content. It aims to ensure these elements are correctly structured and accessible, highlighting best practices such as the correct placement of legend elements within fieldset tags and verifying that groupings have accessible names provided by aria-label or aria-labelledby. The check offers feedback on the presence and configuration of these elements, reinforcing the importance of proper labeling for accessibility and the structural integrity of forms
