@@ -195,8 +195,11 @@ checkMissingARIALevel();
 populateLinkObjects(); // Ensure the links are populated before use.
 
 function createTopRightContainerHeadings(): void {
+  
   const containerDiv = document.createElement("div");
   containerDiv.className = "top-right-container-9927845";
+
+  createMinMaxButton(containerDiv);
 
   const importantNotePara: HTMLParagraphElement = document.createElement("p");
   importantNotePara.className = "message-heading-9927845";
@@ -349,7 +352,6 @@ if (roleHeadingWithoutAriaLevelCount > 0) {
   // Add the action buttons
   }
 createDismissButton(containerDiv);
-  createMinMaxButton(containerDiv);
 
   // Append the main container to the document's body
   document.body.appendChild(containerDiv);

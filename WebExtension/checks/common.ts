@@ -361,29 +361,63 @@ function createReferenceContainer(): HTMLDivElement | null {
 function createMinMaxButton(containerDiv: HTMLDivElement): void {
   if (!containerDiv) return; // Ensure the containerDiv is valid
 
-  const minmaxButton = document.createElement('button');
-  minmaxButton.className = 'minimize-button-9927845 button-normal';
-  minmaxButton.textContent = 'Minimize';
+  // Minimize button
+  const minButton = document.createElement('button');
+  minButton.className = 'minimize-button-9927845';
+  minButton.textContent = 'Minimize';
+  
+  // Maximize button
+  const maxButton = document.createElement('button');
+  maxButton.className = 'maximise-button-9927845';
+  maxButton.textContent = 'Maximize';
 
-  minmaxButton.addEventListener('click', () => {
-    const isMinimized = minmaxButton.textContent === 'Minimize';
+  // Minimize action
+  minButton.addEventListener('click', () => {
     Array.from(containerDiv.children).forEach(child => {
-      if (child !== minmaxButton) child.classList.toggle('hidden-feature-message-9927845', isMinimized);
+      if (child !== minButton) child.classList.add('hidden-feature-message-9927845');
     });
-
-    if (isMinimized) {
-      minmaxButton.classList.remove('maximise-button-9927845');
-      minmaxButton.classList.add('button-fixed-9927845');
-      minmaxButton.textContent = 'Maximize';
-    } else {
-      minmaxButton.classList.remove('button-fixed-9927845');
-      minmaxButton.classList.add('maximise-button-9927845');
-      minmaxButton.textContent = 'Minimize';
-    }
+    document.body.appendChild(maxButton); // Move Maximize button to body when minimized
+    minButton.remove(); // Remove Minimize button after action
   });
 
-  containerDiv.appendChild(minmaxButton);
+  // Maximize action
+  maxButton.addEventListener('click', () => {
+    Array.from(containerDiv.children).forEach(child => {
+      child.classList.remove('hidden-feature-message-9927845');
+    });
+    containerDiv.appendChild(minButton); // Add Minimize button back to the containerDiv
+    maxButton.remove(); // Remove Maximize button after action
+  });
+
+  containerDiv.appendChild(minButton); // Initially append Minimize button
 }
+
+// function createMinMaxButton(containerDiv: HTMLDivElement): void {
+//   if (!containerDiv) return; // Ensure the containerDiv is valid
+
+//   const minmaxButton = document.createElement('button');
+//   minmaxButton.className = 'minimize-button-9927845';
+//   minmaxButton.textContent = 'Minimize';
+
+//   minmaxButton.addEventListener('click', () => {
+//     const isMinimized = minmaxButton.textContent === 'Minimize';
+//     Array.from(containerDiv.children).forEach(child => {
+//       if (child !== minmaxButton) child.classList.toggle('hidden-feature-message-9927845', isMinimized);
+//     });
+
+//     if (isMinimized) {
+//       minmaxButton.classList.remove('maximise-button-9927845');
+//       minmaxButton.classList.add('button-fixed-9927845');
+//       minmaxButton.textContent = 'Maximize';
+//     } else {
+//       minmaxButton.classList.remove('button-fixed-9927845');
+//       minmaxButton.classList.add('maximise-button-9927845');
+//       minmaxButton.textContent = 'Minimize';
+//     }
+//   });
+
+//   containerDiv.appendChild(minmaxButton);
+// }
 
 function createDismissButton(containerDiv: HTMLDivElement): void {
   if (!containerDiv) return;

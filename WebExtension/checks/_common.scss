@@ -152,7 +152,7 @@
   background-color: var(--neutral-background) !important;
   border: 4px solid var(--warning-border) !important;
   padding: 0 1em !important;
-  z-index: 2147483647 !important;
+  z-index: 2147483630 !important;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
   p {
     font-size: 1rem !important;
@@ -228,7 +228,9 @@ ul.findings-list-9927845 {
 }
 
 .dismiss-button-9927845,
-.minimize-button-9927845 {
+.minimize-button-9927845,
+.maximise-button-9927845
+ {
   color: var(--extension-white) !important;
   background-color: var(--neutral-border) !important;
   border: none !important;
@@ -237,6 +239,7 @@ ul.findings-list-9927845 {
   font-size: 1.1rem !important;
   font-weight:700 !important;
   transition: background-color 0.3s !important;
+  z-index: 2147483647 !important;
 }
 
 .minimize-button-9927845 {
@@ -245,7 +248,11 @@ ul.findings-list-9927845 {
   right: 3px !important;
 }
 
-// minimize-button-9927845 button-normal button-fixed-9927845
+.maximise-button-9927845 {
+  position: absolute !important;
+  top:3px !important;
+  right: 3px !important;
+}
 
 .dismiss-button-9927845 {
   margin:1em !important;
