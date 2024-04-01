@@ -106,61 +106,64 @@
 populateLinkObjects(); // Ensure the links are populated before use.
 
 function createTopRightContainerDuplicateID(): void {
-  const containerDiv = document.createElement("div");
-  containerDiv.className = "top-right-container-9927845";
+  const containerDiv = getOrCreateContainer();
+
+  const innerDiv = document.createElement("div");
+  innerDiv.className = "inner-container-9927845";
+
+  containerDiv.appendChild(innerDiv);
 
   // Message Paragraph title - directly under the top-right-container
   const importantNotePara: HTMLParagraphElement = document.createElement("p");
   const strongImportantNote: HTMLElement = document.createElement("strong");
-  strongImportantNote.textContent = "Feature Summary:";
+  strongImportantNote.textContent = "Duplicate IDs Summary:";
   importantNotePara.className = "message-heading-9927845";
   importantNotePara.appendChild(strongImportantNote);
-  containerDiv.appendChild(importantNotePara);
+  innerDiv.appendChild(importantNotePara);
 
   // Message Paragraph - directly under title
   const messagePara = document.createElement("p");
   messagePara.textContent =
     "The purpose of this check is to scan for duplicate IDs with ARIA attributes and label[for] references. It identifies elements with duplicate IDs, examining their references through attributes like aria-labelledby, ensuring each ID relationship is unique and correctly referenced.";
-  containerDiv.appendChild(messagePara);
+  innerDiv.appendChild(messagePara);
 
   // Use createReferenceContainer to generate the reference section
   const referenceContainer = createReferenceContainer();
-   if (referenceContainer) {
-  containerDiv.appendChild(referenceContainer);
+  if (referenceContainer) {
+    innerDiv.appendChild(referenceContainer);
 
-  // Link List
-  const linkList = document.createElement("ul");
-  linkList.className = "reference-list-9927845";
-  referenceContainer.appendChild(linkList);
+    // Link List
+    const linkList = document.createElement("ul");
+    linkList.className = "reference-list-9927845";
+    referenceContainer.appendChild(linkList);
 
-  // Specified links function
-  function appendLink(
-    links: Record<string, string>,
-    key: string,
-    category: string
-  ): void {
-    const href = links[key];
-    if (href) {
-      const listItem = document.createElement("li");
-      const anchor = document.createElement("a");
-      anchor.href = href;
-      anchor.textContent = `${category} - ${key}`;
-      listItem.appendChild(anchor);
-      linkList.appendChild(listItem);
+    // Specified links function
+    function appendLink(
+      links: Record<string, string>,
+      key: string,
+      category: string
+    ): void {
+      const href = links[key];
+      if (href) {
+        const listItem = document.createElement("li");
+        const anchor = document.createElement("a");
+        anchor.href = href;
+        anchor.textContent = `${category} - ${key}`;
+        listItem.appendChild(anchor);
+        linkList.appendChild(listItem);
+      }
     }
-  }
 
-  // Append specific links
-  appendLink(wcagLinks, "1.3.1 Info and Relationships (Level A)", "WCAG");
-  appendLink(wcagLinks, "4.1.2 Name, Role, Value (Level A)", "WCAG");
-  appendLink(ariaLinks, "aria-controls property", "ARIA");
-  appendLink(ariaLinks, "aria-describedby property", "ARIA");
-  appendLink(ariaLinks, "aria-labelledby property", "ARIA");
+    // Append specific links
+    appendLink(wcagLinks, "1.3.1 Info and Relationships (Level A)", "WCAG");
+    appendLink(wcagLinks, "4.1.2 Name, Role, Value (Level A)", "WCAG");
+    appendLink(ariaLinks, "aria-controls property", "ARIA");
+    appendLink(ariaLinks, "aria-describedby property", "ARIA");
+    appendLink(ariaLinks, "aria-labelledby property", "ARIA");
 
-  // Add the action buttons
+    // Add the action buttons
   }
-createDismissButton(containerDiv);
-  createMinMaxButton(containerDiv);
+  createDismissButton(innerDiv);
 
   // Append the main container to the document's body
   document.body.appendChild(containerDiv);

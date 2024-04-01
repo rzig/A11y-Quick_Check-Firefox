@@ -1,7 +1,7 @@
 "use strict";
 
 function checkUnorderedLists(): void {
-  const ulElements = document.querySelectorAll("ul");
+  const ulElements = document.querySelectorAll("ul:not(.top-right-container-9927845 ul, .inner-container-9927845 ul)");
 
   for (const ulElement of ulElements) {
     // Reset state for each UL element
@@ -80,22 +80,26 @@ checkForAriaRolesonUL();
 populateLinkObjects(); // Ensure the links are populated before use.
 
 function createTopRightContainerUnorderedList(): void {
-  const containerDiv = document.createElement("div");
-  containerDiv.className = "top-right-container-9927845";
+  const containerDiv = getOrCreateContainer();
+
+  const innerDiv = document.createElement("div");
+  innerDiv.className = "inner-container-9927845";
+
+  containerDiv.appendChild(innerDiv);
 
   // Message Paragraph title - directly under the top-right-container
   const importantNotePara: HTMLParagraphElement = document.createElement("p");
   const strongImportantNote: HTMLElement = document.createElement("strong");
-  strongImportantNote.textContent = "Feature Summary:";
+  strongImportantNote.textContent = "Unordered List Summary:";
   importantNotePara.className = "message-heading-9927845";
   importantNotePara.appendChild(strongImportantNote);
-  containerDiv.appendChild(importantNotePara);
+  innerDiv.appendChild(importantNotePara);
 
   // Message Paragraph - directly under title
   const messagePara = document.createElement("p");
   messagePara.textContent =
     "The purpose of this check is to ensure that ordered lists (<ul>) in HTML are used correctly and structured properly. It validates the presence and usage of appropriate child elements. If issues are found, it flags the lists as invalid and provides feedback. Valid lists are confirmed as correctly implemented.";
-  containerDiv.appendChild(messagePara);
+  innerDiv.appendChild(messagePara);
 
   const hgroupElements = document.querySelectorAll("ul");
 
@@ -113,44 +117,43 @@ function createTopRightContainerUnorderedList(): void {
   findingsUL.appendChild(findingsLi); // Add the dynamic message to the list
 
   // Append the findings list to the container
-  containerDiv.appendChild(findingsUL);
+  innerDiv.appendChild(findingsUL);
 
   // Use createReferenceContainer to generate the reference section
   const referenceContainer = createReferenceContainer();
-   if (referenceContainer) {
-  containerDiv.appendChild(referenceContainer);
+  if (referenceContainer) {
+    innerDiv.appendChild(referenceContainer);
 
-  // Link List
-  const linkList = document.createElement("ul");
-  linkList.className = "reference-list-9927845";
-  referenceContainer.appendChild(linkList);
+    // Link List
+    const linkList = document.createElement("ul");
+    linkList.className = "reference-list-9927845";
+    referenceContainer.appendChild(linkList);
 
-  // Specified links function
-  function appendLink(
-    links: Record<string, string>,
-    key: string,
-    category: string
-  ): void {
-    const href = links[key];
-    if (href) {
-      const listItem = document.createElement("li");
-      const anchor = document.createElement("a");
-      anchor.href = href;
-      anchor.textContent = `${category} - ${key}`;
-      listItem.appendChild(anchor);
-      linkList.appendChild(listItem);
+    // Specified links function
+    function appendLink(
+      links: Record<string, string>,
+      key: string,
+      category: string
+    ): void {
+      const href = links[key];
+      if (href) {
+        const listItem = document.createElement("li");
+        const anchor = document.createElement("a");
+        anchor.href = href;
+        anchor.textContent = `${category} - ${key}`;
+        listItem.appendChild(anchor);
+        linkList.appendChild(listItem);
+      }
     }
-  }
 
-  // Append specific links
-  appendLink(wcagLinks, "1.3.1 Info and Relationships (Level A)", "WCAG");
-  appendLink(htmlLinks, "4.4.6 The ul element", "HTML");
-  appendLink(htmlLinks, "4.4.8 The li element", "HTML");
+    // Append specific links
+    appendLink(wcagLinks, "1.3.1 Info and Relationships (Level A)", "WCAG");
+    appendLink(htmlLinks, "4.4.6 The ul element", "HTML");
+    appendLink(htmlLinks, "4.4.8 The li element", "HTML");
 
-  // Add the Dismiss Button
+    // Add the Dismiss Button
   }
-createDismissButton(containerDiv);
-  createMinMaxButton(containerDiv);
+  createDismissButton(innerDiv);
 
   // Append the main container to the document's body
   document.body.appendChild(containerDiv);

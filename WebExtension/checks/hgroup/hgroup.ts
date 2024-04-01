@@ -39,22 +39,26 @@ checkHGroups();
 populateLinkObjects(); // Ensure the links are populated before use.
 
   function createTopRightContainerHgroup(): void {
-    const containerDiv = document.createElement("div");
-    containerDiv.className = "top-right-container-9927845";
+    const containerDiv = getOrCreateContainer();
+
+  const innerDiv = document.createElement("div");
+  innerDiv.className = "inner-container-9927845";
+
+  containerDiv.appendChild(innerDiv);
 
     // Message Paragraph title - directly under the top-right-container
     const importantNotePara: HTMLParagraphElement = document.createElement("p");
     const strongImportantNote: HTMLElement = document.createElement("strong");
-    strongImportantNote.textContent = "Feature Summary:";
+    strongImportantNote.textContent = "The hgroup element Summary:";
     importantNotePara.className = "message-heading-9927845";
     importantNotePara.appendChild(strongImportantNote);
-    containerDiv.appendChild(importantNotePara);
+    innerDiv.appendChild(importantNotePara);
 
     // Message Paragraph - directly under title
     const messagePara = document.createElement("p");
     messagePara.textContent =
       "The purpose of this functionality is to evaluate <hgroup> elements. It advises on enhancing <hgroup> accessibility by suggesting ARIA roles and attributes that can be used to provide support and confirms correct implementations. Additionally, it identifies <hgroup> elements missing heading elements, prompting for corrective actions to improve web content structure and accessibility.";
-    containerDiv.appendChild(messagePara);
+    innerDiv.appendChild(messagePara);
 
     // Add the original paragraph as a heading for the list
 const summaryHeadingPara = document.createElement("p");
@@ -62,7 +66,7 @@ const summaryStrong = document.createElement("strong");
 summaryStrong.textContent = "Findings"; // Title for the findings section
 summaryHeadingPara.className = "list-heading-9927845";
 summaryHeadingPara.appendChild(summaryStrong);
-containerDiv.appendChild(summaryHeadingPara); // Append the heading to the container
+innerDiv.appendChild(summaryHeadingPara); // Append the heading to the container
 
 const hgroupElements = document.querySelectorAll("hgroup");
 
@@ -80,13 +84,13 @@ if (hgroupElements.length === 0) {
 findingsUL.appendChild(findingsLi); // Add the dynamic message to the list
 
 // Append the findings list to the container
-containerDiv.appendChild(findingsUL);
+innerDiv.appendChild(findingsUL);
 
     // Use createReferenceContainer to generate the reference section
     const referenceContainer = createReferenceContainer();
    if (referenceContainer) {
-    //console.log('Appending referenceContainer to containerDiv', referenceContainer);
-    containerDiv.appendChild(referenceContainer);
+    //console.log('Appending referenceContainer to innerDiv', referenceContainer);
+    innerDiv.appendChild(referenceContainer);
 
     // Link List
     const linkList = document.createElement("ul");
@@ -117,8 +121,7 @@ containerDiv.appendChild(findingsUL);
 
     // Add the action buttons
   }
-createDismissButton(containerDiv);
-  createMinMaxButton(containerDiv);
+createDismissButton(innerDiv);
 
     // Append the main container to the document's body
     document.body.appendChild(containerDiv);

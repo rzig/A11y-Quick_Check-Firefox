@@ -1,14 +1,16 @@
 "use strict";
 
 function isDirectlyInsideUl(dlElement: Element): boolean {
-  return !!(dlElement.parentElement && dlElement.parentElement.nodeName === "UL");
+  return !!(
+    dlElement.parentElement && dlElement.parentElement.nodeName === "UL"
+  );
 }
 
 function isDivWithDtDd(child: Element): boolean {
   // Check if DIV contains only DT, DD, SCRIPT, or TEMPLATE elements
   for (const innerChild of Array.from(child.children)) {
     if (!["DT", "DD", "SCRIPT", "TEMPLATE"].includes(innerChild.nodeName)) {
-      return false;  // Contains invalid elements
+      return false; // Contains invalid elements
     }
   }
   return !!child.querySelector("dt") && !!child.querySelector("dd");
@@ -84,7 +86,11 @@ function checkDLStructure(dlElement: Element): boolean {
 
 function checkInvalidRole(dlElement: Element): boolean {
   const role = dlElement.getAttribute("role");
-  if (role && role.toLowerCase() !== "none" && role.toLowerCase() !== "presentation") {
+  if (
+    role &&
+    role.toLowerCase() !== "none" &&
+    role.toLowerCase() !== "presentation"
+  ) {
     dlElement.classList.add("invalid-9927845");
     const message = `Invalid: DL has a non-ARIA presentation role of ${role}.`;
     createChildMessageDiv(dlElement, "invalid-message-9927845", message);
@@ -97,52 +103,56 @@ function checkDescriptionLists(): void {
   const dlElements = document.querySelectorAll("dl");
   for (const dlElement of dlElements) {
     if (isDirectlyInsideUl(dlElement)) {
-        dlElement.classList.add("invalid-9927845");
-        const message = "Invalid: DL element directly inside a UL.";
-        createChildMessageDiv(dlElement, "invalid-message-9927845", message);
-        continue; // Move to the next DL element
-      }
-  
-      // Checking for invalid role attribute
-      if (checkInvalidRole(dlElement)) continue; // If invalid role, skip further checks
-  
-      // Proceed with internal structure checks
-      let failureDetected = checkDLStructure(dlElement);
-      if (failureDetected) continue; // If any structure check failed, move to the next DL element
-  
-      // Finally, if none of the checks flagged the DL as invalid, mark it as valid
-      dlElement.classList.add("valid-9927845");
-      const message = "Valid: DL structure and attributes are correct.";
-      createChildMessageDiv(dlElement, "valid-message-9927845", message);
+      dlElement.classList.add("invalid-9927845");
+      const message = "Invalid: DL element directly inside a UL.";
+      createChildMessageDiv(dlElement, "invalid-message-9927845", message);
+      continue; // Move to the next DL element
     }
+
+    // Checking for invalid role attribute
+    if (checkInvalidRole(dlElement)) continue; // If invalid role, skip further checks
+
+    // Proceed with internal structure checks
+    let failureDetected = checkDLStructure(dlElement);
+    if (failureDetected) continue; // If any structure check failed, move to the next DL element
+
+    // Finally, if none of the checks flagged the DL as invalid, mark it as valid
+    dlElement.classList.add("valid-9927845");
+    const message = "Valid: DL structure and attributes are correct.";
+    createChildMessageDiv(dlElement, "valid-message-9927845", message);
   }
-  
-  checkDescriptionLists();
+}
 
-  populateLinkObjects(); // Ensure the links are populated before use.
+checkDescriptionLists();
 
-  function createTopRightContainerDescriptionList(): void {
-    const containerDiv = document.createElement("div");
-    containerDiv.className = "top-right-container-9927845";
+populateLinkObjects(); // Ensure the links are populated before use.
 
-    // Message Paragraph title - directly under the top-right-container
-    const importantNotePara: HTMLParagraphElement = document.createElement("p");
-    const strongImportantNote: HTMLElement = document.createElement("strong");
-    strongImportantNote.textContent = "Feature Summary:";
-    importantNotePara.className = "message-heading-9927845";
-    importantNotePara.appendChild(strongImportantNote);
-    containerDiv.appendChild(importantNotePara);
+function createTopRightContainerDescriptionList(): void {
+  const containerDiv = getOrCreateContainer();
 
-    // Message Paragraph - directly under title
-    const messagePara = document.createElement("p");
-    messagePara.textContent =
-      "The purpose of this check is to provide feedback on the use of description lists (<dl>) in HTML. It evaluates if <dl>, <dt> and <dd> elements adhere to a valid structure.";
-    containerDiv.appendChild(messagePara);
+  const innerDiv = document.createElement("div");
+  innerDiv.className = "inner-container-9927845";
 
-    // Use createReferenceContainer to generate the reference section
-    const referenceContainer = createReferenceContainer();
-   if (referenceContainer) {
-    containerDiv.appendChild(referenceContainer);
+  containerDiv.appendChild(innerDiv);
+
+  // Message Paragraph title - directly under the top-right-container
+  const importantNotePara: HTMLParagraphElement = document.createElement("p");
+  const strongImportantNote: HTMLElement = document.createElement("strong");
+  strongImportantNote.textContent = "Description List Summary:";
+  importantNotePara.className = "message-heading-9927845";
+  importantNotePara.appendChild(strongImportantNote);
+  innerDiv.appendChild(importantNotePara);
+
+  // Message Paragraph - directly under title
+  const messagePara = document.createElement("p");
+  messagePara.textContent =
+    "The purpose of this check is to provide feedback on the use of description lists (<dl>) in HTML. It evaluates if <dl>, <dt> and <dd> elements adhere to a valid structure.";
+  innerDiv.appendChild(messagePara);
+
+  // Use createReferenceContainer to generate the reference section
+  const referenceContainer = createReferenceContainer();
+  if (referenceContainer) {
+    innerDiv.appendChild(referenceContainer);
 
     // Link List
     const linkList = document.createElement("ul");
@@ -174,12 +184,11 @@ function checkDescriptionLists(): void {
     appendLink(htmlLinks, "4.4.11 The dd element", "HTML");
 
     // Add the Dismiss Button
-    }
-createDismissButton(containerDiv);
-  createMinMaxButton(containerDiv);
-
-    // Append the main container to the document's body
-    document.body.appendChild(containerDiv);
   }
+  createDismissButton(innerDiv);
 
-  createTopRightContainerDescriptionList();
+  // Append the main container to the document's body
+  document.body.appendChild(containerDiv);
+}
+
+createTopRightContainerDescriptionList();

@@ -330,7 +330,24 @@ function appendHyperlinksToMessage(message: string, linkType: 'wcag' | 'aria' | 
   return message;
 }
 
+function getOrCreateContainer(): HTMLDivElement {
+  let containerDiv = document.querySelector('.top-right-container-9927845') as HTMLDivElement | null;
+  
+  // If the containerDiv doesn't exist, create it and append the MinMax button
+  if (!containerDiv) {
+    containerDiv = document.createElement("div");
+    containerDiv.className = "top-right-container-9927845";
+    document.body.appendChild(containerDiv);
+
+    // Call the function to add the MinMax button to the newly created containerDiv
+    createMinMaxButton(containerDiv);
+  }
+
+  return containerDiv;
+}
+
 function createReferenceContainer(): HTMLDivElement | null {
+  
   // Check if the container already exists
   if (document.querySelector('.reference-container-9927845')) {
     return null; // Container already exists, no need to create another.
@@ -359,72 +376,57 @@ function createReferenceContainer(): HTMLDivElement | null {
 }
 
 function createMinMaxButton(containerDiv: HTMLDivElement): void {
-  if (!containerDiv) return; // Ensure the containerDiv is valid
+  // Ensure the MinMax button doesn't already exist
+  if (!containerDiv.querySelector('.minimize-button-9927845')) {
+    const minMaxButton = document.createElement('button');
+    minMaxButton.className = 'minimize-button-9927845';
+    minMaxButton.textContent = 'Minimize';
 
-  // Minimize button
-  const minButton = document.createElement('button');
-  minButton.className = 'minimize-button-9927845';
-  minButton.textContent = 'Minimize';
-  
-  // Maximize button
-  const maxButton = document.createElement('button');
-  maxButton.className = 'maximise-button-9927845';
-  maxButton.textContent = 'Maximize';
+    let isContentMinimized = false;
 
-  // Minimize action
-  minButton.addEventListener('click', () => {
-    Array.from(containerDiv.children).forEach(child => {
-      if (child !== minButton) child.classList.add('hidden-feature-message-9927845');
+    minMaxButton.addEventListener('click', () => {
+      isContentMinimized = !isContentMinimized;
+      const innerDivs = containerDiv.querySelectorAll('.inner-container-9927845');
+      innerDivs.forEach(innerDiv => {
+        innerDiv.classList.toggle('hidden-feature-message-9927845', isContentMinimized);
+      });
+      minMaxButton.textContent = isContentMinimized ? 'Maximize' : 'Minimize';
     });
-    document.body.appendChild(maxButton); // Move Maximize button to body when minimized
-    minButton.remove(); // Remove Minimize button after action
-  });
 
-  // Maximize action
-  maxButton.addEventListener('click', () => {
-    Array.from(containerDiv.children).forEach(child => {
-      child.classList.remove('hidden-feature-message-9927845');
-    });
-    containerDiv.appendChild(minButton); // Add Minimize button back to the containerDiv
-    maxButton.remove(); // Remove Maximize button after action
-  });
-
-  containerDiv.appendChild(minButton); // Initially append Minimize button
+    containerDiv.appendChild(minMaxButton);
+  }
 }
 
-// function createMinMaxButton(containerDiv: HTMLDivElement): void {
-//   if (!containerDiv) return; // Ensure the containerDiv is valid
-
-//   const minmaxButton = document.createElement('button');
-//   minmaxButton.className = 'minimize-button-9927845';
-//   minmaxButton.textContent = 'Minimize';
-
-//   minmaxButton.addEventListener('click', () => {
-//     const isMinimized = minmaxButton.textContent === 'Minimize';
-//     Array.from(containerDiv.children).forEach(child => {
-//       if (child !== minmaxButton) child.classList.toggle('hidden-feature-message-9927845', isMinimized);
-//     });
-
-//     if (isMinimized) {
-//       minmaxButton.classList.remove('maximise-button-9927845');
-//       minmaxButton.classList.add('button-fixed-9927845');
-//       minmaxButton.textContent = 'Maximize';
-//     } else {
-//       minmaxButton.classList.remove('button-fixed-9927845');
-//       minmaxButton.classList.add('maximise-button-9927845');
-//       minmaxButton.textContent = 'Minimize';
-//     }
-//   });
-
-//   containerDiv.appendChild(minmaxButton);
-// }
-
-function createDismissButton(containerDiv: HTMLDivElement): void {
-  if (!containerDiv) return;
+function createDismissButton(innerDiv: HTMLDivElement): void {
+  if (!innerDiv) return;
 
   const dismissButton = document.createElement('button');
   dismissButton.className = 'dismiss-button-9927845';
   dismissButton.textContent = 'Dismiss Feature message';
-  dismissButton.addEventListener('click', () => containerDiv.remove());
-  containerDiv.appendChild(dismissButton);
+  // Assuming the dismissButton is of type HTMLButtonElement
+dismissButton.addEventListener('click', function() {
+  // Use type assertion for innerDiv as HTMLElement, assuming this button is within innerDiv
+  const innerDiv = this.closest('.inner-container-9927845') as HTMLElement | null;
+
+  // Check if innerDiv exists before proceeding
+  if (innerDiv) {
+    const containerDiv = innerDiv.parentElement; // This will automatically be of type HTMLElement | null
+
+    // Ensure containerDiv is not null before proceeding
+    if (containerDiv) {
+      // Use querySelectorAll for a more accurate count and type safety
+      const innerDivs = containerDiv.querySelectorAll('.inner-container-9927845');
+
+      if (innerDivs.length > 1) {
+        // More than one innerDiv exists, remove the current innerDiv
+        innerDiv.remove();
+      } else {
+        // This is the only innerDiv, remove the containerDiv
+        containerDiv.remove();
+      }
+    }
+  }
+});
+
+  innerDiv.appendChild(dismissButton);
 }

@@ -125,7 +125,6 @@ populateLinkObjects(); // Ensure the links are populated before use.
     // Add the action buttons
   }
 createDismissButton(containerDiv);
-  createMinMaxButton(containerDiv);
 
     // Append the main container to the document's body
     document.body.appendChild(containerDiv);

@@ -131,9 +131,22 @@
   function accessibleNameCheck() {
     // Select nodes based on roles and HTML equivalents
     let nodes = document.querySelectorAll(combinedSelector);
-
-    // Process the nodes
-    processNodes(nodes);
+  
+    // Filter out nodes within the excluded containers
+    let filteredNodes = Array.from(nodes).filter(node => {
+      let parent = node.parentElement;
+      while (parent) {
+        if (parent.classList.contains('top-right-container-9927845') ||
+            parent.classList.contains('inner-container-9927845')) {
+          return false; // Exclude this node from further processing
+        }
+        parent = parent.parentElement; // Move up the DOM tree
+      }
+      return true; // Include this node for processing
+    });
+  
+    // Process the filtered nodes
+    processNodes(filteredNodes);
   }
 
   /**
@@ -142,7 +155,7 @@
    *
    * @param {NodeListOf<Element>} nodes - Collection of DOM nodes to be processed.
    */
-  function processNodes(nodes: NodeListOf<Element>) {
+  function processNodes(nodes: Element[]) {
     for (const node of nodes) {
       // Check if the node is an HTMLElement
       if (node instanceof HTMLElement) {
@@ -270,61 +283,64 @@
 populateLinkObjects(); // Ensure the links are populated before use.
 
 function createTopRightContainer(): void {
-  const containerDiv = document.createElement("div");
-  containerDiv.className = "top-right-container-9927845";
+  const containerDiv = getOrCreateContainer();
+
+  const innerDiv = document.createElement("div");
+  innerDiv.className = "inner-container-9927845";
+
+  containerDiv.appendChild(innerDiv);
 
   //Title - directly under the top-right-container
   const importantNotePara: HTMLParagraphElement = document.createElement("p");
   const strongImportantNote: HTMLElement = document.createElement("strong");
-  strongImportantNote.textContent = "Feature Summary";
+  strongImportantNote.textContent = "Accessible Name and Description Summary";
   importantNotePara.className = "message-heading-9927845";
   importantNotePara.appendChild(strongImportantNote);
-  containerDiv.appendChild(importantNotePara);
+  innerDiv.appendChild(importantNotePara);
 
   // Message Paragraph - directly under the title
   const messagePara = document.createElement("p");
   messagePara.textContent =
     "This is an updated check that identifies the accessible (programmatic) name of elements. It is useful to identify how the element is named, especially when it has multiple naming techniques.";
-  containerDiv.appendChild(messagePara);
+  innerDiv.appendChild(messagePara);
 
   // Use createReferenceContainer to generate the reference section
   const referenceContainer = createReferenceContainer();
-   if (referenceContainer) {
-  containerDiv.appendChild(referenceContainer);
+  if (referenceContainer) {
+    innerDiv.appendChild(referenceContainer);
 
-  // Link List
-  const linkList = document.createElement("ul");
-  linkList.className = "reference-list-9927845";
-  referenceContainer.appendChild(linkList);
+    // Link List
+    const linkList = document.createElement("ul");
+    linkList.className = "reference-list-9927845";
+    referenceContainer.appendChild(linkList);
 
-  // Append specified links function
-  function appendLink(
-    links: Record<string, string>,
-    key: string,
-    category: string
-  ): void {
-    const href = links[key];
-    if (href) {
-      const listItem = document.createElement("li");
-      const anchor = document.createElement("a");
-      anchor.href = href;
-      anchor.textContent = `${category} - ${key}`;
-      listItem.appendChild(anchor);
-      linkList.appendChild(listItem);
+    // Append specified links function
+    function appendLink(
+      links: Record<string, string>,
+      key: string,
+      category: string
+    ): void {
+      const href = links[key];
+      if (href) {
+        const listItem = document.createElement("li");
+        const anchor = document.createElement("a");
+        anchor.href = href;
+        anchor.textContent = `${category} - ${key}`;
+        listItem.appendChild(anchor);
+        linkList.appendChild(listItem);
+      }
     }
-  }
 
-  // Specifying and appending links
-  appendLink(
-    ariaLinks,
-    "Accessible Name and Description Computation 1.2",
-    "ARIA"
-  );
+    // Specifying and appending links
+    appendLink(
+      ariaLinks,
+      "Accessible Name and Description Computation 1.2",
+      "ARIA"
+    );
 
-  // Add the Dismiss Button
+    // Add the Dismiss Button
   }
-createDismissButton(containerDiv);
-  createMinMaxButton(containerDiv);
+  createDismissButton(innerDiv);
 
   // Append the main container to the document's body
   document.body.appendChild(containerDiv);

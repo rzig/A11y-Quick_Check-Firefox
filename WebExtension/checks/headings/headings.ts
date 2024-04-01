@@ -191,28 +191,30 @@ wrapAllHeadingsWithSpan();
 detectSkippedARIAHeadings();
 checkRedundantARIA();
 checkMissingARIALevel();
+wrapAllHeadingsWithSpan();
 
 populateLinkObjects(); // Ensure the links are populated before use.
 
 function createTopRightContainerHeadings(): void {
-  
-  const containerDiv = document.createElement("div");
-  containerDiv.className = "top-right-container-9927845";
+  const containerDiv = getOrCreateContainer();
 
-  createMinMaxButton(containerDiv);
+  const innerDiv = document.createElement("div");
+  innerDiv.className = "inner-container-9927845";
+
+  containerDiv.appendChild(innerDiv);
 
   const importantNotePara: HTMLParagraphElement = document.createElement("p");
   importantNotePara.className = "message-heading-9927845";
   const strongImportantNote: HTMLElement = document.createElement("strong");
-  strongImportantNote.textContent = "Feature Summary";
+  strongImportantNote.textContent = "Headings Summary";
   importantNotePara.appendChild(strongImportantNote);
-  containerDiv.appendChild(importantNotePara);
+  innerDiv.appendChild(importantNotePara);
 
   // Message Paragraph - directly under the title
   const messagePara = document.createElement("p");
   messagePara.textContent =
     "The purpose of this check is to analyze and highlight the structure of HTML headings. It identifies heading levels, including any that are skipped, which could impact navigability and accessibility. Additionally, it examines both HTML and ARIA-marked headings to ensure they conform to best practices.";
-  containerDiv.appendChild(messagePara);
+  innerDiv.appendChild(messagePara);
 
   // Add paragraph as a heading for the list
   const summaryHeadingPara = document.createElement("p");
@@ -220,7 +222,7 @@ function createTopRightContainerHeadings(): void {
   summaryStrong.textContent = "Headings identified on this page";
   summaryHeadingPara.className = "list-heading-9927845";
   summaryHeadingPara.appendChild(summaryStrong);
-  containerDiv.appendChild(summaryHeadingPara);
+  innerDiv.appendChild(summaryHeadingPara);
 
   // Create the list for headings stats
   const findingsUL = document.createElement("ul");
@@ -278,84 +280,83 @@ function createTopRightContainerHeadings(): void {
   }
 
   // Append the list to the container
-  containerDiv.appendChild(findingsUL);
+  innerDiv.appendChild(findingsUL);
 
   // Calculate counts for different uses of role="heading"
-let redundantRoleHeadingCount = 0;
-let roleHeadingWithAriaLevelCount = 0;
-let roleHeadingWithoutAriaLevelCount = 0;
+  let redundantRoleHeadingCount = 0;
+  let roleHeadingWithAriaLevelCount = 0;
+  let roleHeadingWithoutAriaLevelCount = 0;
 
-document.querySelectorAll('[role="heading"]').forEach(heading => {
-  const isHTMLHeading = heading.tagName.match(/^H[1-6]$/);
-  const ariaLevel = heading.getAttribute("aria-level");
+  document.querySelectorAll('[role="heading"]').forEach((heading) => {
+    const isHTMLHeading = heading.tagName.match(/^H[1-6]$/);
+    const ariaLevel = heading.getAttribute("aria-level");
 
-  if (isHTMLHeading && ariaLevel) {
-    redundantRoleHeadingCount++;
-  } else if (!isHTMLHeading && ariaLevel) {
-    roleHeadingWithAriaLevelCount++;
-  } else if (!isHTMLHeading && !ariaLevel) {
-    roleHeadingWithoutAriaLevelCount++;
+    if (isHTMLHeading && ariaLevel) {
+      redundantRoleHeadingCount++;
+    } else if (!isHTMLHeading && ariaLevel) {
+      roleHeadingWithAriaLevelCount++;
+    } else if (!isHTMLHeading && !ariaLevel) {
+      roleHeadingWithoutAriaLevelCount++;
+    }
+  });
+
+  // Add new list items based on the counts
+  if (redundantRoleHeadingCount > 0) {
+    const li = document.createElement("li");
+    li.textContent = `${redundantRoleHeadingCount} redundant uses of role=heading in HTML heading elements`;
+    findingsUL.appendChild(li);
   }
-});
 
-// Add new list items based on the counts
-if (redundantRoleHeadingCount > 0) {
-  const li = document.createElement("li");
-  li.textContent = `${redundantRoleHeadingCount} redundant uses of role=heading in HTML heading elements`;
-  findingsUL.appendChild(li);
-}
+  if (roleHeadingWithAriaLevelCount > 0) {
+    const li = document.createElement("li");
+    li.textContent = `${roleHeadingWithAriaLevelCount} role headings identified, best practice is to use HTML headings`;
+    findingsUL.appendChild(li);
+  }
 
-if (roleHeadingWithAriaLevelCount > 0) {
-  const li = document.createElement("li");
-  li.textContent = `${roleHeadingWithAriaLevelCount} role headings identified, best practice is to use HTML headings`;
-  findingsUL.appendChild(li);
-}
-
-if (roleHeadingWithoutAriaLevelCount > 0) {
-  const li = document.createElement("li");
-  li.textContent = `${roleHeadingWithoutAriaLevelCount} role headings identified without an aria-level, if the aria-level is not specified the browser will apply a default heading level of 2, best practice is to use HTML headings`;
-  findingsUL.appendChild(li);
-}
+  if (roleHeadingWithoutAriaLevelCount > 0) {
+    const li = document.createElement("li");
+    li.textContent = `${roleHeadingWithoutAriaLevelCount} role headings identified without an aria-level, if the aria-level is not specified the browser will apply a default heading level of 2, best practice is to use HTML headings`;
+    findingsUL.appendChild(li);
+  }
 
   // Use createReferenceContainer to generate the reference section
   const referenceContainer = createReferenceContainer();
-   if (referenceContainer) {
-  containerDiv.appendChild(referenceContainer);
+  if (referenceContainer) {
+    innerDiv.appendChild(referenceContainer);
 
-  // Link List
-  const linkList = document.createElement("ul");
-  linkList.className = "reference-list-9927845";
-  referenceContainer.appendChild(linkList);
+    // Link List
+    const linkList = document.createElement("ul");
+    linkList.className = "reference-list-9927845";
+    referenceContainer.appendChild(linkList);
 
-  // Append specified links function
-  function appendLink(
-    links: Record<string, string>,
-    key: string,
-    category: string
-  ): void {
-    const href = links[key];
-    if (href) {
-      const listItem = document.createElement("li");
-      const anchor = document.createElement("a");
-      anchor.href = href;
-      anchor.textContent = `${category} - ${key}`;
-      listItem.appendChild(anchor);
-      linkList.appendChild(listItem);
+    // Append specified links function
+    function appendLink(
+      links: Record<string, string>,
+      key: string,
+      category: string
+    ): void {
+      const href = links[key];
+      if (href) {
+        const listItem = document.createElement("li");
+        const anchor = document.createElement("a");
+        anchor.href = href;
+        anchor.textContent = `${category} - ${key}`;
+        listItem.appendChild(anchor);
+        linkList.appendChild(listItem);
+      }
     }
-  }
 
-  // Specifying and appending links
-  appendLink(wcagLinks, "1.3.1 Info and Relationships (Level A)", "WCAG");
-  appendLink(wcagLinks, "Headings and Labels (Level A)", "WCAG");
-  appendLink(htmlLinks, "4.3.11 Headings and outlines", "HTML");
+    // Specifying and appending links
+    appendLink(wcagLinks, "1.3.1 Info and Relationships (Level A)", "WCAG");
+    appendLink(wcagLinks, "Headings and Labels (Level A)", "WCAG");
+    appendLink(htmlLinks, "4.3.11 Headings and outlines", "HTML");
 
-  // Add the action buttons
+    // Add the action buttons
   }
-createDismissButton(containerDiv);
+  createDismissButton(innerDiv);
 
   // Append the main container to the document's body
   document.body.appendChild(containerDiv);
 }
 
-wrapAllHeadingsWithSpan();
 createTopRightContainerHeadings();

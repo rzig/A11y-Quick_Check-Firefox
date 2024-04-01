@@ -149,11 +149,17 @@
   max-width: 30em !important;
   top: 10px !important;
   right: 10px !important;
+  padding:0 !important;
   background-color: var(--neutral-background) !important;
   border: 4px solid var(--warning-border) !important;
-  padding: 0 1em !important;
   z-index: 2147483630 !important;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+
+  .inner-container-9927845 {
+    border: 2px solid var(--neutral-border) !important;
+    padding: 0 1em !important;
+    margin: 1em !important;
+  }
   p {
     font-size: 1rem !important;
     line-height: 1.5 !important;
