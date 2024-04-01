@@ -84,6 +84,7 @@ containerDiv.appendChild(findingsUL);
 
     // Use createReferenceContainer to generate the reference section
     const referenceContainer = createReferenceContainer();
+   if (referenceContainer) {
     //console.log('Appending referenceContainer to containerDiv', referenceContainer);
     containerDiv.appendChild(referenceContainer);
 
@@ -115,7 +116,8 @@ containerDiv.appendChild(findingsUL);
     appendLink(canUseLinks, "hgroup", "Support");
 
     // Add the action buttons
-  createDismissButton(containerDiv);
+  }
+createDismissButton(containerDiv);
   createMinMaxButton(containerDiv);
 
     // Append the main container to the document's body

@@ -316,6 +316,7 @@ if (roleHeadingWithoutAriaLevelCount > 0) {
 
   // Use createReferenceContainer to generate the reference section
   const referenceContainer = createReferenceContainer();
+   if (referenceContainer) {
   containerDiv.appendChild(referenceContainer);
 
   // Link List
@@ -346,7 +347,8 @@ if (roleHeadingWithoutAriaLevelCount > 0) {
   appendLink(htmlLinks, "4.3.11 Headings and outlines", "HTML");
 
   // Add the action buttons
-  createDismissButton(containerDiv);
+  }
+createDismissButton(containerDiv);
   createMinMaxButton(containerDiv);
 
   // Append the main container to the document's body

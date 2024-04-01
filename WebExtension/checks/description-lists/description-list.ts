@@ -141,6 +141,7 @@ function checkDescriptionLists(): void {
 
     // Use createReferenceContainer to generate the reference section
     const referenceContainer = createReferenceContainer();
+   if (referenceContainer) {
     containerDiv.appendChild(referenceContainer);
 
     // Link List
@@ -173,7 +174,8 @@ function checkDescriptionLists(): void {
     appendLink(htmlLinks, "4.4.11 The dd element", "HTML");
 
     // Add the Dismiss Button
-    createDismissButton(containerDiv);
+    }
+createDismissButton(containerDiv);
   createMinMaxButton(containerDiv);
 
     // Append the main container to the document's body

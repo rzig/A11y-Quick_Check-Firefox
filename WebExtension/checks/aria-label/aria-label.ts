@@ -94,6 +94,7 @@ populateLinkObjects(); // Ensure the links are populated before use.
 
     // Use createReferenceContainer to generate the reference section
     const referenceContainer = createReferenceContainer();
+   if (referenceContainer) {
     containerDiv.appendChild(referenceContainer);
 
     // Link List
@@ -122,7 +123,8 @@ populateLinkObjects(); // Ensure the links are populated before use.
     appendLink(ariaLinks, "aria-label property", "ARIA");
 
     // Add the action buttons
-  createDismissButton(containerDiv);
+  }
+createDismissButton(containerDiv);
   createMinMaxButton(containerDiv);
 
     // Append the main container to the document's body

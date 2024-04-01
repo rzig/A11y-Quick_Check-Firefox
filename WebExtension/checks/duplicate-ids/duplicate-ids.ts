@@ -125,6 +125,7 @@ function createTopRightContainerDuplicateID(): void {
 
   // Use createReferenceContainer to generate the reference section
   const referenceContainer = createReferenceContainer();
+   if (referenceContainer) {
   containerDiv.appendChild(referenceContainer);
 
   // Link List
@@ -157,7 +158,8 @@ function createTopRightContainerDuplicateID(): void {
   appendLink(ariaLinks, "aria-labelledby property", "ARIA");
 
   // Add the action buttons
-  createDismissButton(containerDiv);
+  }
+createDismissButton(containerDiv);
   createMinMaxButton(containerDiv);
 
   // Append the main container to the document's body

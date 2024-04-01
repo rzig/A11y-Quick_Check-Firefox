@@ -295,6 +295,7 @@ containerDiv.appendChild(findingsUL);
 
     // Reference Section
     const referenceContainer = createReferenceContainer();
+   if (referenceContainer) {
     containerDiv.appendChild(referenceContainer);
 
     const linkList = document.createElement("ul");
@@ -324,7 +325,8 @@ containerDiv.appendChild(findingsUL);
     appendLink(htmlLinks, "6.6.3 The tabindex attribute", "HTML");
 
     // Action Buttons
-    createDismissButton(containerDiv);
+    }
+createDismissButton(containerDiv);
     createMinMaxButton(containerDiv);
 
     // Append the main container to the document's body

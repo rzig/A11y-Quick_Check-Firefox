@@ -385,9 +385,8 @@ function createMinMaxButton(containerDiv: HTMLDivElement): void {
   containerDiv.appendChild(minmaxButton);
 }
 
-//Dismiss message
 function createDismissButton(containerDiv: HTMLDivElement): void {
-  if (!containerDiv) return; // Ensure the containerDiv is valid
+  if (!containerDiv) return;
 
   const dismissButton = document.createElement('button');
   dismissButton.className = 'dismiss-button-9927845';
