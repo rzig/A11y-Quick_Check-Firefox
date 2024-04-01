@@ -330,23 +330,37 @@ function appendHyperlinksToMessage(message: string, linkType: 'wcag' | 'aria' | 
   return message;
 }
 
-function createReferenceContainer(): HTMLDivElement {
-  const referenceContainer = document.createElement('div');
-  referenceContainer.className = 'reference-container-9927845';
+function createReferenceContainer(): HTMLDivElement | null {
+  // Check if the container already exists
+  if (document.querySelector('.reference-container-9927845')) {
+    return null; // Container already exists, no need to create another.
+  }
 
-  const referencePara = document.createElement('p');
-  referencePara.className = 'reference-9927845';
-  const strongReference = document.createElement('strong');
-  const referenceText = document.createTextNode('References');
-  strongReference.appendChild(referenceText);
-  referencePara.appendChild(strongReference);
+  // Check if the current window is the main window and not an iframe
+  if (window === window.parent) {
+    const referenceContainer = document.createElement('div');
+    referenceContainer.className = 'reference-container-9927845';
 
-  referenceContainer.appendChild(referencePara);
+    const referencePara = document.createElement('p');
+    referencePara.className = 'reference-9927845';
+    const strongReference = document.createElement('strong');
+    const referenceText = document.createTextNode('References');
+    strongReference.appendChild(referenceText);
+    referencePara.appendChild(strongReference);
 
-  return referenceContainer;
+    referenceContainer.appendChild(referencePara);
+
+    document.body.appendChild(referenceContainer); // Append only if it's the main window
+
+    return referenceContainer;
+  }
+
+  return null; // If in an iframe, do not create or append the container.
 }
 
 function createMinMaxButton(containerDiv: HTMLDivElement): void {
+  if (!containerDiv) return; // Ensure the containerDiv is valid
+
   const minmaxButton = document.createElement('button');
   minmaxButton.className = 'minimize-button-9927845 button-normal';
   minmaxButton.textContent = 'Minimize';
@@ -373,11 +387,11 @@ function createMinMaxButton(containerDiv: HTMLDivElement): void {
 
 //Dismiss message
 function createDismissButton(containerDiv: HTMLDivElement): void {
+  if (!containerDiv) return; // Ensure the containerDiv is valid
+
   const dismissButton = document.createElement('button');
   dismissButton.className = 'dismiss-button-9927845';
   dismissButton.textContent = 'Dismiss Feature message';
   dismissButton.addEventListener('click', () => containerDiv.remove());
-  containerDiv.appendChild(dismissButton);
-
   containerDiv.appendChild(dismissButton);
 }
