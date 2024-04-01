@@ -125,6 +125,31 @@ function addMessageToPrecedingDiv(
   );
 }
 
+function createFollowingDiv(targetElement: Element): HTMLDivElement {
+  const attributeLabel = "data-after-div-9f2dc5ea";
+
+  let followingDiv = targetElement.nextElementSibling as HTMLDivElement;
+  if (followingDiv == null || !followingDiv.hasAttribute(attributeLabel)) {
+    followingDiv = document.createElement("div");
+    followingDiv.setAttribute(attributeLabel, "");
+    targetElement.after(followingDiv);
+  }
+  return followingDiv;
+}
+
+//New global helper message for checks that include the numbered circle
+function addMessageToFollowingDiv(
+  element: Element,
+  messageClass: string,
+  message: string,
+  extraClasses: string[] = [] 
+) {
+  const followingDiv = createFollowingDiv(element);
+  followingDiv.appendChild(
+    createStyledMessageDiv(messageClass, message, extraClasses)
+  );
+}
+
 function removeInjectedDivs(messageClasses: string[]) {
   for (const messageClass of messageClasses) {
     const messageDivs = document.querySelectorAll(`.${messageClass}`);

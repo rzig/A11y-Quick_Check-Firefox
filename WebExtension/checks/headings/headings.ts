@@ -211,7 +211,7 @@ function createTopRightContainerHeadings(): void {
     "The purpose of this check is to analyze and highlight the structure of HTML headings. It identifies heading levels, including any that are skipped, which could impact navigability and accessibility. Additionally, it examines both HTML and ARIA-marked headings to ensure they conform to best practices.";
   containerDiv.appendChild(messagePara);
 
-  // Add the original paragraph as a heading for the list
+  // Add paragraph as a heading for the list
   const summaryHeadingPara = document.createElement("p");
   const summaryStrong = document.createElement("strong");
   summaryStrong.textContent = "Headings identified on this page";

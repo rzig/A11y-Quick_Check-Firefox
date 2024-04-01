@@ -245,6 +245,14 @@
               "css": "tabindex.css",
               "addScript": "tabindex.js",
               "removeScript": "tabindex-remove.js"
+            },
+            {
+              "name": "Duplicate ID values affecting accessibility",
+              "id": "dupingIDs",
+              "resource_path": "checks/duplicate-ids",
+              "css": "duplicate-ids.css",
+              "addScript": "duplicate-ids.js",
+              "removeScript": "duplicate-ids-remove.js"
             }
           ]
         },

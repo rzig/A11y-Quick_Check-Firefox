@@ -1,0 +1,42 @@
+@import "../common";
+
+.warning-9927845 {
+  @include important-styles(
+    (
+      border: 2px dashed var(--warning-border),
+      margin:0,
+    ),
+    true
+  );
+}
+
+.warning-message-9927845 {
+  font-weight: 700;
+  margin: 0;
+  
+  @include message-container(
+    var(--warning-background),
+    var(--warning-border),
+    var(--warning-text)
+  );
+  @include flex-width-container;
+  @include font-styling;
+}
+
+.numbered-square-9927845 {
+  @include important-styles(
+    (
+      display: inline-block,
+      width: 20px,
+      height: 20px,
+      text-align: center,
+      font-weight:700,
+      background-color: var(--neutral-text),
+      color: var(--extension-white),
+      border: 1px solid var(--neutral-border),
+      border-radius: 1em,
+      margin-left: .5em,
+    ),
+    true
+  );
+}
