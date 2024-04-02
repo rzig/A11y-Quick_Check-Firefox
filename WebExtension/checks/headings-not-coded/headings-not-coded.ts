@@ -1,5 +1,16 @@
 "use strict";
 
+function isNodeInExcludedContainer(node: Node): boolean {
+  let ancestor = node.parentElement;
+  while (ancestor) {
+    if (ancestor.classList.contains('top-right-container-9927845') || ancestor.classList.contains('inner-container-9927845')) {
+      return true; // Node is inside an excluded container
+    }
+    ancestor = ancestor.parentElement;
+  }
+  return false; // Node is not inside an excluded container
+}
+
 function checkTextNodesForHeadings(): void {
   const walk = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
   const bodyStyle = window.getComputedStyle(document.body);
@@ -15,7 +26,7 @@ function checkTextNodesForHeadings(): void {
     const parent = node.parentElement;
 
     // Continue to the next node if we don't have a parent.
-    if (parent === null) {
+    if (!parent || isNodeInExcludedContainer(node)) {
       continue;
     }
 
@@ -91,14 +102,14 @@ function createTopRightContainerNotHeading(): void {
   const containerDiv = getOrCreateContainer();
 
   const innerDiv = document.createElement("div");
-  innerDiv.className = "inner-container-9927845";
+  innerDiv.className = "inner-container-9927845 remove-inner-hnc-9927845";
 
   containerDiv.appendChild(innerDiv);
 
   // Message Paragraph title - directly under the top-right-container
   const importantNotePara: HTMLParagraphElement = document.createElement("p");
   const strongImportantNote: HTMLElement = document.createElement("strong");
-  strongImportantNote.textContent = "Headings (not marked up) Summary:";
+  strongImportantNote.textContent = "Headings (not marked up) Summary";
   importantNotePara.className = "message-heading-9927845";
   importantNotePara.appendChild(strongImportantNote);
   innerDiv.appendChild(importantNotePara);

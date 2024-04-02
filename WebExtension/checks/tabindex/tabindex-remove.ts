@@ -5,4 +5,5 @@ removeInjectedDivs([
   "valid-message-9927845",
   "warning-message-9927845",
   "top-right-container-9927845",
+  "inner-delete-9927845",
 ]);

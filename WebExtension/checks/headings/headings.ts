@@ -199,14 +199,14 @@ function createTopRightContainerHeadings(): void {
   const containerDiv = getOrCreateContainer();
 
   const innerDiv = document.createElement("div");
-  innerDiv.className = "inner-container-9927845";
+  innerDiv.className = "inner-container-9927845 remove-inner-heading-9927845";
 
   containerDiv.appendChild(innerDiv);
 
   const importantNotePara: HTMLParagraphElement = document.createElement("p");
-  importantNotePara.className = "message-heading-9927845";
   const strongImportantNote: HTMLElement = document.createElement("strong");
   strongImportantNote.textContent = "Headings Summary";
+  importantNotePara.className = "message-heading-9927845";
   importantNotePara.appendChild(strongImportantNote);
   innerDiv.appendChild(importantNotePara);
 

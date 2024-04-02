@@ -409,23 +409,42 @@ dismissButton.addEventListener('click', function() {
   const innerDiv = this.closest('.inner-container-9927845') as HTMLElement | null;
 
   // Check if innerDiv exists before proceeding
-  if (innerDiv) {
+  // if (innerDiv) {
+  //   const containerDiv = innerDiv.parentElement; // This will automatically be of type HTMLElement | null
+
+  //   // Ensure containerDiv is not null before proceeding
+  //   if (containerDiv) {
+  //     // Use querySelectorAll for a more accurate count and type safety
+  //     const innerDivs = containerDiv.querySelectorAll('.inner-container-9927845');
+
+  //     if (innerDivs.length > 1) {
+  //       // More than one innerDiv exists, remove the current innerDiv
+  //       innerDiv.remove();
+  //     } else {
+  //       // This is the only innerDiv, remove the containerDiv
+  //       containerDiv.remove();
+  //     }
+  //   }
+  // }
+
+if (innerDiv) {
     const containerDiv = innerDiv.parentElement; // This will automatically be of type HTMLElement | null
 
     // Ensure containerDiv is not null before proceeding
     if (containerDiv) {
-      // Use querySelectorAll for a more accurate count and type safety
-      const innerDivs = containerDiv.querySelectorAll('.inner-container-9927845');
+        // Use querySelectorAll for a more accurate count and type safety
+        const innerDivs = containerDiv.querySelectorAll('.inner-container-9927845');
 
-      if (innerDivs.length > 1) {
-        // More than one innerDiv exists, remove the current innerDiv
-        innerDiv.remove();
-      } else {
-        // This is the only innerDiv, remove the containerDiv
-        containerDiv.remove();
-      }
+        if (innerDivs.length > 1) {
+            // More than one innerDiv exists, remove the current innerDiv
+            innerDiv.remove();
+        } else {
+            // Then remove the containerDiv as per original functionality
+            containerDiv.remove();
+        }
     }
-  }
+}
+
 });
 
   innerDiv.appendChild(dismissButton);

@@ -286,7 +286,7 @@ function createTopRightContainer(): void {
   const containerDiv = getOrCreateContainer();
 
   const innerDiv = document.createElement("div");
-  innerDiv.className = "inner-container-9927845";
+  innerDiv.className = "inner-container-9927845 remove-inner-dnf-9927845";
 
   containerDiv.appendChild(innerDiv);
 

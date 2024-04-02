@@ -18,6 +18,7 @@ for (const element of document.querySelectorAll(".neutral-9927845, [data-element
 removeInjectedDivs([
   "neutral-message-9927845",
   "numbered-square-9927845",
+  "remove-inner-ad-9927845"
 ]);
 
 })();

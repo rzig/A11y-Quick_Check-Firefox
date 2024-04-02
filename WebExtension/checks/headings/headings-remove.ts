@@ -37,5 +37,5 @@ removeInjectedDivs([
   "redundant-aria-role-message-555897",
   "changed-aria-level-message-555897",
   "aria-missing-level-message-555897",
-  "top-right-container-9927845"
+  "remove-inner-heading-9927845"
 ]);
