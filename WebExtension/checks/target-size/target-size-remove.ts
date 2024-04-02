@@ -40,3 +40,7 @@ function removeTargetSize(targetSize: number) {
         toggleButton.remove(); // Remove the toggle messages button from the DOM
     }
 }
+
+removeInjectedDivs([
+    "remove-inner-ts-9927845"
+  ]);

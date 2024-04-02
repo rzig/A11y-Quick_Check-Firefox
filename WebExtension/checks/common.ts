@@ -236,7 +236,9 @@ function populateLinkObjects() {
       "1.4.10 Reflow (Level AA)": "https://www.w3.org/WAI/WCAG22/Understanding/reflow",
       "1.4.11 Non-text Contrast (Level AA)": "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast",
       "1.4.12 Text Spacing (Level AA)": "https://www.w3.org/WAI/WCAG22/Understanding/text-spacing",
-      "1.4.13 Content on Hover or Focus (Level AA)": "https://www.w3.org/WAI/WCAG22/Understanding/content-on-hover-or-focus"
+      "1.4.13 Content on Hover or Focus (Level AA)": "https://www.w3.org/WAI/WCAG22/Understanding/content-on-hover-or-focus",
+      "2.5.8 Target Size (Minimum) (Level AA)": "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum",
+      "2.5.5 Target Size (Enhanced) (Level AAA)": "https://www.w3.org/WAI/WCAG22/Understanding/target-size-enhanced",
     };
   
   }
@@ -262,6 +264,8 @@ function populateLinkObjects() {
       "4.4.9 The dl element":"https://html.spec.whatwg.org/multipage/grouping-content.html#the-dl-element",
       "4.4.10 The dt element": "https://html.spec.whatwg.org/multipage/grouping-content.html#the-dt-element",
       "4.4.11 The dd element": "https://html.spec.whatwg.org/multipage/grouping-content.html#the-dd-element",
+      "4.10.15 The fieldset element": "https://html.spec.whatwg.org/multipage/form-elements.html#the-fieldset-element",
+      "4.10.16 The legend element": "https://html.spec.whatwg.org/multipage/form-elements.html#the-legend-element",
       "6.6.3 The tabindex attribute": "https://html.spec.whatwg.org/multipage/interaction.html#the-tabindex-attribute",
       "4.10.18.7.1 Autofilling form controls: the autocomplete attribute": "https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofilling-form-controls:-the-autocomplete-attribute",
     };
@@ -407,25 +411,6 @@ function createDismissButton(innerDiv: HTMLDivElement): void {
 dismissButton.addEventListener('click', function() {
   // Use type assertion for innerDiv as HTMLElement, assuming this button is within innerDiv
   const innerDiv = this.closest('.inner-container-9927845') as HTMLElement | null;
-
-  // Check if innerDiv exists before proceeding
-  // if (innerDiv) {
-  //   const containerDiv = innerDiv.parentElement; // This will automatically be of type HTMLElement | null
-
-  //   // Ensure containerDiv is not null before proceeding
-  //   if (containerDiv) {
-  //     // Use querySelectorAll for a more accurate count and type safety
-  //     const innerDivs = containerDiv.querySelectorAll('.inner-container-9927845');
-
-  //     if (innerDivs.length > 1) {
-  //       // More than one innerDiv exists, remove the current innerDiv
-  //       innerDiv.remove();
-  //     } else {
-  //       // This is the only innerDiv, remove the containerDiv
-  //       containerDiv.remove();
-  //     }
-  //   }
-  // }
 
 if (innerDiv) {
     const containerDiv = innerDiv.parentElement; // This will automatically be of type HTMLElement | null

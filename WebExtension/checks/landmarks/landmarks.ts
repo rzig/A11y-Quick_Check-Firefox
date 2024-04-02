@@ -200,4 +200,66 @@ function addLandmarkMessages(): void {
 
 addLandmarkMessages();
 
-//The purpose of this check is to verify the proper use of HTML landmarks and ARIA roles to improve web accessibility. It identifies landmarks such as "article" and "aside", checks for accessible naming, role conflicts, and correct landmark nesting. Additionally, it ensures there's only one main element per document. 
+populateLinkObjects(); // Ensure the links are populated before use.
+
+function createTopRightContainerLandmarks(): void {
+  const containerDiv = getOrCreateContainer();
+
+  const innerDiv = document.createElement("div");
+  innerDiv.className = "inner-container-9927845 remove-inner-lm-9927845";
+ 
+  containerDiv.appendChild(innerDiv);
+
+  // Message Paragraph title - directly under the top-right-container
+  const importantNotePara: HTMLParagraphElement = document.createElement("p");
+  const strongImportantNote: HTMLElement = document.createElement("strong");
+  strongImportantNote.textContent = "Landmarks Summary";
+  importantNotePara.className = "message-heading-9927845";
+  importantNotePara.appendChild(strongImportantNote);
+  innerDiv.appendChild(importantNotePara);
+
+  // Message Paragraph - directly under title
+  const messagePara = document.createElement("p");
+  messagePara.textContent =
+    "The purpose of this check is to verify the proper use of HTML landmarks and ARIA landmark roles. It checks for accessible naming, role conflicts, and correct landmark nesting.";
+  innerDiv.appendChild(messagePara);
+
+  // Use createReferenceContainer to generate the reference section
+  const referenceContainer = createReferenceContainer();
+  if (referenceContainer) {
+    innerDiv.appendChild(referenceContainer);
+
+    // Link List
+    const linkList = document.createElement("ul");
+    linkList.className = "reference-list-9927845";
+    referenceContainer.appendChild(linkList);
+
+    // Specified links function
+    function appendLink(
+      links: Record<string, string>,
+      key: string,
+      category: string
+    ): void {
+      const href = links[key];
+      if (href) {
+        const listItem = document.createElement("li");
+        const anchor = document.createElement("a");
+        anchor.href = href;
+        anchor.textContent = `${category} - ${key}`;
+        listItem.appendChild(anchor);
+        linkList.appendChild(listItem);
+      }
+    }
+
+    // Append specific links
+    appendLink(wcagLinks, "1.3.1 Info and Relationships (Level A)", "WCAG");
+
+    // Add the Dismiss Button
+  }
+  createDismissButton(innerDiv);
+
+  // Append the main container to the document's body
+  document.body.appendChild(containerDiv);
+}
+
+createTopRightContainerLandmarks();

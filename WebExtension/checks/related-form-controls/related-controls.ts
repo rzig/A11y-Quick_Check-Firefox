@@ -135,4 +135,68 @@ roleRadioGroupName();
 roleGroupAriaLabel();
 roleRadioGroupAriaLabel();
 
-// The purpose of this check is to evaluate the use of form-related elements and roles, including fieldset, legend, and ARIA roles like group and radiogroup, within web content. It aims to ensure these elements are correctly structured and accessible, highlighting best practices such as the correct placement of legend elements within fieldset tags and verifying that groupings have accessible names provided by aria-label or aria-labelledby. The check offers feedback on the presence and configuration of these elements, reinforcing the importance of proper labeling for accessibility and the structural integrity of forms
+populateLinkObjects(); // Ensure the links are populated before use.
+
+function createTopRightContainerRelatedControls(): void {
+  const containerDiv = getOrCreateContainer();
+
+  const innerDiv = document.createElement("div");
+  innerDiv.className = "inner-container-9927845 remove-inner-fc-9927845";
+ 
+  containerDiv.appendChild(innerDiv);
+
+  // Message Paragraph title - directly under the top-right-container
+  const importantNotePara: HTMLParagraphElement = document.createElement("p");
+  const strongImportantNote: HTMLElement = document.createElement("strong");
+  strongImportantNote.textContent = "Related Controls Summary";
+  importantNotePara.className = "message-heading-9927845";
+  importantNotePara.appendChild(strongImportantNote);
+  innerDiv.appendChild(importantNotePara);
+
+  // Message Paragraph - directly under title
+  const messagePara = document.createElement("p");
+  messagePara.textContent =
+    "TThe purpose of this check is to evaluate the related form controls are grouped. It aims to ensure these elements are correctly structured, highlighting best practices such as the correct placement of legend elements within fieldset tags, and verifying that ARIA groupings have accessible names provided by aria-label or aria-labelledby. The check offers feedback on the presence and configuration of these elements, reinforcing the importance of proper labeling for accessibility and the structural integrity of forms";
+  innerDiv.appendChild(messagePara);
+
+  // Use createReferenceContainer to generate the reference section
+  const referenceContainer = createReferenceContainer();
+  if (referenceContainer) {
+    innerDiv.appendChild(referenceContainer);
+
+    // Link List
+    const linkList = document.createElement("ul");
+    linkList.className = "reference-list-9927845";
+    referenceContainer.appendChild(linkList);
+
+    // Specified links function
+    function appendLink(
+      links: Record<string, string>,
+      key: string,
+      category: string
+    ): void {
+      const href = links[key];
+      if (href) {
+        const listItem = document.createElement("li");
+        const anchor = document.createElement("a");
+        anchor.href = href;
+        anchor.textContent = `${category} - ${key}`;
+        listItem.appendChild(anchor);
+        linkList.appendChild(listItem);
+      }
+    }
+
+    // Append specific links
+    appendLink(wcagLinks, "1.3.1 Info and Relationships (Level A)", "WCAG");
+    appendLink(htmlLinks, "4.10.15 The fieldset element", "HTML");
+    appendLink(htmlLinks, "4.10.16 The legend element", "HTML");
+
+    // Add the Dismiss Button
+  }
+  createDismissButton(innerDiv);
+
+  // Append the main container to the document's body
+  document.body.appendChild(containerDiv);
+}
+
+createTopRightContainerRelatedControls();

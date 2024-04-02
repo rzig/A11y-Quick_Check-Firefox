@@ -283,4 +283,67 @@ function injectButton() {
   document.body.prepend(button);
 }
 
-//The purpose of this check is to ensure web elements conform to the ARIA 2.2 target size success criteria, aiming to improve accessibility and usability, particularly for users of assistive technologies. It evaluates elements like buttons, links, and form controls, verifying that they meet the minimum target size requirements for easy interaction. This includes checking if elements are adequately spaced from one another to prevent activation errors. Visual indicators and feedback are provided for elements falling short of the standards, while also confirming those that comply. The check extends to assessing lists for compliance, ensuring items within are accessible. By aligning with ARIA 2.2 guidelines, this process contributes to creating more accessible, navigable, and user-friendly web content.
+populateLinkObjects(); // Ensure the links are populated before use.
+
+function createTopRightContainerOrderedList(): void {
+  const containerDiv = getOrCreateContainer();
+
+  const innerDiv = document.createElement("div");
+  innerDiv.className = "inner-container-9927845 remove-inner-ts-9927845";
+ 
+  containerDiv.appendChild(innerDiv);
+
+  // Message Paragraph title - directly under the top-right-container
+  const importantNotePara: HTMLParagraphElement = document.createElement("p");
+  const strongImportantNote: HTMLElement = document.createElement("strong");
+  strongImportantNote.textContent = "Target size Summary";
+  importantNotePara.className = "message-heading-9927845";
+  importantNotePara.appendChild(strongImportantNote);
+  innerDiv.appendChild(importantNotePara);
+
+  // Message Paragraph - directly under title
+  const messagePara = document.createElement("p");
+  messagePara.textContent =
+    "The purpose of this check is to ensure web elements conform to the ARIA 2.2 target size success criteria. It evaluates elements like buttons, links, and form controls, verifying that they meet the minimum target size requirements. This includes notifications when the Spacing exceeption applies. Lists are indicated as requiring manual testing verification if the Inline exception.";
+  innerDiv.appendChild(messagePara);
+
+  // Use createReferenceContainer to generate the reference section
+  const referenceContainer = createReferenceContainer();
+  if (referenceContainer) {
+    innerDiv.appendChild(referenceContainer);
+
+    // Link List
+    const linkList = document.createElement("ul");
+    linkList.className = "reference-list-9927845";
+    referenceContainer.appendChild(linkList);
+
+    // Specified links function
+    function appendLink(
+      links: Record<string, string>,
+      key: string,
+      category: string
+    ): void {
+      const href = links[key];
+      if (href) {
+        const listItem = document.createElement("li");
+        const anchor = document.createElement("a");
+        anchor.href = href;
+        anchor.textContent = `${category} - ${key}`;
+        listItem.appendChild(anchor);
+        linkList.appendChild(listItem);
+      }
+    }
+
+    // Append specific links
+    appendLink(wcagLinks, "2.5.8 Target Size (Minimum) (Level AA)", "WCAG");
+    appendLink(wcagLinks, "2.5.5 Target Size (Enhanced) (Level AAA)", "WCAG");
+
+    // Add the Dismiss Button
+  }
+  createDismissButton(innerDiv);
+
+  // Append the main container to the document's body
+  document.body.appendChild(containerDiv);
+}
+
+createTopRightContainerOrderedList();
