@@ -155,21 +155,14 @@
    *
    * @param {NodeListOf<Element>} nodes - Collection of DOM nodes to be processed.
    */
+
   function processNodes(nodes: Element[]) {
     for (const node of nodes) {
-      // Check if the node is an HTMLElement
-      if (node instanceof HTMLElement) {
-        if (isElementVisible(node)) {
-          let accessibleName = getAccessibleName(node);
-          let message = `Element <${node.nodeName.toLowerCase()}> gets name from ${
-            accessibleName.method
-          }.`;
-          createExtendedChildMessageDiv(
-            node,
-            "neutral-message-9927845",
-            message
-          );
-        }
+      if (node instanceof HTMLElement && isElementVisible(node)) {
+        let role = node.getAttribute('role'); // Check for a role attribute
+        let accessibleName = getAccessibleName(node);
+        let message = `Element <${node.nodeName.toLowerCase()}>${role ? ` with Role ${role}` : ''} gets name from ${accessibleName.method}.`;
+        createExtendedChildMessageDiv(node, "neutral-message-9927845", message);
       }
     }
   }
