@@ -264,15 +264,21 @@ ul.findings-list-9927845 {
   margin:1em !important;
 }
 
-.dismiss-button-9927845:hover {
+.dismiss-button-9927845:hover,
+.minimize-button-9927845:hover,
+.maximise-button-9927845:hover {
   background-color: var(--neutral-border) !important;
 }
 
-.dismiss-button-9927845:focus {
+.dismiss-button-9927845:focus,
+.minimize-button-9927845:focus,
+.maximise-button-9927845:focus {
   outline: none !important;
 }
 
-.dismiss-button-9927845:focus-visible {
+.dismiss-button-9927845:focus-visible,
+.minimize-button-9927845:focus-visible,
+.maximise-button-9927845:focus-visible {
   outline: none !important;
   box-shadow: 0 0 0 3px var(--white), 0 0 0 5px var(--neutral-border) !important;
 }
