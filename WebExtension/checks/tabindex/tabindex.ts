@@ -236,41 +236,42 @@
     const containerDiv = getOrCreateContainer();
 
     // Check if containerDiv is null and return early if so
-  if (containerDiv === null) {
-    return;
-  }
+    if (containerDiv === null) {
+      return;
+    }
 
     const innerDiv = document.createElement("div");
-    innerDiv.className = "inner-container-9927845";
+    innerDiv.className = "inner-container-9927845 remove-inner-tabi-9927845";
 
     // Check if the container is minimized
-  if (containerDiv.dataset['isMinimized'] === "true") {
-    innerDiv.classList.add("hidden-feature-message-9927845");
-  }
+    if (containerDiv.dataset["isMinimized"] === "true") {
+      innerDiv.classList.add("hidden-feature-message-9927845");
+    }
 
     containerDiv.appendChild(innerDiv);
 
     // Use createCommonDetailsContainer from common.ts to create the common details structure
-  const checkDetails = createCommonDetailsContainer();
-  innerDiv.appendChild(checkDetails);
+    const checkDetails = createCommonDetailsContainer();
+    innerDiv.appendChild(checkDetails);
 
-  // Unique content for this instance
-  const importantNotePara: HTMLParagraphElement = document.createElement("p");
-  importantNotePara.className = "message-heading-9927845";
-  const strongImportantNote: HTMLElement = document.createElement("strong");
-  strongImportantNote.textContent = "Tabindex Summary";
-  importantNotePara.appendChild(strongImportantNote);
-  
-  // Append the unique content to the summary
-  const checkSummary = checkDetails.querySelector("summary");
-  if (checkSummary) {
-    checkSummary.appendChild(strongImportantNote);
-  }
+    // Unique content for this instance
+    const importantNotePara: HTMLParagraphElement = document.createElement("p");
+    importantNotePara.className = "message-heading-9927845";
+    const strongImportantNote: HTMLElement = document.createElement("strong");
+    strongImportantNote.textContent = "Tabindex Summary";
+    importantNotePara.appendChild(strongImportantNote);
 
-  // Additional unique content - directly under the summary
-  const messagePara = document.createElement("p");
-  messagePara.textContent = "The purpose of this check is to identify elements with a tabindex attribute that has a value of 0 or higher. The check highlights best practices in accessibility by flagging any misuse of tabindex, with warning messages against values greater than 0, which can be a barrier to accessibility. This check intentionally overlooks elements with a tabindex of -1, focusing instead on guiding developers towards enhancing web accessibility through the correct use of tabindex 0 or higher.";
-  checkDetails.appendChild(messagePara);
+    // Append the unique content to the summary
+    const checkSummary = checkDetails.querySelector("summary");
+    if (checkSummary) {
+      checkSummary.appendChild(strongImportantNote);
+    }
+
+    // Additional unique content - directly under the summary
+    const messagePara = document.createElement("p");
+    messagePara.textContent =
+      "The purpose of this check is to identify elements with a tabindex attribute that has a value of 0 or higher. The check highlights best practices in accessibility by flagging any misuse of tabindex, with warning messages against values greater than 0, which can be a barrier to accessibility. This check intentionally overlooks elements with a tabindex of -1, focusing instead on guiding developers towards enhancing web accessibility through the correct use of tabindex 0 or higher.";
+    checkDetails.appendChild(messagePara);
 
     // Adding "Findings" heading
     const findingsHeading = document.createElement("p");
@@ -303,15 +304,32 @@
     // Append the message about tabindex="0" usage to the findings list
     if (tabIndexZeroCount > 0) {
       const tabindexZeroLi = document.createElement("li");
-      tabindexZeroLi.textContent = `${tabIndexZeroCount} uses of tabindex="0" identified.`;
+      tabindexZeroLi.textContent = `${tabIndexZeroCount} valid uses of tabindex="0" identified.`;
       findingsUL.appendChild(tabindexZeroLi);
     }
 
     // Append the message about tabindex > 0 usage to the findings list, if applicable
     if (tabIndexAboveZeroCount > 0) {
       const tabindexAboveZeroLi = document.createElement("li");
-      tabindexAboveZeroLi.textContent = `${tabIndexAboveZeroCount} uses of tabindex greater than 0 identified.`;
+      tabindexAboveZeroLi.textContent = `${tabIndexAboveZeroCount} uses of tabindex greater than 0 identified, which can interfere with the natural tab order and accessibility.`;
       findingsUL.appendChild(tabindexAboveZeroLi);
+    }
+
+    let invalidTabIndexCount = 0;
+    document.querySelectorAll("[tabindex]").forEach((element) => {
+      const tabIndexValue = parseInt(
+        element.getAttribute("tabindex") || "0",
+        10
+      );
+      if (tabIndexValue < -1) {
+        invalidTabIndexCount++;
+      }
+    });
+
+    if (invalidTabIndexCount > 0) {
+      const invalidTabindexLi = document.createElement("li");
+      invalidTabindexLi.textContent = `${invalidTabIndexCount} invalid uses of tabindex identified. tabindex values should not be less than -1.`;
+      findingsUL.appendChild(invalidTabindexLi);
     }
 
     // Append the findings list to the container

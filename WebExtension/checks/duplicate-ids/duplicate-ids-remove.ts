@@ -10,7 +10,6 @@
 })();
 
 removeInjectedDivs([
-  "top-right-container-9927845",
   "remove-inner-di-9927845",
 ]);
 

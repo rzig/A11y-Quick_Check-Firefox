@@ -39,7 +39,7 @@ function createTopRightContainerAutocomplete(): void {
   }
 
   const innerDiv = document.createElement("div");
-  innerDiv.className = "inner-container-9927845";
+  innerDiv.className = "inner-container-9927845 remove-inner-atoc-9927845";
 
   // Check if the container is minimized
   if (containerDiv.dataset['isMinimized'] === "true") {
