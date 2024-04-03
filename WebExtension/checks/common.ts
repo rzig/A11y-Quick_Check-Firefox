@@ -467,26 +467,48 @@ function createCommonDetailsContainer(): HTMLDetailsElement {
   return details;
 }
 
+// function createMinMaxButton(containerDiv: HTMLDivElement): void {
+//   if (!containerDiv.querySelector(".minimize-button-9927845")) {
+//     const minMaxButton = document.createElement("button");
+//     minMaxButton.className = "minimize-button-9927845";
+//     minMaxButton.textContent = "Minimize";
+
+//     let isContentMinimized = false;
+
+//     minMaxButton.addEventListener("click", () => {
+//       isContentMinimized = !isContentMinimized;
+//       const innerDivs = containerDiv.querySelectorAll(
+//         ".inner-container-9927845"
+//       );
+//       innerDivs.forEach((innerDiv) => {
+//         innerDiv.classList.toggle(
+//           "hidden-feature-message-9927845",
+//           isContentMinimized
+//         );
+//       });
+//       minMaxButton.textContent = isContentMinimized ? "Maximize" : "Minimize";
+//     });
+
+//     containerDiv.appendChild(minMaxButton);
+//   }
+// }
+
 function createMinMaxButton(containerDiv: HTMLDivElement): void {
   if (!containerDiv.querySelector(".minimize-button-9927845")) {
     const minMaxButton = document.createElement("button");
     minMaxButton.className = "minimize-button-9927845";
     minMaxButton.textContent = "Minimize";
 
-    let isContentMinimized = false;
+    containerDiv.dataset['isMinimized'] = "false";// Initialize state
 
     minMaxButton.addEventListener("click", () => {
-      isContentMinimized = !isContentMinimized;
-      const innerDivs = containerDiv.querySelectorAll(
-        ".inner-container-9927845"
-      );
+      const isMinimized = containerDiv.dataset['isMinimized'] === "true";
+      containerDiv.dataset['isMinimized'] = isMinimized ? "false" : "true";
+      const innerDivs = containerDiv.querySelectorAll(".inner-container-9927845");
       innerDivs.forEach((innerDiv) => {
-        innerDiv.classList.toggle(
-          "hidden-feature-message-9927845",
-          isContentMinimized
-        );
+        innerDiv.classList.toggle("hidden-feature-message-9927845", !isMinimized);
       });
-      minMaxButton.textContent = isContentMinimized ? "Maximize" : "Minimize";
+      minMaxButton.textContent = isMinimized ? "Minimise" : "Maximise";
     });
 
     containerDiv.appendChild(minMaxButton);

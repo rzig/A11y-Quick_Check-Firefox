@@ -243,6 +243,11 @@
     const innerDiv = document.createElement("div");
     innerDiv.className = "inner-container-9927845";
 
+    // Check if the container is minimized
+  if (containerDiv.dataset['isMinimized'] === "true") {
+    innerDiv.classList.add("hidden-feature-message-9927845");
+  }
+
     containerDiv.appendChild(innerDiv);
 
     // Use createCommonDetailsContainer from common.ts to create the common details structure
