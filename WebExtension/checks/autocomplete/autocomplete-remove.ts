@@ -4,7 +4,7 @@ function removeAutocompleteMessages(): void {
   // Classes that are common to all elements with autocomplete functionality
   const commonAutocompleteClass: string = 'neutral-9927845';
   const commonAutocompleteMessageClass: string = 'neutral-message-9927845';
-  const divToRemove: string = 'top-right-container-9927845'; // New div class to remove
+  const divToRemove: string = 'remove-inner-atoc-9927845'; // New div class to remove
 
   // Remove messages and classes associated with autocomplete attributes
   const elementsWithAutocomplete: NodeListOf<HTMLElement> = document.querySelectorAll('[autocomplete]');
