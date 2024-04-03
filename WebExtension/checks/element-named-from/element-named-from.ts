@@ -160,8 +160,9 @@
     for (const node of nodes) {
       if (node instanceof HTMLElement && isElementVisible(node)) {
         let role = node.getAttribute('role'); // Check for a role attribute
-        let accessibleName = getAccessibleName(node);
-        let message = `Element <${node.nodeName.toLowerCase()}>${role ? ` with Role ${role}` : ''} gets name from ${accessibleName.method}.`;
+        let accessibleNameData = getAccessibleName(node);
+        // Update message to include accessibleName directly and use accessibleNameData.name to show the name
+        let message = `Element <${node.nodeName.toLowerCase()}>${role ? ` with Role ${role}` : ''} gets name '${accessibleNameData.name}' from ${accessibleNameData.method}.`;
         createExtendedChildMessageDiv(node, "neutral-message-9927845", message);
       }
     }
