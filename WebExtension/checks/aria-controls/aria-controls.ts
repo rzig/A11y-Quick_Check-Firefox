@@ -95,24 +95,38 @@ populateLinkObjects(); // Ensure the links are populated before use.
 function createTopRightContainerAriaControls(): void {
   const containerDiv = getOrCreateContainer();
 
+  // Check if containerDiv is null and return early if so
+  if (containerDiv === null) {
+    return;
+  }
+
   const innerDiv = document.createElement("div");
   innerDiv.className = "inner-container-9927845 remove-inner-ac-9927845";
 
   containerDiv.appendChild(innerDiv);
 
-  // Message Paragraph title - directly under the top-right-container
+  // Use createCommonDetailsContainer from common.ts to create the common details structure
+  const checkDetails = createCommonDetailsContainer();
+  innerDiv.appendChild(checkDetails);
+
+  // Unique content for this instance
   const importantNotePara: HTMLParagraphElement = document.createElement("p");
+  importantNotePara.className = "message-heading-9927845";
   const strongImportantNote: HTMLElement = document.createElement("strong");
   strongImportantNote.textContent = "Aria-Controls Summary";
-  importantNotePara.className = "message-heading-9927845";
   importantNotePara.appendChild(strongImportantNote);
-  innerDiv.appendChild(importantNotePara);
+  
+  // Append the unique content to the summary
+  const checkSummary = checkDetails.querySelector("summary");
+  if (checkSummary) {
+    checkSummary.appendChild(strongImportantNote);
+  }
 
-  // Message Paragraph - directly under title
+  // Additional unique content - directly under the summary
   const messagePara = document.createElement("p");
-  messagePara.textContent =
-    "The purpose of this check is to verify the correct application of the aria-controls attribute in web elements. It ensures elements using aria-controls properly reference other elements they intend to control, enhancing accessibility and user interaction. The check identifies these elements, confirms the existence of their referenced controls, and provides feedback to highlight correct connections or flag issues where the controlled element cannot be found. ";
-  innerDiv.appendChild(messagePara);
+  messagePara.textContent = "The purpose of this check is to verify the correct application of the aria-controls attribute in web elements. It ensures elements using aria-controls properly reference other elements they intend to control, enhancing accessibility and user interaction. The check identifies these elements, confirms the existence of their referenced controls, and provides feedback to highlight correct connections or flag issues where the controlled element cannot be found. ";
+  messagePara.className = "check-paragraph-9927845";
+  checkDetails.appendChild(messagePara);
 
   // Use createReferenceContainer to generate the reference section
   const referenceContainer = createReferenceContainer();

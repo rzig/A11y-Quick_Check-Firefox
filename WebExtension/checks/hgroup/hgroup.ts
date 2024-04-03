@@ -41,24 +41,37 @@ populateLinkObjects(); // Ensure the links are populated before use.
   function createTopRightContainerHgroup(): void {
     const containerDiv = getOrCreateContainer();
 
+    // Check if containerDiv is null and return early if so
+  if (containerDiv === null) {
+    return;
+  }
+
   const innerDiv = document.createElement("div");
   innerDiv.className = "inner-container-9927845 remove-inner-hg-9927845";
 
   containerDiv.appendChild(innerDiv);
 
-    // Message Paragraph title - directly under the top-right-container
-    const importantNotePara: HTMLParagraphElement = document.createElement("p");
-    const strongImportantNote: HTMLElement = document.createElement("strong");
-    strongImportantNote.textContent = "The hgroup element Summary";
-    importantNotePara.className = "message-heading-9927845";
-    importantNotePara.appendChild(strongImportantNote);
-    innerDiv.appendChild(importantNotePara);
+    // Use createCommonDetailsContainer from common.ts to create the common details structure
+  const checkDetails = createCommonDetailsContainer();
+  innerDiv.appendChild(checkDetails);
 
-    // Message Paragraph - directly under title
-    const messagePara = document.createElement("p");
-    messagePara.textContent =
-      "The purpose of this functionality is to evaluate <hgroup> elements. It advises on enhancing <hgroup> accessibility by suggesting ARIA roles and attributes that can be used to provide support and confirms correct implementations. Additionally, it identifies <hgroup> elements missing heading elements, prompting for corrective actions to improve web content structure and accessibility.";
-    innerDiv.appendChild(messagePara);
+  // Unique content for this instance
+  const importantNotePara: HTMLParagraphElement = document.createElement("p");
+  importantNotePara.className = "message-heading-9927845";
+  const strongImportantNote: HTMLElement = document.createElement("strong");
+  strongImportantNote.textContent = "The hgroup element Summary";
+  importantNotePara.appendChild(strongImportantNote);
+  
+  // Append the unique content to the summary
+  const checkSummary = checkDetails.querySelector("summary");
+  if (checkSummary) {
+    checkSummary.appendChild(strongImportantNote);
+  }
+
+  // Additional unique content - directly under the summary
+  const messagePara = document.createElement("p");
+  messagePara.textContent = "The purpose of this functionality is to evaluate <hgroup> elements. It advises on enhancing <hgroup> accessibility by suggesting ARIA roles and attributes that can be used to provide support and confirms correct implementations. Additionally, it identifies <hgroup> elements missing heading elements, prompting for corrective actions to improve web content structure and accessibility.";
+  checkDetails.appendChild(messagePara);
 
     // Add the original paragraph as a heading for the list
 const summaryHeadingPara = document.createElement("p");

@@ -33,24 +33,37 @@ populateLinkObjects(); // Ensure the links are populated before use.
 function createTopRightContainerAutocomplete(): void {
   const containerDiv = getOrCreateContainer();
 
+  // Check if containerDiv is null and return early if so
+  if (containerDiv === null) {
+    return;
+  }
+
   const innerDiv = document.createElement("div");
   innerDiv.className = "inner-container-9927845";
 
   containerDiv.appendChild(innerDiv);
 
-  // Message Paragraph title - directly under the top-right-container
-  const importantNotePara: HTMLParagraphElement = document.createElement("p");
-  const strongImportantNote: HTMLElement = document.createElement("strong");
-  strongImportantNote.textContent = "Autocomplete Summary:";
-  importantNotePara.className = "message-heading-9927845";
-  importantNotePara.appendChild(strongImportantNote);
-  innerDiv.appendChild(importantNotePara);
+  // Use createCommonDetailsContainer from common.ts to create the common details structure
+  const checkDetails = createCommonDetailsContainer();
+  innerDiv.appendChild(checkDetails);
 
-  // Message Paragraph - directly under title
+  // Unique content for this instance
+  const importantNotePara: HTMLParagraphElement = document.createElement("p");
+  importantNotePara.className = "message-heading-9927845";
+  const strongImportantNote: HTMLElement = document.createElement("strong");
+  strongImportantNote.textContent = "Autocomplete Summary";
+  importantNotePara.appendChild(strongImportantNote);
+  
+  // Append the unique content to the summary
+  const checkSummary = checkDetails.querySelector("summary");
+  if (checkSummary) {
+    checkSummary.appendChild(strongImportantNote);
+  }
+
+  // Additional unique content - directly under the summary
   const messagePara = document.createElement("p");
-  messagePara.textContent =
-    "The purpose of this check is to identify web elements that utilise the HTML autocomplete attribute, displaying their assigned values for visual inspection. This procedure ensures that the supplied values align with the WCAG 1.3.5 Identify Input Purpose (Level AA) criteria, requiring manual confirmation to ascertain that the autocomplete attribute's value meets the correct input specifications.";
-  innerDiv.appendChild(messagePara);
+  messagePara.textContent = "The purpose of this check is to identify web elements that utilise the HTML autocomplete attribute, displaying their assigned values for visual inspection. This procedure ensures that the supplied values align with the WCAG 1.3.5 Identify Input Purpose (Level AA) criteria, requiring manual confirmation to ascertain that the autocomplete attribute's value meets the correct input specifications.";
+  checkDetails.appendChild(messagePara);
 
   // Use createReferenceContainer to generate the reference section
   const referenceContainer = createReferenceContainer();

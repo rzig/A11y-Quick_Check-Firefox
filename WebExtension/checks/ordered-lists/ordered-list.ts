@@ -1,7 +1,9 @@
 "use strict";
 
 function checkOrderedLists(): void {
-  const olElements = document.querySelectorAll("ol:not(.top-right-container-9927845 ol, .inner-container-9927845 ol)");
+  const olElements = document.querySelectorAll(
+    "ol:not(.top-right-container-9927845 ol, .inner-container-9927845 ol)"
+  );
 
   for (const olElement of olElements) {
     // Reset state for each OL element
@@ -82,24 +84,35 @@ populateLinkObjects(); // Ensure the links are populated before use.
 function createTopRightContainerOrderedList(): void {
   const containerDiv = getOrCreateContainer();
 
+  if (containerDiv === null) {
+    return;
+  }
+
   const innerDiv = document.createElement("div");
   innerDiv.className = "inner-container-9927845 remove-inner-ol-9927845";
- 
+
   containerDiv.appendChild(innerDiv);
 
-  // Message Paragraph title - directly under the top-right-container
+  const checkDetails = createCommonDetailsContainer();
+  innerDiv.appendChild(checkDetails);
+
   const importantNotePara: HTMLParagraphElement = document.createElement("p");
+  importantNotePara.className = "message-heading-9927845";
   const strongImportantNote: HTMLElement = document.createElement("strong");
   strongImportantNote.textContent = "Ordered Lists Summary";
-  importantNotePara.className = "message-heading-9927845";
   importantNotePara.appendChild(strongImportantNote);
-  innerDiv.appendChild(importantNotePara);
 
-  // Message Paragraph - directly under title
+  // Append the unique content to the summary
+  const checkSummary = checkDetails.querySelector("summary");
+  if (checkSummary) {
+    checkSummary.appendChild(strongImportantNote);
+  }
+
+  // Additional unique content - directly under the summary
   const messagePara = document.createElement("p");
   messagePara.textContent =
     "The purpose of this check is to ensure that ordered lists (<ol>) in HTML are used correctly and structured properly. It validates the presence and usage of appropriate child elements. If issues are found, it flags the lists as invalid and provides feedback. Valid lists are confirmed as correctly implemented.";
-  innerDiv.appendChild(messagePara);
+  checkDetails.appendChild(messagePara);
 
   // Use createReferenceContainer to generate the reference section
   const referenceContainer = createReferenceContainer();

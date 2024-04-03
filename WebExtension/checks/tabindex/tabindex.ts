@@ -235,22 +235,37 @@
   function createTopRightContainer(): void {
     const containerDiv = getOrCreateContainer();
 
+    // Check if containerDiv is null and return early if so
+  if (containerDiv === null) {
+    return;
+  }
+
     const innerDiv = document.createElement("div");
     innerDiv.className = "inner-container-9927845";
 
     containerDiv.appendChild(innerDiv);
 
-    const importantNotePara = document.createElement("p");
-    const strongImportantNote = document.createElement("strong");
-    strongImportantNote.textContent = "Tabindex Summary:";
-    importantNotePara.className = "message-heading-9927845";
-    importantNotePara.appendChild(strongImportantNote);
-    innerDiv.appendChild(importantNotePara);
+    // Use createCommonDetailsContainer from common.ts to create the common details structure
+  const checkDetails = createCommonDetailsContainer();
+  innerDiv.appendChild(checkDetails);
 
-    const messagePara = document.createElement("p");
-    messagePara.textContent =
-      "The purpose of this check is to identify elements with a tabindex attribute that has a value of 0 or higher. The check highlights best practices in accessibility by flagging any misuse of tabindex, with warning messages against values greater than 0, which can be a barrier to accessibility. This check intentionally overlooks elements with a tabindex of -1, focusing instead on guiding developers towards enhancing web accessibility through the correct use of tabindex 0 or higher.";
-    innerDiv.appendChild(messagePara);
+  // Unique content for this instance
+  const importantNotePara: HTMLParagraphElement = document.createElement("p");
+  importantNotePara.className = "message-heading-9927845";
+  const strongImportantNote: HTMLElement = document.createElement("strong");
+  strongImportantNote.textContent = "Tabindex Summary";
+  importantNotePara.appendChild(strongImportantNote);
+  
+  // Append the unique content to the summary
+  const checkSummary = checkDetails.querySelector("summary");
+  if (checkSummary) {
+    checkSummary.appendChild(strongImportantNote);
+  }
+
+  // Additional unique content - directly under the summary
+  const messagePara = document.createElement("p");
+  messagePara.textContent = "The purpose of this check is to identify elements with a tabindex attribute that has a value of 0 or higher. The check highlights best practices in accessibility by flagging any misuse of tabindex, with warning messages against values greater than 0, which can be a barrier to accessibility. This check intentionally overlooks elements with a tabindex of -1, focusing instead on guiding developers towards enhancing web accessibility through the correct use of tabindex 0 or higher.";
+  checkDetails.appendChild(messagePara);
 
     // Adding "Findings" heading
     const findingsHeading = document.createElement("p");

@@ -160,6 +160,42 @@
     padding: 0 1em !important;
     margin: 1em !important;
   }
+
+  .check-summary-9927845 {
+    font-size: 1.2rem !important;
+    color: var(--neutral-text) !important;
+    padding: 0.5em !important;
+    margin-top:2em !important;
+    outline: none !important;
+    background-color: var(--neutral-background)!important;
+    transition: background-color 0.3s!important;
+    //width: 450px !important;
+  }
+
+  .check-details-9927845 {
+    border-radius: 5px !important;
+    margin-top:1em !important;
+    color: var(--neutral-text) !important;
+    width: 450px !important;
+  }
+
+  .check-paragraph-9927845 {
+    line-height: 1.5 !important;
+  }
+
+  .check-check-9927845:hover {
+    background-color: var(--warning-border)!important;
+  }
+  
+  .check-summary-9927845:focus {
+    outline: none!important;
+  }
+  
+  .check-summary-9927845:focus-visible {
+    outline: none!important;
+    box-shadow: 0 0 0 3px var(--white), 0 0 0 5px var(--warning-border)!important;
+  }
+
   p {
     font-size: 1rem !important;
     line-height: 1.5 !important;
@@ -173,13 +209,16 @@
   p.list-heading-9927845 {
     font-size: 1.2rem !important;
     line-height: 1.5 !important;
-    margin-top: 1.2em !important;
+    margin-top:1em !important;
+    margin-bottom:0.5em !important;
   }
-  p.findings-heading-9927845{
+  
+  p.findings-heading-9927845 {
     font-size: 1.2rem !important;
     line-height: 1.5 !important;
     margin-top: 1.2em !important;
   }
+  
 }
 
 .hyperlinked-text-9927845 {
@@ -195,11 +234,11 @@
 }
 
 .reference-container-9927845 {
-  margin-top:1em !important;
   margin-bottom:0.8em !important;
 
   .reference-9927845 {
     font-size: 1.2rem !important;
+    margin-bottom: 0.5em !important;
   }
 
   ul.reference-list-9927845 li a {
@@ -217,6 +256,7 @@ ul.reference-list-9927845 {
   font-size: 1rem !important;
   line-height: 1.5 !important;
   margin-top: 0.5em !important;
+  margin-left: 1em !important;
   list-style: disc !important;
 
     li {
@@ -231,6 +271,11 @@ ul.findings-list-9927845 {
   margin-top: 0.5em !important;
   margin-left: 1em !important;
   list-style: disc !important;
+
+   li {
+    padding: 0 !important;
+    padding-bottom: 0.5em !important;
+   }
 }
 
 .dismiss-button-9927845,

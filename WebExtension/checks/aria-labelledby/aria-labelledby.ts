@@ -239,24 +239,37 @@ populateLinkObjects(); // Ensure the links are populated before use.
 function createTopRightContainerAriaLabelledby(): void {
   const containerDiv = getOrCreateContainer();
 
+  // Check if containerDiv is null and return early if so
+  if (containerDiv === null) {
+    return;
+  }
+
   const innerDiv = document.createElement("div");
   innerDiv.className = "inner-container-9927845 remove-inner-alb-9927845";
 
   containerDiv.appendChild(innerDiv);
 
-  // Message Paragraph title - directly under the top-right-container
+  // Use createCommonDetailsContainer from common.ts to create the common details structure
+  const checkDetails = createCommonDetailsContainer();
+  innerDiv.appendChild(checkDetails);
+
+  // Unique content for this instance
   const importantNotePara: HTMLParagraphElement = document.createElement("p");
+  importantNotePara.className = "message-heading-9927845";
   const strongImportantNote: HTMLElement = document.createElement("strong");
   strongImportantNote.textContent = "Aria-Labelledby Summary";
-  importantNotePara.className = "message-heading-9927845";
   importantNotePara.appendChild(strongImportantNote);
-  innerDiv.appendChild(importantNotePara);
+  
+  // Append the unique content to the summary
+  const checkSummary = checkDetails.querySelector("summary");
+  if (checkSummary) {
+    checkSummary.appendChild(strongImportantNote);
+  }
 
-  // Message Paragraph - directly under title
+  // Additional unique content - directly under the summary
   const messagePara = document.createElement("p");
-  messagePara.textContent =
-    "The purpose of this check is to analyse the use of the aria-labelledby attribute within HTML elements, distinguishing between valid and invalid implementations. It looks at each element that includes aria-labelledby, checking for its connection to labelled elements. ";
-  innerDiv.appendChild(messagePara);
+  messagePara.textContent = "The purpose of this check is to analyse the use of the aria-labelledby attribute within HTML elements, distinguishing between valid and invalid implementations. It looks at each element that includes aria-labelledby, checking for its connection to labelled elements.";
+  checkDetails.appendChild(messagePara);
 
   // Use createReferenceContainer to generate the reference section
   const referenceContainer = createReferenceContainer();

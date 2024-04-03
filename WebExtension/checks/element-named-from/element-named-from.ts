@@ -278,24 +278,37 @@ populateLinkObjects(); // Ensure the links are populated before use.
 function createTopRightContainer(): void {
   const containerDiv = getOrCreateContainer();
 
+  // Check if containerDiv is null and return early if so
+  if (containerDiv === null) {
+    return;
+  }
+
   const innerDiv = document.createElement("div");
   innerDiv.className = "inner-container-9927845 remove-inner-dnf-9927845";
 
   containerDiv.appendChild(innerDiv);
 
-  //Title - directly under the top-right-container
+  // Use createCommonDetailsContainer from common.ts to create the common details structure
+  const checkDetails = createCommonDetailsContainer();
+  innerDiv.appendChild(checkDetails);
+
+  // Unique content for this instance
   const importantNotePara: HTMLParagraphElement = document.createElement("p");
+  importantNotePara.className = "message-heading-9927845";
   const strongImportantNote: HTMLElement = document.createElement("strong");
   strongImportantNote.textContent = "Accessible Name and Description Summary";
-  importantNotePara.className = "message-heading-9927845";
   importantNotePara.appendChild(strongImportantNote);
-  innerDiv.appendChild(importantNotePara);
+  
+  // Append the unique content to the summary
+  const checkSummary = checkDetails.querySelector("summary");
+  if (checkSummary) {
+    checkSummary.appendChild(strongImportantNote);
+  }
 
-  // Message Paragraph - directly under the title
+  // Additional unique content - directly under the summary
   const messagePara = document.createElement("p");
-  messagePara.textContent =
-    "This is an updated check that identifies the accessible (programmatic) name of elements. It is useful to identify how the element is named, especially when it has multiple naming techniques.";
-  innerDiv.appendChild(messagePara);
+  messagePara.textContent = "This is an updated check that identifies the accessible (programmatic) name of elements. It is useful to identify how the element is named, especially when it has multiple naming techniques.";
+  checkDetails.appendChild(messagePara);
 
   // Use createReferenceContainer to generate the reference section
   const referenceContainer = createReferenceContainer();

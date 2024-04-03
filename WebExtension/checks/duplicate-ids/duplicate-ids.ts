@@ -108,24 +108,37 @@ populateLinkObjects(); // Ensure the links are populated before use.
 function createTopRightContainerDuplicateID(): void {
   const containerDiv = getOrCreateContainer();
 
+  // Check if containerDiv is null and return early if so
+  if (containerDiv === null) {
+    return;
+  }
+
   const innerDiv = document.createElement("div");
   innerDiv.className = "inner-container-9927845 remove-inner-di-9927845";
 
   containerDiv.appendChild(innerDiv);
 
-  // Message Paragraph title - directly under the top-right-container
+  // Use createCommonDetailsContainer from common.ts to create the common details structure
+  const checkDetails = createCommonDetailsContainer();
+  innerDiv.appendChild(checkDetails);
+
+  // Unique content for this instance
   const importantNotePara: HTMLParagraphElement = document.createElement("p");
+  importantNotePara.className = "message-heading-9927845";
   const strongImportantNote: HTMLElement = document.createElement("strong");
   strongImportantNote.textContent = "Duplicate IDs Summary";
-  importantNotePara.className = "message-heading-9927845";
   importantNotePara.appendChild(strongImportantNote);
-  innerDiv.appendChild(importantNotePara);
+  
+  // Append the unique content to the summary
+  const checkSummary = checkDetails.querySelector("summary");
+  if (checkSummary) {
+    checkSummary.appendChild(strongImportantNote);
+  }
 
-  // Message Paragraph - directly under title
+  // Additional unique content - directly under the summary
   const messagePara = document.createElement("p");
-  messagePara.textContent =
-    "The purpose of this check is to scan for duplicate IDs with ARIA attributes and label[for] references. It identifies elements with duplicate IDs, examining their references through attributes like aria-labelledby, ensuring each ID relationship is unique and correctly referenced.";
-  innerDiv.appendChild(messagePara);
+  messagePara.textContent = "The purpose of this check is to scan for duplicate IDs with ARIA attributes and label[for] references. It identifies elements with duplicate IDs, examining their references through attributes like aria-labelledby, ensuring each ID relationship is unique and correctly referenced.";
+  checkDetails.appendChild(messagePara);
 
   // Use createReferenceContainer to generate the reference section
   const referenceContainer = createReferenceContainer();

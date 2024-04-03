@@ -285,27 +285,40 @@ function injectButton() {
 
 populateLinkObjects(); // Ensure the links are populated before use.
 
-function createTopRightContainerOrderedList(): void {
+function createTopRightContainerTargetSize(): void {
   const containerDiv = getOrCreateContainer();
+
+  // Check if containerDiv is null and return early if so
+  if (containerDiv === null) {
+    return;
+  }
 
   const innerDiv = document.createElement("div");
   innerDiv.className = "inner-container-9927845 remove-inner-ts-9927845";
  
   containerDiv.appendChild(innerDiv);
 
-  // Message Paragraph title - directly under the top-right-container
+  // Use createCommonDetailsContainer from common.ts to create the common details structure
+  const checkDetails = createCommonDetailsContainer();
+  innerDiv.appendChild(checkDetails);
+
+  // Unique content for this instance
   const importantNotePara: HTMLParagraphElement = document.createElement("p");
+  importantNotePara.className = "message-heading-9927845";
   const strongImportantNote: HTMLElement = document.createElement("strong");
   strongImportantNote.textContent = "Target size Summary";
-  importantNotePara.className = "message-heading-9927845";
   importantNotePara.appendChild(strongImportantNote);
-  innerDiv.appendChild(importantNotePara);
+  
+  // Append the unique content to the summary
+  const checkSummary = checkDetails.querySelector("summary");
+  if (checkSummary) {
+    checkSummary.appendChild(strongImportantNote);
+  }
 
-  // Message Paragraph - directly under title
+  // Additional unique content - directly under the summary
   const messagePara = document.createElement("p");
-  messagePara.textContent =
-    "The purpose of this check is to ensure web elements conform to the ARIA 2.2 target size success criteria. It evaluates elements like buttons, links, and form controls, verifying that they meet the minimum target size requirements. This includes notifications when the Spacing exceeption applies. Lists are indicated as requiring manual testing verification if the Inline exception.";
-  innerDiv.appendChild(messagePara);
+  messagePara.textContent = "The purpose of this check is to ensure web elements conform to the ARIA 2.2 target size success criteria. It evaluates elements like buttons, links, and form controls, verifying that they meet the minimum target size requirements. This includes notifications when the Spacing exceeption applies. Lists are indicated as requiring manual testing verification if the Inline exception.";
+  checkDetails.appendChild(messagePara);
 
   // Use createReferenceContainer to generate the reference section
   const referenceContainer = createReferenceContainer();
@@ -346,4 +359,4 @@ function createTopRightContainerOrderedList(): void {
   document.body.appendChild(containerDiv);
 }
 
-createTopRightContainerOrderedList();
+createTopRightContainerTargetSize();

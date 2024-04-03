@@ -1,16 +1,5 @@
 "use strict";
 
-function isNodeInExcludedContainer(node: Node): boolean {
-  let ancestor = node.parentElement;
-  while (ancestor) {
-    if (ancestor.classList.contains('top-right-container-9927845') || ancestor.classList.contains('inner-container-9927845')) {
-      return true; // Node is inside an excluded container
-    }
-    ancestor = ancestor.parentElement;
-  }
-  return false; // Node is not inside an excluded container
-}
-
 function checkTextNodesForHeadings(): void {
   const walk = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
   const bodyStyle = window.getComputedStyle(document.body);
@@ -31,10 +20,6 @@ function checkTextNodesForHeadings(): void {
     }
 
     const nodeText = node.nodeValue ? node.nodeValue.trim() : "";
-    // Commented out sections for specific character count logic
-    // if (nodeText.length > 65) {
-    //     continue; // Skip nodes where text exceeds 65 characters
-    // }
     const charCountMessage = `Character count (including spaces) is ${nodeText.length}.`;
 
     const style = window.getComputedStyle(parent);
@@ -101,24 +86,37 @@ populateLinkObjects(); // Ensure the links are populated before use.
 function createTopRightContainerNotHeading(): void {
   const containerDiv = getOrCreateContainer();
 
+  // Check if containerDiv is null and return early if so
+  if (containerDiv === null) {
+    return;
+  }
+
   const innerDiv = document.createElement("div");
   innerDiv.className = "inner-container-9927845 remove-inner-hnc-9927845";
 
   containerDiv.appendChild(innerDiv);
 
-  // Message Paragraph title - directly under the top-right-container
+  // Use createCommonDetailsContainer from common.ts to create the common details structure
+  const checkDetails = createCommonDetailsContainer();
+  innerDiv.appendChild(checkDetails);
+
+  // Unique content for this instance
   const importantNotePara: HTMLParagraphElement = document.createElement("p");
+  importantNotePara.className = "message-heading-9927845";
   const strongImportantNote: HTMLElement = document.createElement("strong");
   strongImportantNote.textContent = "Headings (not marked up) Summary";
-  importantNotePara.className = "message-heading-9927845";
   importantNotePara.appendChild(strongImportantNote);
-  innerDiv.appendChild(importantNotePara);
+  
+  // Append the unique content to the summary
+  const checkSummary = checkDetails.querySelector("summary");
+  if (checkSummary) {
+    checkSummary.appendChild(strongImportantNote);
+  }
 
-  // Message Paragraph - directly under title
+  // Additional unique content - directly under the summary
   const messagePara = document.createElement("p");
-  messagePara.textContent =
-    "The purpose of this check is to identify text that visually resembles headings but lacks the proper semantic markup. It assesses text based on font size and weight, flags potential headings for review, and encourages the use of semantic heading tags";
-  innerDiv.appendChild(messagePara);
+  messagePara.textContent = "The purpose of this check is to identify text that visually resembles headings but lacks the proper semantic markup. It assesses text based on font size and weight, flags potential headings for review, and encourages the use of semantic heading tags.";
+  checkDetails.appendChild(messagePara);
 
   // Use createReferenceContainer to generate the reference section
   const referenceContainer = createReferenceContainer();

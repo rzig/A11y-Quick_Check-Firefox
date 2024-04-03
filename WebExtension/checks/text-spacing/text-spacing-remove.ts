@@ -10,3 +10,7 @@ function dataNameProhibited() {
 }
 
 dataNameProhibited()
+
+removeInjectedDivs([
+  "remove-inner-tspacing-9927845"
+]);

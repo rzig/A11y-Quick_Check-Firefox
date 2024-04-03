@@ -51,9 +51,9 @@ function addLandmarkMessages(): void {
   function checkConflictingRoles(element: HTMLElement): void {
     const ariaRole = element.getAttribute("role");
     // Add a condition to allow 'search' role on 'form' elements without flagging as invalid
-    if (ariaRole === 'search' && element.tagName.toLowerCase() === 'form') {
-        // If the element is a form with a 'search' role, exit the function early to avoid flagging as invalid
-        return;
+    if (ariaRole === "search" && element.tagName.toLowerCase() === "form") {
+      // If the element is a form with a 'search' role, exit the function early to avoid flagging as invalid
+      return;
     }
 
     if (ariaRole) {
@@ -64,36 +64,44 @@ function addLandmarkMessages(): void {
         element.classList.add("invalid-9927845");
       }
     }
-}
+  }
 
   function checkMainElements(): void {
     // Select all main elements and elements with role="main"
-    const mainElements = Array.from(document.querySelectorAll('main, [role="main"]'));
+    const mainElements = Array.from(
+      document.querySelectorAll('main, [role="main"]')
+    );
 
     // Distinguish between <main> elements and elements with role="main"
-    const mainTags = mainElements.filter(element => element.tagName.toLowerCase() === 'main');
-    const roleMains = mainElements.filter(element => element.getAttribute('role') === 'main' && element.tagName.toLowerCase() !== 'main');
+    const mainTags = mainElements.filter(
+      (element) => element.tagName.toLowerCase() === "main"
+    );
+    const roleMains = mainElements.filter(
+      (element) =>
+        element.getAttribute("role") === "main" &&
+        element.tagName.toLowerCase() !== "main"
+    );
 
     // Count distinct main regions
     let distinctMainRegions = new Set([...mainTags, ...roleMains]).size;
 
     // Adjust for cases where <main> has a role="main"
-    if (mainTags.some(tag => tag.getAttribute('role') === 'main')) {
-        // This will prevent counting <main role="main"> as two separate regions
-        distinctMainRegions = Math.max(mainTags.length, roleMains.length);
+    if (mainTags.some((tag) => tag.getAttribute("role") === "main")) {
+      // This will prevent counting <main role="main"> as two separate regions
+      distinctMainRegions = Math.max(mainTags.length, roleMains.length);
     }
 
     // If more than one distinct main region, mark each as invalid
     if (distinctMainRegions > 1) {
-        mainElements.forEach(element => {
-            if (element instanceof HTMLElement && !isHidden(element)) {
-                const message = "Invalid: Only one main role per document.";
-                addMessageToPrecedingDiv(element, "invalid-message-9927845", message);
-                element.classList.add("invalid-9927845");
-            }
-        });
+      mainElements.forEach((element) => {
+        if (element instanceof HTMLElement && !isHidden(element)) {
+          const message = "Invalid: Only one main role per document.";
+          addMessageToPrecedingDiv(element, "invalid-message-9927845", message);
+          element.classList.add("invalid-9927845");
+        }
+      });
     }
-}
+  }
 
   htmlLandmarks.forEach((landmark) => {
     document.querySelectorAll(landmark).forEach((element) => {
@@ -150,9 +158,7 @@ function addLandmarkMessages(): void {
         // }
 
         if (
-          ["article", "section", "header"].includes(
-            landmark
-          ) &&
+          ["article", "section", "header"].includes(landmark) &&
           !hasHeadingChild(element) &&
           !isInNavigationLandmark
         ) {
@@ -205,24 +211,38 @@ populateLinkObjects(); // Ensure the links are populated before use.
 function createTopRightContainerLandmarks(): void {
   const containerDiv = getOrCreateContainer();
 
+  // Check if containerDiv is null and return early if so
+  if (containerDiv === null) {
+    return;
+  }
+
   const innerDiv = document.createElement("div");
   innerDiv.className = "inner-container-9927845 remove-inner-lm-9927845";
- 
+
   containerDiv.appendChild(innerDiv);
 
-  // Message Paragraph title - directly under the top-right-container
+  // Use createCommonDetailsContainer from common.ts to create the common details structure
+  const checkDetails = createCommonDetailsContainer();
+  innerDiv.appendChild(checkDetails);
+
+  // Unique content for this instance
   const importantNotePara: HTMLParagraphElement = document.createElement("p");
+  importantNotePara.className = "message-heading-9927845";
   const strongImportantNote: HTMLElement = document.createElement("strong");
   strongImportantNote.textContent = "Landmarks Summary";
-  importantNotePara.className = "message-heading-9927845";
   importantNotePara.appendChild(strongImportantNote);
-  innerDiv.appendChild(importantNotePara);
 
-  // Message Paragraph - directly under title
+  // Append the unique content to the summary
+  const checkSummary = checkDetails.querySelector("summary");
+  if (checkSummary) {
+    checkSummary.appendChild(strongImportantNote);
+  }
+
+  // Additional unique content - directly under the summary
   const messagePara = document.createElement("p");
   messagePara.textContent =
     "The purpose of this check is to verify the proper use of HTML landmarks and ARIA landmark roles. It checks for accessible naming, role conflicts, and correct landmark nesting.";
-  innerDiv.appendChild(messagePara);
+  checkDetails.appendChild(messagePara);
 
   // Use createReferenceContainer to generate the reference section
   const referenceContainer = createReferenceContainer();

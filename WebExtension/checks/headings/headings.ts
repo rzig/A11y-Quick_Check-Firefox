@@ -53,6 +53,12 @@ function wrapAllHeadingsWithSpan(): void {
   );
 
   headings.forEach((heading: Element) => {
+
+    // Check if the heading is within an excluded container
+    if (isNodeInExcludedContainer(heading)) {
+      return; // Skip this heading
+    }
+
     const span = document.createElement("span");
     span.className = "headingWrapper-8878";
 
@@ -198,23 +204,38 @@ populateLinkObjects(); // Ensure the links are populated before use.
 function createTopRightContainerHeadings(): void {
   const containerDiv = getOrCreateContainer();
 
+  // Check if containerDiv is null and return early if so
+  if (containerDiv === null) {
+    return;
+  }
+
   const innerDiv = document.createElement("div");
   innerDiv.className = "inner-container-9927845 remove-inner-heading-9927845";
 
   containerDiv.appendChild(innerDiv);
 
+  // Use createCommonDetailsContainer from common.ts to create the common details structure
+  const checkDetails = createCommonDetailsContainer();
+  innerDiv.appendChild(checkDetails);
+
+  // Unique content for this instance
   const importantNotePara: HTMLParagraphElement = document.createElement("p");
+  importantNotePara.className = "message-heading-9927845";
   const strongImportantNote: HTMLElement = document.createElement("strong");
   strongImportantNote.textContent = "Headings Summary";
-  importantNotePara.className = "message-heading-9927845";
   importantNotePara.appendChild(strongImportantNote);
-  innerDiv.appendChild(importantNotePara);
+  
+  // Append the unique content to the summary
+  const checkSummary = checkDetails.querySelector("summary");
+  if (checkSummary) {
+    checkSummary.appendChild(strongImportantNote);
+  }
 
-  // Message Paragraph - directly under the title
+  // Additional unique content - directly under the summary
   const messagePara = document.createElement("p");
-  messagePara.textContent =
-    "The purpose of this check is to analyze and highlight the structure of HTML headings. It identifies heading levels, including any that are skipped, which could impact navigability and accessibility. Additionally, it examines both HTML and ARIA-marked headings to ensure they conform to best practices.";
-  innerDiv.appendChild(messagePara);
+  messagePara.textContent = "The purpose of this check is to analyze and highlight the structure of HTML headings. It identifies heading levels, including any that are skipped, which could impact navigability and accessibility. Additionally, it examines both HTML and ARIA-marked headings to ensure they conform to best practices.";
+  messagePara.className = "check-paragraph-9927845";
+  checkDetails.appendChild(messagePara);
 
   // Add paragraph as a heading for the list
   const summaryHeadingPara = document.createElement("p");
