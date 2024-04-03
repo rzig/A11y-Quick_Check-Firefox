@@ -209,7 +209,14 @@
           messageClass = "valid-9927845";
           extraClasses = ["valid-message-9927845"];
         } else {
-          messageText = `Warning: tabindex ${tabIndexValue} used on element ${tagName} with role '${roleName}' and without a valid name.`;
+          // Modify this section to change the message
+          if (roleName === "without a valid role") {
+            // Simplified message when there is no valid role
+            messageText = `Warning: tabindex ${tabIndexValue} used on element ${tagName} without a valid role and without a valid name.`;
+          } else {
+            // Original message construction for other scenarios
+            messageText = `Warning: tabindex ${tabIndexValue} used on element ${tagName} with role '${roleName}' and without a valid name.`;
+          }
           messageClass = "warning-9927845";
           extraClasses = ["warning-message-9927845"];
         }
