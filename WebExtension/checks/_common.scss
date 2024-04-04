@@ -164,19 +164,21 @@
   .check-summary-9927845 {
     font-size: 1.2rem !important;
     color: var(--neutral-text) !important;
+    cursor:pointer;
     padding: 0.5em !important;
-    margin-top:2em !important;
+    margin-top:0 !important;
     outline: none !important;
     background-color: var(--neutral-background)!important;
     transition: background-color 0.3s!important;
-    //width: 450px !important;
   }
 
   .check-details-9927845 {
     border-radius: 5px !important;
     margin-top:1em !important;
     color: var(--neutral-text) !important;
-    width: 450px !important;
+    width: auto!important;
+    display:flex !important;
+    flex-wrap: wrap !important;
   }
 
   .check-paragraph-9927845 {
@@ -198,7 +200,6 @@
 
   p {
     font-size: 1rem !important;
-    line-height: 1.5 !important;
     margin-top: 0 !important;
   }
   p.message-heading-9927845 {
@@ -256,12 +257,10 @@ ul.reference-list-9927845 {
   font-size: 1rem !important;
   line-height: 1.5 !important;
   margin-top: 0.5em !important;
-  //margin-left: 1em !important;
   list-style: disc !important;
 
     li {
       margin:0.3em !important;
-      //margin-left: 1em !important;
     }
 }
 
@@ -269,7 +268,6 @@ ul.findings-list-9927845 {
   font-size: 1rem !important;
   line-height: 1.5 !important;
   margin-top: 0.5em !important;
-  //margin-left: 1em !important;
   list-style: disc !important;
 
    li {
