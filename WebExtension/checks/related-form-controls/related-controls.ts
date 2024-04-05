@@ -184,7 +184,7 @@ function createTopRightContainerRelatedControls(): void {
   const manualTestingPara: HTMLParagraphElement = document.createElement("p");
   manualTestingPara.className = "message-heading-9927845";
   const manualTestingParaHeadingStrong: HTMLElement = document.createElement("strong");
-  manualTestingParaHeadingStrong.textContent = "How to manually test (Coming!)";
+  manualTestingParaHeadingStrong.textContent = "How to manually test ( is coming! )";
   manualTestingPara.appendChild(manualTestingParaHeadingStrong);
   
   // Append the unique content to the manual testing summary
