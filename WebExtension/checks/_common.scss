@@ -242,12 +242,42 @@
   );
 }
 
+.check-details-9927845:first-of-type {
+  @include important-styles(
+    (
+      margin-top: 2em,
+    ),
+    true
+  );
+}
+
+.check-details-9927845 p {
+  @include important-styles(
+    (
+      font-size: 1rem,
+      margin: 0 1.8em,
+    ),
+    true
+  );
+}
+
 .check-paragraph-9927845 {
   @include important-styles(
     (
-      line-height: 1.5,
-      padding: 0 1em 1em 1.8em,
       border-bottom: 2px solid var(--neutral-border),
+      padding-bottom: 1em,
+      line-height: 1.5,
+    ),
+    true
+  );
+}
+
+.check-details-9927845 p.message-heading-9927845 {
+  @include important-styles(
+    (
+      font-size: 1.5rem,
+      margin-bottom: 0.5em,
+      margin-top: 1em,
     ),
     true
   );
@@ -291,27 +321,6 @@ details.check-details-9927845 > summary.check-summary-9927845:first-of-type {
   );
 }
 
-.check-details-9927845 p {
-  @include important-styles(
-    (
-      font-size: 1rem,
-      margin-top: 0,
-    ),
-    true
-  );
-}
-
-.check-details-9927845 p.message-heading-9927845 {
-  @include important-styles(
-    (
-      font-size: 1.5rem,
-      margin-bottom: 0.5em,
-      margin-top: 1em,
-    ),
-    true
-  );
-}
-
 p.list-heading-9927845 {
   @include important-styles(
     (
@@ -337,6 +346,7 @@ p.findings-heading-9927845 {
   @include important-styles(
     (
       font-size: 1.2rem,
+      margin-top: 1em,
       margin-bottom: 0.5em,
     ),
     true
