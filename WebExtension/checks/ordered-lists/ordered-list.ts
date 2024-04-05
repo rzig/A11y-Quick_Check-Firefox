@@ -179,7 +179,7 @@ function createTopRightContainerOrderedList(): void {
 
     // Add the Dismiss Button
   }
-  createDismissButton(innerDiv);
+  createDismissButton(innerDiv, "Ordered List");
 
   // Append the main container to the document's body
   document.body.appendChild(containerDiv);

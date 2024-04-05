@@ -237,7 +237,7 @@ function createTopRightContainerRelatedControls(): void {
 
     // Add the Dismiss Button
   }
-  createDismissButton(innerDiv);
+  createDismissButton(innerDiv, "Related Form Controls");
 
   // Append the main container to the document's body
   document.body.appendChild(containerDiv);

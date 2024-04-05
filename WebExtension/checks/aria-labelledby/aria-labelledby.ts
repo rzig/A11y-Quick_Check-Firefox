@@ -334,7 +334,7 @@ function createTopRightContainerAriaLabelledby(): void {
 
     // Add the action buttons
   }
-  createDismissButton(innerDiv);
+  createDismissButton(innerDiv, "ARIA-labelledby");
 
   // Append the main container to the document's body
   document.body.appendChild(containerDiv);

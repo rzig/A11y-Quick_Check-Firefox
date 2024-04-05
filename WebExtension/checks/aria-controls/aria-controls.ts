@@ -167,7 +167,7 @@ function createTopRightContainerAriaControls(): void {
 
     // Add the action buttons
   }
-  createDismissButton(innerDiv);
+  createDismissButton(innerDiv, "Aria-Controls");
 
   // Append the main container to the document's body
   document.body.appendChild(containerDiv);

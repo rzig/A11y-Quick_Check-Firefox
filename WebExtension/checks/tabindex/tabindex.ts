@@ -403,7 +403,7 @@
 
       // Action Buttons
     }
-    createDismissButton(innerDiv);
+    createDismissButton(innerDiv, "Tabindex");
 
     // Append the main container to the document's body
     document.body.appendChild(containerDiv);

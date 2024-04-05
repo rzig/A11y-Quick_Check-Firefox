@@ -378,7 +378,7 @@ function createTopRightContainer(): void {
 
     // Add the Dismiss Button
   }
-  createDismissButton(innerDiv);
+  createDismissButton(innerDiv, "Accessible Name Calc");
 
   // Append the main container to the document's body
   document.body.appendChild(containerDiv);

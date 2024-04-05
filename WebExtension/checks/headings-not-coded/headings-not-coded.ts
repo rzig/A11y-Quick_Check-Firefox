@@ -173,7 +173,7 @@ function createTopRightContainerNotHeading(): void {
 
     // Add the Dismiss Button
   }
-  createDismissButton(innerDiv);
+  createDismissButton(innerDiv, "Headings not coded");
 
   // Append the main container to the document's body
   document.body.appendChild(containerDiv);

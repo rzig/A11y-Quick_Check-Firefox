@@ -151,7 +151,7 @@ function createTopRightContainerAriaLabel(): void {
 
     // Add the action buttons
   }
-  createDismissButton(innerDiv);
+  createDismissButton(innerDiv, "ARIA-Label");
 
   // Append the main container to the document's body
   document.body.appendChild(containerDiv);

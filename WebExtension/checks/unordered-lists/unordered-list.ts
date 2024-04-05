@@ -201,7 +201,7 @@ function createTopRightContainerUnorderedList(): void {
 
     // Add the Dismiss Button
   }
-  createDismissButton(innerDiv);
+  createDismissButton(innerDiv, "Unordered List");
 
   // Append the main container to the document's body
   document.body.appendChild(containerDiv);

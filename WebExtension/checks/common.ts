@@ -510,12 +510,13 @@ function createMinMaxButton(containerDiv: HTMLDivElement): void {
   }
 }
 
-function createDismissButton(innerDiv: HTMLDivElement): void {
+function createDismissButton(innerDiv: HTMLDivElement, importantNote: string = ""): void {
   if (!innerDiv) return;
 
   const dismissButton = document.createElement("button");
   dismissButton.className = "dismiss-button-9927845";
-  dismissButton.textContent = "Dismiss Feature message";
+  //dismissButton.textContent = "Remove message";
+  dismissButton.textContent = `Remove ${importantNote} message`;
   dismissButton.addEventListener("click", function () {
     const innerDiv = this.closest(
       ".inner-container-9927845"

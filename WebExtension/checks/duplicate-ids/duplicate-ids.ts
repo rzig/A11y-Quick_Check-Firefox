@@ -206,7 +206,7 @@ function createTopRightContainerDuplicateID(): void {
 
     // Add the action buttons
   }
-  createDismissButton(innerDiv);
+  createDismissButton(innerDiv, "Duplicate IDs");
 
   // Append the main container to the document's body
   document.body.appendChild(containerDiv);

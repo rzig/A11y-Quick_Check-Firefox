@@ -199,7 +199,7 @@ function createTopRightContainerAriaDescribedby(): void {
 
     // Add the action buttons
   }
-  createDismissButton(innerDiv);
+  createDismissButton(innerDiv, "Aria-Describedby");
 
   // Append the main container to the document's body
   document.body.appendChild(containerDiv);
