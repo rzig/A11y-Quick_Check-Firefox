@@ -188,7 +188,7 @@
     ),
     true
   );
-  @include font-styling
+  @include font-styling;
 }
 
 .top-right-container-9927845[data-is-minimized="true"] {
@@ -324,7 +324,7 @@ summary.check-summary-9927845[open] > details.check-details-9927845 {
 details.check-details-9927845 > summary.check-summary-9927845:first-of-type {
   @include important-styles(
     (
-      display: list-item
+      display: list-item,
     ),
     true
   );
@@ -450,6 +450,7 @@ ul.reference-list-9927845 li a:focus {
   @include important-styles(
     (
       margin: 1em,
+      margin-bottom: 0.5em,
     ),
     true
   );
@@ -484,6 +485,16 @@ ul.reference-list-9927845 li a:focus {
     (
       outline: none,
       "box-shadow": "0 0 0 3px var(--white), 0 0 0 5px var(--neutral-border)",
+    ),
+    true
+  );
+}
+
+p.do-not-panic {
+  @include important-styles(
+    (
+      margin: 0 0 1em 1.3em,
+      color: var(--pass-text,)
     ),
     true
   );

@@ -515,7 +515,6 @@ function createDismissButton(innerDiv: HTMLDivElement, importantNote: string = "
 
   const dismissButton = document.createElement("button");
   dismissButton.className = "dismiss-button-9927845";
-  //dismissButton.textContent = "Remove message";
   dismissButton.textContent = `Remove ${importantNote} message`;
   dismissButton.addEventListener("click", function () {
     const innerDiv = this.closest(
@@ -540,4 +539,12 @@ function createDismissButton(innerDiv: HTMLDivElement, importantNote: string = "
   });
 
   innerDiv.appendChild(dismissButton);
+
+  // Create a new <p> element with the specified class and text
+  const panicParagraph = document.createElement("p");
+  panicParagraph.className = "do-not-panic";
+  panicParagraph.textContent = "Don't Panic! I'll be here if you run the check again";
+  
+  // Append the new <p> element under the button in the innerDiv
+  innerDiv.appendChild(panicParagraph);
 }
