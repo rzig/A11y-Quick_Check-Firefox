@@ -176,8 +176,6 @@
 .top-right-container-9927845 {
   @include important-styles(
     (
-      font-family:
-        "Roboto, 'Helvetica Neue', sans-serif",
       position: absolute,
       max-width: 450px,
       top: 10px,
@@ -190,11 +188,13 @@
     ),
     true
   );
+  @include font-styling
 }
+
 .top-right-container-9927845[data-is-minimized="true"] {
   @include important-styles(
     (
-    border: none,
+      border: none,
     ),
     true
   );
@@ -229,13 +229,17 @@
   );
 }
 
-@include important-styles((), true);
 .check-details-9927845 {
-  border-radius: 5px !important;
-  margin-top: 1em !important;
-  color: var(--neutral-text) !important;
-  display: flex !important;
-  flex-wrap: wrap !important;
+  @include important-styles(
+    (
+      border-radius: 5px,
+      margin-top: 1em,
+      color: var(--neutral-text),
+      display: flex,
+      flex-wrap: wrap,
+    ),
+    true
+  );
 }
 
 .check-paragraph-9927845 {
@@ -281,14 +285,13 @@
 details.check-details-9927845 > summary.check-summary-9927845:first-of-type {
   @include important-styles(
     (
-      //background-color: var(--warning-border),
-      display: list-item,
+      display: list-item
     ),
     true
   );
 }
 
-p {
+.check-details-9927845 p {
   @include important-styles(
     (
       font-size: 1rem,
@@ -298,7 +301,7 @@ p {
   );
 }
 
-p.message-heading-9927845 {
+.check-details-9927845 p.message-heading-9927845 {
   @include important-styles(
     (
       font-size: 1.5rem,
