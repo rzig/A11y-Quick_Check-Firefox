@@ -291,6 +291,8 @@
     // Creating the findings list
     const findingsUL = document.createElement("ul");
     findingsUL.className = "findings-list-9927845";
+    findingsUL.style.margin = "0";
+    findingsUL.style.padding = "0";
 
     // Tabindex Summary
     const allElements = document.querySelectorAll("*");
@@ -349,6 +351,9 @@
 
       const linkList = document.createElement("ul");
       linkList.className = "reference-list-9927845";
+      linkList.style.margin = "0";
+      linkList.style.padding = "0";
+
       referenceContainer.appendChild(linkList);
 
       // Function to append links to the reference section

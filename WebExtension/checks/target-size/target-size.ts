@@ -128,6 +128,17 @@ function checkSpacing(elem: Element, targetSize: number): boolean {
   return true;
 }
 
+function isNodeInExcludedinContainer(node: Element): boolean {
+  let ancestor = node.parentElement;
+  while (ancestor) {
+    if (ancestor.classList.contains("top-right-container-9927845")) {
+      return true;
+    }
+    ancestor = ancestor.parentElement;
+  }
+  return false;
+}
+
 function addTargetSize(targetSize: number): void {
   let hasIssues: boolean = false; // Reset hasIssues for each invocation
 
@@ -136,6 +147,10 @@ function addTargetSize(targetSize: number): void {
   );
 
   inputElements.forEach((elem: Element) => {
+    if (isNodeInExcludedinContainer(elem)) {
+      return;
+    }
+    
       // Skip certain elements as needed
       if (elem.id === "rmb-8228965") return;
 
@@ -333,6 +348,9 @@ function createTopRightContainerTargetSize(): void {
     // Link List
     const linkList = document.createElement("ul");
     linkList.className = "reference-list-9927845";
+    linkList.style.margin = "0";
+    linkList.style.padding = "0";
+    
     referenceContainer.appendChild(linkList);
 
     // Specified links function

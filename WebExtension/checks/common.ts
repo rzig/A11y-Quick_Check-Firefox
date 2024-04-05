@@ -467,43 +467,26 @@ function createCommonDetailsContainer(): HTMLDetailsElement {
   return details;
 }
 
-// function createMinMaxButton(containerDiv: HTMLDivElement): void {
-//   if (!containerDiv.querySelector(".minimize-button-9927845")) {
-//     const minMaxButton = document.createElement("button");
-//     minMaxButton.className = "minimize-button-9927845";
-//     minMaxButton.textContent = "Minimize";
-
-//     let isContentMinimized = false;
-
-//     minMaxButton.addEventListener("click", () => {
-//       isContentMinimized = !isContentMinimized;
-//       const innerDivs = containerDiv.querySelectorAll(
-//         ".inner-container-9927845"
-//       );
-//       innerDivs.forEach((innerDiv) => {
-//         innerDiv.classList.toggle(
-//           "hidden-feature-message-9927845",
-//           isContentMinimized
-//         );
-//       });
-//       minMaxButton.textContent = isContentMinimized ? "Maximize" : "Minimize";
-//     });
-
-//     containerDiv.appendChild(minMaxButton);
-//   }
-// }
-
 function createMinMaxButton(containerDiv: HTMLDivElement): void {
   if (!containerDiv.querySelector(".minimize-button-9927845")) {
     const minMaxButton = document.createElement("button");
     minMaxButton.className = "minimize-button-9927845";
     minMaxButton.textContent = "Minimize";
 
-    containerDiv.dataset['isMinimized'] = "false";// Initialize state
+    containerDiv.dataset['isMinimized'] = "false"; // Initialize state
 
     minMaxButton.addEventListener("click", () => {
       const isMinimized = containerDiv.dataset['isMinimized'] === "true";
       containerDiv.dataset['isMinimized'] = isMinimized ? "false" : "true";
+
+      if (isMinimized) {
+        //containerDiv.classList.add("top-right-container-9927845");
+        minMaxButton.textContent = "Minimize";
+      } else {
+        //containerDiv.classList.remove("top-right-container-9927845");
+        minMaxButton.textContent = "Maximize";
+      }
+
       const innerDivs = containerDiv.querySelectorAll(".inner-container-9927845");
       innerDivs.forEach((innerDiv) => {
         innerDiv.classList.toggle("hidden-feature-message-9927845", !isMinimized);

@@ -32,6 +32,11 @@ function detectSkippedHeadings(): number {
   let prevLevel = getEffectiveHeadingLevel(headings[0]);
 
   headings.forEach((heading: Element, index: number) => {
+
+    if (isNodeInExcludedContainer(heading)) {
+      return; // Skip this heading
+    }
+    
     if (index === 0) return; // Skip the first element as there's no previous heading
 
     const currentLevel = getEffectiveHeadingLevel(heading);
@@ -54,7 +59,6 @@ function wrapAllHeadingsWithSpan(): void {
 
   headings.forEach((heading: Element) => {
 
-    // Check if the heading is within an excluded container
     if (isNodeInExcludedContainer(heading)) {
       return; // Skip this heading
     }
@@ -144,6 +148,11 @@ function checkMissingARIALevel() {
   const ariaHeadings = document.querySelectorAll('[role="heading"]');
 
   ariaHeadings.forEach((heading: Element) => {
+
+    if (isNodeInExcludedContainer(heading)) {
+      return; // Skip this heading
+    }
+
     const ariaLevel = heading.getAttribute("aria-level");
 
     if (!ariaLevel) {
@@ -166,6 +175,11 @@ function detectSkippedARIAHeadings() {
   let prevLevel = 1; // Start from level 1 as the default
 
   ariaHeadings.forEach((heading: Element) => {
+
+    if (isNodeInExcludedContainer(heading)) {
+      return; // Skip this heading
+    }
+
     const ariaLevelAttr = heading.getAttribute("aria-level");
     const currentLevel = ariaLevelAttr ? parseInt(ariaLevelAttr) : 1; // Default to 1 if aria-level is not set or is 0
 
@@ -253,6 +267,8 @@ function createTopRightContainerHeadings(): void {
   // Create the list for headings stats
   const findingsUL = document.createElement("ul");
   findingsUL.className = "findings-list-9927845";
+  findingsUL.style.margin = "0";
+  findingsUL.style.padding = "0";
   const headingsSummary = calculateHeadingsSummary();
   const skippedCount = detectSkippedHeadings();
 
@@ -353,6 +369,9 @@ function createTopRightContainerHeadings(): void {
     // Link List
     const linkList = document.createElement("ul");
     linkList.className = "reference-list-9927845";
+    linkList.style.margin = "0";
+    linkList.style.padding = "0";
+    
     referenceContainer.appendChild(linkList);
 
     // Append specified links function

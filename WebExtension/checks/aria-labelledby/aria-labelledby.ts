@@ -284,6 +284,9 @@ function createTopRightContainerAriaLabelledby(): void {
     // Link List
     const linkList = document.createElement("ul");
     linkList.className = "reference-list-9927845";
+    linkList.style.margin = "0";
+    linkList.style.padding = "0";
+    
     referenceContainer.appendChild(linkList);
 
     // Specified links function

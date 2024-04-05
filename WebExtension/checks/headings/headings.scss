@@ -122,12 +122,3 @@
 @include heading-border("h4", 2px dashed var(--neutral-border));
 @include heading-border("h5", 2px dashed var(--neutral-border));
 @include heading-border("h6", 2px dashed var(--neutral-border));
-
-.top-right-container-9927845 {
-  max-width:35em !important;
-
-    h2, h3, p, li {
-      font-weight:400 !important;
-    }
-}
-

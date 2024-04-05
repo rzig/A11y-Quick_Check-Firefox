@@ -1,7 +1,9 @@
 "use strict";
 
 function checkUnorderedLists(): void {
-  const ulElements = document.querySelectorAll("ul:not(.top-right-container-9927845 ul, .inner-container-9927845 ul)");
+  const ulElements = document.querySelectorAll(
+    "ul:not(.top-right-container-9927845 ul, .inner-container-9927845 ul)"
+  );
 
   for (const ulElement of ulElements) {
     // Reset state for each UL element
@@ -91,7 +93,7 @@ function createTopRightContainerUnorderedList(): void {
   innerDiv.className = "inner-container-9927845 remove-inner-ul-9927845";
 
   // Check if the container is minimized
-  if (containerDiv.dataset['isMinimized'] === "true") {
+  if (containerDiv.dataset["isMinimized"] === "true") {
     innerDiv.classList.add("hidden-feature-message-9927845");
   }
 
@@ -107,7 +109,7 @@ function createTopRightContainerUnorderedList(): void {
   const strongImportantNote: HTMLElement = document.createElement("strong");
   strongImportantNote.textContent = "Unordered List Summary";
   importantNotePara.appendChild(strongImportantNote);
-  
+
   // Append the unique content to the summary
   const checkSummary = checkDetails.querySelector("summary");
   if (checkSummary) {
@@ -116,7 +118,8 @@ function createTopRightContainerUnorderedList(): void {
 
   // Additional unique content - directly under the summary
   const messagePara = document.createElement("p");
-  messagePara.textContent = "The purpose of this check is to ensure that ordered lists (<ul>) in HTML are used correctly and structured properly. It validates the presence and usage of appropriate child elements. If issues are found, it flags the lists as invalid and provides feedback. Valid lists are confirmed as correctly implemented.";
+  messagePara.textContent =
+    "The purpose of this check is to ensure that ordered lists (<ul>) in HTML are used correctly and structured properly. It validates the presence and usage of appropriate child elements. If issues are found, it flags the lists as invalid and provides feedback. Valid lists are confirmed as correctly implemented.";
   checkDetails.appendChild(messagePara);
 
   const hgroupElements = document.querySelectorAll("ul");
@@ -124,6 +127,8 @@ function createTopRightContainerUnorderedList(): void {
   // Create the list for hgroup findings
   const findingsUL = document.createElement("ul");
   findingsUL.className = "findings-list-9927845";
+  findingsUL.style.margin = "0";
+  findingsUL.style.padding = "0";
 
   // Dynamically add a message based on hgroup elements found
   const findingsLi = document.createElement("li");
@@ -145,6 +150,9 @@ function createTopRightContainerUnorderedList(): void {
     // Link List
     const linkList = document.createElement("ul");
     linkList.className = "reference-list-9927845";
+    linkList.style.margin = "0";
+    linkList.style.padding = "0";
+    
     referenceContainer.appendChild(linkList);
 
     // Specified links function
