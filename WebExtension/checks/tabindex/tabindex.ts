@@ -151,91 +151,74 @@
   }
 
   // Main function to check tabindex and update messages for all elements
-  document.querySelectorAll("[tabindex]").forEach((element) => {
+  document.querySelectorAll("[tabindex], [role]").forEach((element) => {
     const tabIndexValue = parseInt(element.getAttribute("tabindex") || "0", 10);
+    const role = element.getAttribute("role") || "";
 
-    if (tabIndexValue >= 0 && isElementVisible(element as HTMLElement)) {
-      let roleName = "";
-      const tagName = element.tagName.toLowerCase();
+    if (isElementVisible(element as HTMLElement)) {
+        let roleName = "";
+        const tagName = element.tagName.toLowerCase();
 
-      // Role determination logic considering the updated requirements
-      if (tagName === "input") {
-        const inputElement = element as HTMLInputElement;
-        const typeAttribute = inputElement.type.toLowerCase();
-        if (!element.getAttribute("role")) {
-          if (
-            [
-              "text",
-              "email",
-              "password",
-              "search",
-              "tel",
-              "url",
-              "number",
-            ].includes(typeAttribute)
-          ) {
-            roleName = "textbox";
-          } else if (typeAttribute === "submit" || typeAttribute === "button") {
-            // Include "button" input type as well
-            roleName = "button"; // Correct roles for 'submit' and 'button' input types
-          } else {
-            roleName = "no role"; // Default if no specific role is applicable
-          }
+        // Role determination logic
+        if (tagName === "input") {
+            const inputElement = element as HTMLInputElement;
+            const typeAttribute = inputElement.type.toLowerCase();
+            if (!element.getAttribute("role")) {
+                if (["text", "email", "password", "search", "tel", "url", "number"].includes(typeAttribute)) {
+                    roleName = "textbox";
+                } else if (typeAttribute === "submit" || typeAttribute === "button") {
+                    roleName = "button";
+                } else {
+                    roleName = "no role";
+                }
+            } else {
+                roleName = element.getAttribute("role") || "no role";
+            }
+        } else if (tagName === "a") {
+            roleName = element.hasAttribute("href") ? "link" : "generic";
         } else {
-          roleName = element.getAttribute("role") || "no role"; // Use explicit role if it exists
+            roleName = rolesNameFromContentTab.has(tagName) ? tagName : element.getAttribute("role") || "no role";
         }
-      } else if (tagName === "a") {
-        // Adjusting role assignment for <a> elements based on the presence of href
-        roleName = element.hasAttribute("href") ? "link" : "generic"; // Assign "link" role if <a> has href, otherwise "generic"
-      } else {
-        roleName = rolesNameFromContentTab.has(tagName)
-          ? tagName
-          : element.getAttribute("role") || "no role";
-      }
 
-      const { name, method } = getAccessibleNameTab(element);
-      let messageText = "";
-      let messageClass = "";
-      let extraClasses: string[] = [];
+        const { name, method } = getAccessibleNameTab(element);
+        let messageText = "";
+        let messageClass = "";
+        let extraClasses = [];
 
-      if (roleName === "no role") {
-        roleName = "without a valid role";
-      }
-
-      // Constructing message based on tabIndexValue, roleName, and name
-      if (tabIndexValue === 0) {
-        if (name) {
-          messageText = `Valid: tabindex ${tabIndexValue} used on element ${tagName} with role '${roleName}' and accessible name '${name}' from ${method}.`;
-          messageClass = "valid-9927845";
-          extraClasses = ["valid-message-9927845"];
-        } else {
-          // Modify this section to change the message
-          if (roleName === "without a valid role") {
-            // Simplified message when there is no valid role
-            messageText = `Warning: tabindex ${tabIndexValue} used on element ${tagName} without a valid role and without a valid name.`;
-          } else {
-            // Original message construction for other scenarios
-            messageText = `Warning: tabindex ${tabIndexValue} used on element ${tagName} with role '${roleName}' and without a valid name.`;
-          }
-          messageClass = "warning-9927845";
-          extraClasses = ["warning-message-9927845"];
+        // Handling tabindex messages
+        if (tabIndexValue === 0) {
+            if (name) {
+                messageText = `Valid: tabindex ${tabIndexValue} used on element ${tagName} with role '${roleName}' and accessible name '${name}' from ${method}.`;
+                messageClass = "valid-9927845";
+                extraClasses = ["valid-message-9927845"];
+            } else {
+                messageText = `Warning: tabindex ${tabIndexValue} used on element ${tagName} with role '${roleName}' and without a valid name.`;
+                messageClass = "warning-9927845";
+                extraClasses = ["warning-message-9927845"];
+            }
+            // Append tabindex related message
+            addMessageToPrecedingDiv(element, messageClass, messageText, extraClasses);
+        } else if (tabIndexValue > 0) {
+            messageText = `Warning: tabindex ${tabIndexValue} used on element ${tagName}. Using tabindex greater than 0 can cause critical accessibility issues.`;
+            messageClass = "warning-9927845";
+            extraClasses = ["warning-message-9927845"];
+            // Append tabindex related message
+            addMessageToPrecedingDiv(element, messageClass, messageText, extraClasses);
         }
-      } else if (tabIndexValue > 0) {
-        messageText = `Warning: tabindex ${tabIndexValue} used on element ${tagName}. Using tabindex greater than 0 can cause critical accessibility issues.`;
-        messageClass = "warning-9927845";
-        extraClasses = ["warning-message-9927845"];
-      }
 
-      // Append message and class to the element
-      addMessageToPrecedingDiv(
-        element as HTMLElement,
-        messageClass,
-        messageText,
-        extraClasses
-      );
-      element.classList.add("tabindex-0-detected-9927845");
+        // Handling role="application" message separately
+        if (role.toLowerCase() === "application") {
+            let appRoleMessageText = "Warning: Using role='application' changes the way assistive technologies interact with the content. In most cases, implementing the application role will create barriers to accessibility.";
+            let appRoleMessageClass = "warning-9927845";
+            let appRoleExtraClasses = ["warning-message-9927845"];
+
+            // Append role="application" message
+            addMessageToPrecedingDiv(element, appRoleMessageClass, appRoleMessageText, appRoleExtraClasses);
+        }
+
+        element.classList.add("tabindex-0-detected-9927845");
     }
-  });
+});
 
   populateLinkObjects(); // Ensure the links are populated before use.
 
