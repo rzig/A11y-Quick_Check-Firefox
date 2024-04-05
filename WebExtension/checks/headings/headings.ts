@@ -33,9 +33,9 @@ function detectSkippedHeadings(): number {
 
   headings.forEach((heading: Element, index: number) => {
 
-    if (isNodeInExcludedContainer(heading)) {
-      return; // Skip this heading
-    }
+    // if (isNodeInExcludedContainer(heading)) {
+    //   return; // Skip this heading
+    // }
     
     if (index === 0) return; // Skip the first element as there's no previous heading
 
@@ -58,10 +58,6 @@ function wrapAllHeadingsWithSpan(): void {
   );
 
   headings.forEach((heading: Element) => {
-
-    if (isNodeInExcludedContainer(heading)) {
-      return; // Skip this heading
-    }
 
     const span = document.createElement("span");
     span.className = "headingWrapper-8878";
@@ -149,10 +145,6 @@ function checkMissingARIALevel() {
 
   ariaHeadings.forEach((heading: Element) => {
 
-    if (isNodeInExcludedContainer(heading)) {
-      return; // Skip this heading
-    }
-
     const ariaLevel = heading.getAttribute("aria-level");
 
     if (!ariaLevel) {
@@ -175,10 +167,6 @@ function detectSkippedARIAHeadings() {
   let prevLevel = 1; // Start from level 1 as the default
 
   ariaHeadings.forEach((heading: Element) => {
-
-    if (isNodeInExcludedContainer(heading)) {
-      return; // Skip this heading
-    }
 
     const ariaLevelAttr = heading.getAttribute("aria-level");
     const currentLevel = ariaLevelAttr ? parseInt(ariaLevelAttr) : 1; // Default to 1 if aria-level is not set or is 0
@@ -243,7 +231,7 @@ function createTopRightContainerHeadings(): void {
   const strongImportantNote: HTMLElement = document.createElement("strong");
   strongImportantNote.textContent = "Headings Summary";
   importantNotePara.appendChild(strongImportantNote);
-  
+
   // Append the unique content to the summary
   const checkSummary = checkDetails.querySelector("summary");
   if (checkSummary) {
@@ -255,6 +243,28 @@ function createTopRightContainerHeadings(): void {
   messagePara.textContent = "The purpose of this check is to analyze and highlight the structure of HTML headings. It identifies heading levels, including any that are skipped, which could impact navigability and accessibility. Additionally, it examines both HTML and ARIA-marked headings to ensure they conform to best practices.";
   messagePara.className = "check-paragraph-9927845";
   checkDetails.appendChild(messagePara);
+
+  const checkManualDetails = createManualNotesDetailsContainer();
+  innerDiv.appendChild(checkManualDetails);
+
+  // Manual testing summary title for details
+  const manualTestingPara: HTMLParagraphElement = document.createElement("p");
+  manualTestingPara.className = "message-heading-9927845";
+  const manualTestingParaHeadingStrong: HTMLElement = document.createElement("strong");
+  manualTestingParaHeadingStrong.textContent = "How to manually test (Coming!)";
+  manualTestingPara.appendChild(manualTestingParaHeadingStrong);
+  
+  // Append the unique content to the manual testing summary
+  const manualTestingSummary = checkManualDetails.querySelector("summary");
+  if (manualTestingSummary) {
+    manualTestingSummary.appendChild(manualTestingParaHeadingStrong);
+  }
+
+  // Additional unique content for manual testing
+  const manualPara = document.createElement("p");
+  manualPara.textContent = "This section will be populated with how to manually test";
+  manualPara.className = "check-paragraph-9927845";
+  checkManualDetails.appendChild(manualPara);
 
   // Add paragraph as a heading for the list
   const summaryHeadingPara = document.createElement("p");

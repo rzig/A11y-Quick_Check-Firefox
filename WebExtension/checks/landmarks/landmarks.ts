@@ -249,6 +249,29 @@ function createTopRightContainerLandmarks(): void {
     "The purpose of this check is to verify the proper use of HTML landmarks and ARIA landmark roles. It checks for accessible naming, role conflicts, and correct landmark nesting.";
   checkDetails.appendChild(messagePara);
 
+  const checkManualDetails = createManualNotesDetailsContainer();
+  innerDiv.appendChild(checkManualDetails);
+
+  // Manual testing summary title for details
+  const manualTestingPara: HTMLParagraphElement = document.createElement("p");
+  manualTestingPara.className = "message-heading-9927845";
+  const manualTestingParaHeadingStrong: HTMLElement = document.createElement("strong");
+  manualTestingParaHeadingStrong.textContent = "How to manually test (Coming!)";
+  manualTestingPara.appendChild(manualTestingParaHeadingStrong);
+  
+  // Append the unique content to the manual testing summary
+  const manualTestingSummary = checkManualDetails.querySelector("summary");
+  if (manualTestingSummary) {
+    manualTestingSummary.appendChild(manualTestingParaHeadingStrong);
+  }
+
+  // Additional unique content for manual testing
+  const manualPara = document.createElement("p");
+  manualPara.textContent = "This section will be populated with how to manually test";
+  manualPara.className = "check-paragraph-9927845";
+  checkManualDetails.appendChild(manualPara);
+
+
   // Use createReferenceContainer to generate the reference section
   const referenceContainer = createReferenceContainer();
   if (referenceContainer) {

@@ -123,6 +123,29 @@ function createTopRightContainerNotHeading(): void {
   messagePara.textContent = "The purpose of this check is to identify text that visually resembles headings but lacks the proper semantic markup. It assesses text based on font size and weight, flags potential headings for review, and encourages the use of semantic heading tags.";
   checkDetails.appendChild(messagePara);
 
+  const checkManualDetails = createManualNotesDetailsContainer();
+  innerDiv.appendChild(checkManualDetails);
+
+  // Manual testing summary title for details
+  const manualTestingPara: HTMLParagraphElement = document.createElement("p");
+  manualTestingPara.className = "message-heading-9927845";
+  const manualTestingParaHeadingStrong: HTMLElement = document.createElement("strong");
+  manualTestingParaHeadingStrong.textContent = "How to manually test (Coming!)";
+  manualTestingPara.appendChild(manualTestingParaHeadingStrong);
+  
+  // Append the unique content to the manual testing summary
+  const manualTestingSummary = checkManualDetails.querySelector("summary");
+  if (manualTestingSummary) {
+    manualTestingSummary.appendChild(manualTestingParaHeadingStrong);
+  }
+
+  // Additional unique content for manual testing
+  const manualPara = document.createElement("p");
+  manualPara.textContent = "This section will be populated with how to manually test";
+  manualPara.className = "check-paragraph-9927845";
+  checkManualDetails.appendChild(manualPara);
+
+
   // Use createReferenceContainer to generate the reference section
   const referenceContainer = createReferenceContainer();
   if (referenceContainer) {

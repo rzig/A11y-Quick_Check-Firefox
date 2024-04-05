@@ -467,6 +467,18 @@ function createCommonDetailsContainer(): HTMLDetailsElement {
   return details;
 }
 
+function createManualNotesDetailsContainer(): HTMLDetailsElement {
+  const detailsManual = document.createElement("details");
+  detailsManual.className = "check-details-9927845";
+
+  const summaryManual = document.createElement("summary");
+  summaryManual.className = "check-summary-9927845";
+
+  detailsManual.appendChild(summaryManual);
+
+  return detailsManual;
+}
+
 function createMinMaxButton(containerDiv: HTMLDivElement): void {
   if (!containerDiv.querySelector(".minimize-button-9927845")) {
     const minMaxButton = document.createElement("button");

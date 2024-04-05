@@ -177,6 +177,29 @@ function createTopRightContainerRelatedControls(): void {
   messagePara.textContent = "The purpose of this check is to evaluate the related form controls are grouped. It aims to ensure these elements are correctly structured, highlighting best practices such as the correct placement of legend elements within fieldset tags, and verifying that ARIA groupings have accessible names provided by aria-label or aria-labelledby. The check offers feedback on the presence and configuration of these elements, reinforcing the importance of proper labeling for accessibility and the structural integrity of forms.";
   checkDetails.appendChild(messagePara);
 
+  const checkManualDetails = createManualNotesDetailsContainer();
+  innerDiv.appendChild(checkManualDetails);
+
+  // Manual testing summary title for details
+  const manualTestingPara: HTMLParagraphElement = document.createElement("p");
+  manualTestingPara.className = "message-heading-9927845";
+  const manualTestingParaHeadingStrong: HTMLElement = document.createElement("strong");
+  manualTestingParaHeadingStrong.textContent = "How to manually test (Coming!)";
+  manualTestingPara.appendChild(manualTestingParaHeadingStrong);
+  
+  // Append the unique content to the manual testing summary
+  const manualTestingSummary = checkManualDetails.querySelector("summary");
+  if (manualTestingSummary) {
+    manualTestingSummary.appendChild(manualTestingParaHeadingStrong);
+  }
+
+  // Additional unique content for manual testing
+  const manualPara = document.createElement("p");
+  manualPara.textContent = "This section will be populated with how to manually test";
+  manualPara.className = "check-paragraph-9927845";
+  checkManualDetails.appendChild(manualPara);
+
+
   // Use createReferenceContainer to generate the reference section
   const referenceContainer = createReferenceContainer();
   if (referenceContainer) {

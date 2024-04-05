@@ -280,6 +280,29 @@
       "The purpose of this check is to identify elements with a tabindex attribute that has a value of 0 or higher. The check highlights best practices in accessibility by flagging any misuse of tabindex, with warning messages against values greater than 0, which can be a barrier to accessibility. This check intentionally overlooks elements with a tabindex of -1, focusing instead on guiding developers towards enhancing web accessibility through the correct use of tabindex 0 or higher.";
     checkDetails.appendChild(messagePara);
 
+    const checkManualDetails = createManualNotesDetailsContainer();
+  innerDiv.appendChild(checkManualDetails);
+
+  // Manual testing summary title for details
+  const manualTestingPara: HTMLParagraphElement = document.createElement("p");
+  manualTestingPara.className = "message-heading-9927845";
+  const manualTestingParaHeadingStrong: HTMLElement = document.createElement("strong");
+  manualTestingParaHeadingStrong.textContent = "How to manually test (Coming!)";
+  manualTestingPara.appendChild(manualTestingParaHeadingStrong);
+  
+  // Append the unique content to the manual testing summary
+  const manualTestingSummary = checkManualDetails.querySelector("summary");
+  if (manualTestingSummary) {
+    manualTestingSummary.appendChild(manualTestingParaHeadingStrong);
+  }
+
+  // Additional unique content for manual testing
+  const manualPara = document.createElement("p");
+  manualPara.textContent = "This section will be populated with how to manually test";
+  manualPara.className = "check-paragraph-9927845";
+  checkManualDetails.appendChild(manualPara);
+
+
     // Adding "Findings" heading
     const findingsHeading = document.createElement("p");
     findingsHeading.className = "findings-heading-9927845";
