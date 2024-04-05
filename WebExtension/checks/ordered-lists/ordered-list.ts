@@ -97,6 +97,7 @@ function createTopRightContainerOrderedList(): void {
   }
 
   containerDiv.appendChild(innerDiv);
+  updateParentContainerClass(containerDiv);
 
   const checkDetails = createCommonDetailsContainer();
   innerDiv.appendChild(checkDetails);

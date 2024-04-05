@@ -419,12 +419,10 @@ function isNodeInExcludedContainer(node: Node): boolean {
 
 function getOrCreateContainer(): HTMLDivElement | null {
   if (window !== window.top) {
-    return null;
+    return null; // Return null if not in the top window frame
   }
 
-  let containerDiv = document.querySelector(
-    ".top-right-container-9927845"
-  ) as HTMLDivElement | null;
+  let containerDiv = document.querySelector(".top-right-container-9927845") as HTMLDivElement | null;
 
   if (!containerDiv) {
     containerDiv = document.createElement("div");
@@ -434,7 +432,36 @@ function getOrCreateContainer(): HTMLDivElement | null {
     createMinMaxButton(containerDiv);
   }
 
+  // Given containerDiv is confirmed not null here, safe to assert as HTMLDivElement
+  updateParentContainerClass(containerDiv as HTMLDivElement);
+
+  // Setup the MutationObserver, assuming containerDiv exists
+  const observer = new MutationObserver(() => {
+    if (containerDiv) { // This check is technically redundant given the creation logic above but adds a layer of type safety
+      updateParentContainerClass(containerDiv);
+    }
+  });
+
+  if (containerDiv) { // Ensure containerDiv is not null before observing
+    observer.observe(containerDiv, {
+      childList: true, // Monitor for the addition or removal of child elements
+    });
+  }
+
   return containerDiv;
+}
+
+function updateParentContainerClass(parentContainer: HTMLElement): void {
+  // Query all inner containers within the parent container
+  const innerContainers = parentContainer.querySelectorAll('.inner-container-9927845');
+  
+  // Remove the 'the-last' class to reset state
+  parentContainer.classList.remove('remove-outerdiv-9927845');
+  
+  // If exactly one innerContainer exists, add the 'the-last' class back
+  if (innerContainers.length === 1) {
+    parentContainer.classList.add('remove-outerdiv-9927845');
+  }
 }
 
 function createReferenceContainer(): HTMLDivElement | null {
@@ -492,10 +519,8 @@ function createMinMaxButton(containerDiv: HTMLDivElement): void {
       containerDiv.dataset['isMinimized'] = isMinimized ? "false" : "true";
 
       if (isMinimized) {
-        //containerDiv.classList.add("top-right-container-9927845");
         minMaxButton.textContent = "Minimize";
       } else {
-        //containerDiv.classList.remove("top-right-container-9927845");
         minMaxButton.textContent = "Maximize";
       }
 
@@ -516,6 +541,7 @@ function createDismissButton(innerDiv: HTMLDivElement, importantNote: string = "
   const dismissButton = document.createElement("button");
   dismissButton.className = "dismiss-button-9927845";
   dismissButton.textContent = `Remove ${importantNote} message`;
+  
   dismissButton.addEventListener("click", function () {
     const innerDiv = this.closest(
       ".inner-container-9927845"

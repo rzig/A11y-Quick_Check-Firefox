@@ -11,5 +11,6 @@
 
 removeInjectedDivs([
   "remove-inner-di-9927845",
+  "remove-outerdiv-9927845"
 ]);
 

@@ -42,5 +42,6 @@ function removeTargetSize(targetSize: number) {
 }
 
 removeInjectedDivs([
-    "remove-inner-ts-9927845"
+    "remove-inner-ts-9927845",
+    "remove-outerdiv-9927845"
   ]);

@@ -19,5 +19,6 @@ function removedataNameProhibited() {
 removedataNameProhibited();
 
 removeInjectedDivs([
-  "remove-inner-al-9927845"
+  "remove-inner-al-9927845",
+  "remove-outerdiv-9927845"
 ]);

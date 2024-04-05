@@ -48,3 +48,7 @@ function removeAutocompleteMessages(): void {
 }
 
 removeAutocompleteMessages();
+
+removeInjectedDivs([
+  "remove-outerdiv-9927845"
+]);

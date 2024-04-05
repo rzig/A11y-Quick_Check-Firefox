@@ -15,4 +15,5 @@ removeInjectedDivs([
   "warning-message-9927845",
   "invalid-message-9927845",
   "remove-inner-ol-9927845",
+  "remove-outerdiv-9927845"
 ]);

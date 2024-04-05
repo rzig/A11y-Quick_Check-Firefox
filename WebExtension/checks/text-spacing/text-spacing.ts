@@ -21,6 +21,7 @@ addTextSpacing();
 //   innerDiv.className = "inner-container-9927845 remove-inner-tspacing-9927845";
 
 //   containerDiv.appendChild(innerDiv);
+// updateParentContainerClass(containerDiv);
 
 //   // Use createCommonDetailsContainer from common.ts to create the common details structure
 //   const checkDetails = createCommonDetailsContainer();

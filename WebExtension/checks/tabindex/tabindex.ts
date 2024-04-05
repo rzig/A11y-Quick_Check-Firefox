@@ -256,6 +256,7 @@
     }
 
     containerDiv.appendChild(innerDiv);
+    updateParentContainerClass(containerDiv);
 
     // Use createCommonDetailsContainer from common.ts to create the common details structure
     const checkDetails = createCommonDetailsContainer();

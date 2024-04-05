@@ -25,6 +25,7 @@ const classLabelledByNames: string[] = [
   "numbered-square-9927845",
   "warning-message-9927845",
   "remove-inner-alb-9927845",
+  "remove-outerdiv-9927845",
 ];
 
 removeInjectedDivs(classLabelledByNames);

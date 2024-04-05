@@ -36,7 +36,8 @@ function removeRelatedControls() {
     "legend-first-child-5599775",
     "legend-no-parent-fieldset-5599775",
     "legend-no-text-5599775",
-    "remove-inner-fc-9927845"
+    "remove-inner-fc-9927845",
+    "remove-outerdiv-9927845"
   ]);
 }
 

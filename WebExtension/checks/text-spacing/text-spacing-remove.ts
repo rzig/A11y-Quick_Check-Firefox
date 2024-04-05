@@ -12,5 +12,6 @@ function dataNameProhibited() {
 dataNameProhibited()
 
 removeInjectedDivs([
-  "remove-inner-tspacing-9927845"
+  "remove-inner-tspacing-9927845",
+  "remove-outerdiv-9927845"
 ]);

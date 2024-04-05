@@ -8,4 +8,5 @@ for (const element of document.querySelectorAll(
 
 removeInjectedDivs([
     'dom-count-div',
+    "remove-outerdiv-9927845"
   ]);
