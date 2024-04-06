@@ -1,7 +1,5 @@
 "use strict";
 
-declare function createChildMessageDiv(parent: HTMLElement, className: string, message: string): void;
-
 function checkTextNodesForHeadings(): void {
   const walk = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
   const bodyStyle = window.getComputedStyle(document.body);
@@ -13,14 +11,14 @@ function checkTextNodesForHeadings(): void {
   const missingHeadingClass = "generic-9927845";
 
   function isNodeInExcludedContainer(node: Node): boolean {
-    let parentElement: HTMLElement | null = node.parentElement;
-    while (parentElement !== null) {
-      const tagName = parentElement.tagName.toLowerCase();
-      const role = parentElement.getAttribute("role")?.toLowerCase();
+    let currentElement = node.parentNode as HTMLElement | null;
+    while (currentElement && currentElement !== document.body) {
+      const tagName = currentElement.tagName.toLowerCase();
+      const role = currentElement.getAttribute("role")?.toLowerCase();
       if (tagName === 'a' || tagName === 'button' || role === 'link' || role === 'button') {
         return true;
       }
-      parentElement = parentElement.parentElement;
+      currentElement = currentElement.parentElement;
     }
     return false;
   }
@@ -28,14 +26,15 @@ function checkTextNodesForHeadings(): void {
   let node: Node | null;
   while ((node = walk.nextNode())) {
     const parentElement = node.parentElement;
-    if (parentElement === null) continue;
+    if (!parentElement) continue;
 
     if (isNodeInExcludedContainer(node)) {
       continue;
     }
 
     const nodeText = node.nodeValue ? node.nodeValue.trim() : "";
-    if (nodeText === "") continue;
+    if (!nodeText) continue;
+
     const style = window.getComputedStyle(parentElement);
     const fontSize = parseFloat(style.fontSize);
     const fontWeight = parseFloat(style.fontWeight);
@@ -44,30 +43,35 @@ function checkTextNodesForHeadings(): void {
     let isHeadingOrSvg = false;
     let validTextContainer = false;
 
-    while (ancestor !== null) {
-      const tagName = ancestor.tagName.toLowerCase();
-      if (["h1", "h2", "h3", "h4", "h5", "h6", "svg"].includes(tagName)) {
+    while (ancestor) {
+      if (["h1", "h2", "h3", "h4", "h5", "h6"].includes(ancestor.tagName.toLowerCase())) {
         isHeadingOrSvg = true;
         break;
       }
-      if (["div", "span", "p"].includes(tagName) && !ancestor.hasAttribute("role")) {
+
+      if (ancestor.tagName.toLowerCase() === "svg") {
+        isHeadingOrSvg = true;
+        break;
+      }
+
+      if (["div", "span", "p"].includes(ancestor.tagName.toLowerCase()) && !ancestor.hasAttribute("role")) {
         validTextContainer = true;
         break;
       }
+
       ancestor = ancestor.parentElement;
     }
 
     if (isHeadingOrSvg || !validTextContainer) continue;
 
     const charCountMessage = `Character count (including spaces) is ${nodeText.length}.`;
-    let finalMessage = "Needs manual confirmation: Is this a heading? If yes, it is not marked up as a heading in code. " + charCountMessage;
 
     if (fontSize >= 18 * fontSizeRatio && fontWeight >= 700) {
       parentElement.classList.add(missingHeadingClass);
-      createChildMessageDiv(parentElement, heavyTextClass, finalMessage);
+      createChildMessageDiv(parentElement, heavyTextClass, "Needs manual confirmation: Is this a heading? If yes, it is not marked up as a heading in code. " + charCountMessage);
     } else if (fontSize >= 24 * fontSizeRatio) {
       parentElement.classList.add(missingHeadingClass);
-      createChildMessageDiv(parentElement, largeTextClass, finalMessage);
+      createChildMessageDiv(parentElement, largeTextClass, "Needs manual confirmation: Is this a heading? If yes, it is not marked up as a heading in code. " + charCountMessage);
     }
   }
 }
