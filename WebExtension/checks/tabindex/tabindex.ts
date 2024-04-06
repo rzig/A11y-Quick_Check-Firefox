@@ -156,69 +156,97 @@
     const role = element.getAttribute("role") || "";
 
     if (isElementVisible(element as HTMLElement)) {
-        let roleName = "";
-        const tagName = element.tagName.toLowerCase();
+      let roleName = "";
+      const tagName = element.tagName.toLowerCase();
 
-        // Role determination logic
-        if (tagName === "input") {
-            const inputElement = element as HTMLInputElement;
-            const typeAttribute = inputElement.type.toLowerCase();
-            if (!element.getAttribute("role")) {
-                if (["text", "email", "password", "search", "tel", "url", "number"].includes(typeAttribute)) {
-                    roleName = "textbox";
-                } else if (typeAttribute === "submit" || typeAttribute === "button") {
-                    roleName = "button";
-                } else {
-                    roleName = "no role";
-                }
-            } else {
-                roleName = element.getAttribute("role") || "no role";
-            }
-        } else if (tagName === "a") {
-            roleName = element.hasAttribute("href") ? "link" : "generic";
+      // Role determination logic
+      if (tagName === "input") {
+        const inputElement = element as HTMLInputElement;
+        const typeAttribute = inputElement.type.toLowerCase();
+        if (!element.getAttribute("role")) {
+          if (
+            [
+              "text",
+              "email",
+              "password",
+              "search",
+              "tel",
+              "url",
+              "number",
+            ].includes(typeAttribute)
+          ) {
+            roleName = "textbox";
+          } else if (typeAttribute === "submit" || typeAttribute === "button") {
+            roleName = "button";
+          } else {
+            roleName = "no role";
+          }
         } else {
-            roleName = rolesNameFromContentTab.has(tagName) ? tagName : element.getAttribute("role") || "no role";
+          roleName = element.getAttribute("role") || "no role";
         }
+      } else if (tagName === "a") {
+        roleName = element.hasAttribute("href") ? "link" : "generic";
+      } else {
+        roleName = rolesNameFromContentTab.has(tagName)
+          ? tagName
+          : element.getAttribute("role") || "no role";
+      }
 
-        const { name, method } = getAccessibleNameTab(element);
-        let messageText = "";
-        let messageClass = "";
-        let extraClasses = [];
+      const { name, method } = getAccessibleNameTab(element);
+      let messageText = "";
+      let messageClass = "";
+      let extraClasses = [];
 
-        // Handling tabindex messages
-        if (tabIndexValue === 0) {
-            if (name) {
-                messageText = `Valid: tabindex ${tabIndexValue} used on element ${tagName} with role '${roleName}' and accessible name '${name}' from ${method}.`;
-                messageClass = "valid-9927845";
-                extraClasses = ["valid-message-9927845"];
-            } else {
-                messageText = `Warning: tabindex ${tabIndexValue} used on element ${tagName} with role '${roleName}' and without a valid name.`;
-                messageClass = "warning-9927845";
-                extraClasses = ["warning-message-9927845"];
-            }
-            // Append tabindex related message
-            addMessageToPrecedingDiv(element, messageClass, messageText, extraClasses);
-        } else if (tabIndexValue > 0) {
-            messageText = `Warning: tabindex ${tabIndexValue} used on element ${tagName}. Using tabindex greater than 0 can cause critical accessibility issues.`;
-            messageClass = "warning-9927845";
-            extraClasses = ["warning-message-9927845"];
-            // Append tabindex related message
-            addMessageToPrecedingDiv(element, messageClass, messageText, extraClasses);
+      // Handling tabindex messages
+      if (tabIndexValue === 0) {
+        if (name) {
+          messageText = `Valid: tabindex ${tabIndexValue} used on element ${tagName} with role '${roleName}' and accessible name '${name}' from ${method}.`;
+          messageClass = "valid-9927845";
+          extraClasses = ["valid-message-9927845"];
+        } else {
+          messageText = `Warning: tabindex ${tabIndexValue} used on element ${tagName} with role '${roleName}' and without a valid name.`;
+          messageClass = "warning-9927845";
+          extraClasses = ["warning-message-9927845"];
         }
+        // Append tabindex related message
+        addMessageToPrecedingDiv(
+          element,
+          messageClass,
+          messageText,
+          extraClasses
+        );
+      } else if (tabIndexValue > 0) {
+        messageText = `Warning: tabindex ${tabIndexValue} used on element ${tagName}. Using tabindex greater than 0 can cause critical accessibility issues.`;
+        messageClass = "warning-9927845";
+        extraClasses = ["warning-message-9927845"];
+        // Append tabindex related message
+        addMessageToPrecedingDiv(
+          element,
+          messageClass,
+          messageText,
+          extraClasses
+        );
+      }
 
-        // Handling role="application" message separately
-        if (role.toLowerCase() === "application") {
-            let appRoleMessageText = "Warning: Using role='application' changes the way assistive technologies interact with the content. In most cases, implementing the application role will create barriers to accessibility.";
-            let appRoleMessageClass = "warning-9927845";
-            let appRoleExtraClasses = ["warning-message-9927845"];
+      // Handling role="application" message separately
+      if (role.toLowerCase() === "application") {
+        let appRoleMessageText =
+          "Warning: Using role='application' changes the way assistive technologies interact with the content. In most cases, implementing the application role will create barriers to accessibility.";
+        let appRoleMessageClass = "warning-9927845";
+        let appRoleExtraClasses = ["warning-message-9927845"];
 
-            // Append role="application" message
-            addMessageToPrecedingDiv(element, appRoleMessageClass, appRoleMessageText, appRoleExtraClasses);
-        }
+        // Append role="application" message
+        addMessageToPrecedingDiv(
+          element,
+          appRoleMessageClass,
+          appRoleMessageText,
+          appRoleExtraClasses
+        );
+      }
 
-        element.classList.add("tabindex-0-detected-9927845");
+      element.classList.add("tabindex-0-detected-9927845");
     }
-});
+  });
 
   populateLinkObjects(); // Ensure the links are populated before use.
 
@@ -264,28 +292,29 @@
       "The purpose of this check is to identify elements with a tabindex attribute that has a value of 0 or higher. The check highlights best practices in accessibility by flagging any misuse of tabindex, with warning messages against values greater than 0, which can be a barrier to accessibility. This check intentionally overlooks elements with a tabindex of -1, focusing instead on guiding developers towards enhancing web accessibility through the correct use of tabindex 0 or higher.";
     checkDetails.appendChild(messagePara);
 
-    const checkManualDetails = createManualNotesDetailsContainer();
-  innerDiv.appendChild(checkManualDetails);
+    // const checkManualDetails = createManualNotesDetailsContainer();
+    // innerDiv.appendChild(checkManualDetails);
 
-  // Manual testing summary title for details
-  const manualTestingPara: HTMLParagraphElement = document.createElement("p");
-  manualTestingPara.className = "message-heading-9927845";
-  const manualTestingParaHeadingStrong: HTMLElement = document.createElement("strong");
-  manualTestingParaHeadingStrong.textContent = "How to manually test ( is coming! )";
-  manualTestingPara.appendChild(manualTestingParaHeadingStrong);
-  
-  // Append the unique content to the manual testing summary
-  const manualTestingSummary = checkManualDetails.querySelector("summary");
-  if (manualTestingSummary) {
-    manualTestingSummary.appendChild(manualTestingParaHeadingStrong);
-  }
+    // // Manual testing summary title for details
+    // const manualTestingPara: HTMLParagraphElement = document.createElement("p");
+    // manualTestingPara.className = "message-heading-9927845";
+    // const manualTestingParaHeadingStrong: HTMLElement =
+    //   document.createElement("strong");
+    // manualTestingParaHeadingStrong.textContent =
+    //   "How to manually test ( is coming! )";
+    // manualTestingPara.appendChild(manualTestingParaHeadingStrong);
 
-  // Additional unique content for manual testing
-  // const manualPara = document.createElement("p");
-  // manualPara.textContent = "This section will be populated with how to manually test";
-  // manualPara.className = "check-paragraph-9927845";
-  // checkManualDetails.appendChild(manualPara);
+    // // Append the unique content to the manual testing summary
+    // const manualTestingSummary = checkManualDetails.querySelector("summary");
+    // if (manualTestingSummary) {
+    //   manualTestingSummary.appendChild(manualTestingParaHeadingStrong);
+    // }
 
+    // Additional unique content for manual testing
+    // const manualPara = document.createElement("p");
+    // manualPara.textContent = "This section will be populated with how to manually test";
+    // manualPara.className = "check-paragraph-9927845";
+    // checkManualDetails.appendChild(manualPara);
 
     // Adding "Findings" heading
     const findingsHeading = document.createElement("p");

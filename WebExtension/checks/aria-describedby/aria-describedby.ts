@@ -143,21 +143,21 @@ function createTopRightContainerAriaDescribedby(): void {
   messagePara.textContent = "The purpose of this check is to confirm that elements using the aria-describedby attribute properly reference the IDs of elements meant to describe them. It examines each element with aria-describedby, ensuring the ID references exist and are linked to descriptive text. Generating and attaching messages to both the described elements and their descriptors, the check provides clear feedback on the connections made, highlighting effective descriptive associations or noting when descriptions are missing.";
   checkDetails.appendChild(messagePara);
 
-  const checkManualDetails = createManualNotesDetailsContainer();
-  innerDiv.appendChild(checkManualDetails);
+  // const checkManualDetails = createManualNotesDetailsContainer();
+  // innerDiv.appendChild(checkManualDetails);
 
-  // Manual testing summary title for details
-  const manualTestingPara: HTMLParagraphElement = document.createElement("p");
-  manualTestingPara.className = "message-heading-9927845";
-  const manualTestingParaHeadingStrong: HTMLElement = document.createElement("strong");
-  manualTestingParaHeadingStrong.textContent = "How to manually test ( is coming! )";
-  manualTestingPara.appendChild(manualTestingParaHeadingStrong);
+  // // Manual testing summary title for details
+  // const manualTestingPara: HTMLParagraphElement = document.createElement("p");
+  // manualTestingPara.className = "message-heading-9927845";
+  // const manualTestingParaHeadingStrong: HTMLElement = document.createElement("strong");
+  // manualTestingParaHeadingStrong.textContent = "How to manually test ( is coming! )";
+  // manualTestingPara.appendChild(manualTestingParaHeadingStrong);
   
-  // Append the unique content to the manual testing summary
-  const manualTestingSummary = checkManualDetails.querySelector("summary");
-  if (manualTestingSummary) {
-    manualTestingSummary.appendChild(manualTestingParaHeadingStrong);
-  }
+  // // Append the unique content to the manual testing summary
+  // const manualTestingSummary = checkManualDetails.querySelector("summary");
+  // if (manualTestingSummary) {
+  //   manualTestingSummary.appendChild(manualTestingParaHeadingStrong);
+  // }
 
   // Additional unique content for manual testing
   // const manualPara = document.createElement("p");
