@@ -263,10 +263,10 @@ function createTopRightContainerHeadings(): void {
   }
 
   // Additional unique content for manual testing
-  const manualPara = document.createElement("p");
-  manualPara.textContent = "This section will be populated with how to manually test";
-  manualPara.className = "check-paragraph-9927845";
-  checkManualDetails.appendChild(manualPara);
+  // const manualPara = document.createElement("p");
+  // manualPara.textContent = "This section will be populated with how to manually test";
+  // manualPara.className = "check-paragraph-9927845";
+  // checkManualDetails.appendChild(manualPara);
 
   // Add paragraph as a heading for the list
   const summaryHeadingPara = document.createElement("p");

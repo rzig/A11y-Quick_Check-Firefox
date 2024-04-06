@@ -220,7 +220,7 @@ summary.check-summary-9927845 {
       color: var(--neutral-text),
       cursor: pointer,
       padding: 0,
-      margin-top: 0,
+      margin: 0,
       outline: none,
       background-color: var(--neutral-background),
       transition: background-color 0.3s,
@@ -238,11 +238,14 @@ summary.check-summary-9927845[open] > details.check-details-9927845 {
   );
 }
 
-.check-details-9927845 {
+details.check-details-9927845 {
   @include important-styles(
     (
       border-radius: 5px,
+      padding:  0,
+      margin: 0,
       margin-top: 1em,
+      margin-bottom: 1em,
       color: var(--neutral-text),
       display: flex,
       flex-wrap: wrap,
@@ -316,6 +319,15 @@ summary.check-summary-9927845[open] > details.check-details-9927845 {
     (
       outline: none,
       "box-shadow": "0 0 0 3px var(--white), 0 0 0 5px var(--warning-border)",
+    ),
+    true
+  );
+}
+
+.check-summary-9927845>:first-child:before {
+  @include important-styles(
+    (
+      display:none,
     ),
     true
   );

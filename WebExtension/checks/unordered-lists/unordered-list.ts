@@ -140,10 +140,10 @@ function createTopRightContainerUnorderedList(): void {
   }
 
   // Additional unique content for manual testing
-  const manualPara = document.createElement("p");
-  manualPara.textContent = "This section will be populated with how to manually test";
-  manualPara.className = "check-paragraph-9927845";
-  checkManualDetails.appendChild(manualPara);
+  // const manualPara = document.createElement("p");
+  // manualPara.textContent = "This section will be populated with how to manually test";
+  // manualPara.className = "check-paragraph-9927845";
+  // checkManualDetails.appendChild(manualPara);
 
   const hgroupElements = document.querySelectorAll("ul");
 

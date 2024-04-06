@@ -26,11 +26,7 @@ function checkTextNodesForHeadings(): void {
   let node: Node | null;
   while ((node = walk.nextNode())) {
     const parentElement = node.parentElement;
-    if (!parentElement) continue;
-
-    if (isNodeInExcludedContainer(node)) {
-      continue;
-    }
+    if (!parentElement || isNodeInExcludedContainer(node)) continue;
 
     const nodeText = node.nodeValue ? node.nodeValue.trim() : "";
     if (!nodeText) continue;
@@ -43,22 +39,16 @@ function checkTextNodesForHeadings(): void {
     let isHeadingOrSvg = false;
     let validTextContainer = false;
 
-    while (ancestor) {
-      if (["h1", "h2", "h3", "h4", "h5", "h6"].includes(ancestor.tagName.toLowerCase())) {
+    while (ancestor && ancestor !== document.body) {
+      const tagName = ancestor.tagName.toLowerCase();
+      if (["h1", "h2", "h3", "h4", "h5", "h6", "svg"].includes(tagName)) {
         isHeadingOrSvg = true;
         break;
       }
-
-      if (ancestor.tagName.toLowerCase() === "svg") {
-        isHeadingOrSvg = true;
-        break;
-      }
-
-      if (["div", "span", "p"].includes(ancestor.tagName.toLowerCase()) && !ancestor.hasAttribute("role")) {
+      if (["div", "span", "p"].includes(tagName) && !ancestor.hasAttribute("role")) {
         validTextContainer = true;
         break;
       }
-
       ancestor = ancestor.parentElement;
     }
 
@@ -138,10 +128,10 @@ function createTopRightContainerNotHeading(): void {
   }
 
   // Additional unique content for manual testing
-  const manualPara = document.createElement("p");
-  manualPara.textContent = "This section will be populated with how to manually test";
-  manualPara.className = "check-paragraph-9927845";
-  checkManualDetails.appendChild(manualPara);
+  // const manualPara = document.createElement("p");
+  // manualPara.textContent = "This section will be populated with how to manually test";
+  // manualPara.className = "check-paragraph-9927845";
+  // checkManualDetails.appendChild(manualPara);
 
 
   // Use createReferenceContainer to generate the reference section
