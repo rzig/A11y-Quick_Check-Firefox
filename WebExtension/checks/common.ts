@@ -416,6 +416,14 @@ function isNodeInExcludedContainer(node: Node): boolean {
   }
   return false;
 }
+function withExclusionCheck(fn: Function) {
+  return function(...args: any[]) {
+    const containerDiv = document.querySelector('.top-right-container-9927845');
+    if (!containerDiv || !isNodeInExcludedContainer(containerDiv)) {
+      return fn(...args);
+    }
+  };
+}
 
 function getOrCreateContainer(): HTMLDivElement | null {
   if (window !== window.top) {
@@ -482,28 +490,30 @@ function createReferenceContainer(): HTMLDivElement | null {
   return referenceContainer;
 }
 
-function createCommonDetailsContainer(): HTMLDetailsElement {
+// Single reusable function for creating a details component
+function createDetailsComponent(summaryText: string, ContentText?: string): HTMLDetailsElement {
   const details = document.createElement("details");
   details.className = "check-details-9927845";
 
   const summary = document.createElement("summary");
   summary.className = "check-summary-9927845";
 
+  // Create a strong element for the summary text. Change to heading at some stage
+  const summaryTextStrong = document.createElement("strong");
+  summaryTextStrong.textContent = summaryText;
+  summary.appendChild(summaryTextStrong);
+
   details.appendChild(summary);
 
+  // Add content it directly under details
+  if (ContentText) {
+    const ContentPara = document.createElement("p");
+    ContentPara.textContent = ContentText;
+    ContentPara.className = "check-paragraph-9927845";
+    details.appendChild(ContentPara);
+  }
+
   return details;
-}
-
-function createManualNotesDetailsContainer(): HTMLDetailsElement {
-  const detailsManual = document.createElement("details");
-  detailsManual.className = "check-details-9927845";
-
-  const summaryManual = document.createElement("summary");
-  summaryManual.className = "check-summary-9927845";
-
-  detailsManual.appendChild(summaryManual);
-
-  return detailsManual;
 }
 
 function createMinMaxButton(containerDiv: HTMLDivElement): void {

@@ -156,49 +156,18 @@ function createTopRightContainerRelatedControls(): void {
   containerDiv.appendChild(innerDiv);
   updateParentContainerClass(containerDiv);
 
-  // Use createCommonDetailsContainer from common.ts to create the common details structure
-  const checkDetails = createCommonDetailsContainer();
+  const checkDetails = createDetailsComponent(
+    "Analysing related form controls",
+    "The purpose of this check is to evaluate the related form controls are grouped. It aims to ensure these elements are correctly structured, highlighting best practices such as the correct placement of legend elements within fieldset tags, and verifying that ARIA groupings have accessible names provided by aria-label or aria-labelledby. The check offers feedback on the presence and configuration of these elements, reinforcing the importance of proper labeling for accessibility and the structural integrity of forms."
+  );
   innerDiv.appendChild(checkDetails);
 
-  // Unique content for this instance
-  const importantNotePara: HTMLParagraphElement = document.createElement("p");
-  importantNotePara.className = "message-heading-9927845";
-  const strongImportantNote: HTMLElement = document.createElement("strong");
-  strongImportantNote.textContent = "Related Controls Summary";
-  importantNotePara.appendChild(strongImportantNote);
-  
-  // Append the unique content to the summary
-  const checkSummary = checkDetails.querySelector("summary");
-  if (checkSummary) {
-    checkSummary.appendChild(strongImportantNote);
-  }
-
-  // Additional unique content - directly under the summary
-  const messagePara = document.createElement("p");
-  messagePara.textContent = "The purpose of this check is to evaluate the related form controls are grouped. It aims to ensure these elements are correctly structured, highlighting best practices such as the correct placement of legend elements within fieldset tags, and verifying that ARIA groupings have accessible names provided by aria-label or aria-labelledby. The check offers feedback on the presence and configuration of these elements, reinforcing the importance of proper labeling for accessibility and the structural integrity of forms.";
-  checkDetails.appendChild(messagePara);
-
-//   const checkManualDetails = createManualNotesDetailsContainer();
-//   innerDiv.appendChild(checkManualDetails);
-
-//   // Manual testing summary title for details
-//   const manualTestingPara: HTMLParagraphElement = document.createElement("p");
-//   manualTestingPara.className = "message-heading-9927845";
-//   const manualTestingParaHeadingStrong: HTMLElement = document.createElement("strong");
-//   manualTestingParaHeadingStrong.textContent = "How to manually test ( is coming! )";
-//   manualTestingPara.appendChild(manualTestingParaHeadingStrong);
-  
-//   // Append the unique content to the manual testing summary
-//   const manualTestingSummary = checkManualDetails.querySelector("summary");
-//   if (manualTestingSummary) {
-//     manualTestingSummary.appendChild(manualTestingParaHeadingStrong);
-//   }
-
-  // Additional unique content for manual testing
-//   const manualPara = document.createElement("p");
-//   manualPara.textContent = "This section will be populated with how to manually test";
-//   manualPara.className = "check-paragraph-9927845";
-//   checkManualDetails.appendChild(manualPara);
+  // // Manual notes details component
+  // const checkManualDetails = createDetailsComponent(
+  //   "How to manually test ( is coming! )",
+  //   "This section will be populated with how to manually test"
+  // );
+  // innerDiv.appendChild(checkManualDetails);
 
 
   // Use createReferenceContainer to generate the reference section

@@ -319,49 +319,18 @@ function createTopRightContainerTargetSize(): void {
   containerDiv.appendChild(innerDiv);
   updateParentContainerClass(containerDiv);
 
-  // Use createCommonDetailsContainer from common.ts to create the common details structure
-  const checkDetails = createCommonDetailsContainer();
+  const checkDetails = createDetailsComponent(
+    "Analysing target-size",
+    "The purpose of this check is to ensure web elements conform to the target size success criteria. It evaluates elements like buttons, links, and form controls, verifying that they meet the minimum target size requirements. This includes notifications when the Spacing exceeption applies. Lists are indicated as requiring manual testing verification if the Inline exception. The Target Size messages can be toggled on/off. If a target is undersize, and the circles do not intersect (overlap), the spacing exemption applies. Note that the Spacing exception is only applicable to 2.5.8 Target Size (Minimum) (Level AA)"
+  );
   innerDiv.appendChild(checkDetails);
 
-  // Unique content for this instance
-  const importantNotePara: HTMLParagraphElement = document.createElement("p");
-  importantNotePara.className = "message-heading-9927845";
-  const strongImportantNote: HTMLElement = document.createElement("strong");
-  strongImportantNote.textContent = "Target size Summary";
-  importantNotePara.appendChild(strongImportantNote);
-  
-  // Append the unique content to the summary
-  const checkSummary = checkDetails.querySelector("summary");
-  if (checkSummary) {
-    checkSummary.appendChild(strongImportantNote);
-  }
-
-  // Additional unique content - directly under the summary
-  const messagePara = document.createElement("p");
-  messagePara.textContent = "The purpose of this check is to ensure web elements conform to the ARIA 2.2 target size success criteria. It evaluates elements like buttons, links, and form controls, verifying that they meet the minimum target size requirements. This includes notifications when the Spacing exceeption applies. Lists are indicated as requiring manual testing verification if the Inline exception.";
-  checkDetails.appendChild(messagePara);
-
-  // const checkManualDetails = createManualNotesDetailsContainer();
+  // // Manual notes details component
+  // const checkManualDetails = createDetailsComponent(
+  //   "How to manually test ( is coming! )",
+  //   "This section will be populated with how to manually test"
+  // );
   // innerDiv.appendChild(checkManualDetails);
-
-  // // Manual testing summary title for details
-  // const manualTestingPara: HTMLParagraphElement = document.createElement("p");
-  // manualTestingPara.className = "message-heading-9927845";
-  // const manualTestingParaHeadingStrong: HTMLElement = document.createElement("strong");
-  // manualTestingParaHeadingStrong.textContent = "How to manually test ( is coming! )";
-  // manualTestingPara.appendChild(manualTestingParaHeadingStrong);
-  
-  // // Append the unique content to the manual testing summary
-  // const manualTestingSummary = checkManualDetails.querySelector("summary");
-  // if (manualTestingSummary) {
-  //   manualTestingSummary.appendChild(manualTestingParaHeadingStrong);
-  // }
-
-  // Additional unique content for manual testing
-  // const manualPara = document.createElement("p");
-  // manualPara.textContent = "This section will be populated with how to manually test";
-  // manualPara.className = "check-paragraph-9927845";
-  // checkManualDetails.appendChild(manualPara);
 
   // Use createReferenceContainer to generate the reference section
   const referenceContainer = createReferenceContainer();

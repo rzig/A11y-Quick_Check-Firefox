@@ -32,11 +32,10 @@ function detectSkippedHeadings(): number {
   let prevLevel = getEffectiveHeadingLevel(headings[0]);
 
   headings.forEach((heading: Element, index: number) => {
-
     // if (isNodeInExcludedContainer(heading)) {
     //   return; // Skip this heading
     // }
-    
+
     if (index === 0) return; // Skip the first element as there's no previous heading
 
     const currentLevel = getEffectiveHeadingLevel(heading);
@@ -58,7 +57,6 @@ function wrapAllHeadingsWithSpan(): void {
   );
 
   headings.forEach((heading: Element) => {
-
     const span = document.createElement("span");
     span.className = "headingWrapper-8878";
 
@@ -144,7 +142,6 @@ function checkMissingARIALevel() {
   const ariaHeadings = document.querySelectorAll('[role="heading"]');
 
   ariaHeadings.forEach((heading: Element) => {
-
     const ariaLevel = heading.getAttribute("aria-level");
 
     if (!ariaLevel) {
@@ -167,7 +164,6 @@ function detectSkippedARIAHeadings() {
   let prevLevel = 1; // Start from level 1 as the default
 
   ariaHeadings.forEach((heading: Element) => {
-
     const ariaLevelAttr = heading.getAttribute("aria-level");
     const currentLevel = ariaLevelAttr ? parseInt(ariaLevelAttr) : 1; // Default to 1 if aria-level is not set or is 0
 
@@ -215,58 +211,25 @@ function createTopRightContainerHeadings(): void {
   innerDiv.className = "inner-container-9927845 remove-inner-heading-9927845";
 
   // Check if the container is minimized
-  if (containerDiv.dataset['isMinimized'] === "true") {
+  if (containerDiv.dataset["isMinimized"] === "true") {
     innerDiv.classList.add("hidden-feature-message-9927845");
   }
 
   containerDiv.appendChild(innerDiv);
   updateParentContainerClass(containerDiv);
 
-  // Use createCommonDetailsContainer from common.ts to create the common details structure
-  const checkDetails = createCommonDetailsContainer();
+  const checkDetails = createDetailsComponent(
+    "Analysing headings",
+    "The purpose of this check is to analyze and highlight the structure of HTML headings. It identifies heading levels, including any that are skipped, which could impact navigability and accessibility. Additionally, it examines both HTML and ARIA-marked headings to ensure they conform to best practices."
+  );
   innerDiv.appendChild(checkDetails);
 
-  // Unique content for this instance
-  const importantNotePara: HTMLParagraphElement = document.createElement("p");
-  importantNotePara.className = "message-heading-9927845";
-  const strongImportantNote: HTMLElement = document.createElement("strong");
-  strongImportantNote.textContent = "Headings Summary";
-  importantNotePara.appendChild(strongImportantNote);
-
-  // Append the unique content to the summary
-  const checkSummary = checkDetails.querySelector("summary");
-  if (checkSummary) {
-    checkSummary.appendChild(strongImportantNote);
-  }
-
-  // Additional unique content - directly under the summary
-  const messagePara = document.createElement("p");
-  messagePara.textContent = "The purpose of this check is to analyze and highlight the structure of HTML headings. It identifies heading levels, including any that are skipped, which could impact navigability and accessibility. Additionally, it examines both HTML and ARIA-marked headings to ensure they conform to best practices.";
-  messagePara.className = "check-paragraph-9927845";
-  checkDetails.appendChild(messagePara);
-
-  // const checkManualDetails = createManualNotesDetailsContainer();
+  // // Manual notes details component
+  // const checkManualDetails = createDetailsComponent(
+  //   "How to manually test ( is coming! )",
+  //   "This section will be populated with how to manually test"
+  // );
   // innerDiv.appendChild(checkManualDetails);
-
-  // // Manual testing summary title for details
-  // const manualTestingPara: HTMLParagraphElement = document.createElement("p");
-  // manualTestingPara.className = "message-heading-9927845";
-  // const manualTestingParaHeadingStrong: HTMLElement = document.createElement("strong");
-  // manualTestingParaHeadingStrong.textContent = "How to manually test ( is coming! )";
-  
-  // manualTestingPara.appendChild(manualTestingParaHeadingStrong);
-  
-  // // Append the unique content to the manual testing summary
-  // const manualTestingSummary = checkManualDetails.querySelector("summary");
-  // if (manualTestingSummary) {
-  //   manualTestingSummary.appendChild(manualTestingParaHeadingStrong);
-  // }
-
-  // Additional unique content for manual testing
-  // const manualPara = document.createElement("p");
-  // manualPara.textContent = "This section will be populated with how to manually test";
-  // manualPara.className = "check-paragraph-9927845";
-  // checkManualDetails.appendChild(manualPara);
 
   // Add paragraph as a heading for the list
   const summaryHeadingPara = document.createElement("p");
@@ -383,7 +346,7 @@ function createTopRightContainerHeadings(): void {
     linkList.className = "reference-list-9927845";
     linkList.style.margin = "0";
     linkList.style.padding = "0";
-    
+
     referenceContainer.appendChild(linkList);
 
     // Append specified links function

@@ -65,28 +65,18 @@ function createTopRightContainerHgroup(): void {
   containerDiv.appendChild(innerDiv);
   updateParentContainerClass(containerDiv);
 
-  // Use createCommonDetailsContainer from common.ts to create the common details structure
-  const checkDetails = createCommonDetailsContainer();
+  const checkDetails = createDetailsComponent(
+    "Analysing HTML hgroup",
+    "The purpose of this functionality is to evaluate <hgroup> elements. It advises on enhancing <hgroup> accessibility by suggesting ARIA roles and attributes that can be used to provide support and confirms correct implementations. Additionally, it identifies <hgroup> elements missing heading elements, prompting for corrective actions to improve web content structure and accessibility."
+  );
   innerDiv.appendChild(checkDetails);
 
-  // Unique content for this instance
-  const importantNotePara: HTMLParagraphElement = document.createElement("p");
-  importantNotePara.className = "message-heading-9927845";
-  const strongImportantNote: HTMLElement = document.createElement("strong");
-  strongImportantNote.textContent = "The hgroup element Summary";
-  importantNotePara.appendChild(strongImportantNote);
-
-  // Append the unique content to the summary
-  const checkSummary = checkDetails.querySelector("summary");
-  if (checkSummary) {
-    checkSummary.appendChild(strongImportantNote);
-  }
-
-  // Additional unique content - directly under the summary
-  const messagePara = document.createElement("p");
-  messagePara.textContent =
-    "The purpose of this functionality is to evaluate <hgroup> elements. It advises on enhancing <hgroup> accessibility by suggesting ARIA roles and attributes that can be used to provide support and confirms correct implementations. Additionally, it identifies <hgroup> elements missing heading elements, prompting for corrective actions to improve web content structure and accessibility.";
-  checkDetails.appendChild(messagePara);
+  // // Manual notes details component
+  // const checkManualDetails = createDetailsComponent(
+  //   "How to manually test ( is coming! )",
+  //   "This section will be populated with how to manually test"
+  // );
+  // innerDiv.appendChild(checkManualDetails);
 
   // Add the original paragraph as a heading for the list
   const summaryHeadingPara = document.createElement("p");

@@ -95,27 +95,18 @@ function createTopRightContainerAriaLabel(): void {
   containerDiv.appendChild(innerDiv);
   updateParentContainerClass(containerDiv);
 
-  // Use createCommonDetailsContainer from common.ts to create the common details structure
-  const checkDetails = createCommonDetailsContainer();
+  const checkDetails = createDetailsComponent(
+    "Analysing aria-label",
+    "The purpose of this check is to highlight instances where aria-label is used, visibly displaying the label value that would be announced to screen reader users, thus providing a visual confirmation of what screen reader users will experience. It also identifies and provides feedback on instances where aria-label is improperly applied to elements where its use is not valid and may ot behave as expected."
+  );
   innerDiv.appendChild(checkDetails);
 
-  // Unique content for this instance
-  const importantNotePara: HTMLParagraphElement = document.createElement("p");
-  importantNotePara.className = "message-heading-9927845";
-  const strongImportantNote: HTMLElement = document.createElement("strong");
-  strongImportantNote.textContent = "Aria-Label Summary";
-  importantNotePara.appendChild(strongImportantNote);
-  
-  // Append the unique content to the summary
-  const checkSummary = checkDetails.querySelector("summary");
-  if (checkSummary) {
-    checkSummary.appendChild(strongImportantNote);
-  }
-
-  // Additional unique content - directly under the summary
-  const messagePara = document.createElement("p");
-  messagePara.textContent = "The purpose of this check is to highlight instances where aria-label is used, visibly displaying the label value that would be announced to screen reader users, thus providing a visual confirmation of what screen reader users will experience. It also identifies and provides feedback on instances where aria-label is improperly applied to elements where its use is not valid and may ot behave as expected.";
-  checkDetails.appendChild(messagePara);
+  // // Manual notes details component
+  // const checkManualDetails = createDetailsComponent(
+  //   "How to manually test ( is coming! )",
+  //   "This section will be populated with how to manually test"
+  // );
+  // innerDiv.appendChild(checkManualDetails);
 
   // Use createReferenceContainer to generate the reference section
   const referenceContainer = createReferenceContainer();

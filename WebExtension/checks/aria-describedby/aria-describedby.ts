@@ -121,49 +121,18 @@ function createTopRightContainerAriaDescribedby(): void {
   containerDiv.appendChild(innerDiv);
   updateParentContainerClass(containerDiv);
 
-  // Use createCommonDetailsContainer from common.ts to create the common details structure
-  const checkDetails = createCommonDetailsContainer();
+  const checkDetails = createDetailsComponent(
+    "Analysing aria-describedby",
+    "The purpose of this check is to confirm that elements using the aria-describedby attribute properly reference the IDs of elements meant to describe them. It examines each element with aria-describedby, ensuring the ID references exist and are linked to descriptive text. Generating and attaching messages to both the described elements and their descriptors, the check provides clear feedback on the connections made, highlighting effective descriptive associations or noting when descriptions are missing."
+  );
   innerDiv.appendChild(checkDetails);
 
-  // Unique content for this instance
-  const importantNotePara: HTMLParagraphElement = document.createElement("p");
-  importantNotePara.className = "message-heading-9927845";
-  const strongImportantNote: HTMLElement = document.createElement("strong");
-  strongImportantNote.textContent = "Aria-Describedby Summary";
-  importantNotePara.appendChild(strongImportantNote);
-  
-  // Append the unique content to the summary
-  const checkSummary = checkDetails.querySelector("summary");
-  if (checkSummary) {
-    checkSummary.appendChild(strongImportantNote);
-  }
-
-  // Additional unique content - directly under the summary
-  const messagePara = document.createElement("p");
-  messagePara.textContent = "The purpose of this check is to confirm that elements using the aria-describedby attribute properly reference the IDs of elements meant to describe them. It examines each element with aria-describedby, ensuring the ID references exist and are linked to descriptive text. Generating and attaching messages to both the described elements and their descriptors, the check provides clear feedback on the connections made, highlighting effective descriptive associations or noting when descriptions are missing.";
-  checkDetails.appendChild(messagePara);
-
-  // const checkManualDetails = createManualNotesDetailsContainer();
+  // // Manual notes details component
+  // const checkManualDetails = createDetailsComponent(
+  //   "How to manually test ( is coming! )",
+  //   "This section will be populated with how to manually test"
+  // );
   // innerDiv.appendChild(checkManualDetails);
-
-  // // Manual testing summary title for details
-  // const manualTestingPara: HTMLParagraphElement = document.createElement("p");
-  // manualTestingPara.className = "message-heading-9927845";
-  // const manualTestingParaHeadingStrong: HTMLElement = document.createElement("strong");
-  // manualTestingParaHeadingStrong.textContent = "How to manually test ( is coming! )";
-  // manualTestingPara.appendChild(manualTestingParaHeadingStrong);
-  
-  // // Append the unique content to the manual testing summary
-  // const manualTestingSummary = checkManualDetails.querySelector("summary");
-  // if (manualTestingSummary) {
-  //   manualTestingSummary.appendChild(manualTestingParaHeadingStrong);
-  // }
-
-  // Additional unique content for manual testing
-  // const manualPara = document.createElement("p");
-  // manualPara.textContent = "This section will be populated with how to manually test";
-  // manualPara.className = "check-paragraph-9927845";
-  // checkManualDetails.appendChild(manualPara);
 
   // Use createReferenceContainer to generate the reference section
   const referenceContainer = createReferenceContainer();

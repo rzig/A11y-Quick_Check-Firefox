@@ -276,7 +276,7 @@
 
 populateLinkObjects(); // Ensure the links are populated before use.
 
-function createTopRightContainer(): void {
+function createAccNameTopRightContainer(): void {
   const containerDiv = getOrCreateContainer();
 
   // Check if containerDiv is null and return early if so
@@ -295,49 +295,18 @@ function createTopRightContainer(): void {
   containerDiv.appendChild(innerDiv);
   updateParentContainerClass(containerDiv);
 
-  // Use createCommonDetailsContainer from common.ts to create the common details structure
-  const checkDetails = createCommonDetailsContainer();
+  const checkDetails = createDetailsComponent(
+    "Analysing Accessible Name and Description",
+    "The purpose of this check is to identify the accessible (programmatic) name of elements. It is useful to identify how the element is named, especially when it has multiple naming techniques. Displays the name from aria-labelledby, aria-label, or the description from aria-describedby, and sets a number against the named element and the element providing the name or description."
+  );
   innerDiv.appendChild(checkDetails);
 
-  // Unique content for this instance
-  const importantNotePara: HTMLParagraphElement = document.createElement("p");
-  importantNotePara.className = "message-heading-9927845";
-  const strongImportantNote: HTMLElement = document.createElement("strong");
-  strongImportantNote.textContent = "Accessible Name and Description Summary";
-  importantNotePara.appendChild(strongImportantNote);
-  
-  // Append the unique content to the summary
-  const checkSummary = checkDetails.querySelector("summary");
-  if (checkSummary) {
-    checkSummary.appendChild(strongImportantNote);
-  }
-
-  // Additional unique content - directly under the summary
-  const messagePara = document.createElement("p");
-  messagePara.textContent = "This is an updated check that identifies the accessible (programmatic) name of elements. It is useful to identify how the element is named, especially when it has multiple naming techniques.";
-  checkDetails.appendChild(messagePara);
-
-  const checkManualDetails = createManualNotesDetailsContainer();
-  innerDiv.appendChild(checkManualDetails);
-
-  // Manual testing summary title for details
-  const manualTestingPara: HTMLParagraphElement = document.createElement("p");
-  manualTestingPara.className = "message-heading-9927845";
-  const manualTestingParaHeadingStrong: HTMLElement = document.createElement("strong");
-  manualTestingParaHeadingStrong.textContent = "How to manually test ( is coming! )";
-  manualTestingPara.appendChild(manualTestingParaHeadingStrong);
-  
-  // Append the unique content to the manual testing summary
-  const manualTestingSummary = checkManualDetails.querySelector("summary");
-  if (manualTestingSummary) {
-    manualTestingSummary.appendChild(manualTestingParaHeadingStrong);
-  }
-
-  // Additional unique content for manual testing
-  // const manualPara = document.createElement("p");
-  // manualPara.textContent = "This section will be populated with how to manually test";
-  // manualPara.className = "check-paragraph-9927845";
-  // checkManualDetails.appendChild(manualPara);
+  // // Manual notes details component
+  // const checkManualDetails = createDetailsComponent(
+  //   "How to manually test ( is coming! )",
+  //   "This section will be populated with how to manually test"
+  // );
+  // innerDiv.appendChild(checkManualDetails);
 
 
   // Use createReferenceContainer to generate the reference section
@@ -385,4 +354,4 @@ function createTopRightContainer(): void {
   document.body.appendChild(containerDiv);
 }
 
-createTopRightContainer();
+createAccNameTopRightContainer();

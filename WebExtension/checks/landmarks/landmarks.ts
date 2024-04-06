@@ -227,50 +227,18 @@ function createTopRightContainerLandmarks(): void {
   containerDiv.appendChild(innerDiv);
   updateParentContainerClass(containerDiv);
 
-  // Use createCommonDetailsContainer from common.ts to create the common details structure
-  const checkDetails = createCommonDetailsContainer();
+  const checkDetails = createDetailsComponent(
+    "Analysing Landmarks",
+    "The purpose of this check is to verify the proper use of HTML landmarks and ARIA landmark roles. It checks for accessible naming, role conflicts, and correct landmark nesting. Landmark roles programmatically identify sections of a page and serve as navigational aids to assistive technology users. In HTML article, aside, nav and section elements are called 'Sectioning content'."
+  );
   innerDiv.appendChild(checkDetails);
 
-  // Unique content for this instance
-  const importantNotePara: HTMLParagraphElement = document.createElement("p");
-  importantNotePara.className = "message-heading-9927845";
-  const strongImportantNote: HTMLElement = document.createElement("strong");
-  strongImportantNote.textContent = "Landmarks Summary";
-  importantNotePara.appendChild(strongImportantNote);
-
-  // Append the unique content to the summary
-  const checkSummary = checkDetails.querySelector("summary");
-  if (checkSummary) {
-    checkSummary.appendChild(strongImportantNote);
-  }
-
-  // Additional unique content - directly under the summary
-  const messagePara = document.createElement("p");
-  messagePara.textContent =
-    "The purpose of this check is to verify the proper use of HTML landmarks and ARIA landmark roles. It checks for accessible naming, role conflicts, and correct landmark nesting.";
-  checkDetails.appendChild(messagePara);
-
-  // const checkManualDetails = createManualNotesDetailsContainer();
+  // // Manual notes details component
+  // const checkManualDetails = createDetailsComponent(
+  //   "How to manually test ( is coming! )",
+  //   "This section will be populated with how to manually test"
+  // );
   // innerDiv.appendChild(checkManualDetails);
-
-  // // Manual testing summary title for details
-  // const manualTestingPara: HTMLParagraphElement = document.createElement("p");
-  // manualTestingPara.className = "message-heading-9927845";
-  // const manualTestingParaHeadingStrong: HTMLElement = document.createElement("strong");
-  // manualTestingParaHeadingStrong.textContent = "How to manually test ( is coming! )";
-  // manualTestingPara.appendChild(manualTestingParaHeadingStrong);
-  
-  // // Append the unique content to the manual testing summary
-  // const manualTestingSummary = checkManualDetails.querySelector("summary");
-  // if (manualTestingSummary) {
-  //   manualTestingSummary.appendChild(manualTestingParaHeadingStrong);
-  // }
-
-  // Additional unique content for manual testing
-  // const manualPara = document.createElement("p");
-  // manualPara.textContent = "This section will be populated with how to manually test";
-  // manualPara.className = "check-paragraph-9927845";
-  // checkManualDetails.appendChild(manualPara);
 
 
   // Use createReferenceContainer to generate the reference section
