@@ -15,7 +15,7 @@ chrome.webNavigation.onCompleted.addListener(async (details) => {
         allFrames: true,
       },
       // This needs to be relative to the root of the extension
-      files: ["checks/common.js", "extension/content-setting.js"],
+      files: ["checks/common.js", "checks/highlight-box.js", "extension/content-setting.js"],
     });
   } catch (err) {
     if (err instanceof Error) {
