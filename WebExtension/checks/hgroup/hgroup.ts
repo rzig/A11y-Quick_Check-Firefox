@@ -78,13 +78,11 @@ function createTopRightContainerHgroup(): void {
   // );
   // innerDiv.appendChild(checkManualDetails);
 
-  // Add the original paragraph as a heading for the list
-  const summaryHeadingPara = document.createElement("p");
-  const summaryStrong = document.createElement("strong");
-  summaryStrong.textContent = "Findings"; // Title for the findings section
+  // heading for the list
+  const summaryHeadingPara = document.createElement("h2");
+  summaryHeadingPara.textContent = "Findings";
   summaryHeadingPara.className = "list-heading-9927845";
-  summaryHeadingPara.appendChild(summaryStrong);
-  innerDiv.appendChild(summaryHeadingPara); // Append the heading to the container
+  innerDiv.appendChild(summaryHeadingPara);
 
   const hgroupElements = document.querySelectorAll("hgroup");
 

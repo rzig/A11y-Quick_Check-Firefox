@@ -16,6 +16,13 @@
   --neutral-text: #07011c;
 }
 
+/* Mixin for applying styles with optional !important flag */
+@mixin important-styles($styles, $important: false) {
+  @each $property, $value in $styles {
+    #{$property}: $value #{if($important, "!important", "")};
+  }
+}
+
 @mixin font-styling {
   font-family: Aptos, Bierstadt, "Segoe UI", -apple-system, BlinkMacSystemFont,
     Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
@@ -95,13 +102,6 @@
   white-space: normal !important;
 }
 
-/* Mixin for applying styles with optional !important flag */
-@mixin important-styles($styles, $important: false) {
-  @each $property, $value in $styles {
-    #{$property}: $value #{if($important, "!important", "")};
-  }
-}
-
 // Define a mixin for container width
 @mixin flex-width-container($max-width: 380px) {
   display: flex;
@@ -177,7 +177,7 @@
   @include important-styles(
     (
       position: absolute,
-      max-width: 450px,
+      width: 450px,
       top: 10px,
       right: 10px,
       padding: 0,
@@ -229,10 +229,49 @@ summary.check-summary-9927845 {
   );
 }
 
+h2.summary-heading-9927845 {
+  @include important-styles(
+    (
+      font-size: 1rem,
+      color: var(--neutral-text),
+      display: inline,
+    ),
+    true
+  );
+}
+
 summary.check-summary-9927845[open] > details.check-details-9927845 {
   @include important-styles(
     (
       padding-bottom: 1em,
+    ),
+    true
+  );
+}
+
+summary.check-summary-9927845:focus {
+  @include important-styles(
+    (
+      outline: none,
+    ),
+    true
+  );
+}
+
+summary.check-summary-9927845:focus-visible {
+  @include important-styles(
+    (
+      outline: none,
+      "box-shadow": "0 0 0 3px var(--white), 0 0 0 5px var(--warning-border)",
+    ),
+    true
+  );
+}
+
+summary.check-summary-9927845>:first-child:before {
+  @include important-styles(
+    (
+      display:none,
     ),
     true
   );
@@ -252,25 +291,36 @@ details.check-details-9927845 {
     ),
     true
   );
-}
 
-.check-details-9927845:first-of-type {
-  @include important-styles(
-    (
-      margin-top: 2em,
-    ),
-    true
-  );
-}
+  &:first-of-type {
+    @include important-styles(
+      (
+        margin-top: 2em,
+      ),
+      true
+    );
+  }
 
-.check-details-9927845 p {
-  @include important-styles(
-    (
-      font-size: 1rem,
-      margin: 0 1em,
-    ),
-    true
-  );
+  & p {
+    @include important-styles(
+      (
+        font-size: 1rem,
+        margin: 0 1em,
+      ),
+      true
+    );
+  }
+
+  & h2.message-heading-9927845 {
+    @include important-styles(
+      (
+        font-size: 1.5rem,
+        margin-bottom: 0.5em,
+        margin-top: 1em,
+      ),
+      true
+    );
+  }
 }
 
 .check-paragraph-9927845 {
@@ -279,17 +329,6 @@ details.check-details-9927845 {
       border-bottom: 2px solid var(--neutral-border),
       padding: 0.5em 0 1em,
       line-height: 1.5,
-    ),
-    true
-  );
-}
-
-.check-details-9927845 p.message-heading-9927845 {
-  @include important-styles(
-    (
-      font-size: 1.5rem,
-      margin-bottom: 0.5em,
-      margin-top: 1em,
     ),
     true
   );
@@ -305,34 +344,6 @@ details.check-details-9927845 {
   );
 }
 
-.check-summary-9927845:focus {
-  @include important-styles(
-    (
-      outline: none,
-    ),
-    true
-  );
-}
-
-.check-summary-9927845:focus-visible {
-  @include important-styles(
-    (
-      outline: none,
-      "box-shadow": "0 0 0 3px var(--white), 0 0 0 5px var(--warning-border)",
-    ),
-    true
-  );
-}
-
-.check-summary-9927845>:first-child:before {
-  @include important-styles(
-    (
-      display:none,
-    ),
-    true
-  );
-}
-
 details.check-details-9927845 > summary.check-summary-9927845:first-of-type {
   @include important-styles(
     (
@@ -342,7 +353,7 @@ details.check-details-9927845 > summary.check-summary-9927845:first-of-type {
   );
 }
 
-p.list-heading-9927845 {
+h2.list-heading-9927845 {
   @include important-styles(
     (
       font-size: 1.2rem,
@@ -352,7 +363,7 @@ p.list-heading-9927845 {
   );
 }
 
-p.findings-heading-9927845 {
+h2.findings-heading-9927845 {
   @include important-styles(
     (
       font-size: 1.2rem,
@@ -391,6 +402,7 @@ ul.findings-list-9927845 {
     @include important-styles(
       (
         margin: 0.3em,
+        font-size: 1rem,
       ),
       true
     );
@@ -401,6 +413,7 @@ ul.findings-list-9927845 {
       (
         text-decoration: underline,
         color: var(--neutral-text),
+        font-size: 1rem,
       ),
       true
     );

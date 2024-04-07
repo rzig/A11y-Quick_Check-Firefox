@@ -283,11 +283,9 @@
     // innerDiv.appendChild(checkManualDetails);
 
     // Adding "Findings" heading
-    const findingsHeading = document.createElement("p");
+    const findingsHeading = document.createElement("h2");
     findingsHeading.className = "findings-heading-9927845";
-    const findingsStrong = document.createElement("strong");
-    findingsStrong.textContent = "Findings:";
-    findingsHeading.appendChild(findingsStrong);
+    findingsHeading.textContent = "Findings:";
     innerDiv.appendChild(findingsHeading);
 
     // Creating the findings list
@@ -313,18 +311,28 @@
     });
 
     // Append the message about tabindex="0" usage to the findings list
-    if (tabIndexZeroCount > 0) {
-      const tabindexZeroLi = document.createElement("li");
-      tabindexZeroLi.textContent = `${tabIndexZeroCount} valid uses of tabindex="0" identified.`;
-      findingsUL.appendChild(tabindexZeroLi);
-    }
+if (tabIndexZeroCount > 0) {
+  const tabindexZeroLi = document.createElement("li");
+  tabindexZeroLi.textContent = `${tabIndexZeroCount} uses of tabindex="0" identified.`;
+  findingsUL.appendChild(tabindexZeroLi);
+} else {
+  // Append a message indicating no valid uses of tabindex="0" found, if applicable
+  const noTabindexZeroLi = document.createElement("li");
+  noTabindexZeroLi.textContent = 'No uses of tabindex="0" identified.';
+  findingsUL.appendChild(noTabindexZeroLi);
+}
 
-    // Append the message about tabindex > 0 usage to the findings list, if applicable
-    if (tabIndexAboveZeroCount > 0) {
-      const tabindexAboveZeroLi = document.createElement("li");
-      tabindexAboveZeroLi.textContent = `${tabIndexAboveZeroCount} uses of tabindex greater than 0 identified, which can interfere with the natural tab order and accessibility.`;
-      findingsUL.appendChild(tabindexAboveZeroLi);
-    }
+// Append the message about tabindex > 0 usage to the findings list, if applicable
+if (tabIndexAboveZeroCount > 0) {
+  const tabindexAboveZeroLi = document.createElement("li");
+  tabindexAboveZeroLi.textContent = `${tabIndexAboveZeroCount} uses of tabindex greater than 0 identified, which can interfere with the natural tab order and accessibility.`;
+  findingsUL.appendChild(tabindexAboveZeroLi);
+} else {
+  // Append a message indicating no uses of tabindex > 0 found, if applicable
+  const noTabindexAboveZeroLi = document.createElement("li");
+  noTabindexAboveZeroLi.textContent = 'No uses of tabindex greater than 0 identified.';
+  findingsUL.appendChild(noTabindexAboveZeroLi);
+}
 
     let invalidTabIndexCount = 0;
     document.querySelectorAll("[tabindex]").forEach((element) => {

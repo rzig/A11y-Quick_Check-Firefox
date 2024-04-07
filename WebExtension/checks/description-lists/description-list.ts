@@ -159,6 +159,31 @@ function createTopRightContainerDescriptionList(): void {
   // );
   // innerDiv.appendChild(checkManualDetails);
 
+  // heading for the list
+  const summaryHeadingPara = document.createElement("h2");
+  summaryHeadingPara.textContent = "Description lists";
+  summaryHeadingPara.className = "list-heading-9927845";
+  innerDiv.appendChild(summaryHeadingPara);
+
+  const olElements = document.querySelectorAll("dl");
+
+  // Create the list for unordered lists
+  const findingsUL = document.createElement("ul");
+  findingsUL.className = "findings-list-9927845";
+  findingsUL.style.margin = "0";
+  findingsUL.style.padding = "0";
+
+  // Dynamically add a message based on hgroup elements found
+  const findingsLi = document.createElement("li");
+  if (olElements.length === 0) {
+    findingsLi.textContent = "No description lists identified.";
+  } else {
+    findingsLi.textContent = `${olElements.length} description lists identified.`;
+  }
+  findingsUL.appendChild(findingsLi); // Add the dynamic message to the list
+
+  // Append the findings list to the container
+  innerDiv.appendChild(findingsUL);
 
   // Use createReferenceContainer to generate the reference section
   const referenceContainer = createReferenceContainer();

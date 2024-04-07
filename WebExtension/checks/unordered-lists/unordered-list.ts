@@ -113,9 +113,15 @@ function createTopRightContainerUnorderedList(): void {
   // );
   // innerDiv.appendChild(checkManualDetails);
 
-  const hgroupElements = document.querySelectorAll("ul");
+  // heading for the list
+  const summaryHeadingPara = document.createElement("h2");
+  summaryHeadingPara.textContent = "Unordered lists";
+  summaryHeadingPara.className = "list-heading-9927845";
+  innerDiv.appendChild(summaryHeadingPara);
 
-  // Create the list for hgroup findings
+  const ulElements = document.querySelectorAll("ul");
+
+  // Create the list for unordered lists
   const findingsUL = document.createElement("ul");
   findingsUL.className = "findings-list-9927845";
   findingsUL.style.margin = "0";
@@ -123,10 +129,10 @@ function createTopRightContainerUnorderedList(): void {
 
   // Dynamically add a message based on hgroup elements found
   const findingsLi = document.createElement("li");
-  if (hgroupElements.length === 0) {
+  if (ulElements.length === 0) {
     findingsLi.textContent = "No unordered lists identified.";
   } else {
-    findingsLi.textContent = `${hgroupElements.length} unordered lists identified.`;
+    findingsLi.textContent = `${ulElements.length} unordered lists identified.`;
   }
   findingsUL.appendChild(findingsLi); // Add the dynamic message to the list
 

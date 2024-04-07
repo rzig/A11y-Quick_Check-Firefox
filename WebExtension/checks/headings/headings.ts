@@ -231,12 +231,10 @@ function createTopRightContainerHeadings(): void {
   // );
   // innerDiv.appendChild(checkManualDetails);
 
-  // Add paragraph as a heading for the list
-  const summaryHeadingPara = document.createElement("p");
-  const summaryStrong = document.createElement("strong");
-  summaryStrong.textContent = "Headings identified on this page";
+  // Add heading for the list
+  const summaryHeadingPara = document.createElement("h2");
+  summaryHeadingPara.textContent = "Headings identified on this page";
   summaryHeadingPara.className = "list-heading-9927845";
-  summaryHeadingPara.appendChild(summaryStrong);
   innerDiv.appendChild(summaryHeadingPara);
 
   // Create the list for headings stats

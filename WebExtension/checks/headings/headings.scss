@@ -122,3 +122,28 @@
 @include heading-border("h4", 2px dashed var(--neutral-border));
 @include heading-border("h5", 2px dashed var(--neutral-border));
 @include heading-border("h6", 2px dashed var(--neutral-border));
+
+h2.reference-9927845::before,
+h2.reference-9927845::after,
+h2.list-heading-9927845::before,
+h2.list-heading-9927845::after,
+h2.summary-heading-9927845::before,
+h2.summary-heading-9927845::after {
+  @include important-styles(
+    (
+      display:none,
+    ),
+    true
+  );
+}
+
+h2.reference-9927845,
+h2.list-heading-9927845,
+h2.summary-heading-9927845 {
+  @include important-styles(
+    (
+      border:none,
+    ),
+    true
+  );
+}

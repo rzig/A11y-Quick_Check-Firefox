@@ -42,3 +42,40 @@ $tags: p, hr, pre, blockquote, ol, ul, menu, li, dl, dt, dd, figure, figcaption,
     @include apply-strong-styles(#{$tag});
   }
 }
+
+
+.check-paragraph-9927845::before,
+.check-paragraph-9927845::after,
+.reference-9927845::before,
+.reference-9927845::after,
+.reference-list-9927845::before,
+.reference-list-9927845::after,
+.reference-list-9927845 li::before,
+.reference-list-9927845 li::after,
+.do-not-panic::before,
+.do-not-panic::after {
+  @include important-styles((
+      display:none,
+    ),
+    true);
+}
+
+.check-paragraph-9927845,
+.reference-9927845,
+.reference-list-9927845,
+.reference-list-9927845 li,
+.do-not-panic {
+  @include important-styles((
+      border: none,
+    ),
+    true);
+}
+
+.check-paragraph-9927845 {
+  @include important-styles(
+    (
+      border-bottom: 2px solid var(--neutral-border),
+    ),
+    true
+  );
+}

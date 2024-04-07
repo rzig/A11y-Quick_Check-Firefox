@@ -61,29 +61,28 @@
               "removeScript": "description-list-remove.js"
             },
             {
-              "name": "Content grouping",
-              "id": "groupingContent",
-              "resource_path": "checks/grouping-content",
-              "css": "grouping-content.css"
-            },
-            {
               "name": "Related form controls",
               "id": "relatedFormControls",
               "resource_path": "checks/related-form-controls",
               "css": "related-controls.css",
               "addScript": "related-controls.js",
               "removeScript": "related-controls-remove.js"
-            }
-          ]
-        },
-        {
-          "name": "Text-level semantics",
-          "items": [
+            },
             {
-              "name": "Inline elements",
+              "name": "Content grouping",
+              "id": "groupingContent",
+              "resource_path": "checks/grouping-content",
+              "css": "grouping-content.css",
+              "addScript": "grouping-content.js",
+              "removeScript": "grouping-content-remove.js"
+            },
+          {
+              "name": "Text-level semantics",
               "id": "textLevelSemantics",
               "resource_path": "checks/text-level-semantics",
-              "css": "text-level-semantics.css"
+              "css": "text-level-semantics.css",
+              "addScript": "text-level-semantics.js",
+              "removeScript": "text-level-semantics-remove.js"
             }
           ]
         },

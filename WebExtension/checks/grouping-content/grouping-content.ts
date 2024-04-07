@@ -1,6 +1,6 @@
 populateLinkObjects(); // Ensure the links are populated before use.
 
-function createTopRightContainer(): void {
+function createTopRightGCContainer(): void {
   const containerDiv = getOrCreateContainer();
 
   // Early return if containerDiv is null or within the excluded container
@@ -52,11 +52,11 @@ function createTopRightContainer(): void {
     }
 
     // Example usage of appendLink
-    appendLink(ariaLinks, "Accessible Name and Description Computation 1.2", "ARIA");
+    appendLink(htmlLinks, "4.4 Grouping content", "HTML");
   }
   createDismissButton(innerDiv, "Grouping content");
 
   document.body.appendChild(containerDiv);
 }
 
-createTopRightContainer();
+createTopRightGCContainer();

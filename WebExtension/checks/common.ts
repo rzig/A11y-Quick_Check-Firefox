@@ -313,6 +313,7 @@ function populateLinkObjects() {
         "https://html.spec.whatwg.org/multipage/sections.html#the-hgroup-element",
       "4.3.11 Headings and outlines":
         "https://html.spec.whatwg.org/multipage/sections.html#headings-and-outlines-2",
+        "4.4 Grouping content": "https://html.spec.whatwg.org/multipage/grouping-content.html#grouping-content",
       "4.4.5 The ol element":
         "https://html.spec.whatwg.org/multipage/grouping-content.html#the-ol-element",
       "4.4.6 The ul element":
@@ -329,6 +330,7 @@ function populateLinkObjects() {
         "https://html.spec.whatwg.org/multipage/form-elements.html#the-fieldset-element",
       "4.10.16 The legend element":
         "https://html.spec.whatwg.org/multipage/form-elements.html#the-legend-element",
+      "4.5 Text-level semantics": "https://html.spec.whatwg.org/multipage/text-level-semantics.html#text-level-semantics",
       "6.6.3 The tabindex attribute":
         "https://html.spec.whatwg.org/multipage/interaction.html#the-tabindex-attribute",
       "4.10.18.7.1 Autofilling form controls: the autocomplete attribute":
@@ -476,12 +478,10 @@ function createReferenceContainer(): HTMLDivElement | null {
   const referenceContainer = document.createElement("div");
   referenceContainer.className = "reference-container-9927845";
 
-  const referencePara = document.createElement("p");
+  const referencePara = document.createElement("h2");
   referencePara.className = "reference-9927845";
-  const strongReference = document.createElement("strong");
   const referenceText = document.createTextNode("References");
-  strongReference.appendChild(referenceText);
-  referencePara.appendChild(strongReference);
+  referencePara.appendChild(referenceText);
 
   referenceContainer.appendChild(referencePara);
 
@@ -499,9 +499,10 @@ function createDetailsComponent(summaryText: string, ContentText?: string): HTML
   summary.className = "check-summary-9927845";
 
   // Create a strong element for the summary text. Change to heading at some stage
-  const summaryTextStrong = document.createElement("strong");
-  summaryTextStrong.textContent = summaryText;
-  summary.appendChild(summaryTextStrong);
+  const summaryTextHeading = document.createElement("h2");
+  summaryTextHeading.textContent = summaryText;
+  summaryTextHeading.className = "summary-heading-9927845";
+  summary.appendChild(summaryTextHeading);
 
   details.appendChild(summary);
 
@@ -550,7 +551,7 @@ function createDismissButton(innerDiv: HTMLDivElement, importantNote: string = "
 
   const dismissButton = document.createElement("button");
   dismissButton.className = "dismiss-button-9927845";
-  dismissButton.textContent = `Remove ${importantNote} message`;
+  dismissButton.textContent = `Dismiss ${importantNote}`;
   
   dismissButton.addEventListener("click", function () {
     const innerDiv = this.closest(
@@ -576,11 +577,11 @@ function createDismissButton(innerDiv: HTMLDivElement, importantNote: string = "
 
   innerDiv.appendChild(dismissButton);
 
-  // Create a new <p> element with the specified class and text
-  const panicParagraph = document.createElement("p");
-  panicParagraph.className = "do-not-panic";
-  panicParagraph.textContent = "Don't Panic! I'll be here if you run the check again";
+  // // Create a new <p> element with the specified class and text
+  // const panicParagraph = document.createElement("p");
+  // panicParagraph.className = "do-not-panic";
+  // panicParagraph.textContent = "Don't Panic! I'll be here if you run the check again";
   
-  // Append the new <p> element under the button in the innerDiv
-  innerDiv.appendChild(panicParagraph);
+  // // Append the new <p> element under the button in the innerDiv
+  // innerDiv.appendChild(panicParagraph);
 }

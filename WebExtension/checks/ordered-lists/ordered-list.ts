@@ -92,7 +92,7 @@ function createTopRightContainerOrderedList(): void {
   innerDiv.className = "inner-container-9927845 remove-inner-ol-9927845";
 
   // Check if the container is minimized
-  if (containerDiv.dataset['isMinimized'] === "true") {
+  if (containerDiv.dataset["isMinimized"] === "true") {
     innerDiv.classList.add("hidden-feature-message-9927845");
   }
 
@@ -112,6 +112,31 @@ function createTopRightContainerOrderedList(): void {
   // );
   // innerDiv.appendChild(checkManualDetails);
 
+  // heading for the list
+  const summaryHeadingPara = document.createElement("h2");
+  summaryHeadingPara.textContent = "Ordered lists";
+  summaryHeadingPara.className = "list-heading-9927845";
+  innerDiv.appendChild(summaryHeadingPara);
+
+  const olElements = document.querySelectorAll("ol");
+
+  // Create the list for unordered lists
+  const findingsUL = document.createElement("ul");
+  findingsUL.className = "findings-list-9927845";
+  findingsUL.style.margin = "0";
+  findingsUL.style.padding = "0";
+
+  // Dynamically add a message based on hgroup elements found
+  const findingsLi = document.createElement("li");
+  if (olElements.length === 0) {
+    findingsLi.textContent = "No ordered lists identified.";
+  } else {
+    findingsLi.textContent = `${olElements.length} ordered lists identified.`;
+  }
+  findingsUL.appendChild(findingsLi); // Add the dynamic message to the list
+
+  // Append the findings list to the container
+  innerDiv.appendChild(findingsUL);
 
   // Use createReferenceContainer to generate the reference section
   const referenceContainer = createReferenceContainer();
@@ -123,7 +148,7 @@ function createTopRightContainerOrderedList(): void {
     linkList.className = "reference-list-9927845";
     linkList.style.margin = "0";
     linkList.style.padding = "0";
-    
+
     referenceContainer.appendChild(linkList);
 
     // Specified links function
