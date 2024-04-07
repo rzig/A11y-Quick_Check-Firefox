@@ -134,67 +134,37 @@
 
   // Main function to check tabindex and update messages for all elements
   document.querySelectorAll("[tabindex], [role]").forEach((element) => {
-    // Handle tabindex only if it's explicitly present, default to null to signify absence
     const tabIndexAttr = element.getAttribute("tabindex");
     const tabIndexValue = tabIndexAttr !== null ? parseInt(tabIndexAttr, 10) : null;
-    // Use the explicitly set role if available, otherwise infer based on element
-    let roleName = element.getAttribute("role") || "";
+    const roleName = element.getAttribute("role") || "";
   
-    if (isElementVisible(element as HTMLElement)) {
-      const tagName = element.tagName.toLowerCase();
+    if (isElementVisible(element as HTMLElement) && tabIndexValue !== null && tabIndexValue >= 0) {
+        const tagName = element.tagName.toLowerCase();
   
-      // Infer roles only if no explicit ARIA role is set
-      if (!roleName) {
-        if (tagName === "input" && element instanceof HTMLInputElement) {
-          const typeAttribute = element.type.toLowerCase();
-          if (["text", "email", "password", "search", "tel", "url", "number"].includes(typeAttribute)) {
-            roleName = "textbox";
-          } else if (typeAttribute === "submit" || typeAttribute === "button") {
-            roleName = "button";
-          } else {
-            roleName = "no role";
-          }
-        } else if (tagName === "a" && element.hasAttribute("href")) {
-          roleName = "link";
-        } else {
-          roleName = rolesNameFromContentTab.has(tagName) ? tagName : "no role";
-        }
-      }
-  
-      const { name, method } = getAccessibleNameTab(element);
-      let messageText = "";
-      let messageClass = "";
-      let extraClasses = [];
-  
-      // Adjust handling of tabindex messages based on presence and value
-      if (tabIndexValue !== null) {
+        const hasHref = tagName === "a" && element.hasAttribute("href");
+        const isNativelyFocusable = tagName === "button" || hasHref || tagName === "input";
+        
         if (tabIndexValue === 0) {
-          if (name) {
-            messageText = `Valid: tabindex ${tabIndexValue} used on element ${tagName} with role '${roleName}' and accessible name '${name}' from ${method}.`;
-            messageClass = "valid-9927845";
-            extraClasses = ["valid-message-9927845"];
-          } else {
-            messageText = `Warning: tabindex ${tabIndexValue} used on element ${tagName} with role '${roleName}' and without a valid name.`;
-            messageClass = "warning-9927845";
-            extraClasses = ["warning-message-9927845"];
-          }
+            // Check if element is natively focusable
+            if (isNativelyFocusable) {
+                addMessageToPrecedingDiv(element, "warning-9927845", `Warning: tabindex ${tabIndexValue} used on HTML element <${tagName}> is not needed. An <${tagName}> that includes ${hasHref ? "an href attribute" : ""} is natively focusable.`, ["warning-message-9927845"]);
+                addMessageToPrecedingDiv(element, "valid-9927845", `Valid: tabindex ${tabIndexValue} used on element <${tagName}> with role '${roleName}'.`, ["valid-message-9927845"]);
+            } else {
+                // For non-natively focusable elements or when additional conditions apply
+                addMessageToPrecedingDiv(element, "warning-9927845", `Warning: tabindex ${tabIndexValue} used on HTML element <${tagName}> is not needed. An <${tagName}> that includes ${hasHref ? "an href attribute" : ""} is natively focusable.`, ["warning-message-9927845"]);
+                addMessageToPrecedingDiv(element, "valid-9927845", `Valid: tabindex ${tabIndexValue} used on element <${tagName}> with role '${roleName}'.`, ["valid-message-9927845"]);
+            }
         } else {
-          messageText = `Warning: tabindex ${tabIndexValue} used on element ${tagName}. Using tabindex greater than 0 can cause critical accessibility issues.`;
-          messageClass = "warning-9927845";
-          extraClasses = ["warning-message-9927845"];
+            // Handle tabindex greater than 0
+            addMessageToPrecedingDiv(element, "warning-9927845", `Warning: tabindex ${tabIndexValue} used on element <${tagName}>. Using tabindex greater than 0 can cause critical accessibility issues.`, ["warning-message-9927845"]);
         }
-        addMessageToPrecedingDiv(element, messageClass, messageText, extraClasses);
-      }
-  
-      // This ensures the class is added only if tabindex is explicitly detected as 0
-      if (tabIndexValue === 0) {
-        element.classList.add("tabindex-0-detected-9927845");
-      }
+    
+        // Marking elements explicitly with tabindex="0"
+        if (tabIndexValue === 0) {
+            element.classList.add("tabindex-0-detected-9927845");
+        }
     }
-  });
-  
-
-  //element.classList.add("tabindex-0-detected-9927845")
+});
 
   populateLinkObjects(); // Ensure the links are populated before use.
 
