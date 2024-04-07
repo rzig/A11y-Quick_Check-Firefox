@@ -148,7 +148,7 @@
             // Check if element is natively focusable
             if (isNativelyFocusable) {
                 addMessageToPrecedingDiv(element, "warning-9927845", `Warning: tabindex ${tabIndexValue} used on HTML element <${tagName}> is not needed. An <${tagName}> that includes ${hasHref ? "an href attribute" : ""} is natively focusable.`, ["warning-message-9927845"]);
-                addMessageToPrecedingDiv(element, "valid-9927845", `Valid: tabindex ${tabIndexValue} used on element <${tagName}> with role '${roleName}'.`, ["valid-message-9927845"]);
+                addMessageToPrecedingDiv(element, "valid-9927845", `Valid: tabindex ${tabIndexValue} used on element <${tagName}> with role '${roleName}'.`, ["valid-message-9927845" , "closer-message-9927845"]);
             } else {
                 // For non-natively focusable elements or when additional conditions apply
                 addMessageToPrecedingDiv(element, "warning-9927845", `Warning: tabindex ${tabIndexValue} used on HTML element <${tagName}> is not needed. An <${tagName}> that includes ${hasHref ? "an href attribute" : ""} is natively focusable.`, ["warning-message-9927845"]);
