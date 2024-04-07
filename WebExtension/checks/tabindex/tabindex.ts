@@ -4,30 +4,12 @@
 
   // Define roles that can have names from their content
   const rolesNameFromContentTab: Set<string> = new Set([
-    "button",
-    "cell",
-    "checkbox",
-    "columnheader",
-    "gridcell",
-    "heading",
-    "link",
-    "menuitem",
-    "menuitemcheckbox",
-    "menuitemradio",
-    "option",
-    "radio",
-    "row",
-    "rowheader",
-    "sectionhead",
-    "switch",
-    "tab",
-    "tooltip",
-    "treeitem",
-  ]);
+    "button", "cell", "checkbox", "columnheader", "gridcell", "heading", "link", "menuitem",  "menuitemcheckbox", "menuitemradio", "option", "radio", "row", "rowheader", "sectionhead", "switch", "tab", "tooltip", "treeitem"]);
 
   const inherentRoles = {
-    a: "generic",
-    href: "link", // Maps HTML elements to their inherent ARIA roles
+    a: "link",
+    button: "button",
+    input: "textbox",
   };
 
   // Function to check if the element is visible
@@ -152,101 +134,67 @@
 
   // Main function to check tabindex and update messages for all elements
   document.querySelectorAll("[tabindex], [role]").forEach((element) => {
-    const tabIndexValue = parseInt(element.getAttribute("tabindex") || "0", 10);
-    const role = element.getAttribute("role") || "";
-
+    // Handle tabindex only if it's explicitly present, default to null to signify absence
+    const tabIndexAttr = element.getAttribute("tabindex");
+    const tabIndexValue = tabIndexAttr !== null ? parseInt(tabIndexAttr, 10) : null;
+    // Use the explicitly set role if available, otherwise infer based on element
+    let roleName = element.getAttribute("role") || "";
+  
     if (isElementVisible(element as HTMLElement)) {
-      let roleName = "";
       const tagName = element.tagName.toLowerCase();
-
-      // Role determination logic
-      if (tagName === "input") {
-        const inputElement = element as HTMLInputElement;
-        const typeAttribute = inputElement.type.toLowerCase();
-        if (!element.getAttribute("role")) {
-          if (
-            [
-              "text",
-              "email",
-              "password",
-              "search",
-              "tel",
-              "url",
-              "number",
-            ].includes(typeAttribute)
-          ) {
+  
+      // Infer roles only if no explicit ARIA role is set
+      if (!roleName) {
+        if (tagName === "input" && element instanceof HTMLInputElement) {
+          const typeAttribute = element.type.toLowerCase();
+          if (["text", "email", "password", "search", "tel", "url", "number"].includes(typeAttribute)) {
             roleName = "textbox";
           } else if (typeAttribute === "submit" || typeAttribute === "button") {
             roleName = "button";
           } else {
             roleName = "no role";
           }
+        } else if (tagName === "a" && element.hasAttribute("href")) {
+          roleName = "link";
         } else {
-          roleName = element.getAttribute("role") || "no role";
+          roleName = rolesNameFromContentTab.has(tagName) ? tagName : "no role";
         }
-      } else if (tagName === "a") {
-        roleName = element.hasAttribute("href") ? "link" : "generic";
-      } else {
-        roleName = rolesNameFromContentTab.has(tagName)
-          ? tagName
-          : element.getAttribute("role") || "no role";
       }
-
+  
       const { name, method } = getAccessibleNameTab(element);
       let messageText = "";
       let messageClass = "";
       let extraClasses = [];
-
-      // Handling tabindex messages
-      if (tabIndexValue === 0) {
-        if (name) {
-          messageText = `Valid: tabindex ${tabIndexValue} used on element ${tagName} with role '${roleName}' and accessible name '${name}' from ${method}.`;
-          messageClass = "valid-9927845";
-          extraClasses = ["valid-message-9927845"];
+  
+      // Adjust handling of tabindex messages based on presence and value
+      if (tabIndexValue !== null) {
+        if (tabIndexValue === 0) {
+          if (name) {
+            messageText = `Valid: tabindex ${tabIndexValue} used on element ${tagName} with role '${roleName}' and accessible name '${name}' from ${method}.`;
+            messageClass = "valid-9927845";
+            extraClasses = ["valid-message-9927845"];
+          } else {
+            messageText = `Warning: tabindex ${tabIndexValue} used on element ${tagName} with role '${roleName}' and without a valid name.`;
+            messageClass = "warning-9927845";
+            extraClasses = ["warning-message-9927845"];
+          }
         } else {
-          messageText = `Warning: tabindex ${tabIndexValue} used on element ${tagName} with role '${roleName}' and without a valid name.`;
+          messageText = `Warning: tabindex ${tabIndexValue} used on element ${tagName}. Using tabindex greater than 0 can cause critical accessibility issues.`;
           messageClass = "warning-9927845";
           extraClasses = ["warning-message-9927845"];
         }
-        // Append tabindex related message
-        addMessageToPrecedingDiv(
-          element,
-          messageClass,
-          messageText,
-          extraClasses
-        );
-      } else if (tabIndexValue > 0) {
-        messageText = `Warning: tabindex ${tabIndexValue} used on element ${tagName}. Using tabindex greater than 0 can cause critical accessibility issues.`;
-        messageClass = "warning-9927845";
-        extraClasses = ["warning-message-9927845"];
-        // Append tabindex related message
-        addMessageToPrecedingDiv(
-          element,
-          messageClass,
-          messageText,
-          extraClasses
-        );
+        addMessageToPrecedingDiv(element, messageClass, messageText, extraClasses);
       }
-
-      // Handling role="application" message separately
-      if (role.toLowerCase() === "application") {
-        let appRoleMessageText =
-          "Warning: Using role='application' changes the way assistive technologies interact with the content. In most cases, implementing the application role will create barriers to accessibility.";
-        let appRoleMessageClass = "warning-9927845";
-        let appRoleExtraClasses = ["warning-message-9927845"];
-
-        // Append role="application" message
-        addMessageToPrecedingDiv(
-          element,
-          appRoleMessageClass,
-          appRoleMessageText,
-          appRoleExtraClasses
-        );
+  
+      // This ensures the class is added only if tabindex is explicitly detected as 0
+      if (tabIndexValue === 0) {
+        element.classList.add("tabindex-0-detected-9927845");
       }
-
-      element.classList.add("tabindex-0-detected-9927845");
     }
   });
+  
+
+  //element.classList.add("tabindex-0-detected-9927845")
 
   populateLinkObjects(); // Ensure the links are populated before use.
 
@@ -295,64 +243,56 @@
     findingsUL.style.padding = "0";
 
     // Tabindex Summary
-    const allElements = document.querySelectorAll("*");
-    let tabIndexZeroCount = 0; // Count for tabindex=0
-    let tabIndexAboveZeroCount = 0; // Count for tabindex > 0
-    allElements.forEach((element) => {
-      const tabindexAttr = element.getAttribute("tabindex");
-      if (tabindexAttr !== null) {
-        const tabindex = parseInt(tabindexAttr, 10);
-        if (tabindex === 0) {
-          tabIndexZeroCount++;
-        } else if (tabindex > 0) {
-          tabIndexAboveZeroCount++;
-        }
-      }
-    });
+const allElements = document.querySelectorAll("*");
+let tabIndexZeroCount = 0; // Count for tabindex=0
+let tabIndexAboveZeroCount = 0; // Count for tabindex > 0
+allElements.forEach((element) => {
+  const tabindexAttr = element.getAttribute("tabindex");
+  if (tabindexAttr !== null) {
+    const tabindex = parseInt(tabindexAttr, 10);
+    if (tabindex === 0) {
+      tabIndexZeroCount++;
+    } else if (tabindex > 0) {
+      tabIndexAboveZeroCount++;
+    }
+  }
+});
 
-    // Append the message about tabindex="0" usage to the findings list
+// Handling cases based on findings
 if (tabIndexZeroCount > 0) {
   const tabindexZeroLi = document.createElement("li");
-  tabindexZeroLi.textContent = `${tabIndexZeroCount} uses of tabindex="0" identified.`;
+  tabindexZeroLi.textContent = `${tabIndexZeroCount} valid uses of tabindex="0" identified.`;
   findingsUL.appendChild(tabindexZeroLi);
-} else {
-  // Append a message indicating no valid uses of tabindex="0" found, if applicable
-  const noTabindexZeroLi = document.createElement("li");
-  noTabindexZeroLi.textContent = 'No uses of tabindex="0" identified.';
-  findingsUL.appendChild(noTabindexZeroLi);
 }
-
-// Append the message about tabindex > 0 usage to the findings list, if applicable
 if (tabIndexAboveZeroCount > 0) {
   const tabindexAboveZeroLi = document.createElement("li");
   tabindexAboveZeroLi.textContent = `${tabIndexAboveZeroCount} uses of tabindex greater than 0 identified, which can interfere with the natural tab order and accessibility.`;
   findingsUL.appendChild(tabindexAboveZeroLi);
-} else {
-  // Append a message indicating no uses of tabindex > 0 found, if applicable
-  const noTabindexAboveZeroLi = document.createElement("li");
-  noTabindexAboveZeroLi.textContent = 'No uses of tabindex greater than 0 identified.';
-  findingsUL.appendChild(noTabindexAboveZeroLi);
 }
 
-    let invalidTabIndexCount = 0;
-    document.querySelectorAll("[tabindex]").forEach((element) => {
-      const tabIndexValue = parseInt(
-        element.getAttribute("tabindex") || "0",
-        10
-      );
-      if (tabIndexValue < -1) {
-        invalidTabIndexCount++;
-      }
-    });
+let invalidTabIndexCount = 0;
+document.querySelectorAll("[tabindex]").forEach((element) => {
+  const tabIndexValue = parseInt(element.getAttribute("tabindex") || "0", 10);
+  if (tabIndexValue < -1) {
+    invalidTabIndexCount++;
+  }
+});
 
-    if (invalidTabIndexCount > 0) {
-      const invalidTabindexLi = document.createElement("li");
-      invalidTabindexLi.textContent = `${invalidTabIndexCount} invalid uses of tabindex identified. tabindex values should not be less than -1.`;
-      findingsUL.appendChild(invalidTabindexLi);
-    }
+if (invalidTabIndexCount > 0) {
+  const invalidTabindexLi = document.createElement("li");
+  invalidTabindexLi.textContent = `${invalidTabIndexCount} invalid uses of tabindex identified. tabindex values should not be less than -1.`;
+  findingsUL.appendChild(invalidTabindexLi);
+}
 
-    // Append the findings list to the container
-    innerDiv.appendChild(findingsUL);
+// Adding a summary message if no tabindex issues are found
+if (tabIndexZeroCount === 0 && tabIndexAboveZeroCount === 0 && invalidTabIndexCount === 0) {
+  const noIssuesLi = document.createElement("li");
+  noIssuesLi.textContent = "No tabindex-related issues identified.";
+  findingsUL.appendChild(noIssuesLi);
+}
+
+// Append the findings list to the container
+innerDiv.appendChild(findingsUL);
 
     // Reference Section
     const referenceContainer = createReferenceContainer();
