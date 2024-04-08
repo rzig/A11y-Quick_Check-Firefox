@@ -12,9 +12,15 @@
 }
 
 .valid-message-9927845 {
-  font-weight: 700;
-  margin: 0;
-  
+  @include important-styles(
+    (
+      font-weight: 700,
+      margin: 0,
+      text-wrap: pretty,
+    ),
+    true
+  );
+
   @include message-container(
     var(--pass-background),
     var(--pass-border),
@@ -36,9 +42,15 @@
 }
 
 .invalid-message-9927845 {
-  font-weight: 700;
-  margin: 0;
-  
+  @include important-styles(
+    (
+      font-weight: 700,
+      margin: 0,
+      text-wrap: pretty,
+    ),
+    true
+  );
+
   @include message-container(
     var(--danger-background),
     var(--danger-border),
@@ -60,9 +72,15 @@
 }
 
 .warning-message-9927845 {
-  font-weight: 700;
-  margin: 0;
-  
+  @include important-styles(
+    (
+      font-weight: 700,
+      margin: 0,
+      text-wrap: pretty,
+    ),
+    true
+  );
+
   @include message-container(
     var(--warning-background),
     var(--warning-border),
@@ -84,9 +102,15 @@
 }
 
 .generic-message-9927845 {
-  font-weight: 700;
-  margin: 0;
-  
+  @include important-styles(
+    (
+      font-weight: 700,
+      margin: 0,
+      text-wrap: pretty,
+    ),
+    true
+  );
+
   @include message-container(
     var(--neutral-background),
     var(--neutral-border),
@@ -134,7 +158,8 @@
 }
 
 // Apply styles to each HTML tag
-$sectioning-tags: "header", "nav", "footer", "aside", "article", "main", "section";
+$sectioning-tags: "header", "nav", "footer", "aside", "article", "main",
+  "section";
 
 @each $tag in $sectioning-tags {
   @include apply-strong-styles($tag);

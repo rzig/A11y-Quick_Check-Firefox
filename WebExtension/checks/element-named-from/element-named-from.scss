@@ -21,6 +21,12 @@
   );
   @include flex-width-container;
 
-  font-weight: 700;
-  margin: 0;
+  @include important-styles(
+    (
+      font-weight: 700,
+      margin: 0,
+      text-wrap: pretty,
+    ),
+    true
+  );
 }

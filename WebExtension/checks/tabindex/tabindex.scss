@@ -12,8 +12,14 @@
 }
 
 .valid-message-9927845 {
-  font-weight: 700;
-  margin: 0;
+  @include important-styles(
+    (
+  font-weight: 700,
+  margin: 0,
+  text-wrap:pretty,
+  ),
+    true
+  );
   
   @include message-container(
     var(--pass-background),
@@ -36,8 +42,14 @@
 }
 
 .invalid-message-9927845 {
-  font-weight: 700;
-  margin: 0;
+  @include important-styles(
+    (
+  font-weight: 700,
+  margin: 0,
+  text-wrap:pretty,
+  ),
+    true
+  );
   
   @include message-container(
     var(--danger-background),
@@ -60,8 +72,14 @@
 }
 
 .warning-message-9927845 {
-  font-weight: 700;
-  margin: 0;
+  @include important-styles(
+    (
+  font-weight: 700,
+  margin: 0,
+  text-wrap:pretty,
+  ),
+    true
+  );
   
   @include message-container(
     var(--warning-background),
@@ -84,8 +102,14 @@
 }
 
 .generic-message-9927845 {
-  font-weight: 700;
-  margin: 0;
+  @include important-styles(
+    (
+  font-weight: 700,
+  margin: 0,
+  text-wrap:pretty,
+  ),
+    true
+  );
   
   @include message-container(
     var(--neutral-background),
