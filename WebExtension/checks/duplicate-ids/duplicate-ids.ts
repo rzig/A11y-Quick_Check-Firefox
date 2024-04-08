@@ -3,105 +3,60 @@
 
   // Counter to uniquely identify relationships between elements with duplicate IDs and their referencing elements.
   let relationshipCounter: number = 1;
+const uniqueDuplicateIDs = new Set();
 
-  // Adds a numbered square before each element in the provided array.
-  function addNumberedRelationship(elements: Element[], number: number): void {
-    elements.forEach((element) => {
-      let square = document.createElement("div");
-      square.textContent = number.toString();
-      square.classList.add("numbered-square-9927845");
-      element.parentNode?.insertBefore(square, element); // Insert the square before the element in the DOM.
-    });
-  }
+// Adds a numbered square before each element in the provided array.
+function addNumberedRelationship(elements: Element[], number: number): void {
+  elements.forEach((element) => {
+    let square = document.createElement("div");
+    square.textContent = number.toString();
+    square.classList.add("numbered-square-9927845");
+    if (element.parentNode) {
+      element.parentNode.insertBefore(square, element); // Ensure element's parent is not undefined
+    }
+  });
+}
 
-  // Identify duplicate IDs and apply the numbered relationship and warning message.
-  function findDuplicateIdsAndApply(): void {
-    // Gets all elements with IDs or reference IDs use by aria attributes or labels.
-    const allElements = document.querySelectorAll(
-      "*[id], [aria-labelledby], [aria-describedby], [aria-controls], label[for]"
-    );
-    // Map to track the count, elements, and elements referencing the ID.
-    const idCounts = new Map<
-      string,
-      { count: number; elements: Element[]; referencedBy: Set<Element> }
-    >();
+// Identify duplicate IDs and apply the numbered relationship and warning message.
+function findDuplicateIdsAndApply(): void {
+  const allElements: NodeListOf<Element> = document.querySelectorAll("*[id], [aria-labelledby], [aria-describedby], [aria-controls], label[for]");
+  const idCounts: Map<string, { elements: Element[] }> = new Map();
 
-    // Count IDs and store elements by ID.
-    allElements.forEach((element) => {
-      const id = element.getAttribute("id");
-      if (id) {
-        let record = idCounts.get(id) ?? {
-          count: 0,
-          elements: [],
-          referencedBy: new Set<Element>(),
-        };
-        record.count += 1;
-        record.elements.push(element);
-        idCounts.set(id, record);
+  // First pass: Count all IDs
+  allElements.forEach((element: Element) => {
+    const id: string | null = element.getAttribute("id");
+    if (id) {
+      let record = idCounts.get(id) ?? { elements: [] };
+      record.elements.push(element);
+      idCounts.set(id, record);
+    }
+  });
+
+  // Second pass: Apply to all duplicates
+  idCounts.forEach(({ elements }, id) => {
+    if (elements.length > 1) { // Check for duplicates
+      uniqueDuplicateIDs.add(id); // Track the ID
+
+      // Add class to all elements with the duplicate ID
+      elements.forEach((element: Element) => element.classList.add("duplicate-id-warning", "warning-9927845"));
+
+      // Add the same numbered relationship to all elements with the duplicate ID
+      addNumberedRelationship(elements, relationshipCounter);
+
+      // Only the first occurrence gets the warning message
+      if (elements[0]) { // Ensure the first element is not undefined
+        const message: string = `Warning ID "${id}" is duplicated ${elements.length} times and affects accessibility.`;
+        addMessageToFollowingDiv(elements[0], "warning-message-9927845", message);
       }
-    });
 
-    // Find elements referencing these IDs and add them to the map.
-    allElements.forEach((element) => {
-      ["aria-labelledby", "aria-describedby", "aria-controls", "for"].forEach(
-        (attr) => {
-          const ids = element.getAttribute(attr);
-          if (ids) {
-            ids.split(" ").forEach((refId) => {
-              let record = idCounts.get(refId);
-              if (record) {
-                record.referencedBy.add(element);
-              }
-            });
-          }
-        }
-      );
-    });
+      relationshipCounter++; // Increment after processing each unique duplicate ID
+    }
+  });
+}
 
-    // Iterates over the ID map to apply relationships and warnings for duplicates.
-    idCounts.forEach(({ count, elements, referencedBy }, id) => {
-      if (count > 1) {
-        const referencingAttributes: string[] = [];
-        // Checks if the duplicate ID is referenced by any ARIA attributes or label.
-        const isReferencedByAria =
-          document.querySelector(
-            `[aria-labelledby~="${id}"], [aria-describedby~="${id}"],[aria-controls~="${id}"], label[for="${id}"]`
-          ) !== null;
-        if (isReferencedByAria) {
-          // Populates the referencingAttributes array based on which ARIA attributes reference the duplicate ID.
-          if (document.querySelector(`[aria-labelledby~="${id}"]`) !== null)
-            referencingAttributes.push("aria-labelledby");
-          if (document.querySelector(`[aria-describedby~="${id}"]`) !== null)
-            referencingAttributes.push("aria-describedby");
-          if (document.querySelector(`[aria-controls~="${id}"]`) !== null)
-            referencingAttributes.push("aria-controls");
-          if (document.querySelector(`label[for="${id}"]`) !== null)
-            referencingAttributes.push("label[for]");
-
-          // Combines elements with the same ID and elements referencing them.
-          const allRelatedElements = elements.concat(Array.from(referencedBy));
-          // Numbered circle to visually indicate elements related to the duplicate ID issue. No idea why I called this a square!
-          addNumberedRelationship(allRelatedElements, relationshipCounter);
-          relationshipCounter++;
-
-          allRelatedElements.forEach((element) => {
-            element.classList.add("warning-9927845");
-            const attributesList = referencingAttributes.join(", "); // Combine referencing attributes into a string.
-            const message = `Warning ID "${id}" is duplicated ${count} times and is referenced by ${attributesList}.`;
-            // New global styled message that gets inserted after the element in the DOM, alerting about the duplicate ID. This is so the number is closer to the elements it relates to.
-            addMessageToFollowingDiv(
-              element,
-              "warning-message-9927845",
-              message
-            );
-          });
-        }
-      }
-    });
-  }
-
-  findDuplicateIdsAndApply();
-})();
+// Call the main function to find and mark duplicate IDs.
+// findDuplicateIdsAndApply();
+// })();
 
 populateLinkObjects(); // Ensure the links are populated before use.
 
@@ -117,7 +72,7 @@ function createTopRightContainerDuplicateID(): void {
   innerDiv.className = "inner-container-9927845 remove-inner-di-9927845";
 
   // Check if the container is minimized
-  if (containerDiv.dataset['isMinimized'] === "true") {
+  if (containerDiv.dataset["isMinimized"] === "true") {
     innerDiv.classList.add("hidden-feature-message-9927845");
   }
 
@@ -137,6 +92,26 @@ function createTopRightContainerDuplicateID(): void {
   // );
   // innerDiv.appendChild(checkManualDetails);
 
+  // heading for the list
+  // const summaryHeadingPara = document.createElement("h2");
+  // summaryHeadingPara.textContent = "Findings";
+  // summaryHeadingPara.className = "list-heading-9927845";
+  // innerDiv.appendChild(summaryHeadingPara);
+
+  // // Dynamically add a message based on unique duplicate ID elements found
+  // // Here's the updated part for displaying the count
+  // const findingsUL = document.createElement("ul");
+  // findingsUL.className = "findings-list-9927845";
+
+  // const findingsLi = document.createElement("li");
+  // // Directly use uniqueDuplicateIDs.size for the current count
+  // findingsLi.textContent = uniqueDuplicateIDs.size === 0 ?
+  //   "No problematic duplicate IDs identified." :
+  //   `${uniqueDuplicateIDs.size} unique IDs affecting accessibility identified.`;
+
+  // findingsUL.appendChild(findingsLi);
+  // innerDiv.appendChild(findingsUL);
+
   // Use createReferenceContainer to generate the reference section
   const referenceContainer = createReferenceContainer();
   if (referenceContainer) {
@@ -147,7 +122,7 @@ function createTopRightContainerDuplicateID(): void {
     linkList.className = "reference-list-9927845";
     linkList.style.margin = "0";
     linkList.style.padding = "0";
-    
+
     referenceContainer.appendChild(linkList);
 
     // Specified links function
@@ -182,4 +157,6 @@ function createTopRightContainerDuplicateID(): void {
   document.body.appendChild(containerDiv);
 }
 
+findDuplicateIdsAndApply();
 createTopRightContainerDuplicateID();
+})();
