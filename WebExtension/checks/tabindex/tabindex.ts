@@ -4,7 +4,27 @@
 
   // Define roles that can have names from their content
   const rolesNameFromContentTab: Set<string> = new Set([
-    "button", "cell", "checkbox", "columnheader", "gridcell", "heading", "link", "menuitem",  "menuitemcheckbox", "menuitemradio", "option", "radio", "row", "rowheader", "sectionhead", "switch", "tab", "tooltip", "treeitem"]);
+    "button",
+    "cell",
+    "checkbox",
+    "columnheader",
+    "gridcell",
+    "heading",
+    "link",
+    "menuitem",
+    "menuitemcheckbox",
+    "menuitemradio",
+    "option",
+    "radio",
+    "row",
+    "rowheader",
+    "sectionhead",
+    "switch",
+    "tab",
+    "tooltip",
+    "treeitem",
+    "navigation",
+  ]);
 
   const inherentRoles = {
     a: "link",
@@ -60,8 +80,13 @@
 
     if (node.tagName.toLowerCase() === "a" && node.hasAttribute("href")) {
       const textContent = node.textContent?.trim() || "";
-      if (textContent) {
-        // If the <a> element has text content, use it as the accessible name
+      if (
+        textContent &&
+        (rolesNameFromContentTab.has(node.tagName.toLowerCase()) ||
+          rolesNameFromContentTab.has(
+            (node.getAttribute("role") || "").toLowerCase()
+          ))
+      ) {
         return { name: textContent, method: "text content" };
       }
     }
@@ -134,37 +159,109 @@
 
   // Main function to check tabindex and update messages for all elements
   document.querySelectorAll("[tabindex], [role]").forEach((element) => {
-    const tabIndexAttr = element.getAttribute("tabindex");
-    const tabIndexValue = tabIndexAttr !== null ? parseInt(tabIndexAttr, 10) : null;
-    const roleName = element.getAttribute("role") || "";
-  
-    if (isElementVisible(element as HTMLElement) && tabIndexValue !== null && tabIndexValue >= 0) {
-        const tagName = element.tagName.toLowerCase();
-  
-        const hasHref = tagName === "a" && element.hasAttribute("href");
-        const isNativelyFocusable = tagName === "button" || hasHref || tagName === "input";
-        
-        if (tabIndexValue === 0) {
-            // Check if element is natively focusable
-            if (isNativelyFocusable) {
-                addMessageToPrecedingDiv(element, "warning-9927845", `Warning: tabindex ${tabIndexValue} used on HTML element <${tagName}> is not needed. An <${tagName}> that includes ${hasHref ? "an href attribute" : ""} is natively focusable.`, ["warning-message-9927845"]);
-                addMessageToPrecedingDiv(element, "valid-9927845", `Valid: tabindex ${tabIndexValue} used on element <${tagName}> with role '${roleName}'.`, ["valid-message-9927845" , "closer-message-9927845"]);
-            } else {
-                // For non-natively focusable elements or when additional conditions apply
-                addMessageToPrecedingDiv(element, "warning-9927845", `Warning: tabindex ${tabIndexValue} used on HTML element <${tagName}> is not needed. An <${tagName}> that includes ${hasHref ? "an href attribute" : ""} is natively focusable.`, ["warning-message-9927845"]);
-                addMessageToPrecedingDiv(element, "valid-9927845", `Valid: tabindex ${tabIndexValue} used on element <${tagName}> with role '${roleName}'.`, ["valid-message-9927845"]);
-            }
-        } else {
-            // Handle tabindex greater than 0
-            addMessageToPrecedingDiv(element, "warning-9927845", `Warning: tabindex ${tabIndexValue} used on element <${tagName}>. Using tabindex greater than 0 can cause critical accessibility issues.`, ["warning-message-9927845"]);
-        }
     
-        // Marking elements explicitly with tabindex="0"
-        if (tabIndexValue === 0) {
-            element.classList.add("tabindex-0-detected-9927845");
-        }
+    const htmlElement = element as HTMLElement;
+    const tabIndexAttr = htmlElement.getAttribute("tabindex");
+    const tabIndexValue =
+      tabIndexAttr !== null ? parseInt(tabIndexAttr, 10) : null;
+    const accessibleNameInfo = getAccessibleNameTab(htmlElement);
+    const hasValidName = accessibleNameInfo.name !== "";
+    const tagName = htmlElement.tagName.toLowerCase();
+    const hasHref = tagName === "a" && htmlElement.hasAttribute("href");
+    const anchorTag = hasHref ? `<a href>` : `<a>`;
+
+    let roleName = htmlElement.getAttribute("role") || "";
+
+    if (!roleName) {
+      switch (htmlElement.tagName.toLowerCase()) {
+        case "a":
+          if (htmlElement.hasAttribute("href")) {
+            roleName = "link";
+          } else {
+            roleName = "generic";
+          }
+          break;
+        case "div":
+          roleName = "generic";
+          break;
+        case "span":
+          roleName = "generic";
+          break;
+      }
     }
-});
+
+    if (!isElementVisible(htmlElement) || tabIndexValue === null) return;
+
+    if (tagName === "a" && tabIndexValue === 0) {
+      if (!hasHref) {
+        if (hasValidName) {
+          const message = `Valid tabindex 0 used on element <a>${
+            roleName === "link" ? " with role 'link'" : ""
+          } with a valid name.`;
+          addMessageToPrecedingDiv(htmlElement, "valid-9927845", message, [
+            "valid-message-9927845",
+          ]);
+        } else {
+          const message = `Valid tabindex 0 used on element ${anchorTag} with an inherit role of ${roleName}.`;
+          addMessageToPrecedingDiv(htmlElement, "valid-9927845", message, [
+            "valid-message-9927845",
+          ]);
+        }
+      } else {
+        const message = `Warning: tabindex 0 used on HTML element ${anchorTag} is not needed. An ${anchorTag}, with an inherit role of ${roleName}, is natively focusable.`;
+        addMessageToPrecedingDiv(htmlElement, "warning-9927845", message, [
+          "warning-message-9927845",
+        ]);
+        if (hasValidName) {
+          const validMessage = `Valid tabindex 0 used on element ${anchorTag} with a valid name.`;
+          addMessageToPrecedingDiv(htmlElement, "valid-9927845", validMessage, [
+            "valid-message-9927845",
+          ]);
+        }
+      }
+    } else {
+      if (
+        tabIndexValue === 0 &&
+        (tagName === "div" || tagName === "span" || tagName === "a")
+      ) {
+        if (roleName && hasValidName) {
+          const message = `Valid tabindex 0 used on element <${tagName}> with role '${roleName}' and a valid name.`;
+          addMessageToPrecedingDiv(htmlElement, "valid-9927845", message, [
+            "valid-message-9927845",
+          ]);
+        } else if (roleName && !hasValidName) {
+          const message = `Invalid tabindex 0 used on element <${tagName}> with an inherit role '${roleName}' but without a valid name.`;
+          addMessageToPrecedingDiv(htmlElement, "invalid-9927845", message, [
+            "invalid-message-9927845",
+          ]);
+        } else if (!roleName) {
+          const message = `Invalid tabindex 0 used on element <${tagName}> without a role and without a valid name.`;
+          addMessageToPrecedingDiv(htmlElement, "invalid-9927845", message, [
+            "invalid-message-9927845",
+          ]);
+        }
+      } else if (tabIndexValue > 0) {
+        const message = `Warning: tabindex ${tabIndexValue} used on element <${tagName}>. Using tabindex greater than 0 can cause critical accessibility issues.`;
+        addMessageToPrecedingDiv(htmlElement, "warning-9927845", message, [
+          "warning-message-9927845",
+        ]);
+      }
+    }
+
+    if (tabIndexValue === 0) {
+      htmlElement.classList.add("tabindex-0-detected-9927845");
+    }
+    const el = element as HTMLInputElement;
+    if (
+      tagName === "input" &&
+      (el.type === "text" || el.type === "email" || el.type === "submit")
+    ) {
+      const message = `Warning: This message should generate for input type text ${tabIndexValue} <${tagName}> ${el.type}`;
+      addMessageToPrecedingDiv(htmlElement, "warning-9927845", message, [
+        "warning-message-9927845",
+      ]);
+    }
+  });
 
   populateLinkObjects(); // Ensure the links are populated before use.
 
@@ -192,7 +289,7 @@
       "The purpose of this check is to identify elements with a tabindex attribute that has a value of 0 or higher. The check highlights best practices in accessibility by flagging any misuse of tabindex, with warning messages against values greater than 0, which can be a barrier to accessibility. This check intentionally overlooks elements with a tabindex of -1, focusing instead on guiding developers towards enhancing web accessibility through the correct use of tabindex 0 or higher."
     );
     innerDiv.appendChild(checkDetails);
-  
+
     // // Manual notes details component
     // const checkManualDetails = createDetailsComponent(
     //   "How to manually test ( is coming! )",
@@ -213,56 +310,63 @@
     findingsUL.style.padding = "0";
 
     // Tabindex Summary
-const allElements = document.querySelectorAll("*");
-let tabIndexZeroCount = 0; // Count for tabindex=0
-let tabIndexAboveZeroCount = 0; // Count for tabindex > 0
-allElements.forEach((element) => {
-  const tabindexAttr = element.getAttribute("tabindex");
-  if (tabindexAttr !== null) {
-    const tabindex = parseInt(tabindexAttr, 10);
-    if (tabindex === 0) {
-      tabIndexZeroCount++;
-    } else if (tabindex > 0) {
-      tabIndexAboveZeroCount++;
+    const allElements = document.querySelectorAll("*");
+    let tabIndexZeroCount = 0; // Count for tabindex=0
+    let tabIndexAboveZeroCount = 0; // Count for tabindex > 0
+    allElements.forEach((element) => {
+      const tabindexAttr = element.getAttribute("tabindex");
+      if (tabindexAttr !== null) {
+        const tabindex = parseInt(tabindexAttr, 10);
+        if (tabindex === 0) {
+          tabIndexZeroCount++;
+        } else if (tabindex > 0) {
+          tabIndexAboveZeroCount++;
+        }
+      }
+    });
+
+    // Handling cases based on findings
+    if (tabIndexZeroCount > 0) {
+      const tabindexZeroLi = document.createElement("li");
+      tabindexZeroLi.textContent = `${tabIndexZeroCount} valid uses of tabindex="0" identified.`;
+      findingsUL.appendChild(tabindexZeroLi);
     }
-  }
-});
+    if (tabIndexAboveZeroCount > 0) {
+      const tabindexAboveZeroLi = document.createElement("li");
+      tabindexAboveZeroLi.textContent = `${tabIndexAboveZeroCount} uses of tabindex greater than 0 identified, which can interfere with the natural tab order and accessibility.`;
+      findingsUL.appendChild(tabindexAboveZeroLi);
+    }
 
-// Handling cases based on findings
-if (tabIndexZeroCount > 0) {
-  const tabindexZeroLi = document.createElement("li");
-  tabindexZeroLi.textContent = `${tabIndexZeroCount} valid uses of tabindex="0" identified.`;
-  findingsUL.appendChild(tabindexZeroLi);
-}
-if (tabIndexAboveZeroCount > 0) {
-  const tabindexAboveZeroLi = document.createElement("li");
-  tabindexAboveZeroLi.textContent = `${tabIndexAboveZeroCount} uses of tabindex greater than 0 identified, which can interfere with the natural tab order and accessibility.`;
-  findingsUL.appendChild(tabindexAboveZeroLi);
-}
+    let invalidTabIndexCount = 0;
+    document.querySelectorAll("[tabindex]").forEach((element) => {
+      const tabIndexValue = parseInt(
+        element.getAttribute("tabindex") || "0",
+        10
+      );
+      if (tabIndexValue < -1) {
+        invalidTabIndexCount++;
+      }
+    });
 
-let invalidTabIndexCount = 0;
-document.querySelectorAll("[tabindex]").forEach((element) => {
-  const tabIndexValue = parseInt(element.getAttribute("tabindex") || "0", 10);
-  if (tabIndexValue < -1) {
-    invalidTabIndexCount++;
-  }
-});
+    if (invalidTabIndexCount > 0) {
+      const invalidTabindexLi = document.createElement("li");
+      invalidTabindexLi.textContent = `${invalidTabIndexCount} invalid uses of tabindex identified. tabindex values should not be less than -1.`;
+      findingsUL.appendChild(invalidTabindexLi);
+    }
 
-if (invalidTabIndexCount > 0) {
-  const invalidTabindexLi = document.createElement("li");
-  invalidTabindexLi.textContent = `${invalidTabIndexCount} invalid uses of tabindex identified. tabindex values should not be less than -1.`;
-  findingsUL.appendChild(invalidTabindexLi);
-}
+    // Adding a summary message if no tabindex issues are found
+    if (
+      tabIndexZeroCount === 0 &&
+      tabIndexAboveZeroCount === 0 &&
+      invalidTabIndexCount === 0
+    ) {
+      const noIssuesLi = document.createElement("li");
+      noIssuesLi.textContent = "No tabindex-related issues identified.";
+      findingsUL.appendChild(noIssuesLi);
+    }
 
-// Adding a summary message if no tabindex issues are found
-if (tabIndexZeroCount === 0 && tabIndexAboveZeroCount === 0 && invalidTabIndexCount === 0) {
-  const noIssuesLi = document.createElement("li");
-  noIssuesLi.textContent = "No tabindex-related issues identified.";
-  findingsUL.appendChild(noIssuesLi);
-}
-
-// Append the findings list to the container
-innerDiv.appendChild(findingsUL);
+    // Append the findings list to the container
+    innerDiv.appendChild(findingsUL);
 
     // Reference Section
     const referenceContainer = createReferenceContainer();
