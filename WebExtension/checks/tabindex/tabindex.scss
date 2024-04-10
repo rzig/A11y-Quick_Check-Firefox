@@ -47,6 +47,7 @@
   font-weight: 700,
   margin: 0,
   text-wrap:pretty,
+  z-index: 2147483630,
   ),
     true
   );
@@ -77,6 +78,7 @@
   font-weight: 700,
   margin: 0,
   text-wrap:pretty,
+  z-index: 2147483630,
   ),
     true
   );
@@ -107,6 +109,7 @@
   font-weight: 700,
   margin: 0,
   text-wrap:pretty,
+  z-index: 2147483630,
   ),
     true
   );
@@ -123,7 +126,7 @@
 .tabindex-0-detected-9927845 {
     @include important-styles(
       (
-        border: 2px dashed var(--warning-border),
+        border: 4px dashed var(--neutral-border),
         margin: 1em 0,
         margin-bottom: 0,
       ),
@@ -136,6 +139,27 @@
       (
         border-top: 0,
         margin-top: 0,
+      ),
+      true
+    );
+  }
+
+  .valid-message-9927845.common-border-top-9927845 {
+    @include important-styles(
+      (
+        border-bottom: 0,
+        padding-bottom: 0.8em,
+      ),
+      true
+    );
+  }
+
+  .warning-message-9927845.common-border-bottom-9927845 {
+    @include important-styles(
+      (
+        border-top: 1px solid var(--pass-border),
+        border-color: var(--pass-border),
+        background: var(--pass-background),
       ),
       true
     );
