@@ -81,7 +81,7 @@ function createTopRightContainerDuplicateID(): void {
 
   const checkDetails = createDetailsComponent(
     "Analysing duplicate IDs",
-    "The purpose of this check is to scan for duplicate IDs with ARIA attributes and label[for] references. It identifies elements with duplicate IDs, examining their references through attributes like aria-labelledby, ensuring each ID relationship is unique and correctly referenced."
+    "The purpose of this check is to scan for duplicate IDs that pair with ARIA attributes and HTML label[for]. It identifies elements with duplicate IDs, examining their references through attributes like aria-labelledby, ensuring each ID relationship is unique and correctly referenced."
   );
   innerDiv.appendChild(checkDetails);
 
@@ -148,6 +148,7 @@ function createTopRightContainerDuplicateID(): void {
     appendLink(ariaLinks, "aria-controls property", "ARIA");
     appendLink(ariaLinks, "aria-describedby property", "ARIA");
     appendLink(ariaLinks, "aria-labelledby property", "ARIA");
+    appendLink(htmlLinks, "The for attribute", "HTML");
 
     // Add the action buttons
   }

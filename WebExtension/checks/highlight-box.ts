@@ -155,6 +155,7 @@ var linkObjects: {
           "https://html.spec.whatwg.org/multipage/interaction.html#the-tabindex-attribute",
         "4.10.18.7.1 Autofilling form controls: the autocomplete attribute":
           "https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofilling-form-controls:-the-autocomplete-attribute",
+          "The for attribute": "https://html.spec.whatwg.org/multipage/forms.html#the-label-element:~:text=%E2%9C%94MDN-,The%20for%20attribute,-may%20be%20specified",
       };
     }
   

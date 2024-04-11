@@ -50,10 +50,17 @@ function getPseudoElementAdjustment(elem: Element): {
 }
 
 // Add a circle shape to a specific element
-function addCircleShape(elem: Element, targetSize: number) {
+//function addCircleShape(elem: Element, targetSize: number) {
+  function addCircleShape(elem: Element, targetSize: number, addSpacingCircle: boolean = false) {
   const circle = document.createElement("div");
   circle.classList.add("circle-shape-8228965");
   circle.classList.add(`circle-shape-size-${targetSize}-8228965`);
+
+// Conditionally add the spacing-circle class
+if (addSpacingCircle) {
+  circle.classList.add("spacing-circle-8228965");
+}
+
   circle.style.width = `${targetSize}px`;
   circle.style.height = `${targetSize}px`;
   elem.classList.add(`pos-rel-size-${targetSize}-8228965`);
@@ -62,14 +69,30 @@ function addCircleShape(elem: Element, targetSize: number) {
 }
 
 // Check if the element is excluded
+// function isExcluded(elem: Element): boolean {
+//   const anchorLinkRegex = /^#[\w-]+$/;
+//   const isAnchor = elem.tagName === "A";
+//   const isButton =
+//     elem.tagName === "BUTTON" || elem.getAttribute("role") === "button";
+//   const isInPageLink =
+//     isAnchor && anchorLinkRegex.test(elem.getAttribute("href") ?? "");
+//   let isInParagraph = (isAnchor || isButton) && elem.closest("p") !== null;
+//   const isFootnote = isAnchor && elem.classList.contains("footnote");
+
+//   return isInPageLink || isInParagraph || isFootnote;
+// }
 function isExcluded(elem: Element): boolean {
+  // Regex to match anchor links that are in-page (i.e., start with "#")
   const anchorLinkRegex = /^#[\w-]+$/;
   const isAnchor = elem.tagName === "A";
-  const isButton =
-    elem.tagName === "BUTTON" || elem.getAttribute("role") === "button";
-  const isInPageLink =
-    isAnchor && anchorLinkRegex.test(elem.getAttribute("href") ?? "");
-  let isInParagraph = (isAnchor || isButton) && elem.closest("p") !== null;
+  const isButton = elem.tagName === "BUTTON" || elem.getAttribute("role") === "button";
+  
+  // Check if the element is an anchor and if its href matches the in-page link pattern
+  const isInPageLink = isAnchor && anchorLinkRegex.test(elem.getAttribute("href") ?? "");
+  
+  // Extend the check for being inside a paragraph to include checking for inline elements
+  let isInParagraph = (isAnchor || isButton) && elem.closest("p, span") !== null;
+  
   const isFootnote = isAnchor && elem.classList.contains("footnote");
 
   return isInPageLink || isInParagraph || isFootnote;
@@ -143,12 +166,18 @@ function addTargetSize(targetSize: number): void {
   let hasIssues: boolean = false; // Reset hasIssues for each invocation
 
   const inputElements: NodeListOf<Element> = document.querySelectorAll(
-      'a, button, input[type="button"], input[type="submit"], select, [role="button"], [role="link"]'
+    'a, button, input[type="button"], input[type="submit"], select, [role="button"], [role="link"]'
   );
 
   inputElements.forEach((elem: Element) => {
+    // Check if the element is within an excluded container
     if (isNodeInExcludedinContainer(elem)) {
       return;
+    }
+
+    // Check if the element is exempt (e.g., a link in a paragraph)
+    if (isExcluded(elem)) {
+      return; // Skip this element if it's exempt
     }
     
       // Skip certain elements as needed
@@ -192,7 +221,7 @@ function addTargetSize(targetSize: number): void {
               }
 
               elem.appendChild(messageDiv);
-              addCircleShape(elem, targetSize);
+              addCircleShape(elem, targetSize, hasSufficientSpacing);
           }
       }
   });
@@ -321,7 +350,7 @@ function createTopRightContainerTargetSize(): void {
 
   const checkDetails = createDetailsComponent(
     "Analysing target-size",
-    "The purpose of this check is to ensure web elements conform to the target size success criteria. It evaluates elements like buttons, links, and form controls, verifying that they meet the minimum target size requirements. This includes notifications when the Spacing exceeption applies. Lists are indicated as requiring manual testing verification if the Inline exception. The Target Size messages can be toggled on/off. If a target is undersize, and the circles do not intersect (overlap), the spacing exemption applies. Note that the Spacing exception is only applicable to 2.5.8 Target Size (Minimum) (Level AA)"
+    "The purpose of this check is to ensure web elements conform to the target size success criteria. It evaluates elements like buttons, links, and form controls, verifying that they meet the minimum target size requirements. This includes notifications when the Spacing exception applies. Lists are indicated as requiring manual testing verification if an exception applies when it cannot be determined automatically. The Target Size messages can be toggled on/off. If a target is undersize, and the circles do not intersect (overlap), the spacing exemption applies. Note that the Spacing exception is only applicable to 2.5.8 Target Size (Minimum) (Level AA). Due to the complexity of Target-size, some false positives may occur. For example a link contained in a DIV element that includes content and is thus an inline exemption, may be identified as an issue. Currenly this is the only false positive result we are aware of, and are working to fix this issue."
   );
   innerDiv.appendChild(checkDetails);
 

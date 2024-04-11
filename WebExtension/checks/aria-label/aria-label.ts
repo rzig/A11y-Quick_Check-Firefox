@@ -97,7 +97,7 @@ function createTopRightContainerAriaLabel(): void {
 
   const checkDetails = createDetailsComponent(
     "Analysing aria-label",
-    "The purpose of this check is to highlight instances where aria-label is used, visibly displaying the label value that would be announced to screen reader users, thus providing a visual confirmation of what screen reader users will experience. It also identifies and provides feedback on instances where aria-label is improperly applied to elements where its use is not valid and may ot behave as expected."
+    "The purpose of this check is to highlight instances where aria-label is used, visibly displaying the label value that is announced to screen reader users, thus providing a visual confirmation of what screen reader users will experience. It also identifies and provides feedback on instances where aria-label is improperly applied to elements where its use is not valid and may ot behave as expected."
   );
   innerDiv.appendChild(checkDetails);
 

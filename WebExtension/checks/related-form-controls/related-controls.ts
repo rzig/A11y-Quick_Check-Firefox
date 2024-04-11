@@ -158,7 +158,7 @@ function createTopRightContainerRelatedControls(): void {
 
   const checkDetails = createDetailsComponent(
     "Analysing related form controls",
-    "The purpose of this check is to evaluate the related form controls are grouped. It aims to ensure these elements are correctly structured, highlighting best practices such as the correct placement of legend elements within fieldset tags, and verifying that ARIA groupings have accessible names provided by aria-label or aria-labelledby. The check offers feedback on the presence and configuration of these elements, reinforcing the importance of proper labeling for accessibility and the structural integrity of forms."
+    "The purpose of this check is to evaluate whether related form controls are grouped. It aims to ensure these elements are correctly structured, highlighting best practices such as the correct placement of legend elements within fieldset tags, and verifying that ARIA groupings have accessible names provided by aria-label or aria-labelledby. The check offers feedback on the presence and configuration of these elements, reinforcing the importance of proper labeling for accessibility and the structural integrity of forms."
   );
   innerDiv.appendChild(checkDetails);
 

@@ -90,21 +90,18 @@
 .toggleMessage-8228965 {
   @include important-styles(
     (
-      position: sticky,
-      top: 2em,
-      left: 0,
-      z-index: 100000,
+      z-index: 2147483630,
       display: inline-block,
       padding: 1em 0.5em 0.8em 1em,
-      border: 1px dashed var(--neutral-border),
+      border: 4px dashed var(--neutral-border),
       border-radius: 4px,
       font-size: 1.2rem,
       text-align: center,
       text-decoration: none,
-      writing-mode: vertical-lr,
+      // writing-mode: vertical-lr,
       background-color: var(--neutral-background),
       color: var(--neutral-text),
-      transform: rotate(180deg),
+      // transform: rotate(180deg),
     ),
     true
   );
@@ -115,7 +112,8 @@
     (
       position: fixed,
       left: 1em,
-      top: 1em,
+      bottom: 1em,
+      height: 5em,
     ),
     true
   );
@@ -162,6 +160,15 @@
       display: flex,
       font-weight: 700,
       margin-top: 5px,
+    ),
+    true
+  );
+}
+
+.circle-shape-8228965.spacing-circle-8228965 {
+  @include important-styles(
+    (
+      border-color: var(--pass-border),
     ),
     true
   );
