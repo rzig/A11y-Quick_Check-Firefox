@@ -344,27 +344,34 @@ var linkObjects: {
       minMaxButton.className = "minimize-button-9927845";
       minMaxButton.textContent = "Minimize";
   
-      containerDiv.dataset['isMinimized'] = "false"; // Initialize state
+      // Retrieve the initial state from local storage and apply it
+      chrome.storage.local.get(['isMinimized'], (result) => {
+        const isMinimized = result['isMinimized'] === "true"; // Using bracket notation
+        containerDiv.dataset['isMinimized'] = isMinimized ? "true" : "false";
+        minMaxButton.textContent = isMinimized ? "Maximize" : "Minimize";
+        toggleVisibility(containerDiv, isMinimized);
+      });
   
       minMaxButton.addEventListener("click", () => {
         const isMinimized = containerDiv.dataset['isMinimized'] === "true";
-        containerDiv.dataset['isMinimized'] = isMinimized ? "false" : "true";
+        const newState = !isMinimized;
+        containerDiv.dataset['isMinimized'] = newState ? "true" : "false";
+        minMaxButton.textContent = newState ? "Maximize" : "Minimize";
+        toggleVisibility(containerDiv, newState);
   
-        if (isMinimized) {
-          minMaxButton.textContent = "Minimize";
-        } else {
-          minMaxButton.textContent = "Maximize";
-        }
-  
-        const innerDivs = containerDiv.querySelectorAll(".inner-container-9927845");
-        innerDivs.forEach((innerDiv) => {
-          innerDiv.classList.toggle("hidden-feature-message-9927845", !isMinimized);
-        });
-        minMaxButton.textContent = isMinimized ? "Minimise" : "Maximise";
+        // Save the new state to local storage
+        chrome.storage.local.set({ 'isMinimized': newState.toString() });
       });
   
       containerDiv.appendChild(minMaxButton);
     }
+  }
+  
+  function toggleVisibility(containerDiv: HTMLDivElement, isMinimized: boolean): void {
+    const innerDivs = containerDiv.querySelectorAll(".inner-container-9927845");
+    innerDivs.forEach((innerDiv) => {
+      innerDiv.classList.toggle("hidden-feature-message-9927845", !isMinimized);
+    });
   }
   
   function createDismissButton(innerDiv: HTMLDivElement, importantNote: string = ""): void {

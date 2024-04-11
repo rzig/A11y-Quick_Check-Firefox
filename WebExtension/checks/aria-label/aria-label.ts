@@ -70,9 +70,6 @@ function ariaNamePermitted() {
 }
 
 ariaNameProhibited();
-ariaNamePermitted();
-
-populateLinkObjects(); // Ensure the links are populated before use.
 
 populateLinkObjects(); // Ensure the links are populated before use.
 

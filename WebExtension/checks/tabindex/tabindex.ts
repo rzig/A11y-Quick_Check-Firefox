@@ -173,7 +173,6 @@
 
       let roleName = htmlElement.getAttribute("role") || "";
 
-      // Default role assignment for <main>, <nav>, and <footer> if no explicit role is defined
       if (!roleName) {
         switch (tagName) {
           case "nav":
@@ -185,9 +184,18 @@
           case "footer":
             roleName = "contentinfo";
             break;
+          case "article":
+              roleName = "article";
+              break;
+          case "a":
+            roleName = htmlElement.hasAttribute("href") ? "link" : "generic";
+            break;
+          case "div":
+          case "span":
+            roleName = "generic";
+            break;
         }
       }
-
       if (!roleName) {
         switch (htmlElement.tagName.toLowerCase()) {
           case "a":
