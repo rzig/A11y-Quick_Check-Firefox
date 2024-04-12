@@ -70,15 +70,15 @@
           }
         }
 
-        const elementType = currentNode.nodeName.toUpperCase();
+        const elementType = currentNode.nodeName.toLowerCase();
         let messageClassName = `neutral-message-9927845`;
         let message: string;
 
         if (computedDescription) {
           computedDescription = computedDescription.trim();
-          message = `The description for <${elementType}> is ${computedDescription}.`;
+          message = `The description for <${elementType}> is ${computedDescription}`;
         } else {
-          message = `No description found for <${elementType}>.`;
+          message = `No description found for <${elementType}>`;
         }
 
         createChildMessageDiv(currentNode, messageClassName, message);

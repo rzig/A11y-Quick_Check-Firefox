@@ -40,7 +40,7 @@
     code: ["code"],
     deletion: ["del"],
     emphasis: ["em"],
-    generic: ["div", "span"],
+    //generic: ["div", "span"],
     insertion: ["ins"],
     none: [],
     paragraph: ["p"],
@@ -133,8 +133,9 @@
 
   // Main function to check elements with 'aria-labelledby'
   function ariaLbNameCheck() {
-    let allNodes = document.querySelectorAll("[aria-labelledby]:not(.top-right-container-9927845 [aria-labelledby], .inner-container-9927845 [aria-labelledby])");
-
+    let allNodes = document.querySelectorAll(
+      "[aria-labelledby]:not(.top-right-container-9927845 [aria-labelledby], .inner-container-9927845 [aria-labelledby])"
+    );
 
     processNodes(allNodes);
   }
@@ -142,8 +143,9 @@
   // Processes each node that has 'aria-labelledby' attribute
   function processNodes(nodes: NodeListOf<Element>) {
     for (const currentNode of nodes) {
+      const inferredRole = inferRoleFromElement(currentNode);
+      const explicitRole = currentNode.getAttribute("role");
       const ariaLabelledBy = currentNode.getAttribute("aria-labelledby") || "";
-      // This does nothing, just adding it for possible future use!
       currentNode.setAttribute("data-arialabelledby-9927845", "");
       if (ariaLabelledBy !== null) {
         const labelledByIds = ariaLabelledBy
@@ -180,15 +182,25 @@
           ([_, elements]) => !explicitRole && elements.includes(elementType)
         );
 
+        // Check for mismatch between inferred and explicit roles
+      if (inferredRole && explicitRole && inferredRole !== explicitRole) {
+        const baseMessage = `Mismatched roles detected. Inferred: ${inferredRole}, Explicit: ${explicitRole}`;
+        addMessageToPrecedingDiv(
+          currentNode,
+          "warning-message-9927845",
+          baseMessage
+        );
+      }
+
         if (isExplicitlyProhibited || isImplicitlyProhibited) {
           baseMessage = `Invalid: <${elementType}>${
-            explicitRole ? ` with role="${explicitRole}"` : ""
-          } and aria-labelledby is not supported.`;
+            explicitRole ? ` role="${explicitRole}" with ` : ""
+          } aria-labelledby is not supported.`;
           isValid = false;
         } else if (explicitRole) {
-          baseMessage = `Valid: <${elementType}> with role="${explicitRole}" and aria-labelledby is supported. Elements name is "${namesList}".`;
+          baseMessage = `Valid: aria-labelledby used on <${elementType}> with role="${explicitRole}" is supported. Elements name is "${namesList}".`;
         } else {
-          baseMessage = `Valid: <${elementType}> with aria-labelledby is supported. Elements name is "${namesList}".`;
+          baseMessage = `Valid: aria-labelledby used on <${elementType}> is supported. Elements name is "${namesList}".`;
         }
 
         currentNode.classList.add(
@@ -248,7 +260,7 @@ function createTopRightContainerAriaLabelledby(): void {
   innerDiv.className = "inner-container-9927845 remove-inner-alb-9927845";
 
   // Check if the container is minimized
-  if (containerDiv.dataset['isMinimized'] === "true") {
+  if (containerDiv.dataset["isMinimized"] === "true") {
     innerDiv.classList.add("hidden-feature-message-9927845");
   }
 
@@ -268,7 +280,6 @@ function createTopRightContainerAriaLabelledby(): void {
   // );
   // innerDiv.appendChild(checkManualDetails);
 
-
   // Use createReferenceContainer to generate the reference section
   const referenceContainer = createReferenceContainer();
   if (referenceContainer) {
@@ -279,7 +290,7 @@ function createTopRightContainerAriaLabelledby(): void {
     linkList.className = "reference-list-9927845";
     linkList.style.margin = "0";
     linkList.style.padding = "0";
-    
+
     referenceContainer.appendChild(linkList);
 
     // Specified links function

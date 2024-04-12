@@ -57,6 +57,16 @@
             Content with invalid aria-labelledby (emphasis role).
         </div>
     </div>
+	
+	<h2>Mismatched roles</h2>
+	<input type="text" id="testInput1" role="button">
+<button role="textbox">Submit</button>
+<input type="checkbox" role="slider">
+	
+	
+	<header aria-labelledby="headerID">
+	<h2>Header does not need an aria-labelledby</h2>
+	</header>
 
 
 
