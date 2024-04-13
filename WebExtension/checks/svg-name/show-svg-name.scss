@@ -47,3 +47,13 @@
 
   @include messageDisplayStyles;
 }
+
+.warning-for-valid-message-9927845 {
+  @include common-style(
+    var(--pass-background),
+    var(--pass-border),
+    var(--warning-text)
+  );
+
+  @include messageDisplayStyles;
+}

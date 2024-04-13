@@ -3,9 +3,11 @@ var linkObjects: {
   wcag: Record<string, string>;
   aria: Record<string, string>;
   html: Record<string, string>;
+  svg: Record<string, string>;
   custom: Record<string, string>;
   canUse: Record<string, string>;
-} = { wcag: {}, aria: {}, html: {}, custom: {}, canUse: {} };
+
+} = { wcag: {}, aria: {}, html: {}, custom: {}, canUse: {}, svg: {} };
 
 // Initialize link objects with empty objects
 var wcagLinks: Record<string, string> = {};
@@ -13,6 +15,7 @@ var ariaLinks: Record<string, string> = {};
 var htmlLinks: Record<string, string> = {};
 var customLinks: Record<string, string> = {};
 var canUseLinks: Record<string, string> = {};
+var svgLinks: Record<string, string> = {};
 
 function populateLinkObjects() {
   if (Object.keys(wcagLinks).length === 0) {
@@ -129,6 +132,7 @@ function populateLinkObjects() {
   //Add HTML related URLs as needed
   if (Object.keys(htmlLinks).length === 0) {
     htmlLinks = {
+      "3.2.6.1 The title attribute": "https://html.spec.whatwg.org/multipage/dom.html#the-title-attribute",
       "4.3.7 The hgroup element":
         "https://html.spec.whatwg.org/multipage/sections.html#the-hgroup-element",
       "4.3.11 Headings and outlines":
@@ -168,6 +172,14 @@ function populateLinkObjects() {
     };
   }
 
+  //Add URLs of svg
+  if (Object.keys(svgLinks).length === 0) {
+    svgLinks = {
+      titleElement: "https://svgwg.org/svg2-draft/struct.html#TitleElement",
+      textElement: "https://svgwg.org/svg2-draft/text.html#TextElement",
+    };
+  }
+
   //Add URLs of CanIUse
   if (Object.keys(canUseLinks).length === 0) {
     canUseLinks = {
@@ -180,6 +192,7 @@ function populateLinkObjects() {
   linkObjects.html = htmlLinks;
   linkObjects.custom = customLinks;
   linkObjects.canUse = canUseLinks;
+  linkObjects.svg = svgLinks;
 }
 
 populateLinkObjects();
@@ -207,7 +220,7 @@ function escapeRegExp(str: string): string {
 
 function appendHyperlinksToMessage(
   message: string,
-  linkType: "wcag" | "aria" | "html" | "custom" = "custom"
+  linkType: "wcag" | "aria" | "html" | "svg" | "custom" = "custom"
 ): string {
   const links = linkObjects[linkType];
   Object.entries(links).forEach(([key, value]) => {
@@ -257,9 +270,17 @@ function getOrCreateContainer(): HTMLDivElement | null {
   if (!containerDiv) {
     containerDiv = document.createElement("div");
     containerDiv.className = "top-right-container-9927845";
+    containerDiv.setAttribute('tabindex', '0');
+    containerDiv.setAttribute('role', 'region');
+    containerDiv.setAttribute('aria-label', 'Descriptions for checks');
     document.body.appendChild(containerDiv);
 
     createMinMaxButton(containerDiv);
+  } else {
+    // Also ensure to set the attributes when the div is found
+    containerDiv.setAttribute('tabindex', '0');
+    containerDiv.setAttribute('role', 'region');
+    containerDiv.setAttribute('aria-label', 'Descriptions for checks');
   }
 
   // Given containerDiv is confirmed not null here, safe to assert as HTMLDivElement
@@ -280,6 +301,8 @@ function getOrCreateContainer(): HTMLDivElement | null {
 
   return containerDiv;
 }
+
+
 
 function updateParentContainerClass(parentContainer: HTMLElement): void {
   // Query all inner containers within the parent container
@@ -397,11 +420,4 @@ function createDismissButton(innerDiv: HTMLDivElement, importantNote: string = "
 
   innerDiv.appendChild(dismissButton);
 
-  // // Create a new <p> element with the specified class and text
-  // const panicParagraph = document.createElement("p");
-  // panicParagraph.className = "do-not-panic";
-  // panicParagraph.textContent = "Don't Panic! I'll be here if you run the check again";
-  
-  // // Append the new <p> element under the button in the innerDiv
-  // innerDiv.appendChild(panicParagraph);
 }

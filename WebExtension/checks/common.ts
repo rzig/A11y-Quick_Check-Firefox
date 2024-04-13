@@ -77,6 +77,7 @@ function createStyledMessageDiv(
     "Accessible name": "messageLabelaccName", //To do
     Knowledge: "messageLabelKnowledge",
     "Needs manual confirmation": "messageLabelManualConfirmation",
+    "Dynamic update" : "messageLabelWarning",
   };
 
   let foundPrefix = false; // Flag to indicate if a prefix is found
