@@ -4,6 +4,8 @@
   const classesToRemove = [
       "numbered-square-9927845",
       "warning-message-9927845",
+      "duplicate-id-warning",
+      "warning-9927845"
   ];
 
   removeInjectedDivs(classesToRemove);
