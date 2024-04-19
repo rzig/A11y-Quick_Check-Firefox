@@ -137,6 +137,7 @@ function createFollowingDiv(targetElement: Element): HTMLDivElement {
   if (followingDiv == null || !followingDiv.hasAttribute(attributeLabel)) {
     followingDiv = document.createElement("div");
     followingDiv.setAttribute(attributeLabel, "");
+    followingDiv.classList.add("after-div-9f2dc5ea");
     targetElement.after(followingDiv);
   }
   return followingDiv;

@@ -19,44 +19,45 @@ function addNumberedRelationship(elements: Element[], number: number): void {
 
 // Identify duplicate IDs and apply the numbered relationship and warning message.
 function findDuplicateIdsAndApply(): void {
-  const allElements: NodeListOf<Element> = document.querySelectorAll("*[id], [aria-labelledby], [aria-describedby], [aria-controls], label[for]");
-  const idCounts: Map<string, { elements: Element[] }> = new Map();
+  const allElements = document.querySelectorAll("*[id], [aria-labelledby], [aria-describedby], [aria-controls], label[for]");
+  const idCounts = new Map<string, { elements: Element[], hasAriaAttribute: boolean }>();
 
-  // First pass: Count all IDs
+  // First pass: Count all IDs and check for associated aria attributes
   allElements.forEach((element: Element) => {
     const id: string | null = element.getAttribute("id");
+    const hasAriaAttribute = element.hasAttribute("aria-labelledby") || element.hasAttribute("aria-describedby") || element.hasAttribute("aria-controls");
     if (id) {
-      let record = idCounts.get(id) ?? { elements: [] };
+      let record = idCounts.get(id) ?? { elements: [], hasAriaAttribute: false };
       record.elements.push(element);
+      record.hasAriaAttribute = record.hasAriaAttribute || hasAriaAttribute;
       idCounts.set(id, record);
     }
   });
 
-  // Second pass: Apply to all duplicates
-  idCounts.forEach(({ elements }, id) => {
-    if (elements.length > 1) { // Check for duplicates
-      uniqueDuplicateIDs.add(id); // Track the ID
-
-      // Add class to all elements with the duplicate ID
+  // Second pass: Apply warnings and relationships based on the type and attributes of elements
+  idCounts.forEach(({ elements, hasAriaAttribute }, id) => {
+    if (elements.length > 1) {
+      uniqueDuplicateIDs.add(id);
       elements.forEach((element: Element) => element.classList.add("duplicate-id-warning", "warning-9927845"));
-
-      // Add the same numbered relationship to all elements with the duplicate ID
       addNumberedRelationship(elements, relationshipCounter);
 
-      // Only the first occurrence gets the warning message
-      if (elements[0]) { // Ensure the first element is not undefined
-        const message: string = `Warning ID "${id}" is duplicated ${elements.length} times and affects accessibility.`;
-        addMessageToFollowingDiv(elements[0], "warning-message-9927845", message);
+      if (elements[0]) {  // Ensure the first element is not undefined
+        if (!hasAriaAttribute && elements[0] instanceof SVGElement) {
+          console.log(`SVG element with duplicate ID '${id}' does not have required aria attributes.`);
+        } else {
+          const message = `Warning ID "${id}" is duplicated ${elements.length} times and may affect accessibility.`;
+          addMessageToFollowingDiv(elements[0], "warning-message-9927845", message);
+        }
       }
-
-      relationshipCounter++; // Increment after processing each unique duplicate ID
+      relationshipCounter++;
     }
   });
 }
 
 // Call the main function to find and mark duplicate IDs.
-// findDuplicateIdsAndApply();
-// })();
+findDuplicateIdsAndApply();
+
+})();
 
 populateLinkObjects(); // Ensure the links are populated before use.
 
@@ -69,7 +70,7 @@ function createTopRightContainerDuplicateID(): void {
   }
 
   const innerDiv = document.createElement("div");
-  innerDiv.className = "inner-container-9927845 remove-inner-di-9927845";
+  innerDiv.className = "inner-container-9927845 remove-inner-div-9927845";
 
   // Check if the container is minimized
   if (containerDiv.dataset["isMinimized"] === "true") {
@@ -158,6 +159,4 @@ function createTopRightContainerDuplicateID(): void {
   document.body.appendChild(containerDiv);
 }
 
-findDuplicateIdsAndApply();
 createTopRightContainerDuplicateID();
-})();
