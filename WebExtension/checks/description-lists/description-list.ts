@@ -12,6 +12,9 @@ function isDivWithDtDd(child: Element): boolean {
     if (!["DT", "DD", "SCRIPT", "TEMPLATE"].includes(innerChild.nodeName)) {
       return false; // Contains invalid elements
     }
+    if(child.children.length==0) {
+      return false
+    }
   }
   return !!child.querySelector("dt") && !!child.querySelector("dd");
 }
@@ -42,6 +45,8 @@ function checkDLStructure(dlElement: Element): boolean {
   let seenDt = false;
   let divFound = false;
   let nonDivDtDdFound = false;
+  let invalidDivContentFound=false;
+  let validDivContentFound=false;
 
   for (const child of Array.from(dlElement.children)) {
     if (!["DT", "DD", "DIV", "SCRIPT", "TEMPLATE"].includes(child.nodeName)) {
@@ -54,7 +59,11 @@ function checkDLStructure(dlElement: Element): boolean {
     if (child.nodeName === "DIV") {
       divFound = true;
       if (!isDivWithDtDd(child)) {
-        nonDivDtDdFound = true;
+        invalidDivContentFound = true;
+      }
+      else
+      {
+        validDivContentFound=true;
       }
     } else if (child.nodeName === "DT" || child.nodeName === "DD") {
       if (divFound) {
@@ -74,9 +83,17 @@ function checkDLStructure(dlElement: Element): boolean {
     }
   }
 
-  if (divFound && nonDivDtDdFound) {
+  if (divFound && nonDivDtDdFound && validDivContentFound) {
     dlElement.classList.add("invalid-9927845");
     const message = "Invalid: Mixed DIV and non-DIV DT/DD elements within DL.";
+    createChildMessageDiv(dlElement, "invalid-message-9927845", message);
+    failureDetected = true;
+  }
+
+
+  if (invalidDivContentFound) {
+    dlElement.classList.add("invalid-9927845");
+    const message = "Invalid: A DIV inside a DL must contain DD and DT elements, and can only contain DD, DT, SCRIPT, or TEMPLATE elements.";
     createChildMessageDiv(dlElement, "invalid-message-9927845", message);
     failureDetected = true;
   }
