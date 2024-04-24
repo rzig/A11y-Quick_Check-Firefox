@@ -1,6 +1,6 @@
 @import '../common';
 
-.dom-count-div {
+.dom-count-div:not(.top-right-container-9927845 *) {
   @include important-styles(
     (
       display: flex,
@@ -23,7 +23,7 @@
   );
 }
 
-[data-domcount-889557] {
+[data-domcount-889557]:not(.top-right-container-9927845 *) {
     @include important-styles(
       (
         border: 2px dashed var(--neutral-border),

@@ -40,7 +40,7 @@
     code: ["code"],
     deletion: ["del"],
     emphasis: ["em"],
-    generic: ["div", "span"],
+    //generic: ["div", "span"],
     insertion: ["ins"],
     none: [],
     paragraph: ["p"],
@@ -133,69 +133,107 @@
 
   // Main function to check elements with 'aria-labelledby'
   function ariaLbNameCheck() {
-    let allNodes = document.querySelectorAll("[aria-labelledby]");
+    let allNodes = document.querySelectorAll(
+      "[aria-labelledby]:not(.top-right-container-9927845 [aria-labelledby], .inner-container-9927845 [aria-labelledby])"
+    );
+
     processNodes(allNodes);
   }
 
   // Processes each node that has 'aria-labelledby' attribute
-function processNodes(nodes: NodeListOf<Element>) {
-  for (const currentNode of nodes) {
+  function processNodes(nodes: NodeListOf<Element>) {
+    for (const currentNode of nodes) {
+      const inferredRole = inferRoleFromElement(currentNode);
+      const explicitRole = currentNode.getAttribute("role");
       const ariaLabelledBy = currentNode.getAttribute("aria-labelledby") || "";
-      // This does nothing, just adding it for possible future use!
       currentNode.setAttribute("data-arialabelledby-9927845", "");
       if (ariaLabelledBy !== null) {
-          const labelledByIds = ariaLabelledBy.split(" ").filter(id => id.trim().length > 0);
-          let computedNames = [];
-          let isLabelMissing = false;
+        const labelledByIds = ariaLabelledBy
+          .split(" ")
+          .filter((id) => id.trim().length > 0);
+        let computedNames = [];
+        let isLabelMissing = false;
 
-          for (const id of labelledByIds) {
-              const labelledByElement = document.getElementById(id);
-              if (labelledByElement) {
-                  computedNames.push(labelledByElement.textContent || "Unnamed");
-                  addNumberedRelationship(labelledByElement, ariaLabelCounter);
-                  addNumberedRelationship(currentNode, ariaLabelCounter);
-                  ariaLabelCounter++;
-              } else {
-                  isLabelMissing = true;
-              }
-          }
-
-          const namesList = computedNames.join(', '); // Combine names for message
-          const elementType = currentNode.nodeName.toLowerCase();
-          const explicitRole = currentNode.getAttribute("role") || "";
-          let baseMessage = "";
-          let isValid = true;
-
-          // Standard validity checks
-          const isExplicitlyProhibited = explicitRole && Object.keys(prohibitedRoleMappings).includes(explicitRole);
-          const isImplicitlyProhibited = Object.entries(prohibitedRoleMappings).some(
-              ([_, elements]) => !explicitRole && elements.includes(elementType)
-          );
-
-          if (isExplicitlyProhibited || isImplicitlyProhibited) {
-              baseMessage = `Invalid: <${elementType}>${explicitRole ? ` with role="${explicitRole}"` : ''} and aria-labelledby is not supported.`;
-              isValid = false;
-          } else if (explicitRole) {
-              baseMessage = `Valid: <${elementType}> with role="${explicitRole}" and aria-labelledby is supported. Elements name is "${namesList}".`;
+        for (const id of labelledByIds) {
+          const labelledByElement = document.getElementById(id);
+          if (labelledByElement) {
+            computedNames.push(labelledByElement.textContent || "Unnamed");
+            addNumberedRelationship(labelledByElement, ariaLabelCounter);
+            addNumberedRelationship(currentNode, ariaLabelCounter);
+            ariaLabelCounter++;
           } else {
-              baseMessage = `Valid: <${elementType}> with aria-labelledby is supported. Elements name is "${namesList}".`;
+            isLabelMissing = true;
           }
+        }
 
-          currentNode.classList.add(isValid ? "valid-9927845" : "invalid-9927845");
-          addMessageToPrecedingDiv(currentNode, isValid ? "valid-message-9927845" : "invalid-message-9927845", baseMessage);
+        const namesList = computedNames.join(", "); // Combine names for message
+        const elementType = currentNode.nodeName.toLowerCase();
+        const explicitRole = currentNode.getAttribute("role") || "";
+        let baseMessage = "";
+        let isValid = true;
 
-          // Separate checks and messages for missing IDs and empty aria-labelledby
-          if (isLabelMissing) {
-              const warningMessage = "Warning: there is no ID associated with the aria-labelledby.";
-              addMessageToPrecedingDiv(currentNode, "warning-message-9927845", warningMessage);
-          }
-          if (ariaLabelledBy.trim() === "") {
-              const emptyAriaLabelWarning = "Warning: aria-labelledby attribute is empty.";
-              addMessageToPrecedingDiv(currentNode, "warning-message-9927845", emptyAriaLabelWarning);
-          }
+        // Standard validity checks
+        const isExplicitlyProhibited =
+          explicitRole &&
+          Object.keys(prohibitedRoleMappings).includes(explicitRole);
+        const isImplicitlyProhibited = Object.entries(
+          prohibitedRoleMappings
+        ).some(
+          ([_, elements]) => !explicitRole && elements.includes(elementType)
+        );
+
+        // Check for mismatch between inferred and explicit roles
+      if (inferredRole && explicitRole && inferredRole !== explicitRole) {
+        const baseMessage = `Mismatched roles detected. Inferred: ${inferredRole}, Explicit: ${explicitRole}`;
+        addMessageToPrecedingDiv(
+          currentNode,
+          "warning-message-9927845",
+          baseMessage
+        );
       }
+
+        if (isExplicitlyProhibited || isImplicitlyProhibited) {
+          baseMessage = `Invalid: <${elementType}>${
+            explicitRole ? ` role="${explicitRole}" with ` : ""
+          } aria-labelledby is not supported.`;
+          isValid = false;
+        } else if (explicitRole) {
+          baseMessage = `Valid: aria-labelledby used on <${elementType}> with role="${explicitRole}" is supported. Elements name is "${namesList}".`;
+        } else {
+          baseMessage = `Valid: aria-labelledby used on <${elementType}> is supported. Elements name is "${namesList}".`;
+        }
+
+        currentNode.classList.add(
+          isValid ? "valid-9927845" : "invalid-9927845"
+        );
+        addMessageToPrecedingDiv(
+          currentNode,
+          isValid ? "valid-message-9927845" : "invalid-message-9927845",
+          baseMessage
+        );
+
+        // Separate checks and messages for missing IDs and empty aria-labelledby
+        if (isLabelMissing) {
+          const warningMessage =
+            "Warning: there is no ID associated with the aria-labelledby.";
+          addMessageToPrecedingDiv(
+            currentNode,
+            "warning-message-9927845",
+            warningMessage
+          );
+        }
+        if (ariaLabelledBy.trim() === "") {
+          const emptyAriaLabelWarning =
+            "Warning: aria-labelledby attribute is empty.";
+          addMessageToPrecedingDiv(
+            currentNode,
+            "warning-message-9927845",
+            emptyAriaLabelWarning
+          );
+        }
+      }
+    }
   }
-}
 
   // Function to visually represent the relationship between elements referenced by 'aria-labelledby'
   function addNumberedRelationship(element: Element, number: number) {
@@ -207,3 +245,80 @@ function processNodes(nodes: NodeListOf<Element>) {
 
   ariaLbNameCheck();
 })();
+
+populateLinkObjects(); // Ensure the links are populated before use.
+
+function createTopRightContainerAriaLabelledby(): void {
+  const containerDiv = getOrCreateContainer();
+
+  // Check if containerDiv is null and return early if so
+  if (containerDiv === null) {
+    return;
+  }
+
+  const innerDiv = document.createElement("div");
+  innerDiv.className = "inner-container-9927845 remove-inner-alb-9927845";
+
+  // Check if the container is minimized
+  if (containerDiv.dataset["isMinimised"] === "true") {
+    innerDiv.classList.add("hidden-feature-message-9927845");
+  }
+
+  containerDiv.appendChild(innerDiv);
+  updateParentContainerClass(containerDiv);
+
+  const checkDetails = createDetailsComponent(
+    "Analysing aria-labelledby",
+    "The purpose of this check is to analyse the use of the aria-labelledby attribute within HTML elements, distinguishing between valid and invalid implementations. It looks at each element that includes aria-labelledby, checking for its connection to labelled elements."
+  );
+  innerDiv.appendChild(checkDetails);
+
+  // // Manual notes details component
+  // const checkManualDetails = createDetailsComponent(
+  //   "How to manually test ( is coming! )",
+  //   "This section will be populated with how to manually test"
+  // );
+  // innerDiv.appendChild(checkManualDetails);
+
+  // Use createReferenceContainer to generate the reference section
+  const referenceContainer = createReferenceContainer();
+  if (referenceContainer) {
+    innerDiv.appendChild(referenceContainer);
+
+    // Link List
+    const linkList = document.createElement("ul");
+    linkList.className = "reference-list-9927845";
+    linkList.style.margin = "0";
+    linkList.style.padding = "0";
+
+    referenceContainer.appendChild(linkList);
+
+    // Specified links function
+    function appendLink(
+      links: Record<string, string>,
+      key: string,
+      category: string
+    ): void {
+      const href = links[key];
+      if (href) {
+        const listItem = document.createElement("li");
+        const anchor = document.createElement("a");
+        anchor.href = href;
+        anchor.textContent = `${category} - ${key}`;
+        listItem.appendChild(anchor);
+        linkList.appendChild(listItem);
+      }
+    }
+
+    // Append specific links
+    appendLink(ariaLinks, "aria-labelledby property", "ARIA");
+
+    // Add the action buttons
+  }
+  createDismissButton(innerDiv, "ARIA-labelledby");
+
+  // Append the main container to the document's body
+  document.body.appendChild(containerDiv);
+}
+
+createTopRightContainerAriaLabelledby();

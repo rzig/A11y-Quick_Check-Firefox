@@ -19,6 +19,8 @@
     removeInjectedDivs([
         "neutral-control-message-9927845",
         "numbered-controlled-square-9927845",
+        "remove-inner-ac-9927845",
+        "remove-outerdiv-9927845"
     ]);
 
 })();

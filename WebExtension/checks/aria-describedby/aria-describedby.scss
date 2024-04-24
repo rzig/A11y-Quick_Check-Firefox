@@ -12,8 +12,15 @@
 }
 
 .neutral-message-9927845 {
-  font-weight: 700;
-  margin: 0;
+  @include important-styles(
+    (
+  font-weight: 700,
+  margin: 0,
+  text-wrap:pretty,
+  min-width: 450px,
+  ),
+    true
+  );
 
   @include message-container(
     var(--neutral-background),

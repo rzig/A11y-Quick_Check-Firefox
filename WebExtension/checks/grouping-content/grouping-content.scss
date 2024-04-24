@@ -2,36 +2,33 @@
 
 // Mixin to encapsulate styles for the tags
 @mixin apply-strong-styles($tagName) {
-  &::before {
+  &:not(.top-right-container-9927845 *)::before {
     content: "<" + $tagName + ">";
-
     @include important-styles((
-        background-color: var(--neutral-background),
-        color: var(--neutral-text),
-        font-size: 0.875em,
-        padding: 0 0.5em,
-        font-weight: 700,
-      ),
-      true);
+      background-color: var(--neutral-background),
+      color: var(--neutral-text),
+      font-size: 0.875em,
+      padding: 0 0.5em,
+      font-weight: 700,
+    ), true);
   }
 
-  &::after {
+  &:not(.top-right-container-9927845 *)::after {
     content: "</" + $tagName + ">";
-
     @include important-styles((
-        background-color: var(--neutral-background),
-        color: var(--neutral-text),
-        font-size: 0.875em,
-        padding: 0 0.5em,
-        font-weight: 700,
-      ),
-      true);
+      background-color: var(--neutral-background),
+      color: var(--neutral-text),
+      font-size: 0.875em,
+      padding: 0 0.5em,
+      font-weight: 700,
+    ), true);
   }
 
-  @include important-styles((
+  &:not(.top-right-container-9927845 *) {
+    @include important-styles((
       border: 3px dashed var(--neutral-border),
-    ),
-    true);
+    ), true);
+  }
 }
 
 // Apply styles to the tags
@@ -41,4 +38,40 @@ $tags: p, hr, pre, blockquote, ol, ul, menu, li, dl, dt, dd, figure, figcaption,
   #{$tag} {
     @include apply-strong-styles(#{$tag});
   }
+}
+
+.check-paragraph-9927845:not(.top-right-container-9927845 *)::before,
+.check-paragraph-9927845:not(.top-right-container-9927845 *)::after,
+.reference-9927845:not(.top-right-container-9927845 *)::before,
+.reference-9927845:not(.top-right-container-9927845 *)::after,
+.reference-list-9927845:not(.top-right-container-9927845 *)::before,
+.reference-list-9927845:not(.top-right-container-9927845 *)::after,
+.reference-list-9927845 li:not(.top-right-container-9927845 *)::before,
+.reference-list-9927845 li:not(.top-right-container-9927845 *)::after,
+.do-not-panic:not(.top-right-container-9927845 *)::before,
+.do-not-panic:not(.top-right-container-9927845 *)::after {
+  @include important-styles((
+      display: none,
+    ),
+    true);
+}
+
+.check-paragraph-9927845,
+.reference-9927845,
+.reference-list-9927845,
+.reference-list-9927845 li,
+.do-not-panic {
+  @include important-styles((
+      border: none,
+    ),
+    true);
+}
+
+.check-paragraph-9927845 {
+  @include important-styles(
+    (
+      border-bottom: 2px solid var(--neutral-border),
+    ),
+    true
+  );
 }

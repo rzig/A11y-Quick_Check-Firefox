@@ -87,3 +87,44 @@
   );
   @include flex-width-container;
 }
+
+.top-right-container-9927845 {
+  @include important-styles(
+    (
+      max-width: 30em,
+    ),
+    true
+  );
+}
+
+.top-right-container-9927845 p.list-heading-9927845 {
+  @include important-styles(
+    (
+      font-size: 1.2rem,
+      line-height: 1.5,
+      margin-top: 1.2em,
+    ),
+    true
+  );
+}
+
+.findings-list-9927845 {
+  @include important-styles(
+    (
+      font-size: 1.2rem,
+      line-height: 1.5,
+      margin-top: 0.5em,
+      list-style: disc,
+    ),
+    true
+  );
+}
+
+.reference-list-9927845 {
+  @include important-styles(
+    (
+      margin-left: 1em,
+    ),
+    true
+  );
+}

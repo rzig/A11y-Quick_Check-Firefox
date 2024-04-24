@@ -20,22 +20,24 @@ function removeRelatedControls() {
 
   // Call the function to remove all injected divs, classes, and text
   removeInjectedDivs([
-    'fieldset-present-5599775',
-    'nested-fieldset-present-5599775',
-    'legend-present-5599775',
-    'not-first-number5599775',
-    'group-present-5599775',
-    'radiogroup-present-5599775',
-    'labelled-by-name-5599775',
-    'labelled-by-radio-group-name-5599775',
-    'missing-role-group-name-5599775',
-    'missing-role-radio-group-name-5599775',
-    'aria-label-name-5599775',
-    'aria-label-radio-group-name-5599775',
-    'legend-not-first-child-5599775',
-    'legend-first-child-5599775',
-    'legend-no-parent-fieldset-5599775',
-    'legend-no-text-5599775'
+    "fieldset-present-5599775",
+    "nested-fieldset-present-5599775",
+    "legend-present-5599775",
+    "not-first-number5599775",
+    "group-present-5599775",
+    "radiogroup-present-5599775",
+    "labelled-by-name-5599775",
+    "labelled-by-radio-group-name-5599775",
+    "missing-role-group-name-5599775",
+    "missing-role-radio-group-name-5599775",
+    "aria-label-name-5599775",
+    "aria-label-radio-group-name-5599775",
+    "legend-not-first-child-5599775",
+    "legend-first-child-5599775",
+    "legend-no-parent-fieldset-5599775",
+    "legend-no-text-5599775",
+    "remove-inner-fc-9927845",
+    "remove-outerdiv-9927845"
   ]);
 }
 

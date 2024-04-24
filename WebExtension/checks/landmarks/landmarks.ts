@@ -51,9 +51,9 @@ function addLandmarkMessages(): void {
   function checkConflictingRoles(element: HTMLElement): void {
     const ariaRole = element.getAttribute("role");
     // Add a condition to allow 'search' role on 'form' elements without flagging as invalid
-    if (ariaRole === 'search' && element.tagName.toLowerCase() === 'form') {
-        // If the element is a form with a 'search' role, exit the function early to avoid flagging as invalid
-        return;
+    if (ariaRole === "search" && element.tagName.toLowerCase() === "form") {
+      // If the element is a form with a 'search' role, exit the function early to avoid flagging as invalid
+      return;
     }
 
     if (ariaRole) {
@@ -64,36 +64,44 @@ function addLandmarkMessages(): void {
         element.classList.add("invalid-9927845");
       }
     }
-}
+  }
 
   function checkMainElements(): void {
     // Select all main elements and elements with role="main"
-    const mainElements = Array.from(document.querySelectorAll('main, [role="main"]'));
+    const mainElements = Array.from(
+      document.querySelectorAll('main, [role="main"]')
+    );
 
     // Distinguish between <main> elements and elements with role="main"
-    const mainTags = mainElements.filter(element => element.tagName.toLowerCase() === 'main');
-    const roleMains = mainElements.filter(element => element.getAttribute('role') === 'main' && element.tagName.toLowerCase() !== 'main');
+    const mainTags = mainElements.filter(
+      (element) => element.tagName.toLowerCase() === "main"
+    );
+    const roleMains = mainElements.filter(
+      (element) =>
+        element.getAttribute("role") === "main" &&
+        element.tagName.toLowerCase() !== "main"
+    );
 
     // Count distinct main regions
     let distinctMainRegions = new Set([...mainTags, ...roleMains]).size;
 
     // Adjust for cases where <main> has a role="main"
-    if (mainTags.some(tag => tag.getAttribute('role') === 'main')) {
-        // This will prevent counting <main role="main"> as two separate regions
-        distinctMainRegions = Math.max(mainTags.length, roleMains.length);
+    if (mainTags.some((tag) => tag.getAttribute("role") === "main")) {
+      // This will prevent counting <main role="main"> as two separate regions
+      distinctMainRegions = Math.max(mainTags.length, roleMains.length);
     }
 
     // If more than one distinct main region, mark each as invalid
     if (distinctMainRegions > 1) {
-        mainElements.forEach(element => {
-            if (element instanceof HTMLElement && !isHidden(element)) {
-                const message = "Invalid: Only one main role per document.";
-                addMessageToPrecedingDiv(element, "invalid-message-9927845", message);
-                element.classList.add("invalid-9927845");
-            }
-        });
+      mainElements.forEach((element) => {
+        if (element instanceof HTMLElement && !isHidden(element)) {
+          const message = "Invalid: Only one main role per document.";
+          addMessageToPrecedingDiv(element, "invalid-message-9927845", message);
+          element.classList.add("invalid-9927845");
+        }
+      });
     }
-}
+  }
 
   htmlLandmarks.forEach((landmark) => {
     document.querySelectorAll(landmark).forEach((element) => {
@@ -150,9 +158,7 @@ function addLandmarkMessages(): void {
         // }
 
         if (
-          ["article", "section", "header"].includes(
-            landmark
-          ) &&
+          ["article", "section", "header"].includes(landmark) &&
           !hasHeadingChild(element) &&
           !isInNavigationLandmark
         ) {
@@ -199,3 +205,81 @@ function addLandmarkMessages(): void {
 }
 
 addLandmarkMessages();
+
+populateLinkObjects(); // Ensure the links are populated before use.
+
+function createTopRightContainerLandmarks(): void {
+  const containerDiv = getOrCreateContainer();
+
+  // Check if containerDiv is null and return early if so
+  if (containerDiv === null) {
+    return;
+  }
+
+  const innerDiv = document.createElement("div");
+  innerDiv.className = "inner-container-9927845 remove-inner-lm-9927845";
+
+  // Check if the container is minimized
+  if (containerDiv.dataset['isMinimised'] === "true") {
+    innerDiv.classList.add("hidden-feature-message-9927845");
+  }
+
+  containerDiv.appendChild(innerDiv);
+  updateParentContainerClass(containerDiv);
+
+  const checkDetails = createDetailsComponent(
+    "Analysing Landmarks",
+    "The purpose of this check is to verify the proper use of HTML landmarks and ARIA landmark roles. It checks for accessible naming, role conflicts, and correct landmark nesting. Landmark roles programmatically identify sections of a page and serve as navigational aids to assistive technology users. In HTML article, aside, nav and section elements are called 'Sectioning content'."
+  );
+  innerDiv.appendChild(checkDetails);
+
+  // // Manual notes details component
+  // const checkManualDetails = createDetailsComponent(
+  //   "How to manually test ( is coming! )",
+  //   "This section will be populated with how to manually test"
+  // );
+  // innerDiv.appendChild(checkManualDetails);
+
+
+  // Use createReferenceContainer to generate the reference section
+  const referenceContainer = createReferenceContainer();
+  if (referenceContainer) {
+    innerDiv.appendChild(referenceContainer);
+
+    // Link List
+    const linkList = document.createElement("ul");
+    linkList.className = "reference-list-9927845";
+    linkList.style.margin = "0";
+    linkList.style.padding = "0";
+    
+    referenceContainer.appendChild(linkList);
+
+    // Specified links function
+    function appendLink(
+      links: Record<string, string>,
+      key: string,
+      category: string
+    ): void {
+      const href = links[key];
+      if (href) {
+        const listItem = document.createElement("li");
+        const anchor = document.createElement("a");
+        anchor.href = href;
+        anchor.textContent = `${category} - ${key}`;
+        listItem.appendChild(anchor);
+        linkList.appendChild(listItem);
+      }
+    }
+
+    // Append specific links
+    appendLink(wcagLinks, "1.3.1 Info and Relationships (Level A)", "WCAG");
+
+    // Add the Dismiss Button
+  }
+  createDismissButton(innerDiv, "Landmarks");
+
+  // Append the main container to the document's body
+  document.body.appendChild(containerDiv);
+}
+
+createTopRightContainerLandmarks();

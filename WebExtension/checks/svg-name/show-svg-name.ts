@@ -14,6 +14,51 @@ interface AncestorCheckResult {
   role?: string | undefined; // Allow both omitted and explicitly undefined
 }
 
+function observeSvgAriaLabelChanges(): void {
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if (mutation.type === 'attributes' && mutation.attributeName === 'aria-label' && mutation.target instanceof SVGSVGElement) {
+        const svgElement = mutation.target;
+        const newAriaLabel = svgElement.getAttribute('aria-label') ?? "not specified";
+        const previousAriaLabel = mutation.oldValue ?? "previously undefined";
+
+        // Construct the message
+        const message = `Dynamic update: The SVG is named using aria-label: "${previousAriaLabel}". Name updated to "${newAriaLabel}"`;
+
+        // Remove existing messages to prevent duplication
+        const existingMessages = svgElement.querySelectorAll('.warning-message-9927845');
+        existingMessages.forEach(msg => msg.remove());
+
+        // Create new message div
+        createChildMessageDiv(svgElement, "warning-for-valid-message-9927845", message);
+      }
+    });
+  });
+
+  const config: MutationObserverInit = {
+    attributes: true,
+    attributeFilter: ['aria-label'],
+    subtree: true,
+    attributeOldValue: true  // Ensures the previous value of the attribute is passed to the mutation callback
+  };
+
+  const svgs = document.querySelectorAll('svg');
+  svgs.forEach((svg) => {
+    // Disconnect any existing observer on this element to prevent duplicates
+    const existingObserver = (svg as any).__observer;
+    if (existingObserver) {
+      existingObserver.disconnect();
+    }
+    
+    // Attach the new observer and store a reference to it on the element
+    observer.observe(svg, config);
+    (svg as any).__observer = observer;
+  });
+}
+
+// Run the observer function
+observeSvgAriaLabelChanges();
+
 function getAccessibleName(node: Element): AccessibleNameResult {
   let result: AccessibleNameResult = {
     name: "",
@@ -57,7 +102,7 @@ function getAccessibleName(node: Element): AccessibleNameResult {
   if (!result.name && titleElement && titleElement.textContent) {
     // Name is now set based on <title> only if other more appropriate methods are not available
     result.additionalMessage =
-      "Note: The <title> element provides a description, not a direct accessible name.";
+      "Warning The <title> element provides a description, not a direct accessible name.";
     result.method = "<title> element"; // This is kept for backward compatibility but should be revisited for correct usage
   }
 
@@ -146,7 +191,7 @@ function checkSvgAccessibleNames() {
     }
 
     if (name) {
-      const nameMessage = `The SVG is named using ${method}: "${name}".`;
+      const nameMessage = `Valid The SVG is named using ${method}: "${name}".`;
       createChildMessageDiv(svgElement, showSvgTextClass, nameMessage);
     }
 
@@ -155,8 +200,8 @@ function checkSvgAccessibleNames() {
       // Safely accessing the text content of the <title> element, providing a fallback if it is null
       const svgDesc = titleElement.textContent
         ? titleElement.textContent.trim()
-        : "No description provided";
-      const titleElementWarning = `Tip: The <title> element provides a short description (“${svgDesc}”). Make sure this supports the name provided. This will be announced after the name where supported.`;
+        : "Warning No description provided";
+      const titleElementWarning = `Best practice The <title> element provides a short description (“${svgDesc}”). Make sure this supports the name provided. This will be announced after the name where supported.`;
       createChildMessageDiv(svgElement, generalTips, titleElementWarning);
     }
 
@@ -228,3 +273,77 @@ function checkSvgAccessibleNames() {
 }
 
 checkSvgAccessibleNames();
+
+populateLinkObjects(); // Ensure the links are populated before use.
+
+function createTopRightContainerSVGname(): void {
+  const containerDiv = getOrCreateContainer();
+
+  if (containerDiv === null) {
+    return;
+  }
+
+  const innerDiv = document.createElement("div");
+  innerDiv.className = "inner-container-9927845 remove-inner-showsvg-9927845";
+
+  // Check if the container is minimized
+  if (containerDiv.dataset["isMinimised"] === "true") {
+    innerDiv.classList.add("hidden-feature-message-9927845");
+  }
+
+  containerDiv.appendChild(innerDiv);
+  updateParentContainerClass(containerDiv);
+
+  const checkDetails = createDetailsComponent(
+    "Analysing SVG accessible name",
+    "The purpose of this check is to ensure that SVG elements are accessible through proper naming. It validates the presence and proper usage of accessibility attributes such as aria-label, aria-labelledby, and title within SVG elements. The script also monitors for dynamic changes to SVG names, automatically adding a message detailing each name change. If issues are found, it flags the SVGs as requiring attention and provides feedback to improve accessibility. Valid implementations are confirmed as correctly named to assist in making web content more accessible to users relying on assistive technologies."
+  );
+  innerDiv.appendChild(checkDetails);
+
+  // Use createReferenceContainer to generate the reference section
+  const referenceContainer = createReferenceContainer();
+  if (referenceContainer) {
+    innerDiv.appendChild(referenceContainer);
+
+    // Link List
+    const linkList = document.createElement("ul");
+    linkList.className = "reference-list-9927845";
+    linkList.style.margin = "0";
+    linkList.style.padding = "0";
+
+    referenceContainer.appendChild(linkList);
+
+    // Specified links function
+    function appendLink(
+      links: Record<string, string>,
+      key: string,
+      category: string
+    ): void {
+      const href = links[key];
+      if (href) {
+        const listItem = document.createElement("li");
+        const anchor = document.createElement("a");
+        anchor.href = href;
+        anchor.textContent = `${category} - ${key}`;
+        listItem.appendChild(anchor);
+        linkList.appendChild(listItem);
+      }
+    }
+
+    // Append specific links
+    appendLink(ariaLinks, "aria-label property", "ARIA");
+    appendLink(ariaLinks, "aria-labelledby property", "ARIA");
+    appendLink(htmlLinks, "3.2.6.1 The title attribute", "HTML");
+    appendLink(svgLinks, "titleElement", "SVG");
+    appendLink(svgLinks, "textElement", "SVG");
+
+    // Add the Dismiss Button
+  }
+  createDismissButton(innerDiv, "Ordered List");
+
+  // Append the main container to the document's body
+  document.body.appendChild(containerDiv);
+}
+
+createTopRightContainerSVGname();
+

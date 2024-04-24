@@ -16,8 +16,16 @@
   --neutral-text: #07011c;
 }
 
+/* Mixin for applying styles with optional !important flag */
+@mixin important-styles($styles, $important: false) {
+  @each $property, $value in $styles {
+    #{$property}: $value #{if($important, "!important", "")};
+  }
+}
+
 @mixin font-styling {
-  font-family: Aptos, Bierstadt, "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  font-family: Aptos, Bierstadt, "Segoe UI", -apple-system, BlinkMacSystemFont,
+    Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
   line-height: 1.5;
 }
 
@@ -94,13 +102,6 @@
   white-space: normal !important;
 }
 
-/* Mixin for applying styles with optional !important flag */
-@mixin important-styles($styles, $important: false) {
-  @each $property, $value in $styles {
-    #{$property}: $value #{if($important, "!important", "")};
-  }
-}
-
 // Define a mixin for container width
 @mixin flex-width-container($max-width: 380px) {
   display: flex;
@@ -112,40 +113,460 @@
 
 //Set a width on message containers
 @mixin messageDisplayStyles {
-  font-weight: 700 !important;
-  padding: 0.2em !important;
-  max-width: 30em !important;
+  @include important-styles(
+    (
+      font-weight: 700,
+      padding: 0.2em,
+      max-width: 30em,
+    ),
+    true
+  );
 }
 
-/* Message Label styles */
-// .messageLabelGeneric,
-// .messageLabelaccName,
-// .messageLabelKnowledge,
-// .messageLabelManualConfirmation {
-//   @include important-styles((color: var(--neutral-border)), true);
-// }
-
 .messageLabelValid {
-  @include important-styles((color: var(--pass-border)), true);
-  display:flex;
+  @include important-styles(
+    (
+      color: var(--pass-border),
+    ),
+    true
+  );
+  display: flex;
 }
 
 .messageLabelWarning {
-  @include important-styles((color: var(--warning-border)), true);
-  display:flex;
+  @include important-styles(
+    (
+      color: var(--warning-border),
+    ),
+    true
+  );
+  display: flex;
 }
 
 .messageLabelInvalid {
-  @include important-styles((color: var(--danger-border)), true);
-  display:flex;
+  @include important-styles(
+    (
+      color: var(--danger-border),
+    ),
+    true
+  );
+  display: flex;
 }
 
 .accNameMessageContainer.valid-message-9927845 {
-  @include important-styles((border-color: var(--neutral-border)), true);
-  display:flex;
+  @include important-styles(
+    (
+      border-color: var(--neutral-border),
+    ),
+    true
+  );
+  display: flex;
 }
 
 .messageLabelManualConfirmation {
-  @include important-styles((color: var(--neutral-border)), true);
-  display:flex;
+  @include important-styles(
+    (
+      color: var(--neutral-border),
+    ),
+    true
+  );
+  display: flex;
+}
+
+.top-right-container-9927845 {
+  @include important-styles(
+    (
+      position: absolute,
+      width: 450px,
+      top: 10px,
+      right: 10px,
+      padding: 0,
+      background-color: var(--neutral-background),
+      border: 4px solid var(--warning-border),
+      z-index: 2147483630,
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1),
+      max-height: 650px,
+      overflow-y: auto,
+    ),
+    true
+  );
+  @include font-styling;
+}
+
+.top-right-container-9927845:focus-visible {
+  @include important-styles(
+    (
+      outline: "2px solid var(--warning-border)",
+      box-shadow: "0 0 0 4px var(--extension-white), 0 0 0 6px var(--neutral-border)"
+    ),
+    true
+  );
+}
+
+.top-right-container-9927845[data-is-minimised="true"] {
+  @include important-styles(
+    (
+      border: none,
+      overflow-y: inherit,
+    ),
+    true
+  );
+}
+
+.inner-container-9927845 {
+  @include important-styles(
+    (
+      border: 2px solid var(--neutral-border),
+      padding: 0 1em,
+      margin: 1em,
+      font-weight: 400,
+      max-width: 100%,
+    ),
+    true
+  );
+}
+
+summary.check-summary-9927845 {
+  @include important-styles(
+    (
+      font-size: 1rem,
+      color: var(--neutral-text),
+      cursor: pointer,
+      padding: 0,
+      margin: 0,
+      outline: none,
+      background-color: var(--neutral-background),
+      transition: background-color 0.3s,
+    ),
+    true
+  );
+}
+
+h2.summary-heading-9927845 {
+  @include important-styles(
+    (
+      font-size: 1rem,
+      color: var(--neutral-text),
+      display: inline,
+    ),
+    true
+  );
+}
+
+summary.check-summary-9927845[open] > details.check-details-9927845 {
+  @include important-styles(
+    (
+      padding-bottom: 1em,
+    ),
+    true
+  );
+}
+
+summary.check-summary-9927845:focus {
+  @include important-styles(
+    (
+      outline: none,
+    ),
+    true
+  );
+}
+
+summary.check-summary-9927845:focus-visible {
+  @include important-styles(
+    (
+      outline: none,
+      "box-shadow": "0 0 0 3px var(--white), 0 0 0 5px var(--warning-border)",
+    ),
+    true
+  );
+}
+
+summary.check-summary-9927845>:first-child:before {
+  @include important-styles(
+    (
+      display:none,
+    ),
+    true
+  );
+}
+
+details.check-details-9927845 {
+  @include important-styles(
+    (
+      border-radius: 5px,
+      padding:  0,
+      margin: 0,
+      margin-top: 1em,
+      margin-bottom: 1em,
+      color: var(--neutral-text),
+      display: flex,
+      flex-wrap: wrap,
+    ),
+    true
+  );
+
+  &:first-of-type {
+    @include important-styles(
+      (
+        margin-top: 2em,
+      ),
+      true
+    );
+  }
+
+  & p {
+    @include important-styles(
+      (
+        font-size: 1rem,
+        margin: 0 1em,
+      ),
+      true
+    );
+  }
+
+  & h2.message-heading-9927845 {
+    @include important-styles(
+      (
+        font-size: 1.5rem,
+        margin-bottom: 0.5em,
+        margin-top: 1em,
+      ),
+      true
+    );
+  }
+}
+
+.check-paragraph-9927845 {
+  @include important-styles(
+    (
+      border-bottom: 2px solid var(--neutral-border),
+      padding: 0.5em 0 1em,
+      line-height: 1.5,
+    ),
+    true
+  );
+}
+
+.check-9927845:hover {
+  @include important-styles(
+    (
+      background-color: var(--warning-border),
+      max-width: 450px,
+    ),
+    true
+  );
+}
+
+details.check-details-9927845 > summary.check-summary-9927845:first-of-type {
+  @include important-styles(
+    (
+      display: list-item,
+    ),
+    true
+  );
+}
+
+h2.list-heading-9927845 {
+  @include important-styles(
+    (
+      font-size: 1.2rem,
+      margin-top: 1em,
+    ),
+    true
+  );
+}
+
+h2.findings-heading-9927845 {
+  @include important-styles(
+    (
+      font-size: 1.2rem,
+      line-height: 1.5,
+      margin-top: 1.2em,
+    ),
+    true
+  );
+}
+
+.reference-9927845 {
+  @include important-styles(
+    (
+      font-size: 1.2rem,
+      margin-top: 1em,
+      margin-bottom: 0.5em,
+    ),
+    true
+  );
+}
+
+ul.reference-list-9927845,
+ul.findings-list-9927845 {
+  @include important-styles(
+    (
+      font-size: 1rem,
+      line-height: 1.5,
+      margin: 1em 2em,
+      margin-bottom: 2em,
+      list-style: disc,
+    ),
+    true
+  );
+
+  li {
+    @include important-styles(
+      (
+        margin: 0.3em,
+        font-size: 1rem,
+      ),
+      true
+    );
+  }
+
+  li a {
+    @include important-styles(
+      (
+        text-decoration: underline,
+        color: var(--neutral-text),
+        font-size: 1rem,
+        font-family: inherit,
+      ),
+      true
+    );
+  }
+}
+
+ul.reference-list-9927845 li a:hover,
+ul.reference-list-9927845 li a:focus {
+  @include important-styles(
+    (
+      text-decoration: none,
+    ),
+    true
+  );
+}
+
+.dismiss-button-9927845,
+.minimise-button-9927845,
+.maximise-button-9927845 {
+  @include important-styles(
+    (
+      color: var(--extension-white),
+      background-color: var(--neutral-border),
+      border: none,
+      border-radius: 0.25em,
+      padding: 0.5em 1em,
+      font-size: 1.1rem,
+      font-weight: 700,
+      transition: background-color 0.3s,
+      z-index: 2147483647,
+    ),
+    true
+  );
+}
+
+.minimise-button-9927845 {
+  @include important-styles(
+    (
+      position: absolute,
+      top: 3px,
+      right: 3px,
+    ),
+    true
+  );
+}
+
+.maximise-button-9927845 {
+  @include important-styles(
+    (
+      position: fixed,
+      top: 3px,
+      right: 3px,
+    ),
+    true
+  );
+}
+
+.dismiss-button-9927845 {
+  @include important-styles(
+    (
+      margin: 1em,
+      margin-bottom: 0.5em,
+    ),
+    true
+  );
+}
+
+.dismiss-button-9927845:hover,
+.minimise-button-9927845:hover,
+.maximise-button-9927845:hover {
+  @include important-styles(
+    (
+      background-color: var(--neutral-border),
+    ),
+    true
+  );
+}
+
+.dismiss-button-9927845:focus,
+.minimise-button-9927845:focus,
+.maximise-button-9927845:focus {
+  @include important-styles(
+    (
+      outline: none,
+    ),
+    true
+  );
+}
+
+.dismiss-button-9927845:focus-visible,
+.minimise-button-9927845:focus-visible,
+.maximise-button-9927845:focus-visible {
+  @include important-styles(
+    (
+      outline: none,
+      "box-shadow": "0 0 0 3px var(--white), 0 0 0 5px var(--neutral-border)",
+    ),
+    true
+  );
+}
+
+p.do-not-panic {
+  @include important-styles(
+    (
+      margin: 0 0 1em 1.3em,
+      color: var(--pass-text,)
+    ),
+    true
+  );
+}
+
+.button-fixed-9927845 {
+  @include important-styles(
+    (
+      position: fixed,
+      top: 0,
+      right: 0,
+    ),
+    true
+  );
+}
+
+.hidden-feature-message-9927845 {
+  @include important-styles(
+    (
+      display: none,
+    ),
+    true
+  );
+}
+
+.hyperlinked-text-9927845 {
+  @include important-styles(
+    (
+      display: block,
+      margin-top: 1em,
+      text-decoration: underline,
+      color: var(--neutral-text),
+    ),
+    true
+  );
 }

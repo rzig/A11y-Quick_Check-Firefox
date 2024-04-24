@@ -1,4 +1,4 @@
-@import '../common';
+@import "../common";
 
 .small-target-8228965.target-insufficient-8228965 {
   border: 4px solid var(--danger-border) !important;
@@ -6,19 +6,22 @@
 }
 
 .target-size-8228965.target-insufficient-8228965 {
-  @include important-styles((
-  background-color: var(--danger-background),
-  border: 1px solid var(--danger-border),
-  color: var(--danger-text),
-  font-size: 1rem,
-  position: absolute,
-  left: 0,
-  line-height: 1.5,
-  padding: 0.5em,
-  min-height:8em,
-  width: 12em,
-  z-index: 10000,
-  ), true);
+  @include important-styles(
+    (
+      background-color: var(--danger-background),
+      border: 1px solid var(--danger-border),
+      color: var(--danger-text),
+      font-size: 1rem,
+      position: absolute,
+      left: 0,
+      line-height: 1.5,
+      padding: 0.5em,
+      min-height: 8em,
+      width: 12em,
+      z-index: 2147483647,
+    ),
+    true
+  );
   @include whiteSpace;
 }
 
@@ -28,43 +31,55 @@
 
 .target-size-8228965.target-sufficient-8228965,
 .pseudo-extends-target-8228965 {
-  @include important-styles((
-  background-color: var(--pass-background),
-  border: 1px solid var(--pass-border),
-  color: var(--danger-text),
-  font-size: 1rem,
-  left: 0,
-  position: absolute,
-  line-height: 1.5,
-  padding: 0.5em,
-  min-height:10em,
-  width: 20em,
-  z-index: 10000,
-  ), true);
+  @include important-styles(
+    (
+      background-color: var(--pass-background),
+      border: 1px solid var(--pass-border),
+      color: var(--danger-text),
+      font-size: 1rem,
+      left: 0,
+      position: absolute,
+      line-height: 1.5,
+      padding: 0.5em,
+      min-height: 10em,
+      width: 20em,
+      z-index: 2147483647,
+    ),
+    true
+  );
   @include whiteSpace;
 }
 
-.target-size-24-8228965  {
-  @include important-styles((
-  top: 1.8em,
-  ), true);
+.target-size-24-8228965 {
+  @include important-styles(
+    (
+      top: 1.8em,
+    ),
+    true
+  );
 }
 
-.target-size-44-8228965  {
-  @include important-styles((
-  top: 2.4em,
-  ), true);
+.target-size-44-8228965 {
+  @include important-styles(
+    (
+      top: 2.4em,
+    ),
+    true
+  );
 }
 
 .circle-shape-8228965 {
-  @include important-styles((
-  position: absolute,
-  top: 50%,
-  left: 50%,
-  transform: translate(-50%, -50%),
-  border: 2px solid var(--warning-border),
-  border-radius: 50%,
-  ), true);
+  @include important-styles(
+    (
+      position: absolute,
+      top: 50%,
+      left: 50%,
+      transform: translate(-50%, -50%),
+      border: 2px solid var(--warning-border),
+      border-radius: 50%,
+    ),
+    true
+  );
 }
 
 .pos-rel-8228965 {
@@ -73,46 +88,59 @@
 
 //CSS properties listed by Positioning, Box Model, Typographic, Visual, left-overs
 .toggleMessage-8228965 {
-  @include important-styles((
-  position: sticky,
-  top: 2em,
-  left: 0,
-  z-index: 100000,
-  display: inline-block,
-  padding: 1em .5em .8em 1em,
-  border: 1px dashed var(--neutral-border),
-  border-radius: 4px,
-  font-size: 1.2rem,
-  text-align: center,
-  text-decoration: none,
-  writing-mode: vertical-lr,
-  background-color: var(--neutral-background),
-  color: var(--neutral-text),
-  transform: rotate(180deg),
-  ), true);
+  @include important-styles(
+    (
+      z-index: 2147483630,
+      display: inline-block,
+      padding: 1em 0.5em 0.8em 1em,
+      border: 4px dashed var(--neutral-border),
+      border-radius: 4px,
+      font-size: 1.2rem,
+      text-align: center,
+      text-decoration: none,
+      // writing-mode: vertical-lr,
+      background-color: var(--neutral-background),
+      color: var(--neutral-text),
+      // transform: rotate(180deg),
+    ),
+    true
+  );
 }
 
 .toggleMessage-8228965 {
-  position: fixed;
-  left: 1em;
-  top: 1em;
+  @include important-styles(
+    (
+      position: fixed,
+      left: 1em,
+      bottom: 1em,
+      height: 5em,
+    ),
+    true
+  );
 }
 
 .toggleMessage-8228965:focus-visible {
-  box-shadow: 0 0 0 4px var(--neutral-border), 0 0 0 4px white;
-  outline: 4px solid white;
-  outline-offset: -4px;
+  @include important-styles((
+    box-shadow: "0 0 0 4px var(--neutral-border), 0 0 0 4px white",
+      outline: 4px solid white,
+      outline-offset: -4px,
+  ), true);
 }
 
 .toggleMessage-8228965:hover {
-  border: none;
+  border: none !important;
 }
 
 .manual-confirmation-9927845 {
-  font-weight: 700;
-  margin: 0;
-  white-space: normal;
-  
+  @include important-styles(
+    (
+      font-weight: 700,
+      margin: 0,
+      text-wrap: pretty,
+    ),
+    true
+  );
+
   @include message-container(
     var(--neutral-background),
     var(--neutral-border),
@@ -123,11 +151,25 @@
 }
 
 .hyperlinked-text-9927845 {
-  font-weight: 400;
+  font-weight: 400 !important;
 }
 
 .target-size-exception-8228965 {
-  display:flex;
-  font-weight:700;
-  margin-top:5px;
+  @include important-styles(
+    (
+      display: flex,
+      font-weight: 700,
+      margin-top: 5px,
+    ),
+    true
+  );
+}
+
+.circle-shape-8228965.spacing-circle-8228965 {
+  @include important-styles(
+    (
+      border-color: var(--pass-border),
+    ),
+    true
+  );
 }

@@ -50,10 +50,17 @@ function getPseudoElementAdjustment(elem: Element): {
 }
 
 // Add a circle shape to a specific element
-function addCircleShape(elem: Element, targetSize: number) {
+//function addCircleShape(elem: Element, targetSize: number) {
+  function addCircleShape(elem: Element, targetSize: number, addSpacingCircle: boolean = false) {
   const circle = document.createElement("div");
   circle.classList.add("circle-shape-8228965");
   circle.classList.add(`circle-shape-size-${targetSize}-8228965`);
+
+// Conditionally add the spacing-circle class
+if (addSpacingCircle) {
+  circle.classList.add("spacing-circle-8228965");
+}
+
   circle.style.width = `${targetSize}px`;
   circle.style.height = `${targetSize}px`;
   elem.classList.add(`pos-rel-size-${targetSize}-8228965`);
@@ -62,14 +69,30 @@ function addCircleShape(elem: Element, targetSize: number) {
 }
 
 // Check if the element is excluded
+// function isExcluded(elem: Element): boolean {
+//   const anchorLinkRegex = /^#[\w-]+$/;
+//   const isAnchor = elem.tagName === "A";
+//   const isButton =
+//     elem.tagName === "BUTTON" || elem.getAttribute("role") === "button";
+//   const isInPageLink =
+//     isAnchor && anchorLinkRegex.test(elem.getAttribute("href") ?? "");
+//   let isInParagraph = (isAnchor || isButton) && elem.closest("p") !== null;
+//   const isFootnote = isAnchor && elem.classList.contains("footnote");
+
+//   return isInPageLink || isInParagraph || isFootnote;
+// }
 function isExcluded(elem: Element): boolean {
+  // Regex to match anchor links that are in-page (i.e., start with "#")
   const anchorLinkRegex = /^#[\w-]+$/;
   const isAnchor = elem.tagName === "A";
-  const isButton =
-    elem.tagName === "BUTTON" || elem.getAttribute("role") === "button";
-  const isInPageLink =
-    isAnchor && anchorLinkRegex.test(elem.getAttribute("href") ?? "");
-  let isInParagraph = (isAnchor || isButton) && elem.closest("p") !== null;
+  const isButton = elem.tagName === "BUTTON" || elem.getAttribute("role") === "button";
+  
+  // Check if the element is an anchor and if its href matches the in-page link pattern
+  const isInPageLink = isAnchor && anchorLinkRegex.test(elem.getAttribute("href") ?? "");
+  
+  // Extend the check for being inside a paragraph to include checking for inline elements
+  let isInParagraph = (isAnchor || isButton) && elem.closest("p, span") !== null;
+  
   const isFootnote = isAnchor && elem.classList.contains("footnote");
 
   return isInPageLink || isInParagraph || isFootnote;
@@ -128,59 +151,79 @@ function checkSpacing(elem: Element, targetSize: number): boolean {
   return true;
 }
 
-function addTargetSize(targetSize: number) {
-  let hasIssues = false; // Reset hasIssues for each invocation
-  //console.log("[addTargetSize] Start checking target sizes.");
+function isNodeInExcludedinContainer(node: Element): boolean {
+  let ancestor = node.parentElement;
+  while (ancestor) {
+    if (ancestor.classList.contains("top-right-container-9927845")) {
+      return true;
+    }
+    ancestor = ancestor.parentElement;
+  }
+  return false;
+}
 
-  // Handling individual elements such as links, buttons, etc.
-  const inputElements = document.querySelectorAll(
+function addTargetSize(targetSize: number): void {
+  let hasIssues: boolean = false; // Reset hasIssues for each invocation
+
+  const inputElements: NodeListOf<Element> = document.querySelectorAll(
     'a, button, input[type="button"], input[type="submit"], select, [role="button"], [role="link"]'
   );
 
-  inputElements.forEach((elem) => {
-    // Exclude certain elements such as 'Toggle messages' button
-    if (elem.id === "rmb-8228965") return;
-
-    const rect = elem.getBoundingClientRect();
-    const {
-      width: extraWidth,
-      height: extraHeight,
-      extendsTarget,
-    } = getPseudoElementAdjustment(elem);
-    const elemWidth = rect.width + extraWidth;
-    const elemHeight = rect.height + extraHeight;
-    const tagName = elem.tagName.toLowerCase();
-    const role = elem.getAttribute("role");
-    const identifier = role ? `role="${role}"` : tagName;
-    const isHidden = getComputedStyle(elem).display === "none" || getComputedStyle(elem).visibility === "hidden";
-    const isTooSmall = elemWidth <= 1 || elemHeight <= 1;
-
-    if (!isHidden && !isTooSmall) {
-      if (!extendsTarget && (elemWidth < targetSize || elemHeight < targetSize)) {
-        hasIssues = true; // Flag that there's an issue
-        // console.log(`[Issue Found] Issue detected with element: ${identifier}. Element details:`, elem.outerHTML);
-
-        const hasSufficientSpacing = checkSpacing(elem, targetSize);
-        let extraClass = hasSufficientSpacing && targetSize <= 24 ? `target-sufficient-8228965` : `target-insufficient-8228965`;
-        let message = `The target size for element <${identifier}> is ${elemWidth.toFixed(2)}px x ${elemHeight.toFixed(2)}px`;
-
-        const messageDiv = document.createElement("div");
-        messageDiv.className = `target-size-${targetSize}-8228965`;
-        messageDiv.classList.add("target-size-8228965", extraClass, "spacing-ignore-8228965");
-        messageDiv.textContent = message; // Set base message
-
-        // Append 'This element is exempt by the Spacing exception' only if spacing is sufficient
-        if (hasSufficientSpacing) {
-          const exceptionSpan = document.createElement("span");
-          exceptionSpan.className = "target-size-exception-8228965";
-          exceptionSpan.textContent = "This element is exempt by the Spacing exception.";
-          messageDiv.appendChild(exceptionSpan); // Append this span only once
-        }
-
-        elem.appendChild(messageDiv);
-        addCircleShape(elem, targetSize);
-      }
+  inputElements.forEach((elem: Element) => {
+    // Check if the element is within an excluded container
+    if (isNodeInExcludedinContainer(elem)) {
+      return;
     }
+
+    // Check if the element is exempt (e.g., a link in a paragraph)
+    if (isExcluded(elem)) {
+      return; // Skip this element if it's exempt
+    }
+    
+      // Skip certain elements as needed
+      if (elem.id === "rmb-8228965") return;
+
+      const rect: DOMRect = elem.getBoundingClientRect();
+      const {
+          width: extraWidth,
+          height: extraHeight,
+          extendsTarget,
+      } = getPseudoElementAdjustment(elem);
+      const elemWidth: number = rect.width + extraWidth;
+      const elemHeight: number = rect.height + extraHeight;
+      const tagName: string = elem.tagName.toLowerCase();
+      const role: string | null = elem.getAttribute("role");
+      const identifier: string = role ? `role="${role}"` : `<${tagName}>`;
+      const isHidden: boolean = getComputedStyle(elem).display === "none" || getComputedStyle(elem).visibility === "hidden";
+      const isTooSmall: boolean = elemWidth <= 1 || elemHeight <= 1;
+
+      if (!isHidden && !isTooSmall) {
+          if (!extendsTarget && (elemWidth < targetSize || elemHeight < targetSize)) {
+              hasIssues = true; // Flag that there's an issue
+
+              const hasSufficientSpacing: boolean = checkSpacing(elem, targetSize);
+              let baseMessage: string = `The target size for ${identifier} is ${elemWidth.toFixed(2)}px x ${elemHeight.toFixed(2)}px.`;
+
+              // Assuming appendHyperlinksToMessage is a global function; ensure correct typing if defined elsewhere
+              let message: string = appendHyperlinksToMessage(baseMessage); // Integrate dynamic hyperlinks
+
+              const messageDiv: HTMLDivElement = document.createElement("div");
+              messageDiv.className = `target-size-${targetSize}-8228965`;
+              messageDiv.classList.add("target-size-8228965", hasSufficientSpacing && targetSize <= 24 ? "target-sufficient-8228965" : "target-insufficient-8228965", "spacing-ignore-8228965");
+              messageDiv.innerHTML = message; // Changed from textContent to innerHTML
+
+              // Append an explanatory span if necessary
+              if (hasSufficientSpacing) {
+                  const exceptionSpan: HTMLSpanElement = document.createElement("span");
+                  exceptionSpan.className = "target-size-exception-8228965";
+                  exceptionSpan.innerHTML = "This element is exempt by the Spacing exception."; // HTML to support hyperlink insertion
+                  messageDiv.appendChild(exceptionSpan);
+              }
+
+              elem.appendChild(messageDiv);
+              addCircleShape(elem, targetSize, hasSufficientSpacing);
+          }
+      }
   });
 
   // Start new code block for handling lists
@@ -202,6 +245,8 @@ function addTargetSize(targetSize: number) {
 
       const messageText =
         "If the list is a sentence or contains both active elements and non-target text, exceptions for inline elements may apply!";
+      // Use appendHyperlinksToMessage
+    const updatedMessageText = appendHyperlinksToMessage(messageText);
       const fullMessageClassName = "manual-confirmation-9927845";
 
       // Create and append the message div only if it has not been added already
@@ -281,3 +326,81 @@ function injectButton() {
 
   document.body.prepend(button);
 }
+
+populateLinkObjects(); // Ensure the links are populated before use.
+
+function createTopRightContainerTargetSize(): void {
+  const containerDiv = getOrCreateContainer();
+
+  // Check if containerDiv is null and return early if so
+  if (containerDiv === null) {
+    return;
+  }
+
+  const innerDiv = document.createElement("div");
+  innerDiv.className = "inner-container-9927845 remove-inner-ts-9927845";
+
+  // Check if the container is minimized
+  if (containerDiv.dataset['isMinimised'] === "true") {
+    innerDiv.classList.add("hidden-feature-message-9927845");
+  }
+ 
+  containerDiv.appendChild(innerDiv);
+  updateParentContainerClass(containerDiv);
+
+  const checkDetails = createDetailsComponent(
+    "Analysing target-size",
+    "The purpose of this check is to ensure web elements conform to the target size success criteria. It evaluates elements like buttons, links, and form controls, verifying that they meet the minimum target size requirements. This includes notifications when the Spacing exception applies. Lists are indicated as requiring manual testing verification if an exception applies when it cannot be determined automatically. The Target Size messages can be toggled on/off. If a target is undersize, and the circles do not intersect (overlap), the spacing exemption applies. Note that the Spacing exception is only applicable to 2.5.8 Target Size (Minimum) (Level AA). Due to the complexity of Target-size, some false positives may occur. For example a link contained in a DIV element that includes content and is thus an inline exemption, may be identified as an issue. Currenly this is the only false positive result we are aware of, and are working to fix this issue."
+  );
+  innerDiv.appendChild(checkDetails);
+
+  // // Manual notes details component
+  // const checkManualDetails = createDetailsComponent(
+  //   "How to manually test ( is coming! )",
+  //   "This section will be populated with how to manually test"
+  // );
+  // innerDiv.appendChild(checkManualDetails);
+
+  // Use createReferenceContainer to generate the reference section
+  const referenceContainer = createReferenceContainer();
+  if (referenceContainer) {
+    innerDiv.appendChild(referenceContainer);
+
+    // Link List
+    const linkList = document.createElement("ul");
+    linkList.className = "reference-list-9927845";
+    linkList.style.margin = "0";
+    linkList.style.padding = "0";
+    
+    referenceContainer.appendChild(linkList);
+
+    // Specified links function
+    function appendLink(
+      links: Record<string, string>,
+      key: string,
+      category: string
+    ): void {
+      const href = links[key];
+      if (href) {
+        const listItem = document.createElement("li");
+        const anchor = document.createElement("a");
+        anchor.href = href;
+        anchor.textContent = `${category} - ${key}`;
+        listItem.appendChild(anchor);
+        linkList.appendChild(listItem);
+      }
+    }
+
+    // Append specific links
+    appendLink(wcagLinks, "2.5.8 Target Size (Minimum) (Level AA)", "WCAG");
+    appendLink(wcagLinks, "2.5.5 Target Size (Enhanced) (Level AAA)", "WCAG");
+
+    // Add the Dismiss Button
+  }
+  createDismissButton(innerDiv, "Target-Size");
+
+  // Append the main container to the document's body
+  document.body.appendChild(containerDiv);
+}
+
+createTopRightContainerTargetSize();

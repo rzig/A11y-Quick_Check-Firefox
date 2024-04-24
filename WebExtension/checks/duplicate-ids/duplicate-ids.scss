@@ -1,35 +1,36 @@
 @import "../common";
 
-.neutral-control-9927845 {
+.warning-9927845 {
   @include important-styles(
     (
-      border: 2px dashed var(--neutral-border),
-      margin: 1em 0,
-      margin-bottom: 0,
+      border: 2px dashed var(--warning-border),
+      margin:0,
     ),
     true
   );
 }
 
-.neutral-control-message-9927845 {
+.warning-message-9927845 {
   @include important-styles(
     (
   font-weight: 700,
   margin: 0,
   text-wrap:pretty,
+  z-index: 2147483647,
   ),
     true
   );
-
+  
   @include message-container(
-    var(--neutral-background),
-    var(--neutral-border),
-    var(--neutral-text)
+    var(--warning-background),
+    var(--warning-border),
+    var(--warning-text)
   );
   @include flex-width-container;
+  @include font-styling;
 }
 
-.numbered-controlled-square-9927845 {
+.numbered-square-9927845 {
   @include important-styles(
     (
       display: inline-block,

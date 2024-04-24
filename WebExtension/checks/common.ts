@@ -23,7 +23,9 @@ function createChildMessageDiv(
 ) {
   const wrapper = getWrapperDiv(element);
   // Use createStyledMessageDiv instead of createNewMessageDiv for styling and prefix handling
-  wrapper.appendChild(createStyledMessageDiv(messageClass, message, extraClasses));
+  wrapper.appendChild(
+    createStyledMessageDiv(messageClass, message, extraClasses)
+  );
 }
 
 function createNewMessageDiv(
@@ -62,54 +64,57 @@ function createStyledMessageDiv(
   message: string,
   extraClasses: string[] = []
 ): HTMLDivElement {
-    const div = document.createElement("div");
-    div.className = messageClass;
-    extraClasses.forEach(cls => div.classList.add(cls));
+  const div = document.createElement("div");
+  div.className = messageClass;
+  extraClasses.forEach((cls) => div.classList.add(cls));
 
-    // Mapping from message prefix to the respective CSS class
-    const prefixToClass = {
-        "Best practice": "messageLabelGeneric",
-        "Warning": "messageLabelWarning",
-        "Invalid": "messageLabelInvalid",
-        "Valid": "messageLabelValid",
-        "Accessible name": "messageLabelaccName", //To do
-        "Knowledge" : "messageLabelKnowledge",
-        "Needs manual confirmation" : "messageLabelManualConfirmation",
-    };
+  // Mapping from message prefix to the respective CSS class
+  const prefixToClass = {
+    "Best practice": "messageLabelGeneric",
+    Warning: "messageLabelWarning",
+    Invalid: "messageLabelInvalid",
+    Valid: "messageLabelValid",
+    "Accessible name": "messageLabelaccName", //To do
+    Knowledge: "messageLabelKnowledge",
+    "Needs manual confirmation": "messageLabelManualConfirmation",
+    "Dynamic update" : "messageLabelWarning",
+  };
 
-    let foundPrefix = false; // Flag to indicate if a prefix is found
+  let foundPrefix = false; // Flag to indicate if a prefix is found
 
-    // Iterate over known prefixes to find a match and style it separately
-    Object.entries(prefixToClass).forEach(([prefix, labelClass]) => {
-        if (message.startsWith(prefix)) {
-            foundPrefix = true; // Mark that a prefix is found
+  // Iterate over known prefixes to find a match and style it separately
+  Object.entries(prefixToClass).forEach(([prefix, labelClass]) => {
+    if (message.startsWith(prefix)) {
+      foundPrefix = true; // Mark that a prefix is found
 
-            // Create a span for the prefix and add it to the div
-            const labelSpan = document.createElement("span");
-            labelSpan.className = labelClass;
-            labelSpan.textContent = prefix;
-            div.appendChild(labelSpan);
+      // Create a span for the prefix and add it to the div
+      const labelSpan = document.createElement("span");
+      labelSpan.className = labelClass;
+      labelSpan.textContent = prefix;
+      div.appendChild(labelSpan);
 
-            // Append the rest of the message after the prefix
-            // Ensure to trim and remove any leading colon
-            const restMessageText = message.substring(prefix.length).trimStart(); // Remove prefix from the rest of the message
-            if (restMessageText.startsWith(':')) {
-                // Remove leading colon if present and trim any extra space
-                div.appendChild(document.createTextNode(restMessageText.substring(1).trimStart()));
-            } else {
-                // No leading colon, just append the rest of the message
-                div.appendChild(document.createTextNode(restMessageText));
-            }
-            return; // Exit the loop after handling the prefix
-        }
-    });
-
-    if (!foundPrefix) {
-        // If no known prefix was found, just add the full message as is
-        div.textContent = message;
+      // Append the rest of the message after the prefix
+      // Ensure to trim and remove any leading colon
+      const restMessageText = message.substring(prefix.length).trimStart(); // Remove prefix from the rest of the message
+      if (restMessageText.startsWith(":")) {
+        // Remove leading colon if present and trim any extra space
+        div.appendChild(
+          document.createTextNode(restMessageText.substring(1).trimStart())
+        );
+      } else {
+        // No leading colon, just append the rest of the message
+        div.appendChild(document.createTextNode(restMessageText));
+      }
+      return; // Exit the loop after handling the prefix
     }
+  });
 
-    return div;
+  if (!foundPrefix) {
+    // If no known prefix was found, just add the full message as is
+    div.textContent = message;
+  }
+
+  return div;
 }
 
 // Update addMessageToPrecedingDiv function to use createStyledMessageDiv
@@ -121,6 +126,32 @@ function addMessageToPrecedingDiv(
 ) {
   const precedingDiv = createPrecedingDiv(element);
   precedingDiv.appendChild(
+    createStyledMessageDiv(messageClass, message, extraClasses)
+  );
+}
+
+function createFollowingDiv(targetElement: Element): HTMLDivElement {
+  const attributeLabel = "data-after-div-9f2dc5ea";
+
+  let followingDiv = targetElement.nextElementSibling as HTMLDivElement;
+  if (followingDiv == null || !followingDiv.hasAttribute(attributeLabel)) {
+    followingDiv = document.createElement("div");
+    followingDiv.setAttribute(attributeLabel, "");
+    followingDiv.classList.add("after-div-9f2dc5ea");
+    targetElement.after(followingDiv);
+  }
+  return followingDiv;
+}
+
+//New global helper message for checks that include the numbered circle
+function addMessageToFollowingDiv(
+  element: Element,
+  messageClass: string,
+  message: string,
+  extraClasses: string[] = []
+) {
+  const followingDiv = createFollowingDiv(element);
+  followingDiv.appendChild(
     createStyledMessageDiv(messageClass, message, extraClasses)
   );
 }

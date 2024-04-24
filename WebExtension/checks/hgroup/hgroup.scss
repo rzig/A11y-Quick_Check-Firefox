@@ -1,15 +1,21 @@
 @import "../common";
 
 .hgroup-58997365 {
+  @include important-styles((), true);
   margin: 1em 0 !important;
   border: 2px solid var(--pass-border) !important;
 }
 
 .html-hgroup-message-58997365 {
-  font-weight: 700;
-  margin: 0;
-  white-space: normal;
-  
+  @include important-styles(
+    (
+      font-weight: 700,
+      margin: 0,
+      text-wrap: pretty,
+    ),
+    true
+  );
+
   @include message-container(
     var(--neutral-background),
     var(--neutral-border),
@@ -20,8 +26,14 @@
 }
 
 .aria-hgroup-message-58997365 {
-  font-weight: 700;
-  margin: 1em 0;
+  @include important-styles(
+    (
+      text-wrap: pretty,
+      font-weight: 700,
+      margin: 1em 0,
+    ),
+    true
+  );
 
   @include message-container(
     var(--pass-background),
@@ -32,8 +44,14 @@
 }
 
 .missing-heading-message-58997365 {
-  font-weight: 700;
-  margin: 1em 0;
+  @include important-styles(
+    (
+      text-wrap: pretty,
+      font-weight: 700,
+      margin: 1em 0,
+    ),
+    true
+  );
 
   @include message-container(
     var(--danger-background),

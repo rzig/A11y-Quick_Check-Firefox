@@ -6,7 +6,6 @@
       "fieldsets": [
         {
           "name": "Headings",
-          "helpSection": "Checks if visually designed headings and heading groups are conveyed by semantic markup, identifies large text to check if it should be a heading, and warns if heading levels are skipped.",
           "items": [
             {
               "name": "Identify text marked up as a heading",
@@ -17,7 +16,7 @@
               "removeScript": "headings-remove.js"
             },
             {
-              "name": "Verify large bold text is non-heading",
+              "name": "Verify large bold text is not a heading",
               "id": "headingNo",
               "resource_path": "checks/headings-not-coded",
               "css": "headings-not-coded.css",
@@ -36,7 +35,6 @@
         },
         {
           "name": "Grouping elements",
-          "helpSection": "Grouping content in HTML are p, hr, pre, blockquote, ol, ul, menu, li, dl, dt, dd, figcaption, main, search and div. <div> is not included in the check. Related form control checks for the use of <fieldset>, <legend>, role=group and role=radiogroup.",
           "items": [
             {
               "name": "Ordered list structure",
@@ -63,36 +61,33 @@
               "removeScript": "description-list-remove.js"
             },
             {
-              "name": "Content grouping",
-              "id": "groupingContent",
-              "resource_path": "checks/grouping-content",
-              "css": "grouping-content.css"
-            },
-            {
               "name": "Related form controls",
               "id": "relatedFormControls",
               "resource_path": "checks/related-form-controls",
               "css": "related-controls.css",
               "addScript": "related-controls.js",
               "removeScript": "related-controls-remove.js"
-            }
-          ]
-        },
-        {
-          "name": "Text-level semantics",
-          "helpSection": "Text-level semantics are elements used to describe the structure and meaning of text within a web page, for example <strong>, <em> and <code>. Sometimes referred to as inline elements, these tags add semantic meaning or styling to text.",
-          "items": [
+            },
             {
-              "name": "Inline elements",
+              "name": "Content grouping",
+              "id": "groupingContent",
+              "resource_path": "checks/grouping-content",
+              "css": "grouping-content.css",
+              "addScript": "grouping-content.js",
+              "removeScript": "grouping-content-remove.js"
+            },
+          {
+              "name": "Text-level semantics",
               "id": "textLevelSemantics",
               "resource_path": "checks/text-level-semantics",
-              "css": "text-level-semantics.css"
+              "css": "text-level-semantics.css",
+              "addScript": "text-level-semantics.js",
+              "removeScript": "text-level-semantics-remove.js"
             }
           ]
         },
         {
           "name": "Content Types",
-          "helpSection": "Landmark roles programmatically identify sections of a page and serve as navigational aids to assistive technology users. In HTML article, aside, nav and section elements are called 'Sectioning content'.",
           "items": [
             {
               "name": "Landmark roles",
@@ -178,7 +173,6 @@
       "fieldsets": [
         {
           "name": "User Experience",
-          "helpSection": "The Target Size messages can be toggled on/off. If a target is undersize, and the circles do not intersect (overlap), the spacing exemption applies. Note that the Spacing exception is only applicable to 2.5.8 Target Size (Minimum) (Level AA)",
           "items": [
             {
               "name": "Target Size (24px)",
@@ -228,7 +222,6 @@
         },
         {
           "name": "Attributes",
-          "helpSection": "Identifies the use of autocomplete and the value for checking against the label of the form control.",
           "items": [
             {
               "name": "Autocomplete",
@@ -237,12 +230,27 @@
               "css": "autocomplete.css",
               "addScript": "autocomplete.js",
               "removeScript": "autocomplete-remove.js"
+            },
+            {
+              "name": "Validate Tabindex usage",
+              "id": "tabIndexZero",
+              "resource_path": "checks/tabindex",
+              "css": "tabindex.css",
+              "addScript": "tabindex.js",
+              "removeScript": "tabindex-remove.js"
+            },
+            {
+              "name": "Duplicate ID values affecting accessibility",
+              "id": "dupingIDs",
+              "resource_path": "checks/duplicate-ids",
+              "css": "duplicate-ids.css",
+              "addScript": "duplicate-ids.js",
+              "removeScript": "duplicate-ids-remove.js"
             }
           ]
         },
         {
           "name": "Accessible names",
-          "helpSection": "Displays the name from aria-labelledby, aria-label, or the description from aria-describedby, and sets a number against the named element and the element providing the name or description. The \"Element named by method\" indicates the technique employed to assign the accessible name to an element, as determined by the accessible name calculation. Checks for potential use of screen reader only content",
           "items": [
             {
               "name": "Show Aria-Label",
@@ -277,7 +285,7 @@
               "removeScript": "aria-controls-remove.js"
             },
             {
-              "name": "Element named by method (experimental check)",
+              "name": "Identify how the accessible name is generated",
               "id": "elementNameFrom",
               "resource_path": "checks/element-named-from",
               "css": "element-named-from.css",

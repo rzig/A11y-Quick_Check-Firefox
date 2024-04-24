@@ -2,9 +2,14 @@
 
 .text-large-a11y-9892664,
 .text-heavy-a11y-9892664 {
-    font-weight: 700;
-    margin: 0;
-    white-space: normal;
+  @include important-styles(
+    (
+  font-weight: 700,
+  margin: 0,
+  text-wrap:pretty,
+  ),
+    true
+  );
     
     @include message-container(
       var(--neutral-background),

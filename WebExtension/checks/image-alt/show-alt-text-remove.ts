@@ -1,3 +1,5 @@
 "use strict";
 
-removeInjectedDivs(['alt-text-message-88927564']);
+removeInjectedDivs([
+    'alt-text-message-88927564'
+]);
