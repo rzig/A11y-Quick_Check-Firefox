@@ -85,7 +85,7 @@ function createTopRightContainerAriaLabel(): void {
   innerDiv.className = "inner-container-9927845 remove-inner-al-9927845";
 
   // Check if the container is minimized
-  if (containerDiv.dataset['isMinimized'] === "true") {
+  if (containerDiv.dataset['isMinimised'] === "true") {
     innerDiv.classList.add("hidden-feature-message-9927845");
   }
 

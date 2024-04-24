@@ -1,4 +1,4 @@
-[data-textspacing-7783664] {
+[data-textspacing-7783664]{
   /* Set line height to at least 1.5 times the font size */
   line-height: 1.5 !important;
 
@@ -12,4 +12,9 @@
 [data-textspacing-7783664] p {
   /* Set spacing following paragraphs to at least 2 times the font size */
   margin-bottom: 2em !important;
+}
+
+body[data-textspacing-7783664] > .top-right-container-9927845 {
+  letter-spacing: normal !important;
+  word-spacing: normal !important;
 }

@@ -1,8 +1,9 @@
 "use strict";
 
 function addTextSpacing() {
-  // Get all elements with text content
-  const targets = document.querySelectorAll("*:not(script):not(style):not(head):not(title):not(meta):not(link):not(br):not(hr):not(img):not(input):not(textarea)")
+  // Exclude .top-right-container-9927845 and its children from the query
+  const excludeSelector = '.top-right-container-9927845, .top-right-container-9927845 *';
+  const targets = document.querySelectorAll(`*:not(script):not(style):not(head):not(title):not(meta):not(link):not(br):not(hr):not(img):not(input):not(textarea):not(${excludeSelector})`);
 
   // Loop through all text elements
   for (const element of targets) {
@@ -10,6 +11,7 @@ function addTextSpacing() {
     element.setAttribute("data-textspacing-7783664", "");
   }
 }
+
 addTextSpacing();
 
 // populateLinkObjects(); // Ensure the links are populated before use.

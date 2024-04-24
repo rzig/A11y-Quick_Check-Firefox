@@ -361,28 +361,30 @@ function createDetailsComponent(summaryText: string, ContentText?: string): HTML
 }
 
 function createMinMaxButton(containerDiv: HTMLDivElement): void {
-  if (!containerDiv.querySelector(".minimize-button-9927845")) {
+  if (!containerDiv.querySelector(".minimise-button-9927845")) {
     const minMaxButton = document.createElement("button");
-    minMaxButton.className = "minimize-button-9927845";
-    minMaxButton.textContent = "Minimize";
+    minMaxButton.className = "minimise-button-9927845";
+    minMaxButton.textContent = "Minimise";
 
-    containerDiv.dataset['isMinimized'] = "false"; // Initialize state
+    containerDiv.dataset['isMinimised'] = "false"; // Initialize state
 
     minMaxButton.addEventListener("click", () => {
-      const isMinimized = containerDiv.dataset['isMinimized'] === "true";
-      containerDiv.dataset['isMinimized'] = isMinimized ? "false" : "true";
+      const isMinimised = containerDiv.dataset['isMinimised'] === "true";
+      containerDiv.dataset['isMinimised'] = isMinimised ? "false" : "true";
 
-      if (isMinimized) {
-        minMaxButton.textContent = "Minimize";
+      if (isMinimised) {
+        minMaxButton.textContent = "Minimise";
+        minMaxButton.className = "minimise-button-9927845";
       } else {
-        minMaxButton.textContent = "Maximize";
+        minMaxButton.textContent = "Maximise";
+        minMaxButton.className = "maximise-button-9927845";
       }
 
       const innerDivs = containerDiv.querySelectorAll(".inner-container-9927845");
       innerDivs.forEach((innerDiv) => {
-        innerDiv.classList.toggle("hidden-feature-message-9927845", !isMinimized);
+        innerDiv.classList.toggle("hidden-feature-message-9927845", !isMinimised);
       });
-      minMaxButton.textContent = isMinimized ? "Minimise" : "Maximise";
+      minMaxButton.textContent = isMinimised ? "Minimise" : "Maximise";
     });
 
     containerDiv.appendChild(minMaxButton);

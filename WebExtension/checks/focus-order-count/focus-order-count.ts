@@ -11,7 +11,8 @@ function addClassToFocusableElements(): void {
 
     let i = 1;
     for (const element of focusableElements) {
-        if (isVisibleFO(element)) {
+        // Check if the element is visible and not inside the .top-right-container-9927845
+        if (isVisibleFO(element) && !element.closest('.top-right-container-9927845')) {
             element.setAttribute(`data-domCount-889557`, `${i}`);
             i++;
         }
@@ -29,6 +30,14 @@ function addDomCountDivs(): void {
             createChildMessageDiv(element, domCountDivClass, `${dataCount}`);
         }
     }
+}
+
+// Function to create and append a child div with the count
+function createChildMessageDiv(parentElement: HTMLElement, className: string, text: string): void {
+    const div = document.createElement("div");
+    div.className = className;
+    div.textContent = text;
+    parentElement.appendChild(div);
 }
 
 // Execute the functions

@@ -123,7 +123,7 @@
   @include messageDisplayStyles;
 }
 
-.tabindex-0-detected-9927845 {
+.tabindex-0-detected-9927845:not(.top-right-container-9927845) {
     @include important-styles(
       (
         border: 4px dashed var(--neutral-border),

@@ -203,7 +203,7 @@
   );
 }
 
-.top-right-container-9927845[data-is-minimized="true"] {
+.top-right-container-9927845[data-is-minimised="true"] {
   @include important-styles(
     (
       border: none,
@@ -445,7 +445,7 @@ ul.reference-list-9927845 li a:focus {
 }
 
 .dismiss-button-9927845,
-.minimize-button-9927845,
+.minimise-button-9927845,
 .maximise-button-9927845 {
   @include important-styles(
     (
@@ -463,7 +463,7 @@ ul.reference-list-9927845 li a:focus {
   );
 }
 
-.minimize-button-9927845 {
+.minimise-button-9927845 {
   @include important-styles(
     (
       position: absolute,
@@ -477,7 +477,7 @@ ul.reference-list-9927845 li a:focus {
 .maximise-button-9927845 {
   @include important-styles(
     (
-      position: absolute,
+      position: fixed,
       top: 3px,
       right: 3px,
     ),
@@ -496,7 +496,7 @@ ul.reference-list-9927845 li a:focus {
 }
 
 .dismiss-button-9927845:hover,
-.minimize-button-9927845:hover,
+.minimise-button-9927845:hover,
 .maximise-button-9927845:hover {
   @include important-styles(
     (
@@ -507,7 +507,7 @@ ul.reference-list-9927845 li a:focus {
 }
 
 .dismiss-button-9927845:focus,
-.minimize-button-9927845:focus,
+.minimise-button-9927845:focus,
 .maximise-button-9927845:focus {
   @include important-styles(
     (
@@ -518,7 +518,7 @@ ul.reference-list-9927845 li a:focus {
 }
 
 .dismiss-button-9927845:focus-visible,
-.minimize-button-9927845:focus-visible,
+.minimise-button-9927845:focus-visible,
 .maximise-button-9927845:focus-visible {
   @include important-styles(
     (

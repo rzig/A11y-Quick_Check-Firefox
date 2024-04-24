@@ -11,7 +11,7 @@ function createTopRightGCContainer(): void {
   const innerDiv = document.createElement("div");
   innerDiv.className = "inner-container-9927845 remove-inner-gc-9927845";
 
-  if (containerDiv.dataset["isMinimized"] === "true") {
+  if (containerDiv.dataset["isMinimised"] === "true") {
     innerDiv.classList.add("hidden-feature-message-9927845");
   }
 

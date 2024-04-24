@@ -162,6 +162,12 @@
     .querySelectorAll("[tabindex], [role], main, nav, footer")
     .forEach((element) => {
       const htmlElement = element as HTMLElement;
+
+      // Skip processing for elements within .top-right-container-9927845
+      if (htmlElement.closest(".top-right-container-9927845")) {
+        return;
+      }
+
       const tabIndexAttr = htmlElement.getAttribute("tabindex");
       const tabIndexValue =
         tabIndexAttr !== null ? parseInt(tabIndexAttr, 10) : null;
@@ -185,8 +191,8 @@
             roleName = "contentinfo";
             break;
           case "article":
-              roleName = "article";
-              break;
+            roleName = "article";
+            break;
           case "a":
             roleName = htmlElement.hasAttribute("href") ? "link" : "generic";
             break;
@@ -328,7 +334,7 @@
     innerDiv.className = "inner-container-9927845 remove-inner-tabi-9927845";
 
     // Check if the container is minimized
-    if (containerDiv.dataset["isMinimized"] === "true") {
+    if (containerDiv.dataset["isMinimised"] === "true") {
       innerDiv.classList.add("hidden-feature-message-9927845");
     }
 

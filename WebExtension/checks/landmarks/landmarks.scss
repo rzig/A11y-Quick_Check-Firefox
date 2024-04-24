@@ -90,7 +90,7 @@
   @include messageDisplayStyles;
 }
 
-.generic-9927845 {
+.generic-9927845:not(.top-right-container-9927845) {
   @include important-styles(
     (
       border: 2px dashed var(--neutral-border),
@@ -101,7 +101,7 @@
   );
 }
 
-.generic-message-9927845 {
+.generic-message-9927845:not(.top-right-container-9927845) {
   @include important-styles(
     (
       font-weight: 700,
@@ -125,7 +125,6 @@
   #{$tagName} {
     &::before {
       content: "<#{$tagName}>";
-
       @include important-styles(
         (
           background-color: var(--neutral-background),
@@ -141,7 +140,6 @@
 
     &::after {
       content: "</#{$tagName}>";
-
       @include important-styles(
         (
           background-color: var(--neutral-background),
@@ -158,8 +156,7 @@
 }
 
 // Apply styles to each HTML tag
-$sectioning-tags: "header", "nav", "footer", "aside", "article", "main",
-  "section";
+$sectioning-tags: "header", "nav", "footer", "aside", "article", "main", "section";
 
 @each $tag in $sectioning-tags {
   @include apply-strong-styles($tag);
