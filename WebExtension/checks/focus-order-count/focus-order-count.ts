@@ -32,14 +32,6 @@ function addDomCountDivs(): void {
     }
 }
 
-// Function to create and append a child div with the count
-function createChildMessageDiv(parentElement: HTMLElement, className: string, text: string): void {
-    const div = document.createElement("div");
-    div.className = className;
-    div.textContent = text;
-    parentElement.appendChild(div);
-}
-
 // Execute the functions
 addClassToFocusableElements();
 addDomCountDivs();
