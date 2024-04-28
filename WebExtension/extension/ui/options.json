@@ -2,7 +2,6 @@
   "tabs": [
     {
       "name": "Content and Structure",
-      "helpUrl": "/extension/help/extension-help.html",
       "fieldsets": [
         {
           "name": "Headings",
@@ -103,11 +102,9 @@
     },
     {
       "name": "Graphic Media",
-      "helpUrl": "/extension/help/extension-help.html",
       "fieldsets": [
         {
           "name": "Images",
-          "helpSection": "Checks for valid markup, if the image is decorative and exposes the accessible name for images that provide meaning to the content.",
           "items": [
             {
               "name": "Show image accessible name",
@@ -145,7 +142,6 @@
         },
         {
           "name": "SVGs",
-          "helpSection": "Checks for valid markup, if the SVG is decorative and exposes the accessible name for images that provide meaning to the content.",
           "items": [
             {
               "name": "Show SVG's accessible name",
@@ -169,7 +165,6 @@
     },
     {
       "name": "Usability and Readability",
-      "helpUrl": "/extension/help/extension-help.html",
       "fieldsets": [
         {
           "name": "User Experience",
