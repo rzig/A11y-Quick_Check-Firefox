@@ -8,7 +8,9 @@ function removeInjectedScreenReaderMessages(): void {
   }
 
   removeInjectedDivs([
-    "warning-message-9927845"
+    "warning-message-9927845",
+    "remove-inner-sro-9927845",
+    "remove-outerdiv-9927845"
   ]);
 }
 
