@@ -52,6 +52,21 @@ function checkUnorderedLists(): void {
       );
     }
   }
+
+  // Check for li elements are do not have a valid container
+  // If the parent element is already invalid, we're probably nested inside a list already, sop we can skip this.
+  for (const invalidListContainer of document.querySelectorAll(":not(.invalid-9927845)>:not(ul,ol,menu,[role=list]):has(>li)")){
+    invalidListContainer.classList.add("invalid-9927845");
+    createChildMessageDiv(invalidListContainer, "invalid-message-9927845", "Invalid: This list conatins li elements, but does not have a valid container.");
+  }
+
+  // Check for li elements are do not have a valid container
+  // If the parent element is already invalid, we're probably nested inside a list already, sop we can skip this.
+  for (const invalidListContainer of document.querySelectorAll(":not(.invalid-9927845)>:not(ul,ol,menu,[role=list]):has(>[role=listitem])")){
+    invalidListContainer.classList.add("invalid-9927845");
+    createChildMessageDiv(invalidListContainer, "invalid-message-9927845", "Invalid: This list conatins elements with role=listitem, but does not have a valid container.");
+  }
+
 }
 
 function checkForAriaRolesonUL(): void {
