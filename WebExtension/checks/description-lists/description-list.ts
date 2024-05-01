@@ -21,9 +21,9 @@ function isDivWithDtDd(child: Element): boolean {
 
 function checkDivChild(child: Element, dlElement: Element): boolean {
   if (!isDivWithDtDd(child)) {
-    dlElement.classList.add("invalid-9927845");
+    dlElement.classList.add("dl-invalid-9927845");
     const message = `Invalid: DIV with incorrect content detected inside DL.`;
-    createChildMessageDiv(dlElement, "invalid-message-9927845", message);
+    createChildMessageDiv(dlElement, "dl-invalid-message-9927845", message);
     return true;
   }
   return false;
@@ -31,9 +31,9 @@ function checkDivChild(child: Element, dlElement: Element): boolean {
 
 function checkOtherChild(child: Element, dlElement: Element): boolean {
   if (!["DT", "DD", "SCRIPT", "TEMPLATE"].includes(child.nodeName)) {
-    dlElement.classList.add("invalid-9927845");
+    dlElement.classList.add("dl-invalid-9927845");
     const message = `Invalid: Child ${child.nodeName} detected inside DL.`;
-    createChildMessageDiv(dlElement, "invalid-message-9927845", message);
+    createChildMessageDiv(dlElement, "dl-invalid-message-9927845", message);
     return true;
   }
   return false;
@@ -50,9 +50,9 @@ function checkDLStructure(dlElement: Element): boolean {
 
   for (const child of Array.from(dlElement.children)) {
     if (!["DT", "DD", "DIV", "SCRIPT", "TEMPLATE"].includes(child.nodeName)) {
-      dlElement.classList.add("invalid-9927845");
+      dlElement.classList.add("dl-invalid-9927845");
       const message = `Invalid: Child ${child.nodeName} detected inside DL.`;
-      createChildMessageDiv(dlElement, "invalid-message-9927845", message);
+      createChildMessageDiv(dlElement, "dl-invalid-message-9927845", message);
       failureDetected = true; // Mark as failure and continue to provide comprehensive feedback
     }
 
@@ -76,25 +76,25 @@ function checkDLStructure(dlElement: Element): boolean {
     }
 
     if (child.nodeName === "DD" && !seenDt) {
-      dlElement.classList.add("invalid-9927845");
+      dlElement.classList.add("dl-invalid-9927845");
       const message = `Invalid: DD without any preceding DT detected inside DL.`;
-      createChildMessageDiv(dlElement, "invalid-message-9927845", message);
+      createChildMessageDiv(dlElement, "dl-invalid-message-9927845", message);
       failureDetected = true;
     }
   }
 
   if (divFound && nonDivDtDdFound && validDivContentFound) {
-    dlElement.classList.add("invalid-9927845");
+    dlElement.classList.add("dl-invalid-9927845");
     const message = "Invalid: Mixed DIV and non-DIV DT/DD elements within DL.";
-    createChildMessageDiv(dlElement, "invalid-message-9927845", message);
+    createChildMessageDiv(dlElement, "dl-invalid-message-9927845", message);
     failureDetected = true;
   }
 
 
   if (invalidDivContentFound) {
-    dlElement.classList.add("invalid-9927845");
+    dlElement.classList.add("dl-invalid-9927845");
     const message = "Invalid: A DIV inside a DL must contain DD and DT elements, and can only contain DD, DT, SCRIPT, or TEMPLATE elements.";
-    createChildMessageDiv(dlElement, "invalid-message-9927845", message);
+    createChildMessageDiv(dlElement, "dl-invalid-message-9927845", message);
     failureDetected = true;
   }
 
@@ -108,9 +108,9 @@ function checkInvalidRole(dlElement: Element): boolean {
     role.toLowerCase() !== "none" &&
     role.toLowerCase() !== "presentation"
   ) {
-    dlElement.classList.add("invalid-9927845");
+    dlElement.classList.add("dl-invalid-9927845");
     const message = `Invalid: DL has a non-ARIA presentation role of ${role}.`;
-    createChildMessageDiv(dlElement, "invalid-message-9927845", message);
+    createChildMessageDiv(dlElement, "dl-invalid-message-9927845", message);
     return true;
   }
   return false;
@@ -120,9 +120,9 @@ function checkDescriptionLists(): void {
   const dlElements = document.querySelectorAll("dl");
   for (const dlElement of dlElements) {
     if (isDirectlyInsideUl(dlElement)) {
-      dlElement.classList.add("invalid-9927845");
+      dlElement.classList.add("dl-invalid-9927845");
       const message = "Invalid: DL element directly inside a UL.";
-      createChildMessageDiv(dlElement, "invalid-message-9927845", message);
+      createChildMessageDiv(dlElement, "dl-invalid-message-9927845", message);
       continue; // Move to the next DL element
     }
 
@@ -134,9 +134,9 @@ function checkDescriptionLists(): void {
     if (failureDetected) continue; // If any structure check failed, move to the next DL element
 
     // Finally, if none of the checks flagged the DL as invalid, mark it as valid
-    dlElement.classList.add("valid-9927845");
+    dlElement.classList.add("dl-valid-9927845");
     const message = "Valid: DL structure and attributes are correct.";
-    createChildMessageDiv(dlElement, "valid-message-9927845", message);
+    createChildMessageDiv(dlElement, "dl-valid-message-9927845", message);
   }
 }
 

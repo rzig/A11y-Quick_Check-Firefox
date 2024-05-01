@@ -1,6 +1,6 @@
 @import "../common";
 
-.valid-9927845 {
+.dl-valid-9927845 {
   @include important-styles(
     (
       border: 2px dashed var(--pass-border),
@@ -11,7 +11,7 @@
   );
 }
 
-.valid-message-9927845 {
+.dl-valid-message-9927845 {
   @include important-styles(
     (
       border-width: 2px,
@@ -29,7 +29,7 @@
   @include flex-width-container;
 }
 
-.warning-9927845 {
+.dl-warning-9927845 {
   @include important-styles(
     (
       border: 2px dashed var(--warning-border),
@@ -40,7 +40,7 @@
   );
 }
 
-.warning-message-9927845 {
+.dl-warning-message-9927845 {
   @include important-styles(
     (
       border-width: 2px,
@@ -58,7 +58,7 @@
   @include flex-width-container;
 }
 
-.invalid-9927845,
+.dl-invalid-9927845,
 [data-isNestedList] {
   @include important-styles(
     (
@@ -70,7 +70,7 @@
   );
 }
 
-.invalid-message-9927845 {
+.dl-invalid-message-9927845 {
   @include important-styles(
     (
       border-width: 2px,
