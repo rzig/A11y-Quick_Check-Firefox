@@ -7,10 +7,10 @@ function checkOrderedLists(): void {
 
   for (const olElement of olElements) {
     // Reset state for each OL element
-    olElement.classList.remove("valid-9927845", "invalid-9927845");
+    olElement.classList.remove("ol-valid-9927845", "ol-invalid-9927845");
     // Remove previous messages
     olElement
-      .querySelectorAll(".validation-message")
+      .querySelectorAll(".ol-validation-message")
       .forEach((msg) => msg.remove());
 
     let invalidMessages = new Set<string>();
@@ -35,19 +35,19 @@ function checkOrderedLists(): void {
     });
 
     if (invalidMessages.size > 0) {
-      olElement.classList.add("invalid-9927845");
+      olElement.classList.add("ol-invalid-9927845");
       invalidMessages.forEach((message: string) => {
-        createChildMessageDiv(olElement, "invalid-message-9927845", message);
+        createChildMessageDiv(olElement, "ol-invalid-message-9927845", message);
       });
       continue; // Move to the next ol element as this one has invalid content
     }
 
     // If no issues were found, mark the list as valid
-    if (!olElement.classList.contains("invalid-9927845")) {
-      olElement.classList.add("valid-9927845");
+    if (!olElement.classList.contains("ol-invalid-9927845")) {
+      olElement.classList.add("ol-valid-9927845");
       createChildMessageDiv(
         olElement,
-        "valid-message-9927845",
+        "ol-valid-message-9927845",
         "Valid: Ordered List uses valid HTML."
       );
     }
@@ -68,9 +68,9 @@ function checkForAriaRolesonOL(): void {
       (tagName === "ol" && ariaRole !== "list") ||
       (tagName === "li" && ariaRole !== "listitem")
     ) {
-      element.classList.add("warning-9927845");
+      element.classList.add("ol-warning-9927845");
       const message = `<${tagName}> has an incorrect ARIA Role ${ariaRole}.`;
-      createChildMessageDiv(element, "warning-message-9927845", message);
+      createChildMessageDiv(element, "ol-warning-message-9927845", message);
     }
   }
 }

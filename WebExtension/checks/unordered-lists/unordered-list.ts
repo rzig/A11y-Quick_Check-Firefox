@@ -7,10 +7,10 @@ function checkUnorderedLists(): void {
 
   for (const ulElement of ulElements) {
     // Reset state for each UL element
-    ulElement.classList.remove("valid-9927845", "invalid-9927845");
+    ulElement.classList.remove("ul-valid-9927845", "ul-invalid-9927845");
     // Remove previous messages
     ulElement
-      .querySelectorAll(".validation-message")
+      .querySelectorAll(".ul-validation-message")
       .forEach((msg) => msg.remove());
 
     let invalidMessages = new Set<string>();
@@ -35,23 +35,38 @@ function checkUnorderedLists(): void {
     });
 
     if (invalidMessages.size > 0) {
-      ulElement.classList.add("invalid-9927845");
+      ulElement.classList.add("ul-invalid-9927845");
       invalidMessages.forEach((message: string) => {
-        createChildMessageDiv(ulElement, "invalid-message-9927845", message);
+        createChildMessageDiv(ulElement, "ul-invalid-message-9927845", message);
       });
       continue; // Move to the next ul element as this one has invalid content
     }
 
     // If no issues were found, mark the list as valid
-    if (!ulElement.classList.contains("invalid-9927845")) {
-      ulElement.classList.add("valid-9927845");
+    if (!ulElement.classList.contains("ul-invalid-9927845")) {
+      ulElement.classList.add("ul-valid-9927845");
       createChildMessageDiv(
         ulElement,
-        "valid-message-9927845",
+        "ul-valid-message-9927845",
         "Valid: Ordered List uses valid HTML."
       );
     }
   }
+
+  // Check for li elements are do not have a valid container
+  // If the parent element is already invalid, we're probably nested inside a list already, sop we can skip this.
+  for (const invalidListContainer of document.querySelectorAll(":not(.ul-invalid-9927845)>:not(ul,ol,menu,[role=list]):has(>li)")){
+    invalidListContainer.classList.add("ul-invalid-9927845");
+    createChildMessageDiv(invalidListContainer, "ul-invalid-message-9927845", "Invalid: This list conatins li elements, but does not have a valid container.");
+  }
+
+  // Check for li elements are do not have a valid container
+  // If the parent element is already invalid, we're probably nested inside a list already, sop we can skip this.
+  for (const invalidListContainer of document.querySelectorAll(":not(.ul-invalid-9927845)>:not(ul,ol,menu,[role=list]):has(>[role=listitem])")){
+    invalidListContainer.classList.add("ul-invalid-9927845");
+    createChildMessageDiv(invalidListContainer, "ul-invalid-message-9927845", "Invalid: This list conatins elements with role=listitem, but does not have a valid container.");
+  }
+
 }
 
 function checkForAriaRolesonUL(): void {
@@ -68,9 +83,9 @@ function checkForAriaRolesonUL(): void {
       (tagName === "ul" && ariaRole !== "list") ||
       (tagName === "li" && ariaRole !== "listitem")
     ) {
-      element.classList.add("warning-9927845");
+      element.classList.add("ul-warning-9927845");
       const message = `<${tagName}> has an incorrect ARIA Role ${ariaRole}.`;
-      createChildMessageDiv(element, "warning-message-9927845", message);
+      createChildMessageDiv(element, "ul-warning-message-9927845", message);
     }
   }
 }

@@ -1,6 +1,6 @@
 @import "../common";
 
-.valid-9927845 {
+.ul-valid-9927845 {
   @include important-styles(
     (
       border: 2px dashed var(--pass-border),
@@ -12,7 +12,7 @@
   );
 }
 
-.valid-message-9927845 {
+.ul-valid-message-9927845 {
   @include important-styles(
     (
       margin-bottom: 0,
@@ -32,7 +32,7 @@
   @include flex-width-container;
 }
 
-.warning-9927845 {
+.ul-warning-9927845 {
   @include important-styles(
     (
       border: 2px dashed var(--warning-border),
@@ -44,7 +44,7 @@
   );
 }
 
-.warning-message-9927845 {
+.ul-warning-message-9927845 {
   @include important-styles(
     (
       margin-bottom: 0,
@@ -64,7 +64,7 @@
   @include flex-width-container;
 }
 
-.invalid-9927845 {
+.ul-invalid-9927845 {
   @include important-styles(
     (
       border: 2px dashed var(--danger-border),
@@ -76,7 +76,7 @@
   );
 }
 
-.invalid-message-9927845 {
+.ul-invalid-message-9927845 {
   @include important-styles(
     (
       border-width: 2px,

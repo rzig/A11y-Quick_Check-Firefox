@@ -1,19 +1,19 @@
 "use strict";
 
 for (const element of document.querySelectorAll(
-  ".valid-9927845, .warning-9927845, .invalid-9927845",
+  ".ol-valid-9927845, .ol-warning-9927845, .ol-invalid-9927845",
 )) {
   element.classList.remove(
-    "valid-9927845",
-    "warning-9927845",
-    "invalid-9927845",
+    "ol-valid-9927845",
+    "ol-warning-9927845",
+    "ol-invalid-9927845",
   );
 }
 
 removeInjectedDivs([
-  "valid-message-9927845",
-  "warning-message-9927845",
-  "invalid-message-9927845",
+  "ol-message-9927845",
+  "ol-warning-message-9927845",
+  "ol-invalid-message-9927845",
   "remove-inner-ol-9927845",
   "remove-outerdiv-9927845"
 ]);

@@ -60,13 +60,13 @@
     </ul>
 
     <h2>List with DIV between Items - invalid</h2>
-    <ol>
+    <ul>
       <li>Item 1</li>
       <div class="myDiv"></div>
       <li>Item 2</li>
       <div class="myDiv"></div>
       <li>Item 3</li>
-    </ol>
+    </ul>
 	
 	<h2>List with DIV wrapping all li - invalid</h2>
     <ul>
@@ -112,12 +112,27 @@
       <li>Item 3</li>
     </ul>
 
-    <h2>Parent has changed rule - invalid</h2>
-    <ul rule="region" aria-label="I am not allowed here!">
+    <h2>Parent has changed role - invalid</h2>
+    <ul role="region" aria-label="I am not allowed here!">
       <li>Item 1</li>
       <li>Item 2</li>
       <li>Item 3</li>
     </ul>
+
+    <h2>Parent of li is an invalid list conainter - invalid</h2>
+    <div aria-label="I am not allowed here!">
+      <li>Item 1</li>
+      <li>Item 2</li>
+      <li>Item 3</li>
+    </div>
+
+    <h2>Parent of role=listitem is an invalid list conainter - invalid</h2>
+    <div aria-label="I am not allowed here!">
+      <div role="listitem">Item 1</div>
+      <div role="listitem">Item 2</div>
+      <div role="listitem">Item 3</div>
+    </div>
+
   </body>
 
 </html>
