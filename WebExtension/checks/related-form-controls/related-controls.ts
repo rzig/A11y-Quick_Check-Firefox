@@ -41,10 +41,10 @@ function addLegendsBeforeDiv() {
           // Check if the first element child is the legend
           if (firstChild !== legend) {
               // Legend is not the first child, generate a warning
-              createChildMessageDiv(legend, 'legend-not-first-child-5599775', '(Warning) The Legend is present but is not the first element child of Fieldset');
+              createChildMessageDiv(legend, 'legend-not-first-child-5599775', 'Warning The Legend is present but is not the first element child of Fieldset');
           } else {
               // Legend is the first child, generate success message
-              createChildMessageDiv(legend, 'legend-first-child-5599775', 'The Legend is present and is the first element child of Fieldset');
+              createChildMessageDiv(legend, 'legend-first-child-5599775', 'Valid The Legend is present and is the first element child of Fieldset');
           }
 
           // Check if the legend is empty and display a warning if it is
@@ -73,17 +73,23 @@ function addRadioGroupBeforeDiv() {
 }
 
 function roleGroupName() {
-    const groupElements = document.querySelectorAll('[role="group"]');
+    const groupElements = document.querySelectorAll('hgroup[role="group"]');
     for (const groupElement of groupElements) {
+        const ariaRoleDescription = groupElement.getAttribute('aria-roledescription');
+        if (ariaRoleDescription) {
+            groupElement.classList.add('exception-5599775');
+            createChildMessageDiv(groupElement, 'best-practice-5599775', 'Best practice  The heading level in the hgroup provides a sufficient name for role group when used to support <hgroup>');
+        }
+
         const id = groupElement.getAttribute('aria-labelledby');
         if (id) {
             const labelledElement = document.getElementById(id);
             if (labelledElement) {
                 const textNode = labelledElement.textContent || '';
-                createChildMessageDiv(groupElement, 'labelled-by-name-5599775', `aria-labelledby provides the accessible name "${textNode}" for the group.`);
+                createChildMessageDiv(groupElement, 'labelled-by-name-5599775', `Valid aria-labelledby provides the accessible name "${textNode}" for the group.`);
             }
         } else if (!groupElement.hasAttribute('aria-label')) {
-            createChildMessageDiv(groupElement, 'missing-role-group-name-5599775', `(Warning) Role Group should have a name via aria-label or aria-labelledby.`);
+            createChildMessageDiv(groupElement, 'missing-role-group-name-5599775', 'Warning Role Group should have a name via aria-label or aria-labelledby.');
         }
     }
 }

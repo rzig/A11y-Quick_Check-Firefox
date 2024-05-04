@@ -130,3 +130,14 @@
   @include pass-styles;
   @include font-styling;
 }
+
+.best-practice-5599775 {
+  @include important-styles((border: 3px ridge var(--neutral-border),
+      font-weight: 700,
+      padding: 0.5em,
+      max-width: 30em,
+    ),
+    true);
+  @include neutral-styles;
+  @include font-styling;
+}

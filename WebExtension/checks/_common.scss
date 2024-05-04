@@ -153,6 +153,16 @@
   display: flex;
 }
 
+.messageLabelGeneric {
+  @include important-styles(
+    (
+      color: var(--neutral-border),
+    ),
+    true
+  );
+  display: flex;
+}
+
 .accNameMessageContainer.valid-message-9927845 {
   @include important-styles(
     (
