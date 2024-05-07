@@ -56,13 +56,17 @@ function checkTextNodesForHeadings(): void {
 
     const charCountMessage = `Character count (including spaces) is ${nodeText.length}.`;
 
-    if (fontSize >= 18 * fontSizeRatio && fontWeight >= 700) {
+    // First, check if the `headingWrapper-8878` class is present in the `parentElement`
+if (!parentElement.classList.contains('headingWrapper-8878')) {
+  if (fontSize >= 18 * fontSizeRatio && fontWeight >= 700) {
       parentElement.classList.add(missingHeadingClass);
       createChildMessageDiv(parentElement, heavyTextClass, "Needs manual confirmation: Is this a heading? If yes, it is not marked up as a heading in code. " + charCountMessage);
-    } else if (fontSize >= 24 * fontSizeRatio) {
+  } else if (fontSize >= 24 * fontSizeRatio) {
       parentElement.classList.add(missingHeadingClass);
       createChildMessageDiv(parentElement, largeTextClass, "Needs manual confirmation: Is this a heading? If yes, it is not marked up as a heading in code. " + charCountMessage);
-    }
+  }
+}
+
   }
 }
 
