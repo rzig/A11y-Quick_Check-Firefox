@@ -18,11 +18,16 @@
   }
 
   // Adds a warning message after the first element
-  function addMessageToFollowingDiv(element: Element, className: string, message: string): void {
+  function addMessageToFollowingDiv(
+    element: Element,
+    className: string,
+    message: string
+  ): void {
     const div = document.createElement("div");
     div.className = className;
     div.textContent = message;
-    if (element && element.parentNode) { // Check that element and its parent node are not undefined
+    if (element && element.parentNode) {
+      // Check that element and its parent node are not undefined
       element.parentNode.insertBefore(div, element.nextSibling);
     }
   }
@@ -30,49 +35,79 @@
   // Identify duplicate IDs and apply the numbered relationship and warning message.
   function findDuplicateIdsAndApply(): void {
     const allElements = document.querySelectorAll("*[id]");
-    const idCounts = new Map<string, { elements: Element[], hasRelevantAttr: boolean, attributes: Set<string> }>();
+    const idCounts = new Map<
+      string,
+      { elements: Element[]; hasRelevantAttr: boolean; attributes: Set<string> }
+    >();
 
     // First pass: Count all IDs
     allElements.forEach((element) => {
       const id = element.getAttribute("id");
       if (id) {
-        let record = idCounts.get(id) ?? { elements: [], hasRelevantAttr: false, attributes: new Set<string>() };
+        let record = idCounts.get(id) ?? {
+          elements: [],
+          hasRelevantAttr: false,
+          attributes: new Set<string>(),
+        };
         record.elements.push(element);
         idCounts.set(id, record);
       }
     });
 
     // Check for relevant attributes
-    document.querySelectorAll("[aria-labelledby], [aria-describedby], [aria-controls], label[for]").forEach((element) => {
-      const attributes = ['aria-labelledby', 'aria-describedby', 'aria-controls', 'for'];
-      attributes.forEach(attr => {
-        const refId = element.getAttribute(attr);
-        if (refId && idCounts.has(refId)) {
-          let record = idCounts.get(refId);
-          if (record) { // Check that the record is not undefined
-            record.hasRelevantAttr = true;
-            record.attributes.add(attr); // Record the attribute causing the association
+    document
+      .querySelectorAll(
+        "[aria-labelledby], [aria-describedby], [aria-controls], label[for]"
+      )
+      .forEach((element) => {
+        const attributes = [
+          "aria-labelledby",
+          "aria-describedby",
+          "aria-controls",
+          "for",
+        ];
+        attributes.forEach((attr) => {
+          const refId = element.getAttribute(attr);
+          if (refId && idCounts.has(refId)) {
+            let record = idCounts.get(refId);
+            if (record) {
+              // Check that the record is not undefined
+              record.hasRelevantAttr = true;
+              record.attributes.add(attr); // Record the attribute causing the association
+            }
           }
-        }
+        });
       });
-    });
 
     // Second pass: Apply to all duplicates that are relevant
     idCounts.forEach(({ elements, hasRelevantAttr, attributes }, id) => {
-      if (elements.length > 1 && hasRelevantAttr) { // Check for duplicates and relevancy
+      if (elements.length > 1 && hasRelevantAttr) {
+        // Check for duplicates and relevancy
         uniqueDuplicateIDs.add(id);
 
         // Add class to all elements with the duplicate ID
-        elements.forEach((element) => element.classList.add("duplicate-id-warning", "warning-9927845"));
+        elements.forEach((element) =>
+          element.classList.add("duplicate-id-warning", "warning-9927845")
+        );
 
         // Add the same numbered relationship to all elements with the duplicate ID
         addNumberedRelationship(elements, relationshipCounter);
 
         // Only the first occurrence gets the warning message
-        if (elements[0]) { // Check that the first element is not undefined
-          const attrs = Array.from(attributes).join(', ');
-          const message = `Warning: ID "${id}" is duplicated ${elements.length} times and is associated with ${attrs}, affecting accessibility.`;
-          addMessageToFollowingDiv(elements[0], "warning-message-9927845", message);
+        if (elements[0]) {
+          // Check that the first element is not undefined
+          const attrs = Array.from(attributes).join(", ");
+          let message;
+          if (attributes.has("for")) {
+            message = `Warning ID "${id}" is duplicated ${elements.length} times and is associated with label[${attrs}], affecting accessibility.`;
+          } else {
+            message = `Warning ID "${id}" is duplicated ${elements.length} times and is associated with [${attrs}], affecting accessibility.`;
+          }
+          addMessageToFollowingDiv(
+            elements[0],
+            "warning-message-9927845",
+            message
+          );
         }
 
         relationshipCounter++; // Increment after processing each unique duplicate ID
