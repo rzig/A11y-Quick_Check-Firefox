@@ -154,7 +154,8 @@
   font-weight: 400 !important;
 }
 
-.target-size-exception-8228965 {
+.target-size-exception-8228965,
+.target-size-noexception-8228965 {
   @include important-styles(
     (
       display: flex,
@@ -173,3 +174,12 @@
     true
   );
 }
+
+// .spacing-ignore-8228965 > .target-size-exception-8228965 {
+//   @include important-styles(
+//     (
+//       display:none,
+//     ),
+//     true
+//   );
+// }

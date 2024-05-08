@@ -5,14 +5,14 @@
   // Function to remove all classes and attributes added by the add.ts script
   function removeAllAddedClassesAndAttributes(): void {
     const elements = document.querySelectorAll(
-      ".warning-message-9927845, .duplicate-id-warning, .warning-9927845"
+      ".duplicate-id-warning, .warning-9927845"
     );
 
     elements.forEach(element => {
       // Remove specific classes
       element.classList.remove(
         //"numbered-square-9927845",
-        "warning-message-9927845",
+        //"warning-message-9927845",
         "duplicate-id-warning",
         "warning-9927845",
       );
@@ -44,8 +44,7 @@
 
   // Specify class names of injected divs that need to be removed
   const classLabelledByNames: string[] = [
-    //"numbered-square-9927845",
-    "warning-message-9927845"
+    //"warning-message-9927845"
   ];
 
   // Remove injected nested divs based on their class names
@@ -56,6 +55,7 @@
     "remove-outerdiv-9927845",
     "numbered-square-9927845",
     "after-div-9f2dc5ea",
+    "warning-message-9927845"
   ]);
 
 })();
