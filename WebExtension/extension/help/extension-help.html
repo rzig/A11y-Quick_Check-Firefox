@@ -11,7 +11,7 @@
       <header>
         <hgroup role="group" aria-roledescription="Heading group">
           <h1>A11y Quick Check</h1>
-          <p>Version: 2501.2024.05.02</p>
+          <p>Version: 2501.2024.05.08</p>
         </hgroup>
         <div class="a11yqc-logo">
           <img src="../../extension/ui/images/icon.svg" alt="" />
@@ -28,12 +28,14 @@
           </p>
           <details open>
             <summary><h2>May 2024 updates</h2></summary>
-            <h3>Version: 2501.2024.05.02</h3>
+            <h3>Version: 2501.2024.05.08</h3>
             <ul>
               <li>
-                Improvement to OL and UL list to test for lists without a parent.
+                ID check message text is not being removed.
               </li>
-              <li>Minor bug fix where list checks were unchecking all lists.</li>
+              <li>Hgroup with role group must not receive an error for not having a name.</li>
+              <li>Stop Spacing exemption running on AAA.</li>
+              <li>Review 'is a heading?' for role heading and aria-level does not apply the message.</li>
             </ul>
             <h3>Version: 2501.2024.05</h3>
             <ul>
@@ -44,6 +46,13 @@
               <li>Duplicate ID Values: Identifying duplicate IDs that affect ARIA attributes and HTML label[for] tags, this check ensures that each ID is unique and correctly used.</li>
               <li>Enhanced messaging for clarity and to provide additional useful information.</li>
               <li>Resolved minor bugs and false positives as reported by our dedicated users.</li>
+            </ul>
+            <h3>Version: 2501.2024.05.02</h3>
+            <ul>
+              <li>
+                Improvement to OL and UL list to test for lists without a parent.
+              </li>
+              <li>Minor bug fix where list checks were unchecking all lists.</li>
             </ul>
           </details>
           <details>
