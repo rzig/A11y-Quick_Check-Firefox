@@ -5,6 +5,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <title>Unrdered List Test</title>
+	<style>
+	.liststyle {
+	list-style: none;
+	}
+	</style>
   </head>
 
   <body>
@@ -132,6 +137,28 @@
       <div role="listitem">Item 2</div>
       <div role="listitem">Item 3</div>
     </div>
+	
+	<h2>UL is missing required valid children - warning</h2>
+    <ul>
+      
+    </ul>
+	
+	<h2>UL with role list is missing required valid children - warning</h2>
+    <ul role="list">
+      
+    </ul>
+	
+	<h2>UL with role listbox is missing required valid children - warning</h2>
+    <ul role="listbox">
+      
+    </ul>
+	
+	<h2>UL with role list with css list-style none gets a info message - knowledge</h2>
+    <ul class="liststyle" role="list">
+      <li>Item 1</li>
+      <li>Item 2</li>
+      <li>Item 3</li>
+    </ul>
 
   </body>
 

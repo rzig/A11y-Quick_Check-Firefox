@@ -7,7 +7,12 @@ function checkUnorderedLists(): void {
 
   for (const ulElement of ulElements) {
     // Reset state for each UL element
-    ulElement.classList.remove("ul-valid-9927845", "ul-invalid-9927845");
+    ulElement.classList.remove(
+      "ul-valid-9927845",
+      "ul-invalid-9927845",
+      "ul-warning-9927845",
+      "ul-generic-9927845"
+    );
     // Remove previous messages
     ulElement
       .querySelectorAll(".ul-validation-message")
@@ -15,13 +20,16 @@ function checkUnorderedLists(): void {
 
     let invalidMessages = new Set<string>();
 
-    // Role checks for custom roles
+    // Role checks for custom roles, include "listbox" which was missing
     const customRole = ulElement.getAttribute("role");
-    if (customRole && customRole !== "list") {
+    if (customRole && customRole !== "list" && customRole !== "listbox") {
       invalidMessages.add(
-        `Invalid: <li> is missing a parent of UL or OL. The list has a parent with a Role of '${customRole}''.`
+        `Invalid: <li> is missing a parent of UL or OL. The list has a parent with a Role of '${customRole}'.`
       );
     }
+
+    // Check for empty ULs or improper role usage with style conditions
+    checkEmptyAndRoleList(ulElement);
 
     // Checking direct children validity against allowed elements (LI, SCRIPT, TEMPLATE)
     const invalidChildren = ulElement.querySelectorAll(
@@ -43,7 +51,11 @@ function checkUnorderedLists(): void {
     }
 
     // If no issues were found, mark the list as valid
-    if (!ulElement.classList.contains("ul-invalid-9927845")) {
+    // If no issues were found and the ul is not empty, mark the list as valid
+    if (
+      !ulElement.classList.contains("ul-invalid-9927845") &&
+      ulElement.querySelectorAll(":scope > *").length > 0
+    ) {
       ulElement.classList.add("ul-valid-9927845");
       createChildMessageDiv(
         ulElement,
@@ -53,20 +65,31 @@ function checkUnorderedLists(): void {
     }
   }
 
-  // Check for li elements are do not have a valid container
-  // If the parent element is already invalid, we're probably nested inside a list already, sop we can skip this.
-  for (const invalidListContainer of document.querySelectorAll(":not(.ul-invalid-9927845)>:not(ul,ol,menu,[role=list]):has(>li)")){
+  // Check for li elements that do not have a valid container
+}
+
+function checkForInvalidListContainers(): void {
+  for (const invalidListContainer of document.querySelectorAll(
+    ":not(.ul-invalid-9927845)>:not(ul,ol,menu,[role=list]):has(>li)"
+  )) {
     invalidListContainer.classList.add("ul-invalid-9927845");
-    createChildMessageDiv(invalidListContainer, "ul-invalid-message-9927845", "Invalid: This list conatins li elements, but does not have a valid container.");
+    createChildMessageDiv(
+      invalidListContainer,
+      "ul-invalid-message-9927845",
+      "Invalid: This list contains li elements, but does not have a valid container."
+    );
   }
 
-  // Check for li elements are do not have a valid container
-  // If the parent element is already invalid, we're probably nested inside a list already, sop we can skip this.
-  for (const invalidListContainer of document.querySelectorAll(":not(.ul-invalid-9927845)>:not(ul,ol,menu,[role=list]):has(>[role=listitem])")){
+  for (const invalidListContainer of document.querySelectorAll(
+    ":not(.ul-invalid-9927845)>:not(ul,ol,menu,[role=list]):has(>[role=listitem])"
+  )) {
     invalidListContainer.classList.add("ul-invalid-9927845");
-    createChildMessageDiv(invalidListContainer, "ul-invalid-message-9927845", "Invalid: This list conatins elements with role=listitem, but does not have a valid container.");
+    createChildMessageDiv(
+      invalidListContainer,
+      "ul-invalid-message-9927845",
+      "Invalid: This list contains elements with role=listitem, but does not have a valid container."
+    );
   }
-
 }
 
 function checkForAriaRolesonUL(): void {
@@ -90,9 +113,38 @@ function checkForAriaRolesonUL(): void {
   }
 }
 
+function checkEmptyAndRoleList(ulElement: Element): void {
+  const children = ulElement.querySelectorAll(":scope > *");
+  const role = ulElement.getAttribute("role");
+  const style = window.getComputedStyle(ulElement).listStyleType;
+
+  if (
+    children.length === 0 ||
+    ulElement.querySelectorAll("li, [role='listitem']").length === 0
+  ) {
+    const customRole = role || "inherit role";
+    createChildMessageDiv(
+      ulElement,
+      "ul-warning-message-9927845",
+      `Warning UL is missing required <li> or children with a valid role. UL has a Role of '${customRole}'.`
+    );
+    ulElement.classList.add("ul-warning-9927845");
+  } else if (role === "list") {
+    if (style === "none") {
+      createChildMessageDiv(
+        ulElement,
+        "ul-generic-message-9927845",
+        "Knowledge Role 'list' on <ul> exposes the list semantics when CSS list-style is set to none for iOS."
+      );
+      ulElement.classList.add("ul-generic-9927845");
+    }
+  }
+}
+
 // Run the checks
 checkUnorderedLists();
 checkForAriaRolesonUL();
+checkForInvalidListContainers();
 
 populateLinkObjects(); // Ensure the links are populated before use.
 
@@ -164,7 +216,7 @@ function createTopRightContainerUnorderedList(): void {
     linkList.className = "reference-list-9927845";
     linkList.style.margin = "0";
     linkList.style.padding = "0";
-    
+
     referenceContainer.appendChild(linkList);
 
     // Specified links function

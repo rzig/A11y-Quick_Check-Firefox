@@ -97,3 +97,35 @@
   );
   @include flex-width-container;
 }
+
+.ul-generic-9927845 {
+  @include important-styles(
+    (
+      border: 2px dashed var(--neutral-border),
+      margin-bottom: 0,
+      margin-left: 1em,
+      padding: 1em,
+    ),
+    true
+  );
+}
+
+.ul-generic-message-9927845 {
+  @include important-styles(
+    (
+      margin-bottom: 0,
+      margin-left: 1em,
+      padding: 1em,
+    ),
+    true
+  );
+
+  max-width: 15em;
+
+  @include message-container(
+    var(--neutral-background),
+    var(--neutral-border),
+    var(--neutral-text)
+  );
+  @include flex-width-container;
+}
