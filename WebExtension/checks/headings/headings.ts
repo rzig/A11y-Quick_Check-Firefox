@@ -32,17 +32,20 @@ function detectSkippedHeadings(): number {
   let prevLevel = getEffectiveHeadingLevel(headings[0]);
 
   headings.forEach((heading: Element, index: number) => {
-    // if (isNodeInExcludedContainer(heading)) {
-    //   return; // Skip this heading
-    // }
-
     if (index === 0) return; // Skip the first element as there's no previous heading
 
     const currentLevel = getEffectiveHeadingLevel(heading);
 
     // Check if there's a skipped level
-    if (currentLevel - prevLevel > 1) {
+    if (currentLevel - prevLevel > 1 && currentLevel > 0) {
       skippedCount++;
+      heading.classList.add("html-skipped-level-555897");
+      const message = `Warning Skipped HTML heading level from h${prevLevel} to h${currentLevel}`;
+      addMessageToPrecedingDiv(
+        heading,
+        "html-skipped-level-message-555897",
+        message
+      );
     }
 
     prevLevel = currentLevel;
@@ -112,7 +115,7 @@ function checkRedundantARIA() {
     // Logic for redundant ARIA Role
     if (htmlLevel && ariaRole === "heading" && !ariaLevel) {
       heading.classList.add("redundant-aria-role-555897");
-      const message = "(Warning) ARIA Heading is replacing HTML heading level";
+      const message = "Warning ARIA Heading is replacing HTML heading level";
       addMessageToPrecedingDiv(
         heading,
         "redundant-aria-role-message-555897",
@@ -128,7 +131,7 @@ function checkRedundantARIA() {
       htmlLevel !== ariaLevel
     ) {
       heading.classList.add("changed-aria-level-555897");
-      const message = `(Warning) ARIA Heading Role replaces HTML heading value. ARIA-LEVEL changes HTML heading level from h${htmlLevel} to H${ariaLevel}`;
+      const message = `Warning ARIA Heading Role replaces HTML heading value. ARIA-LEVEL changes HTML heading level from h${htmlLevel} to H${ariaLevel}`;
       addMessageToPrecedingDiv(
         heading,
         "changed-aria-level-message-555897",
@@ -147,7 +150,7 @@ function checkMissingARIALevel() {
     if (!ariaLevel) {
       heading.classList.add("aria-missing-level-555897");
       const message =
-        "(Warning) ARIA Heading Role missing an ARIA-LEVEL. Defaults to H2";
+        "Warning ARIA Heading Role missing an ARIA-LEVEL. Defaults to H2";
       addMessageToPrecedingDiv(
         heading,
         "aria-missing-level-message-555897",
@@ -170,7 +173,7 @@ function detectSkippedARIAHeadings() {
     // Check if there's a skipped level and currentLevel is valid
     if (currentLevel - prevLevel > 1 && currentLevel > 0) {
       heading.classList.add("aria-skipped-level-555897");
-      const message = `(Warning) Skipped ARIA heading level from aria-level=${prevLevel} to aria-level=${currentLevel}`;
+      const message = `Warning Skipped ARIA heading level from aria-level=${prevLevel} to aria-level=${currentLevel}`;
       addMessageToPrecedingDiv(
         heading,
         "aria-skipped-level-message-555897",
