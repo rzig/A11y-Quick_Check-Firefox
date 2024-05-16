@@ -83,7 +83,7 @@
 .redundant-aria-role-555897,
 .changed-aria-level-555897,
 .aria-missing-level-555897,
-.skipped-level-555897 {
+.html-skipped-level-555897 {
   @include important-styles(
     (
       margin-top: 0.5em,
@@ -92,7 +92,7 @@
   );
 }
 
-.skipped-level-message-555897,
+.html-skipped-level-message-555897,
 .aria-skipped-level-message-555897,
 .aria-level-missing-message-555897,
 .redundant-aria-role-message-555897,
@@ -104,6 +104,7 @@
       border: 3px dashed var(--warning-border),
       color: var(--warning-text),
       max-width: 333px,
+      padding: 0.5em,
     ),
     true
   );
