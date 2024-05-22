@@ -60,7 +60,7 @@ function checkUnorderedLists(): void {
       createChildMessageDiv(
         ulElement,
         "ul-valid-message-9927845",
-        "Valid: Ordered List uses valid HTML."
+        "Valid: Unordered List uses valid HTML." 
       );
     }
   }
