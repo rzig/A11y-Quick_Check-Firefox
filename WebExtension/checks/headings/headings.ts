@@ -192,8 +192,8 @@ function updateDataAriaHeading(heading: Element, ariaLevel: string | null) {
   heading.setAttribute("data-aria-heading-555897", dataAriaHeadingValue);
 }
 
-// Run the functions
-detectSkippedHeadings();
+// Run the functions once and store the results
+const skippedCount = detectSkippedHeadings();
 wrapAllHeadingsWithSpan();
 detectSkippedARIAHeadings();
 checkRedundantARIA();
@@ -246,7 +246,6 @@ function createTopRightContainerHeadings(): void {
   findingsUL.style.margin = "0";
   findingsUL.style.padding = "0";
   const headingsSummary = calculateHeadingsSummary();
-  const skippedCount = detectSkippedHeadings();
 
   // Check if there are headings
   const hasHeadings = Object.keys(headingsSummary).length > 0;
