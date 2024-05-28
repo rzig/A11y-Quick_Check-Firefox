@@ -230,6 +230,14 @@
               "removeScript": "autocomplete-remove.js"
             },
             {
+              "name": "Aria-Hidden",
+              "id": "ariaHidden",
+              "resource_path": "checks/aria-hidden",
+              "css": "aria-hidden.css",
+              "addScript": "aria-hidden.js",
+              "removeScript": "aria-hidden-remove.js"
+            },
+            {
               "name": "Validate Tabindex usage",
               "id": "tabIndexZero",
               "resource_path": "checks/tabindex",

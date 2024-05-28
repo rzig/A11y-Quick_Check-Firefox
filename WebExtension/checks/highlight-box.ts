@@ -124,8 +124,11 @@ function populateLinkObjects() {
         "https://www.w3.org/TR/wai-aria-1.2/#aria-controls",
       "aria-describedby property":
         "https://www.w3.org/TR/wai-aria-1.2/#aria-describedby",
+      "aria-hidden property":
+        "https://www.w3.org/TR/wai-aria-1.2/#aria-hidden",
       "Accessible Name and Description Computation 1.2":
         "https://www.w3.org/TR/accname-1.2/",
+        
     };
   }
 
@@ -334,9 +337,13 @@ function createReferenceContainer(): HTMLDivElement | null {
 }
 
 // Single reusable function for creating a details component
-function createDetailsComponent(summaryText: string, ContentText?: string): HTMLDetailsElement {
+function createDetailsComponent(summaryText: string, ContentText?: string, isOpen: boolean = false): HTMLDetailsElement {
   const details = document.createElement("details");
   details.className = "check-details-9927845";
+  
+  if (isOpen) {
+    details.setAttribute("open", "");
+  }
 
   const summary = document.createElement("summary");
   summary.className = "check-summary-9927845";
@@ -349,7 +356,7 @@ function createDetailsComponent(summaryText: string, ContentText?: string): HTML
 
   details.appendChild(summary);
 
-  // Add content it directly under details
+  // Add content directly under details
   if (ContentText) {
     const ContentPara = document.createElement("p");
     ContentPara.textContent = ContentText;
