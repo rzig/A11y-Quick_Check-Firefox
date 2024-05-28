@@ -34,7 +34,7 @@ function createNewMessageDiv(
   extraClasses: string[]
 ) {
   const messageDiv = document.createElement("div");
-  messageDiv.classList.add(messageClass);
+  messageDiv.className = messageClass + " message-66786";
   for (const extraClass of extraClasses) {
     messageDiv.classList.add(extraClass);
   }
@@ -65,7 +65,7 @@ function createStyledMessageDiv(
   extraClasses: string[] = []
 ): HTMLDivElement {
   const div = document.createElement("div");
-  div.className = messageClass;
+  div.className = messageClass + " message-66786";
   extraClasses.forEach((cls) => div.classList.add(cls));
 
   // Mapping from message prefix to the respective CSS class

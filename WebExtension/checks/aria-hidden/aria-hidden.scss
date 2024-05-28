@@ -1,0 +1,150 @@
+@import "../common";
+
+.aria-hidden-true-message-66786 {
+    @include important-styles(
+      (
+        border-width: 2px,
+        border-style: dashed,
+        margin-left: 1em,
+        padding: 1em,
+        font-weight: 700,
+        text-transform: initial,
+        text-align: left,
+      ),
+      true
+    );
+    @include message-container(
+      var(--pass-background),
+      var(--pass-border),
+      var(--pass-text)
+    );
+    @include flex-width-container;
+  }
+  
+  .aria-hidden-false-message-66786 {
+    @include important-styles(
+      (
+        border-width: 2px,
+        border-style: dashed,
+        margin-left: 1em,
+        padding: 1em,
+        font-weight: 700,
+        text-transform: initial,
+        text-align: left,
+      ),
+      true
+    );
+    @include message-container(
+      var(--warning-background),
+      var(--warning-border),
+      var(--warning-text)
+    );
+    @include flex-width-container;
+  }
+  
+  .aria-hidden-true-focusable-message-66786 {
+    @include important-styles(
+      (
+        border-width: 2px,
+        border-style: dashed,
+        margin-left: 1em,
+        padding: 1em,
+        font-weight: 700,
+        text-transform: initial,
+        text-align: left,
+      ),
+      true
+    );
+    @include message-container(
+      var(--danger-background),
+      var(--danger-border),
+      var(--danger-text)
+    );
+    @include flex-width-container;
+  }
+
+  [data-ariahidden66786="true"] {
+    @include important-styles(
+      (
+        border: 5px dashed var(--pass-border),
+      ),
+      true
+    );
+}
+
+[data-warningariahidden66786] {
+    @include important-styles(
+      (
+        border: 5px dashed var(--warning-border),
+      ),
+      true
+    );
+}
+
+[data-invalidariahidden66786="true"] {
+    @include important-styles(
+      (
+        border: 5px dashed var(--danger-border),
+      ),
+      true
+    );
+}
+
+[data-ariahidden66786="false"] {
+  @include important-styles(
+    (
+      border: 5px dashed var(--pass-border),
+    ),
+    true
+  );
+}
+
+[data-fixed-sticky-77865] {
+    @include important-styles(
+      (
+        position: relative,
+      ),
+      true
+    );
+}
+  
+  .top-right-container-9927845 {
+    @include important-styles(
+      (
+        max-width: 30em,
+      ),
+      true
+    );
+  }
+  
+  .top-right-container-9927845 p.list-heading-9927845 {
+    @include important-styles(
+      (
+        font-size: 1.2rem,
+        line-height: 1.5,
+        margin-top: 1.2em,
+      ),
+      true
+    );
+  }
+  
+  .findings-list-9927845 {
+    @include important-styles(
+      (
+        font-size: 1.2rem,
+        line-height: 1.5,
+        margin-top: 0.5em,
+        list-style: disc,
+      ),
+      true
+    );
+  }
+  
+  .reference-list-9927845 {
+    @include important-styles(
+      (
+        margin-left: 1em,
+      ),
+      true
+    );
+  }
