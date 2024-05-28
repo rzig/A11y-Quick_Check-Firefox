@@ -278,6 +278,31 @@ function createTopRightContainerLandmarks(): void {
   }
   createDismissButton(innerDiv, "Landmarks");
 
+  // Create the toggle button for messages and append it to the containerDiv
+  const toggleButton = document.createElement("button");
+  toggleButton.textContent = "Hide Messages";
+  toggleButton.setAttribute("aria-pressed", "false");
+  toggleButton.className = "toggle-button-9927845";
+
+  toggleButton.addEventListener("click", () => {
+    const messages = document.querySelectorAll(".message-66786");
+    const isPressed = toggleButton.getAttribute("aria-pressed") === "true";
+
+    messages.forEach((message) => {
+      const msg = message as HTMLElement; // Cast Element to HTMLElement
+      if (isPressed) {
+        msg.style.display = "block";
+      } else {
+        msg.style.display = "none";
+      }
+    });
+
+    toggleButton.setAttribute("aria-pressed", isPressed ? "false" : "true");
+    toggleButton.textContent = isPressed ? "Hide Messages" : "Show Messages";
+  });
+
+  containerDiv.appendChild(toggleButton);
+
   // Append the main container to the document's body
   document.body.appendChild(containerDiv);
 }
