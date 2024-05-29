@@ -24,36 +24,25 @@ function detectAriaHidden(): void {
     const ariaHiddenValue = element.getAttribute("aria-hidden");
 
     if (ariaHiddenValue === "true") {
-      element.setAttribute("data-ariahidden66786", "true");
-      if (isFocusable(element) && element.getAttribute("tabindex") !== "-1") {
-        element.classList.add("aria-hidden-true-focusable-66786");
-        const message =
-          "Invalid aria-hidden true MUST NOT be used on focusable elements.";
-        addMessageToPrecedingDiv(
-          element,
-          "aria-hidden-true-focusable-message-66786",
-          message
-        );
-      } else {
-        element.classList.add("aria-hidden-true-66786");
-        const message =
-          "Valid aria-hidden is set to true.";
-        addMessageToPrecedingDiv(
-          element,
-          "aria-hidden-true-message-66786",
-          message
-        );
+      const isVisuallyHidden = isHidden(element as HTMLElement);
+      
+      if (!isVisuallyHidden) {
+        element.setAttribute("data-ariahidden66786", "true");
+        if (isFocusable(element) && element.getAttribute("tabindex") !== "-1") {
+          element.classList.add("aria-hidden-true-focusable-66786");
+          const message = "Invalid aria-hidden true MUST NOT be used on focusable elements.";
+          addMessageToPrecedingDiv(element, "aria-hidden-true-focusable-message-66786", message);
+        } else {
+          element.classList.add("aria-hidden-true-66786");
+          const message = "Valid aria-hidden is set to true.";
+          addMessageToPrecedingDiv(element, "aria-hidden-true-message-66786", message);
+        }
       }
     } else if (ariaHiddenValue === "false") {
       element.setAttribute("data-warningariahidden66786", "false");
       element.classList.add("aria-hidden-false-66786");
-      const message =
-        "Warning aria-hidden is set to false.";
-      addMessageToPrecedingDiv(
-        element,
-        "aria-hidden-false-message-66786",
-        message
-      );
+      const message = "Warning aria-hidden is set to false.";
+      addMessageToPrecedingDiv(element, "aria-hidden-false-message-66786", message);
     }
   });
 }

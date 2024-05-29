@@ -50,7 +50,6 @@ function getPseudoElementAdjustment(elem: Element): {
 }
 
 // Add a circle shape to a specific element
-//function addCircleShape(elem: Element, targetSize: number) {
 function addCircleShape(
   elem: Element,
   targetSize: number,
@@ -61,7 +60,7 @@ function addCircleShape(
   circle.classList.add(`circle-shape-size-${targetSize}-8228965`);
 
   // Conditionally add the spacing-circle class
-  if (addSpacingCircle  && targetSize <= 24) {
+  if (addSpacingCircle && targetSize <= 24) {
     circle.classList.add("spacing-circle-8228965");
   }
 
@@ -208,45 +207,45 @@ function addTargetSize(targetSize: number): void {
         let message: string = appendHyperlinksToMessage(baseMessage); // Integrate dynamic hyperlinks
 
         const messageDiv: HTMLDivElement = document.createElement("div");
-messageDiv.className = `target-size-${targetSize}-8228965`;
-messageDiv.classList.add("target-size-8228965");
+        messageDiv.className = `target-size-${targetSize}-8228965`;
+        messageDiv.classList.add("target-size-8228965");
+        messageDiv.classList.add("message-66786");
 
-// Apply different classes based on spacing and size
-if (hasSufficientSpacing && targetSize <= 24) {
-  messageDiv.classList.add("target-sufficient-8228965");
-} else {
-  messageDiv.classList.add("target-insufficient-8228965");
-}
+        // Apply different classes based on spacing and size
+        if (hasSufficientSpacing && targetSize <= 24) {
+          messageDiv.classList.add("target-sufficient-8228965");
+        } else {
+          messageDiv.classList.add("target-insufficient-8228965");
+        }
 
-// Conditional logic based on the target size
-if (targetSize >= 44) {
-  messageDiv.classList.add("spacing-ignore-8228965");
-  messageDiv.textContent = `Invalid The target size for ${identifier} is ${elemWidth.toFixed(
-    2
-  )}px x ${elemHeight.toFixed(2)}px.`;
-} else {
-  messageDiv.textContent = `The target size for ${identifier} is ${elemWidth.toFixed(
-    2
-  )}px x ${elemHeight.toFixed(2)}px.`;
-}
+        // Conditional logic based on the target size
+        if (targetSize >= 44) {
+          messageDiv.classList.add("spacing-ignore-8228965");
+          messageDiv.textContent = `Invalid The target size for ${identifier} is ${elemWidth.toFixed(
+            2
+          )}px x ${elemHeight.toFixed(2)}px.`;
+        } else {
+          messageDiv.textContent = `The target size for ${identifier} is ${elemWidth.toFixed(
+            2
+          )}px x ${elemHeight.toFixed(2)}px.`;
+        }
 
-if (hasSufficientSpacing) {
-  if (targetSize <= 24) {
-    // Handle cases where target size is 24 or less
-    const exceptionSpan: HTMLSpanElement = document.createElement("span");
-    exceptionSpan.className = "target-size-exception-8228965";
-    exceptionSpan.textContent =
-      "This element is exempt by the Level AA Spacing exception."; // Exemption message for <=24
-    messageDiv.appendChild(exceptionSpan);
-  } else if (targetSize <= 44) {
-    // Handle cases where target size is greater than 24 but 44 or less
-    const exceptionSpan: HTMLSpanElement = document.createElement("span");
-    exceptionSpan.className = "target-size-noexception-8228965";
-    exceptionSpan.textContent =
-      ""; //Add message if needed in future
-    messageDiv.appendChild(exceptionSpan);
-  }
-}
+        if (hasSufficientSpacing) {
+          if (targetSize <= 24) {
+            // Handle cases where target size is 24 or less
+            const exceptionSpan: HTMLSpanElement = document.createElement("span");
+            exceptionSpan.className = "target-size-exception-8228965";
+            exceptionSpan.textContent =
+              "This element is exempt by the Level AA Spacing exception."; // Exemption message for <=24
+            messageDiv.appendChild(exceptionSpan);
+          } else if (targetSize <= 44) {
+            // Handle cases where target size is greater than 24 but 44 or less
+            const exceptionSpan: HTMLSpanElement = document.createElement("span");
+            exceptionSpan.className = "target-size-noexception-8228965";
+            exceptionSpan.textContent =
+              ""; //Add message if messageexceptionSpan);
+          }
+        }
 
         elem.appendChild(messageDiv);
         addCircleShape(elem, targetSize, hasSufficientSpacing);
@@ -275,7 +274,7 @@ if (hasSufficientSpacing) {
         "If the list is a sentence or contains both active elements and non-target text, exceptions for inline elements may apply!";
       // Use appendHyperlinksToMessage
       const updatedMessageText = appendHyperlinksToMessage(messageText);
-      const fullMessageClassName = "manual-confirmation-9927845";
+      const fullMessageClassName = "manual-confirmation-9927845 message-66786";
 
       // Create and append the message div only if it has not been added already
       if (!list.querySelector(`.${fullMessageClassName}`)) {
@@ -284,6 +283,7 @@ if (hasSufficientSpacing) {
 
         const span = document.createElement("span");
         span.className = "messageLabelManualConfirmation";
+        messageDiv.classList.add("message-66786");
         span.textContent = "Needs manual confirmation: ";
         messageDiv.appendChild(span);
 
@@ -310,49 +310,10 @@ if (hasSufficientSpacing) {
   //console.log(`[Final Status] hasIssues: ${hasIssues}`);
   if (hasIssues) {
     //console.log("[Action] Injecting toggle button due to detected issues.");
-    injectButton(); // Function that adds a UI element for users to better see the bounding circle
+    // Inject button function call removed
   } else {
     //console.log("[No Issues] No issues detected, no button injected.");
   }
-}
-
-function toggleMessageDivsVisibility() {
-  // Select all divs with the class 'target-size-8228965'
-  const messageDivs = document.querySelectorAll(".target-size-8228965");
-  let areMessagesVisible = false; // Declare the variable here and initialize it
-
-  // Toggle visibility of each div
-  messageDivs.forEach((div) => {
-    const htmlDiv = div as HTMLElement;
-    if (htmlDiv.style.display === "none") {
-      htmlDiv.style.setProperty("display", "block", "important");
-      areMessagesVisible = true;
-    } else {
-      htmlDiv.style.setProperty("display", "none", "important");
-    }
-  });
-
-  // Update the button text based on the visibility of messages
-  const button = document.getElementById("rmb-8228965") as HTMLButtonElement;
-  if (button) {
-    button.textContent = areMessagesVisible ? "Hide messages" : "Show messages";
-    button.setAttribute("aria-pressed", areMessagesVisible.toString()); // Set aria-pressed attribute
-  }
-}
-
-// Function to inject the button and add the click event listener
-function injectButton() {
-  const button = document.createElement("button");
-  button.setAttribute("type", "button");
-  button.id = "rmb-8228965";
-  button.className = "toggleMessage-8228965";
-  button.setAttribute("aria-pressed", "false"); // Set initial aria-pressed attribute
-  button.textContent = "Hide messages"; // Set the default button name
-
-  // Add click event listener to the button
-  button.addEventListener("click", toggleMessageDivsVisibility);
-
-  document.body.prepend(button);
 }
 
 populateLinkObjects(); // Ensure the links are populated before use.
@@ -426,6 +387,31 @@ function createTopRightContainerTargetSize(): void {
     // Add the Dismiss Button
   }
   createDismissButton(innerDiv, "Target-Size");
+
+  // Create the toggle button for messages and append it to the containerDiv
+  const toggleButton = document.createElement("button");
+  toggleButton.textContent = "Hide Messages";
+  toggleButton.setAttribute("aria-pressed", "false");
+  toggleButton.className = "toggle-button-9927845";
+
+  toggleButton.addEventListener("click", () => {
+    const messages = document.querySelectorAll(".message-66786");
+    const isPressed = toggleButton.getAttribute("aria-pressed") === "true";
+
+    messages.forEach((message) => {
+      const msg = message as HTMLElement; // Cast Element to HTMLElement
+      if (isPressed) {
+        msg.style.display = "block";
+      } else {
+        msg.style.display = "none";
+      }
+    });
+
+    toggleButton.setAttribute("aria-pressed", isPressed ? "false" : "true");
+    toggleButton.textContent = isPressed ? "Hide Messages" : "Show Messages";
+  });
+
+  containerDiv.appendChild(toggleButton);
 
   // Append the main container to the document's body
   document.body.appendChild(containerDiv);

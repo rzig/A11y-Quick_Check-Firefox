@@ -176,6 +176,7 @@ function isHidden(element: HTMLElement): boolean {
   return (
     style.display === "none" ||
     style.visibility === "hidden" ||
+    style.opacity === "0" ||
     element.hasAttribute("hidden")
   );
 }
