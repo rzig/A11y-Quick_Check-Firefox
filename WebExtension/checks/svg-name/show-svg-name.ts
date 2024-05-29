@@ -26,7 +26,7 @@ function observeSvgAriaLabelChanges(): void {
         const message = `Dynamic update: The SVG is named using aria-label: "${previousAriaLabel}". Name updated to "${newAriaLabel}"`;
 
         // Remove existing messages to prevent duplication
-        const existingMessages = svgElement.querySelectorAll('.warning-message-9927845');
+        const existingMessages = svgElement.querySelectorAll('.warning-for-valid-message-9927845');
         existingMessages.forEach(msg => msg.remove());
 
         // Create new message div

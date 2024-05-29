@@ -25,6 +25,8 @@
     var(--neutral-border),
     var(--neutral-text)
   );
+
+  @include important-styles((), true);
 }
 
 .warning-9927845 {
