@@ -14,9 +14,7 @@ function checkUnorderedLists(): void {
       "ul-generic-9927845"
     );
     // Remove previous messages
-    ulElement
-      .querySelectorAll(".ul-validation-message")
-      .forEach((msg) => msg.remove());
+    ulElement.querySelectorAll(".ul-validation-message").forEach((msg) => msg.remove());
 
     let invalidMessages = new Set<string>();
 
@@ -32,35 +30,27 @@ function checkUnorderedLists(): void {
     checkEmptyAndRoleList(ulElement);
 
     // Checking direct children validity against allowed elements (LI, SCRIPT, TEMPLATE)
-    const invalidChildren = ulElement.querySelectorAll(
-      ":scope > :not(li):not(script):not(template)"
-    );
+    const invalidChildren = ulElement.querySelectorAll(":scope > :not(li):not(script):not(template)");
     invalidChildren.forEach((child) => {
       const tagName = child.tagName.toLowerCase();
-      invalidMessages.add(
-        `Invalid: <${tagName}> cannot be direct child of UL.`
-      );
+      invalidMessages.add(`Invalid: <${tagName}> cannot be direct child of UL.`);
     });
 
     if (invalidMessages.size > 0) {
       ulElement.classList.add("ul-invalid-9927845");
-      invalidMessages.forEach((message: string) => {
+      invalidMessages.forEach((message) => {
         createChildMessageDiv(ulElement, "ul-invalid-message-9927845", message);
       });
       continue; // Move to the next ul element as this one has invalid content
     }
 
-    // If no issues were found, mark the list as valid
     // If no issues were found and the ul is not empty, mark the list as valid
-    if (
-      !ulElement.classList.contains("ul-invalid-9927845") &&
-      ulElement.querySelectorAll(":scope > *").length > 0
-    ) {
+    if (!ulElement.classList.contains("ul-invalid-9927845") && ulElement.querySelectorAll(":scope > *").length > 0) {
       ulElement.classList.add("ul-valid-9927845");
       createChildMessageDiv(
         ulElement,
         "ul-valid-message-9927845",
-        "Valid: Unordered List uses valid HTML." 
+        "Valid: Unordered List uses valid HTML."
       );
     }
   }
@@ -102,10 +92,7 @@ function checkForAriaRolesonUL(): void {
     const tagName = element.tagName.toLowerCase();
 
     // ARIA role check should not assume invalid, only add warnings if there is an actual issue
-    if (
-      (tagName === "ul" && ariaRole !== "list") ||
-      (tagName === "li" && ariaRole !== "listitem")
-    ) {
+    if ((tagName === "ul" && ariaRole !== "list") || (tagName === "li" && ariaRole !== "listitem")) {
       element.classList.add("ul-warning-9927845");
       const message = `<${tagName}> has an incorrect ARIA Role ${ariaRole}.`;
       createChildMessageDiv(element, "ul-warning-message-9927845", message);
@@ -118,10 +105,7 @@ function checkEmptyAndRoleList(ulElement: Element): void {
   const role = ulElement.getAttribute("role");
   const style = window.getComputedStyle(ulElement).listStyleType;
 
-  if (
-    children.length === 0 ||
-    ulElement.querySelectorAll("li, [role='listitem']").length === 0
-  ) {
+  if (children.length === 0 || ulElement.querySelectorAll("li, [role='listitem']").length === 0) {
     const customRole = role || "inherit role";
     createChildMessageDiv(
       ulElement,
@@ -129,22 +113,57 @@ function checkEmptyAndRoleList(ulElement: Element): void {
       `Warning UL is missing required <li> or children with a valid role. UL has a Role of '${customRole}'.`
     );
     ulElement.classList.add("ul-warning-9927845");
-  } else if (role === "list") {
-    if (style === "none") {
-      createChildMessageDiv(
-        ulElement,
-        "ul-generic-message-9927845",
-        "Knowledge Role 'list' on <ul> exposes the list semantics when CSS list-style is set to none for iOS."
-      );
-      ulElement.classList.add("ul-generic-9927845");
-    }
+  } else if (role === "list" && style === "none") {
+    createChildMessageDiv(
+      ulElement,
+      "ul-generic-message-9927845",
+      "Knowledge Role 'list' on <ul> exposes the list semantics when CSS list-style is set to none for iOS."
+    );
+    ulElement.classList.add("ul-generic-9927845");
   }
+}
+
+function checkForInvalidParents(role: string, element: string): void {
+  const invalidParents = document.querySelectorAll(`[role="${role}"]`);
+  invalidParents.forEach((parentElement) => {
+    if (
+      parentElement.tagName.toLowerCase() !== "ul" &&
+      parentElement.querySelectorAll('li').length > 0 &&
+      !parentElement.querySelector('.ul-warning-message-9927845')
+    ) {
+      parentElement.classList.add("ul-warning-9927845");
+      createChildMessageDiv(
+        parentElement,
+        "ul-warning-message-9927845",
+        `Warning The parent element of <li> is a ${element.toUpperCase()} with an explicit Role ${role.toUpperCase()}. Replace ${element} with <ul>.`
+      );
+    }
+  });
+}
+
+function checkForDivListsUsingAriaRoles(): void {
+  const divListElements = document.querySelectorAll('div[role="list"]');
+  divListElements.forEach((parentElement) => {
+    if (
+      parentElement.querySelectorAll('div[role="listitem"]').length > 0 &&
+      !parentElement.querySelector('.ul-warning-message-9927845')
+    ) {
+      parentElement.classList.add("ul-warning-9927845");
+      createChildMessageDiv(
+        parentElement,
+        "ul-warning-message-9927845",
+        "Warning: List using ARIA roles, replace with HTML."
+      );
+    }
+  });
 }
 
 // Run the checks
 checkUnorderedLists();
 checkForAriaRolesonUL();
 checkForInvalidListContainers();
+checkForInvalidParents('list', '<div>');
+checkForDivListsUsingAriaRoles();
 
 populateLinkObjects(); // Ensure the links are populated before use.
 
