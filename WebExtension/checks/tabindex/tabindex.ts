@@ -175,7 +175,6 @@
       const hasValidName = accessibleNameInfo.name !== "";
       const tagName = htmlElement.tagName.toLowerCase();
       const hasHref = tagName === "a" && htmlElement.hasAttribute("href");
-      const anchorTag = hasHref ? `<a href>` : `<a>`;
 
       let roleName = htmlElement.getAttribute("role") || "";
 
@@ -192,30 +191,6 @@
             break;
           case "article":
             roleName = "article";
-            break;
-          case "a":
-            roleName = htmlElement.hasAttribute("href") ? "link" : "generic";
-            break;
-          case "div":
-          case "span":
-            roleName = "generic";
-            break;
-        }
-      }
-      if (!roleName) {
-        switch (htmlElement.tagName.toLowerCase()) {
-          case "a":
-            if (htmlElement.hasAttribute("href")) {
-              roleName = "link";
-            } else {
-              roleName = "generic";
-            }
-            break;
-          case "div":
-            roleName = "generic";
-            break;
-          case "span":
-            roleName = "generic";
             break;
         }
       }
@@ -263,24 +238,26 @@
           );
         }
       } else {
-        if (
-          tabIndexValue === 0 &&
-          (tagName === "div" || tagName === "span" || tagName === "a")
-        ) {
-          if (roleName && hasValidName) {
-            const message = `Valid tabindex 0 used on element <${tagName}> with a'${roleName} role' and a valid name.`;
+        if (tabIndexValue === 0 && (tagName === "div" || tagName === "span")) {
+          if (roleName && !hasValidName) {
+            const message = `Invalid tabindex 0 used on element <${tagName}> with role '${roleName}' is missing an accessible name.`;
+            addMessageToPrecedingDiv(htmlElement, "invalid-9927845", message, [
+              "invalid-message-9927845",
+            ]);
+          } else if (!roleName && !hasValidName) {
+            const message = `Invalid tabindex 0 used on element <${tagName}> is missing a valid ARIA role and an accessible name.`;
+            addMessageToPrecedingDiv(htmlElement, "invalid-9927845", message, [
+              "invalid-message-9927845",
+            ]);
+          } else if (!roleName && hasValidName) {
+            const message = `Invalid tabindex 0 used on element <${tagName}> is missing a valid ARIA role.`;
+            addMessageToPrecedingDiv(htmlElement, "invalid-9927845", message, [
+              "invalid-message-9927845",
+            ]);
+          } else {
+            const message = `Valid tabindex 0 used on element <${tagName}> with role '${roleName}' and a valid name.`;
             addMessageToPrecedingDiv(htmlElement, "valid-9927845", message, [
               "valid-message-9927845",
-            ]);
-          } else if (roleName && !hasValidName) {
-            const message = `Invalid tabindex 0 used on element <${tagName}> with a'${roleName} role', without a valid name.`;
-            addMessageToPrecedingDiv(htmlElement, "invalid-9927845", message, [
-              "invalid-message-9927845",
-            ]);
-          } else if (!roleName) {
-            const message = `Invalid tabindex 0 used on element <${tagName}> without a role and without a valid name.`;
-            addMessageToPrecedingDiv(htmlElement, "invalid-9927845", message, [
-              "invalid-message-9927845",
             ]);
           }
         } else if (tabIndexValue > 0) {
