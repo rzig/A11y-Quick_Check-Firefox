@@ -23,6 +23,7 @@
     "tooltip",
     "treeitem",
   ];
+  
   const rolesNameFromAuthor = [
     "alertdialog",
     "application",
@@ -60,17 +61,41 @@
     "treegrid",
     "treeitem",
   ];
-
+  
+  const rolesRequiringAccessibleName = [
+    "alertdialog",
+    "application",
+    "combobox",
+    "contentinfo",
+    "dialog",
+    "grid",
+    "img",
+    "listbox",
+    "marquee",
+    "meter",
+    "progressbar",
+    "radiogroup",
+    "region",
+    "searchbox",
+    "slider",
+    "spinbutton",
+    "table",
+    "tabpanel",
+    "textbox",
+    "tree",
+    "treegrid"
+  ];  
+  
   // Combine both arrays and create a unique set of roles
   const uniqueRoles = Array.from(
     new Set([...rolesNameFromContent, ...rolesNameFromAuthor])
   );
-
+  
   // Construct the selector string for these roles
   const roleSelectors = uniqueRoles
     .map((role) => `[role="${role}"]`)
     .join(", ");
-
+  
   // HTML equivalents for some ARIA roles
   const htmlEquivalents = [
     "button",
@@ -81,20 +106,22 @@
     "details",
     "summary",
   ];
-
+  
   // Combine role selectors and HTML equivalents
   const combinedSelector = roleSelectors + ", " + htmlEquivalents.join(", ");
-
+  
   function accessibleNameCheck() {
     // Select nodes based on roles and HTML equivalents
     let nodes = document.querySelectorAll(combinedSelector);
   
     // Filter out nodes within the excluded containers
-    let filteredNodes = Array.from(nodes).filter(node => {
+    let filteredNodes = Array.from(nodes).filter((node) => {
       let parent = node.parentElement;
       while (parent) {
-        if (parent.classList.contains('top-right-container-9927845') ||
-            parent.classList.contains('inner-container-9927845')) {
+        if (
+          parent.classList.contains("top-right-container-9927845") ||
+          parent.classList.contains("inner-container-9927845")
+        ) {
           return false; // Exclude this node from further processing
         }
         parent = parent.parentElement; // Move up the DOM tree
@@ -105,42 +132,68 @@
     // Process the filtered nodes
     processNodes(filteredNodes);
   }
-
+  
   /**
    * Processes a collection of nodes to determine the accessible name.
    * Generates and attaches appropriate messages based on the computed name.
    *
-   * @param {NodeListOf<Element>} nodes - Collection of DOM nodes to be processed.
+   * @param {Element[]} nodes - Collection of DOM nodes to be processed.
    */
-
   function processNodes(nodes: Element[]) {
     for (const node of nodes) {
-      if (node instanceof HTMLElement && isElementVisible(node)) {
-        let role = node.getAttribute('role'); // Check for a role attribute
-        let accessibleNameData = getAccessibleName(node);
-        // Update message to include accessibleName directly and use accessibleNameData.name to show the name
-        let message = `Element <${node.nodeName.toLowerCase()}>${role ? ` with Role ${role}` : ''} gets name '${accessibleNameData.name}' from ${accessibleNameData.method}.`;
+      if (node instanceof HTMLElement && !isHidden(node)) {
+        let role = node.getAttribute("role"); // Check for a role attribute
+        let accessibleNameData;
+  
+        if (role && rolesRequiringAccessibleName.includes(role)) {
+          accessibleNameData = getAccessibleNameForRolesRequiringName(node);
+          if (accessibleNameData.method === "none") {
+            let message = `Element <${node.nodeName}> with Role ${role} is missing a required accessible name.`;
+            createExtendedChildMessageDiv(node, "neutral-message-9927845", message);
+            continue; // Skip creating a regular message since we created a missing name message
+          }
+        } else {
+          accessibleNameData = getAccessibleName(node);
+        }
+  
+        let message = `Element <${node.nodeName}>${
+          role ? ` with Role ${role}` : ""
+        } gets name '${accessibleNameData.name}' from ${accessibleNameData.method}.`;
         createExtendedChildMessageDiv(node, "neutral-message-9927845", message);
       }
     }
   }
-
+  
   /**
-   * Checks if an element is visible.
+   * Function to calculate the accessible name of a node for roles requiring an accessible name.
    *
-   * @param {Element} el - The DOM element to check.
-   * @returns {boolean} True if the element is visible, false otherwise.
+   * @param {Element} node - DOM node to calculate the name for.
+   * @returns {object} Object containing the accessible name and the technique used.
    */
-  function isElementVisible(el: HTMLElement): boolean {
-    const style = window.getComputedStyle(el);
-    return (
-      !(el.offsetWidth === 0 && el.offsetHeight === 0) &&
-      style.visibility !== "hidden" &&
-      style.display !== "none" &&
-      style.opacity !== "0"
-    );
+  function getAccessibleNameForRolesRequiringName(node: Element): { name: string; method: string } {
+    // Check for aria-labelledby first
+    let labelledby = node.getAttribute("aria-labelledby");
+    if (labelledby) {
+      let names = labelledby
+        .split(" ")
+        .map((id) => document.getElementById(id)?.textContent?.trim() ?? "")
+        .filter((text) => text.length > 0)
+        .join(" ");
+      if (names.length > 0) {
+        return { name: names, method: "aria-labelledby" };
+      }
+    }
+  
+    // Check for aria-label next
+    let label = node.getAttribute("aria-label");
+    if (label) {
+      return { name: label, method: "aria-label" };
+    }
+  
+    // Default case if no accessible name found
+    return { name: "is missing an accessible name", method: "(not named)" };
   }
-
+  
   /**
    * Function to calculate the accessible name of a node.
    *
@@ -160,15 +213,14 @@
         return { name: names, method: "aria-labelledby" };
       }
     }
-
+  
     // Check for aria-label next
     let label = node.getAttribute("aria-label");
     if (label) {
       return { name: label, method: "aria-label" };
     }
-
+  
     // Check for associated label via 'for' attribute
-    // This step is new and checks if a label element is associated with the input
     if (node.id) {
       let labelFor = document.querySelector(`label[for="${node.id}"]`);
       if (labelFor && labelFor.textContent) {
@@ -178,7 +230,7 @@
         };
       }
     }
-
+  
     // Then, check for text content or alt text of child img elements
     let textContent = node.textContent?.trim();
     let imgAltText = node.querySelector("img")?.getAttribute("alt")?.trim();
@@ -187,23 +239,23 @@
     } else if (imgAltText && imgAltText.length > 0) {
       return { name: imgAltText, method: "Contents" };
     }
-
+  
     // Check for title attribute
     let title = node.getAttribute("title");
     if (title) {
       return { name: title, method: "Title" };
     }
-
+  
     // Check for placeholder attribute
     let placeholder = node.getAttribute("placeholder");
     if (placeholder) {
       return { name: placeholder, method: "Placeholder" };
     }
-
+  
     // Default case if no accessible name found
-    return { name: "No accessible name", method: "none" };
+    return { name: "___", method: "no naming method identified!" };
   }
-
+  
   function createExtendedChildMessageDiv(
     node: Element,
     className: string,
@@ -211,10 +263,10 @@
   ) {
     let messageDiv = document.createElement("div");
     messageDiv.textContent = message;
-
+  
     // Get role of the element
-    const role = node.getAttribute("role") || node.nodeName.toLowerCase();
-
+    const role = node.getAttribute("role") || node.nodeName;
+  
     // Assign class based on the role
     if (rolesNameFromContent.includes(role)) {
       messageDiv.classList.add(className, "from-content-class-9927845");
@@ -223,12 +275,13 @@
     } else {
       messageDiv.classList.add(className);
     }
-
+  
     node.insertAdjacentElement("afterend", messageDiv);
   }
-
+  
   // Initiate the check process
   accessibleNameCheck();
+  
 })();
 
 populateLinkObjects(); // Ensure the links are populated before use.
