@@ -1,6 +1,13 @@
 @import '../common';
 @import '../scss-partial-overflow-hidden-hack';
 
+@mixin common-style($backgroundColor, $borderColor, $textColor) {
+  background-color: $backgroundColor !important;
+  color: $textColor !important;
+  border: 3px solid $borderColor !important;
+  min-width:10em;
+}
+
 @mixin decorative-svg($backgroundColor, $borderColor, $textColor) {
   @include important-styles(
     (
@@ -40,6 +47,16 @@
     ),
     true
   );
+}
+
+.warning-message-9927845 {
+  @include common-style(
+    var(--warning-background),
+    var(--warning-border),
+    var(--warning-text)
+  );
+
+  @include messageDisplayStyles;
 }
 
 .invalid-message-9927845 {
