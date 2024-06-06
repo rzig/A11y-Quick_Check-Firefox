@@ -45,21 +45,21 @@ function checkSvgAccessibleNamesDecorative() {
         return {
           element: currentElement,
           isHidden: true,
-          accessibleName: accessibleName.trim(),
+          accessibleName: accessibleName?.trim(),
         };
       }
       if (roleAttr === "none" || roleAttr === "presentation") {
         return {
           element: currentElement,
           isDecorative: true,
-          accessibleName: accessibleName.trim(),
+          accessibleName: accessibleName?.trim(),
         };
       }
 
       if (tagName === "a" || tagName === "button" || roleAttr === "link" || roleAttr === "button") {
         return {
           element: currentElement,
-          accessibleName: accessibleName.trim(),
+          accessibleName: accessibleName?.trim(),
           role: roleAttr,
         };
       }
@@ -74,30 +74,20 @@ function checkSvgAccessibleNamesDecorative() {
     const role = svgElement.getAttribute("role");
     const ancestorCheck = checkAncestors(svgElement);
 
-    let messageGenerated = false; // Flag to track if the new function generates a message
-
     // New function to check if the parent of the SVG has an accessible name
     if (ancestorCheck?.accessibleName) {
       const parentRole = ancestorCheck.role ?? ancestorCheck.element.tagName.toLowerCase();
       const parentName = ancestorCheck.accessibleName;
       if (role === "img" && !svgText && hiddenElement !== "true") {
-        const message = `Warning SVG has parent with role ${parentRole} has an accessible name "${parentName}". This SVG should be marked as decorative with aria-hidden="true".`;
+        const message = `Warning SVG has parent with role ${parentRole} and accessible name "${parentName}".`;
         createChildMessageDiv(svgElement, imgRoleWithLabelClass, message);
-        messageGenerated = true;
       } else if (role === "img" && svgText && hiddenElement !== "true") {
-        const message = `Warning SVG has parent with role ${parentRole} has accessible name "${parentName}". Check if this SVG should be marked as decorative with aria-hidden="true".`;
+        const message = `Warning SVG has parent with role ${parentRole} and accessible name "${parentName}".".`;
         createChildMessageDiv(svgElement, imgRoleWithLabelClass, message);
-        messageGenerated = true;
       } else if (!role && !svgText && hiddenElement !== "true") {
-        const message = `Warning SVG has parent with role ${parentRole} has an accessible name "${parentName}". This SVG should be marked as decorative with aria-hidden="true".`;
+        const message = `Warning SVG has parent with role ${parentRole} and accessible name "${parentName}"..`;
         createChildMessageDiv(svgElement, imgRoleWithLabelClass, message);
-        messageGenerated = true;
       }
-    }
-
-    // Skip other checks if the new function has generated a message
-    if (messageGenerated) {
-      continue;
     }
 
     if (ancestorCheck && ancestorCheck.isHidden) {
