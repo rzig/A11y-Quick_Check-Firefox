@@ -7,6 +7,7 @@ export async function loadOptionsObject() {
     let rawResponse: any;
     const request = new InternalRequest();
     request.type = "getSettings";
+    request.values = [];
     try {
       rawResponse = await chrome.tabs.sendMessage(await getTabId(), request, {
         frameId: 0,
