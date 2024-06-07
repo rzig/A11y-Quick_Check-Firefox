@@ -31,6 +31,7 @@
     ],
     
     "background": {
-        "scripts": ["extension/service-worker.js"]
+        "scripts": ["extension/service-worker.js"],
+        "service_worker": "extension/service-worker.js"
     }
 }
